@@ -34,10 +34,15 @@ module FStar = struct
   include On.Macro
 end
 
+module Coq = struct
+  include On
+end
+
 module _ = struct
   module _ : T = Full
   module _ : T = Rust
   module _ : T = FStar
+  module _ : T = Coq
 end
 
 module DefaultClasses (F : T) = struct
