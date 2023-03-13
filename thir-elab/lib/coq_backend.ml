@@ -108,212 +108,212 @@ module CoqBackend = struct
     type t = { current_namespace : string * string list }
   end
 
+  let tabsize = 2
+  let newline_indent depth : string =
+    "\n" ^ String.make (tabsize * depth) ' '
+
+  let int_size_to_string (x : C.AST.int_size) : string =
+    match x with
+    | C.AST.U8 -> "WORDSIZE8"
+    | C.AST.U16 -> "WORDSIZE16"
+    | C.AST.U32 -> "WORDSIZE32"
+    | C.AST.U64 -> "WORDSIZE64"
+    | C.AST.U128 -> "WORDSIZE128"
+    | _ -> .
+
+  let rec ty_to_string (x : C.AST.ty) : string * string =
+    match x with
+    | C.AST.Bool -> "", "bool"
+    | C.AST.Int (int_size, true) -> "", "@int" ^ " " ^ int_size_to_string int_size
+    | C.AST.Int (int_size, false) -> "", "@int" ^ " " ^ int_size_to_string int_size
+    | C.AST.Name s -> "", s
+    | C.AST.RecordTy (name, fields) ->
+       let (fields_def, fields_str) = record_fields_to_string fields in
+       fields_def ^ "Record" ^ " " ^ name ^ " " ^ ":" ^ " " ^ "Type" ^ " " ^ ":=" ^ "{" ^ fields_str ^ newline_indent 0 ^ "}" ^ "." ^ newline_indent 0, name
+    | _ -> .
+  and record_fields_to_string (x : (string * C.AST.ty) list) : string * string =
+    match x with
+    | (name, ty) :: xs ->
+       let ty_def, ty_str = ty_to_string ty in
+       let xs_def, xs_str = record_fields_to_string xs in
+       ty_def ^ xs_def, newline_indent 1 ^ name ^ ":" ^ ty_str ^ ";" ^ xs_str
+    | _ -> "", ""
+
+  let literal_to_string (x : C.AST.literal) : string =
+    match x with
+    | Const_string s -> s
+    | Const_char c -> Int.to_string c (* TODO *)
+    | Const_int i -> i
+    | Const_bool b -> Bool.to_string b
+    | _ -> .
+
+  let rec pat_to_string (x : C.AST.pat) depth : string =
+    match x with
+    | C.AST.Wild -> "_"
+    | C.AST.Ident s -> s
+    | C.AST.Lit l ->
+       literal_to_string l
+    | C.AST.RecordPat (name, args) ->
+       name ^ " " ^ "{|" ^ record_pat_to_string args (depth+1) ^ newline_indent depth
+       ^ "|}"
+    | _ -> .
+  and record_pat_to_string args depth : string =
+    match args with
+    | (name, pat) :: xs ->
+       newline_indent depth ^ name ^ ":=" ^ " " ^ pat_to_string pat depth ^ ";" ^ record_pat_to_string xs depth
+    | _ -> ""
+
+  let rec term_to_string (x : C.AST.term) depth : string =
+    match x with
+    | C.AST.Let (pat, bind, term) ->
+       "let" ^ " " ^ pat_to_string pat depth ^ " " ^ ":=" ^ " " ^ term_to_string bind (depth+1) ^ " " ^ "in" ^ newline_indent depth
+       ^ term_to_string term depth
+    | C.AST.If (cond, then_, else_) ->
+       "if" ^ newline_indent (depth+1)
+       ^ term_to_string cond (depth+1) ^ newline_indent depth
+       ^ "then"  ^ newline_indent (depth+1)
+       ^ term_to_string then_ (depth+1) ^ newline_indent depth
+       ^ "else" ^ newline_indent (depth+1)
+       ^ term_to_string else_ (depth+1)
+    | C.AST.Match (match_val, arms) ->
+       "match" ^ " "  ^ term_to_string match_val (depth+1) ^ " " ^ "with" ^ newline_indent depth ^ arm_to_string arms depth ^ "end"
+    | C.AST.Const c -> literal_to_string c
+    | C.AST.Literal s -> s
+    | C.AST.App (f, args) ->
+       term_to_string f depth ^ args_to_string args depth
+    | C.AST.AppBin (f, arga, argb) ->
+       term_to_string arga depth ^ " " ^ f ^ " " ^ term_to_string argb depth
+    | C.AST.Var s -> s
+    | C.AST.Name s -> s
+    | C.AST.RecordConstructor (f, args) ->
+       term_to_string f depth ^ "{" ^ args_to_string args depth ^ "}"
+    | _ -> .
+
+  and args_to_string (args : C.AST.term list) depth : string =
+    match args with
+    | (x :: xs)  -> " " ^ term_to_string x depth ^ args_to_string xs depth
+    | _ -> ""
+
+  and arm_to_string (x : (C.AST.pat * C.AST.term) list) depth : string =
+    match x with
+    | ((pat, body) :: xs) ->
+       "|" ^ " " ^ pat_to_string pat depth ^ " " ^ "=>" ^ " " ^ term_to_string body (depth+1) ^ newline_indent depth ^ arm_to_string xs depth
+    | _ -> ""
+
+  let rec decl_to_string (x : C.AST.decl) : string =
+    match x with
+    | C.AST.Unimplemented s -> "(*" ^ s ^ "*)"
+    | C.AST.Fn (name, term, ty) ->
+       let (definitions, ty_str) = ty_to_string ty in
+       definitions ^ "Definition" ^ " " ^ name ^ " " ^ ":" ^ " " ^ ty_str ^ " " ^ ":=" ^ newline_indent 1 ^ term_to_string term 1 ^ "."
+    | C.AST.Notation (name, ty) ->
+       let (definitions, ty_str) = ty_to_string ty in
+       definitions ^ "Notation" ^ " " ^ name ^ " " ^ ":=" ^ " " ^ ty_str ^ "."
+    | C.AST.Record (name, variants) ->
+       let (definitions, variants_str) = variants_to_string variants (newline_indent 1) ";" in
+       definitions ^ "Record" ^ " " ^ name ^ " " ^ ":" ^ " " ^ "Type" ^ " " ^ ":=" ^ "{" ^ variants_str ^ newline_indent 0 ^ "}."
+    | C.AST.Inductive (name, variants) ->
+       let (definitions, variants_str) = variants_to_string variants (newline_indent 0 ^ "|" ^ " ") (" " ^ "->" ^ " " ^ name) in
+       definitions ^ "Inductive" ^ " " ^ name ^ " " ^ ":" ^ " " ^ "Type" ^ " " ^ ":=" ^ variants_str ^ "."
+    | _ -> .
+  and variants_to_string variants pre post : string * string =
+    match variants with
+    | (ty_name, ty) :: xs ->
+       let (ty_definitions, ty_str) = ty_to_string ty in
+       let (variant_definitions, variants_str) = variants_to_string xs pre post in
+       ty_definitions ^ variant_definitions , pre ^ ty_name ^ " " ^ ":" ^ " " ^ ty_str ^ post ^ variants_str
+    | _ -> "", ""
+
+  let rec path_to_string (l : string list) : string =
+    match l with
+    | [x] -> x
+    | x :: xs -> x ^ "_" ^ (path_to_string xs)
+    | _ -> ""
+
+  let rec path_to_string_last (l : string list) : string =
+    match l with
+    | [x] -> x
+    | x :: xs -> (path_to_string xs)
+    | _ -> ""
+
+  (* let rec pglobal_ident (id : global_ident) = *)
+  (*   match id with *)
+  (*   | `Concrete cid -> F.lid (cid.crate :: Non_empty_list.to_list cid.path) *)
+  (*   | `Primitive prim_id -> pprim_ident prim_id *)
+  (*   | `TupleType 0 -> F.lid [ "prims"; "unit" ] *)
+  (*   | `TupleCons n when n <= 1 -> *)
+  (*       failwith ("Got a [TupleCons " ^ string_of_int n ^ "]") *)
+  (*   | `TupleType n when n <= 14 -> *)
+  (*       F.lid [ "FStar"; "Pervasives"; "tuple" ^ string_of_int n ] *)
+  (*   | `TupleCons n when n <= 14 -> *)
+  (*       F.lid [ "FStar"; "Pervasives"; "Mktuple" ^ string_of_int n ] *)
+  (*   | `TupleType _ | `TupleCons _ -> *)
+  (*       failwith "F* doesn't support tuple of size greater than 14" *)
+  (*   | `TupleField _ | `Projector _ -> *)
+  (*       failwith ("Cannot appear here: " ^ show_global_ident id) *)
+
+  let primitive_to_string (id : primitive_ident) : string =
+    match id with
+    | Box -> failwith "Box"
+    | Deref -> failwith "Box"
+    | Cast -> failwith "Cast"
+    | BinOp op ->
+       (
+         match op with
+         | Add -> "int_add"
+         | Sub -> "int_sub"
+         | Mul -> "int_mul"
+         | Div -> "int_div"
+         | Eq -> "eq_op"
+         | Lt -> "lt_op"
+         | Le -> "le_op"
+         | Ge -> "ge_op"
+         | Gt -> "gt_op"
+         | Ne -> "ne_op"
+         | Rem -> failwith "TODO: Rem"
+         | BitXor -> failwith "TODO: BitXor"
+         | BitAnd -> failwith "TODO: BitAnd"
+         | BitOr -> failwith "TODO: BitOr"
+         | Shl -> failwith "TODO: Shl"
+         | Shr -> failwith "TODO: Shr"
+         | Offset -> failwith "TODO: Offset")
+    | UnOp op ->
+       "UnOp"
+    (* ( *)
+    (* match op with *)
+    (* | Not -> F.lid [ "Prims"; "l_Not" ] *)
+    (* | Neg -> F.lid [ "Prims"; "op_Minus" ]) *)
+    | LogicalOp op ->
+       "LogicOp"
+  (* ( *)
+  (*  match op with *)
+  (*  | And -> F.lid [ "Prims"; "op_AmpAmp" ] *)
+  (*  | Or -> F.lid [ "Prims"; "op_BarBar" ]) *)
+
+
+  let global_ident_to_string (id : global_ident) : string =
+    match id with
+    | `Concrete { crate; path } ->
+       (* crate ^ "_" ^ *) (path_to_string (Non_empty_list.to_list path))
+    | `Primitive p_id -> primitive_to_string p_id
+    | _ -> "name of fn"
+  (* | `TupleType of int *)
+  (* | `TupleCons of int *)
+  (* | `TupleField of int * int *)
+  (* | `Projector of [ `Concrete of concrete_ident | `TupleField of int * int ] *)
+  (* ] *)
+
+  let global_ident_to_string_last (id : global_ident) : string =
+    match id with
+    | `Concrete { crate; path } ->
+       path_to_string_last (Non_empty_list.to_list path)
+    | _ -> "name of fn"
+
   module Make (Ctx : sig
     val ctx : Context.t
   end) =
   struct
     open Ctx
-
-    let tabsize = 2
-    let newline_indent depth : string =
-      "\n" ^ String.make (tabsize * depth) ' '
-
-    let int_size_to_string (x : C.AST.int_size) : string =
-      match x with
-      | C.AST.U8 -> "WORDSIZE8"
-      | C.AST.U16 -> "WORDSIZE16"
-      | C.AST.U32 -> "WORDSIZE32"
-      | C.AST.U64 -> "WORDSIZE64"
-      | C.AST.U128 -> "WORDSIZE128"
-      | _ -> .
-
-    let rec ty_to_string (x : C.AST.ty) : string * string =
-      match x with
-      | C.AST.Bool -> "", "bool"
-      | C.AST.Int (int_size, true) -> "", "@int" ^ " " ^ int_size_to_string int_size
-      | C.AST.Int (int_size, false) -> "", "@int" ^ " " ^ int_size_to_string int_size
-      | C.AST.Name s -> "", s
-      | C.AST.RecordTy (name, fields) ->
-         let (fields_def, fields_str) = record_fields_to_string fields in
-         fields_def ^ "Record" ^ " " ^ name ^ " " ^ ":" ^ " " ^ "Type" ^ " " ^ ":=" ^ "{" ^ fields_str ^ newline_indent 0 ^ "}" ^ "." ^ newline_indent 0, name
-      | _ -> .
-    and record_fields_to_string (x : (string * C.AST.ty) list) : string * string =
-      match x with
-      | (name, ty) :: xs ->
-         let ty_def, ty_str = ty_to_string ty in
-         let xs_def, xs_str = record_fields_to_string xs in
-         ty_def ^ xs_def, newline_indent 1 ^ name ^ ":" ^ ty_str ^ ";" ^ xs_str
-      | _ -> "", ""
-
-    let literal_to_string (x : C.AST.literal) : string =
-      match x with
-      | Const_string s -> s
-      | Const_char c -> Int.to_string c (* TODO *)
-      | Const_int i -> i
-      | Const_bool b -> Bool.to_string b
-      | _ -> .
-
-    let rec pat_to_string (x : C.AST.pat) depth : string =
-      match x with
-      | C.AST.Wild -> "_"
-      | C.AST.Ident s -> s
-      | C.AST.Lit l ->
-         literal_to_string l
-      | C.AST.RecordPat (name, args) ->
-         name ^ " " ^ "{|" ^ record_pat_to_string args (depth+1) ^ newline_indent depth
-         ^ "|}"
-      | _ -> .
-    and record_pat_to_string args depth : string =
-      match args with
-      | (name, pat) :: xs ->
-         newline_indent depth ^ name ^ ":=" ^ " " ^ pat_to_string pat depth ^ ";" ^ record_pat_to_string xs depth
-      | _ -> ""
-
-    let rec term_to_string (x : C.AST.term) depth : string =
-      match x with
-      | C.AST.Let (pat, bind, term) ->
-         "let" ^ " " ^ pat_to_string pat depth ^ " " ^ ":=" ^ " " ^ term_to_string bind (depth+1) ^ " " ^ "in" ^ newline_indent depth
-         ^ term_to_string term depth
-      | C.AST.If (cond, then_, else_) ->
-         "if" ^ newline_indent (depth+1)
-         ^ term_to_string cond (depth+1) ^ newline_indent depth
-         ^ "then"  ^ newline_indent (depth+1)
-         ^ term_to_string then_ (depth+1) ^ newline_indent depth
-         ^ "else" ^ newline_indent (depth+1)
-         ^ term_to_string else_ (depth+1)
-      | C.AST.Match (match_val, arms) ->
-         "match" ^ " "  ^ term_to_string match_val (depth+1) ^ " " ^ "with" ^ newline_indent depth ^ arm_to_string arms depth ^ "end"
-      | C.AST.Const c -> literal_to_string c
-      | C.AST.Literal s -> s
-      | C.AST.App (f, args) ->
-         term_to_string f depth ^ args_to_string args depth
-      | C.AST.AppBin (f, arga, argb) ->
-         term_to_string arga depth ^ " " ^ f ^ " " ^ term_to_string argb depth
-      | C.AST.Var s -> s
-      | C.AST.Name s -> s
-      | C.AST.RecordConstructor (f, args) ->
-         term_to_string f depth ^ "{" ^ args_to_string args depth ^ "}"
-      | _ -> .
-
-    and args_to_string (args : C.AST.term list) depth : string =
-      match args with
-      | (x :: xs)  -> " " ^ term_to_string x depth ^ args_to_string xs depth
-      | _ -> ""
-
-    and arm_to_string (x : (C.AST.pat * C.AST.term) list) depth : string =
-      match x with
-      | ((pat, body) :: xs) ->
-         "|" ^ " " ^ pat_to_string pat depth ^ " " ^ "=>" ^ " " ^ term_to_string body (depth+1) ^ newline_indent depth ^ arm_to_string xs depth
-      | _ -> ""
-
-    let rec decl_to_string (x : C.AST.decl) : string =
-      match x with
-      | C.AST.Unimplemented s -> "(*" ^ s ^ "*)"
-      | C.AST.Fn (name, term, ty) ->
-         let (definitions, ty_str) = ty_to_string ty in
-         definitions ^ "Definition" ^ " " ^ name ^ " " ^ ":" ^ " " ^ ty_str ^ " " ^ ":=" ^ newline_indent 1 ^ term_to_string term 1 ^ "."
-      | C.AST.Notation (name, ty) ->
-         let (definitions, ty_str) = ty_to_string ty in
-         definitions ^ "Notation" ^ " " ^ name ^ " " ^ ":=" ^ " " ^ ty_str ^ "."
-      | C.AST.Record (name, variants) ->
-         let (definitions, variants_str) = variants_to_string variants (newline_indent 1) ";" in
-         definitions ^ "Record" ^ " " ^ name ^ " " ^ ":" ^ " " ^ "Type" ^ " " ^ ":=" ^ "{" ^ variants_str ^ newline_indent 0 ^ "}."
-      | C.AST.Inductive (name, variants) ->
-         let (definitions, variants_str) = variants_to_string variants (newline_indent 0 ^ "|" ^ " ") (" " ^ "->" ^ " " ^ name) in
-         definitions ^ "Inductive" ^ " " ^ name ^ " " ^ ":" ^ " " ^ "Type" ^ " " ^ ":=" ^ variants_str ^ "."
-      | _ -> .
-    and variants_to_string variants pre post : string * string =
-      match variants with
-      | (ty_name, ty) :: xs ->
-         let (ty_definitions, ty_str) = ty_to_string ty in
-         let (variant_definitions, variants_str) = variants_to_string xs pre post in
-         ty_definitions ^ variant_definitions , pre ^ ty_name ^ " " ^ ":" ^ " " ^ ty_str ^ post ^ variants_str
-      | _ -> "", ""
-
-    let rec path_to_string (l : string list) : string =
-      match l with
-      | [x] -> x
-      | x :: xs -> x ^ "_" ^ (path_to_string xs)
-      | _ -> ""
-
-    let rec path_to_string_last (l : string list) : string =
-      match l with
-      | [x] -> x
-      | x :: xs -> (path_to_string xs)
-      | _ -> ""
-
-    (* let rec pglobal_ident (id : global_ident) = *)
-    (*   match id with *)
-    (*   | `Concrete cid -> F.lid (cid.crate :: Non_empty_list.to_list cid.path) *)
-    (*   | `Primitive prim_id -> pprim_ident prim_id *)
-    (*   | `TupleType 0 -> F.lid [ "prims"; "unit" ] *)
-    (*   | `TupleCons n when n <= 1 -> *)
-    (*       failwith ("Got a [TupleCons " ^ string_of_int n ^ "]") *)
-    (*   | `TupleType n when n <= 14 -> *)
-    (*       F.lid [ "FStar"; "Pervasives"; "tuple" ^ string_of_int n ] *)
-    (*   | `TupleCons n when n <= 14 -> *)
-    (*       F.lid [ "FStar"; "Pervasives"; "Mktuple" ^ string_of_int n ] *)
-    (*   | `TupleType _ | `TupleCons _ -> *)
-    (*       failwith "F* doesn't support tuple of size greater than 14" *)
-    (*   | `TupleField _ | `Projector _ -> *)
-    (*       failwith ("Cannot appear here: " ^ show_global_ident id) *)
-
-    let primitive_to_string (id : primitive_ident) : string =
-      match id with
-      | Box -> failwith "Box"
-      | Deref -> failwith "Box"
-      | Cast -> failwith "Cast"
-      | BinOp op ->
-         (
-           match op with
-           | Add -> "int_add"
-           | Sub -> "int_sub"
-           | Mul -> "int_mul"
-           | Div -> "int_div"
-           | Eq -> "eq_op"
-           | Lt -> "lt_op"
-           | Le -> "le_op"
-           | Ge -> "ge_op"
-           | Gt -> "gt_op"
-           | Ne -> "ne_op"
-           | Rem -> failwith "TODO: Rem"
-           | BitXor -> failwith "TODO: BitXor"
-           | BitAnd -> failwith "TODO: BitAnd"
-           | BitOr -> failwith "TODO: BitOr"
-           | Shl -> failwith "TODO: Shl"
-           | Shr -> failwith "TODO: Shr"
-           | Offset -> failwith "TODO: Offset")
-      | UnOp op ->
-         "UnOp"
-      (* ( *)
-      (* match op with *)
-      (* | Not -> F.lid [ "Prims"; "l_Not" ] *)
-      (* | Neg -> F.lid [ "Prims"; "op_Minus" ]) *)
-      | LogicalOp op ->
-         "LogicOp"
-    (* ( *)
-    (*  match op with *)
-    (*  | And -> F.lid [ "Prims"; "op_AmpAmp" ] *)
-    (*  | Or -> F.lid [ "Prims"; "op_BarBar" ]) *)
-
-
-    let global_ident_to_string (id : global_ident) : string =
-      match id with
-      | `Concrete { crate; path } ->
-         (* crate ^ "_" ^ *) (path_to_string (Non_empty_list.to_list path))
-      | `Primitive p_id -> primitive_to_string p_id
-      | _ -> "name of fn"
-    (* | `TupleType of int *)
-    (* | `TupleCons of int *)
-    (* | `TupleField of int * int *)
-    (* | `Projector of [ `Concrete of concrete_ident | `TupleField of int * int ] *)
-    (* ] *)
-
-    let global_ident_to_string_last (id : global_ident) : string =
-      match id with
-      | `Concrete { crate; path } ->
-         path_to_string_last (Non_empty_list.to_list path)
-      | _ -> "name of fn"
 
     let __TODO_pat__ s = C.AST.Ident (s ^ " todo(pat)")
 
@@ -379,17 +379,10 @@ module CoqBackend = struct
          __TODO_term__ "global var 0 / construct 0"
       | GlobalVar global_ident ->
          C.AST.Var (global_ident_to_string global_ident)
-      | App
-{
-  f = { e = GlobalVar (`Projector (`TupleField (n, len))) };
-  args = [ arg ];
-} ->
+      | App { f = { e = GlobalVar (`Projector (`TupleField (n, len))) };
+              args = [ arg ]; } ->
          __TODO_term__ "app global vcar projector tuple"
-      | App
-{
-  f = { e = GlobalVar (`Primitive (BinOp op)) };
-  args = [ arga; argb ];
-} ->
+      | App { f = { e = GlobalVar (`Primitive (BinOp op)) }; args = [ arga; argb ]; } ->
          C.AST.AppBin (op_to_string op, pexpr arga, pexpr argb)
       | App { f; args } ->
          let base = pexpr f in
@@ -437,20 +430,16 @@ witness;
       (* Mem *)
       | Borrow { kind; e; witness } -> __TODO_term__ "borrow"
       (* Raw borrow *)
-      | AddressOf {
-mut;
-e;
-witness;
-} -> __TODO_term__ "raw borrow"
+      | AddressOf { mut;
+                    e;
+                    witness; } -> __TODO_term__ "raw borrow"
       | Literal l -> __TODO_term__ "literal"
-      | ForLoop {
-start;
-end_;
-var;
-body;
-label;
-witness;
-} -> __TODO_term__ "for loop"
+      | ForLoop { start;
+                  end_;
+                  var;
+                  body;
+                  label;
+                  witness; } -> __TODO_term__ "for loop"
       | _ -> .
 
     let __TODO_ty__ s : C.AST.ty = C.AST.Name (s ^ " todo(ty)")
@@ -487,23 +476,23 @@ witness;
 
     let __TODO_item__ s = C.AST.Unimplemented (s ^ " todo(item)")
 
-    let rec pitem (e : item) : C.AST.decl =
-      match e.v with
-      | Fn { name; generics; body; params } ->
-         C.AST.Fn (global_ident_to_string name, pexpr body, pty body.typ)
-      | TyAlias { name; generics; ty } ->
-         C.AST.Notation (global_ident_to_string name, pty ty)
-      (* record *)
-      | Type { name; generics; variants = [{name=record_name; arguments}]; record = true } ->
-         C.AST.Record (global_ident_to_string_last name, p_record_record arguments)
-      (* enum *)
-      | Type { name; generics; variants; record = true } ->
-         C.AST.Inductive (global_ident_to_string_last name, p_record variants name)
-      | Type { name; generics; variants } ->
-         __TODO_item__ "Type not record"
-      | NotImplementedYet -> __TODO_item__ "Not implemented yet?"
-      | _ ->
-         __TODO_item__ "Definition?"
+    let rec pitem (e : item) : C.AST.decl list =
+      [ match e.v with
+        | Fn { name; generics; body; params } ->
+           C.AST.Fn (global_ident_to_string name, pexpr body, pty body.typ)
+        | TyAlias { name; generics; ty } ->
+           C.AST.Notation (global_ident_to_string name, pty ty)
+        (* record *)
+        | Type { name; generics; variants = [{name=record_name; arguments}]; record = true } ->
+           C.AST.Record (global_ident_to_string_last name, p_record_record arguments)
+        (* enum *)
+        | Type { name; generics; variants; record = true } ->
+           C.AST.Inductive (global_ident_to_string_last name, p_record variants name)
+        | Type { name; generics; variants } ->
+           __TODO_item__ "Type not record"
+        | NotImplementedYet -> __TODO_item__ "Not implemented yet?"
+        | _ ->
+           __TODO_item__ "Definition?" ]
 
     (* | Enum (variants, generics) -> *)
     (*    let name = def_id (Option.value_exn item.def_id) in *)
@@ -561,7 +550,7 @@ witness;
   end
 
   module type S = sig
-    val pitem : item -> F.AST.decl list
+    val pitem : item -> C.AST.decl list
   end
 
   let make ctx =
@@ -608,7 +597,7 @@ witness;
                   (fst ns :: snd ns))
            in
            ( mod_name ^ ".fst",
-             "module " ^ mod_name ^ hardcoded_fstar_headers ^ "\n\n"
+             "module " ^ mod_name ^ hardcoded_coq_headers ^ "\n\n"
              ^ string_of_items items ))
     |> modules_to_string o
 
