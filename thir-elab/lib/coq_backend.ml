@@ -569,8 +569,12 @@ witness;
 
   let hardcoded_coq_headers =
     "\n\
-     From Hacspec Require Import Hacspec_Lib.\n\
-     From Hacspec Require Import MachineIntegers."
+     From Hacspec Require Import Hacspec_Lib MachineIntegers.\n\
+     From Coq Require Import ZArith.\n\
+     Import List.ListNotations.\n\
+     Open Scope Z_scope.\n\
+     Open Scope bool_scope.\n\
+     Open Scope hacspec_scope."
 
   (* module AST : Ast.T *)
 
