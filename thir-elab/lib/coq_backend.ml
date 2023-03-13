@@ -569,8 +569,8 @@ witness;
 
   let hardcoded_coq_headers =
     "\n\
-     Require Import MachineIntegers.\n
-     Require Import Hacspec_Lib."
+     From Hacspec Require Import Hacspec_Lib.\n\
+     From Hacspec Require Import MachineIntegers."
 
   (* module AST : Ast.T *)
 
@@ -579,7 +579,7 @@ witness;
     (try Caml.Sys.mkdir out_dir 0o777 with Sys_error _ -> ());
     List.iter
       ~f:(fun (relative_path, data) ->
-        if not (String.equal relative_path "Hacspec_lib.fst") then (
+        if not (String.equal relative_path "Hacspec_lib.v") then (
           let file = out_dir ^ relative_path in
           Core.Out_channel.write_all file ~data;
           print_endline @@ "Wrote " ^ file))
@@ -596,8 +596,8 @@ witness;
                   ~f:(map_first_letter String.uppercase)
                   (fst ns :: snd ns))
            in
-           ( mod_name ^ ".fst",
-             "module " ^ mod_name ^ hardcoded_coq_headers ^ "\n\n"
+           ( mod_name ^ ".v",
+             hardcoded_coq_headers ^ "\n\n"
              ^ string_of_items items ))
     |> modules_to_string o
 
