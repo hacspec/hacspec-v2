@@ -28,7 +28,12 @@ pub fn aeneas_require(rev: &str) -> String {
 
 /// `s` as a TOML basic string.
 pub fn toml_basic_string(s: &str) -> String {
-    let mut out = String::from("\"");
+    format!("\"{}\"", toml_basic_string_content(s))
+}
+
+/// `s` escaped for use between the quotes of a TOML basic string.
+pub fn toml_basic_string_content(s: &str) -> String {
+    let mut out = String::new();
     for c in s.chars() {
         match c {
             '"' => out += "\\\"",
@@ -37,7 +42,6 @@ pub fn toml_basic_string(s: &str) -> String {
             c => out.push(c),
         }
     }
-    out.push('"');
     out
 }
 
