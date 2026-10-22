@@ -44,6 +44,11 @@ F* backend and library:
  - `Formatter::write_str` is now `Core_models.Fmt.impl_11__write_str`, the name
    extracted client code calls, instead of `impl_Formatter__write_str`
 
+Changes to the OCaml engine:
+ - Evaluate the right operand of `&&` and `||` only when needed (#2336, #2375)
+ - Evaluate the `let`s of a `while` condition at each iteration
+ - A `return` in a closure inside a loop no longer exits the enclosing function
+
 ### Changed
 
 Changes to `cargo-hax`:
@@ -68,6 +73,10 @@ Lean backend and library:
 F* backend and library:
  - Breaking: the fields `f_start` and `f_end` of `t_RangeInclusive` are now
    `f_start_` and `f_end_`
+
+Changes to the OCaml engine:
+ - Breaking: `while` loops whose condition has side effects, such as
+   `while f(&mut x)` or `while f()?`, are rejected (#2337)
 
 ## [0.4.2] - 2026-10-01
 
