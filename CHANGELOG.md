@@ -63,6 +63,7 @@ Lean backend and library:
    `if_pos`/`if_neg` no longer rewrite `if`s (use `ite_eq_left`/`ite_eq_right`),
    and hand-written models that extracted code instantiates must take `Type _`
    rather than `Type` parameters
+ - Update aeneas to `build-2b9e3ea` and charon to `nightly-2026.10.31`
 
 F* backend and library:
  - Breaking: the fields `f_start` and `f_end` of `t_RangeInclusive` are now
