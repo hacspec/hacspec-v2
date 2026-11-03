@@ -24,20 +24,20 @@ fn double(x: u8) -> u8 {
 
 ## A more general Rust specification library
 
-These Rust specifications are useful for documenting the intent of the code, and enforced when analyzing a crate with hax. But the information they contain could be useful in more situations like generating property-based tests, or adding runtime checks. It would also be great to have compatibility with other Rust verification tools. The ideal would be a support in the Rust language itself, and there is an [effort](https://github.com/rust-lang/rust/issues/128044) towards this, but it is still experimental (nightly only) and too restricted for our use needs.
+These Rust specifications are useful for documenting the intent of the code, and enforced when analyzing a crate with hax. But the information they contain could be useful in more situations like generating property-based tests, or adding runtime checks. It would also be great to have compatibility with other Rust verification tools. The ideal would be a support in the Rust language itself, and there is an [effort](https://github.com/rust-lang/rust/issues/128044) towards this, but it is still experimental (nightly only) and too restricted for our needs.
 
 During [SVIL 2026](https://cryspen.com/post/software-verification-in-lean-2026/), we met the developer of [anodized](https://github.com/anodized-rs/anodized) and the project aligns with our goals for a specification library that could be used for more than just hax. 
 
-This is why we decided to offer preliminary support in hax 0.4! The prototype relies on a specific branch of anodized which adds a hax-specific cfg under which the anodized macros redirect to the hax_lib macros. 
+This is why we decided to offer preliminary support in hax 0.4! Since the 0.8.0 release, anodized has a hax-specific cfg under which its macros redirect to the `hax_lib` macros. 
 
-An [example](https://github.com/cryspen/hax/tree/main/examples/anodized) is available in the hax repo, and here is an example of how this looks on the same example:
+An [example](https://github.com/cryspen/hax/tree/main/examples/anodized) is available in the hax repo, and here is how this looks on the code presented above:
 
 ```rust
 use anodized::spec;
 
 #[spec(
     requires: x <= u8::MAX / 2,
-    ensures: *output == 2 * x,
+    ensures: |output| output == 2 * x,
 )]
 fn double(x: u8) -> u8 {
     x + x
