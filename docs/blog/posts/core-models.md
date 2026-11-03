@@ -5,7 +5,7 @@ title: "Core-models: handling dependencies of Rust code with Rust"
 date: 2026-09-30
 ---
 
-Verification does not happens in a vacuum, but as part of a stack: verifying a
+Verification has to be scoped: verifying a
 system amounts to explicitly stating what properties it assumes of its
 *dependencies*, what guarantees it provides to its *users*, and in between those
 two interfaces, checking that the system behaves accordingly.  For code,
@@ -27,8 +27,8 @@ review, test and extend. This post present hax's solution to this problem: we
 write the models of `core` and `alloc` directly in rust, providing an equivalent
 but simpler implementation. Being in Rust, this model can be heavily tested
 against the real `core` library, using a variety of Rust testing tools (see
-below), can be extracted to various backends, factoring out the modeling effort,
-and can be reviewed at the rust level, improving the overall confidence.
+below) and can be reviewed at the rust level, improving the overall confidence.
+And it factors out the modeling effort by using the same model for all backends.
 
 This post gives more details and motivation for the setup.
 
