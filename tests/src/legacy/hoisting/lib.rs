@@ -234,3 +234,98 @@ mod issue_1734 {
         )
     }
 }
+
+/// The binders of a `?` do not capture the variables of the code that
+/// follows it.
+mod control_flow_capture {
+    fn fallible() -> Result<bool, u8> {
+        Ok(true)
+    }
+
+    fn or_ok(b: bool) -> Result<bool, u8> {
+        let ok = false;
+        let r = b || fallible()?;
+        Ok(ok && r)
+    }
+
+    fn if_ok(b: bool) -> Result<bool, u8> {
+        let ok = false;
+        let r = if b { true } else { fallible()? };
+        Ok(ok && r)
+    }
+
+    fn or_some(b: bool, o: Option<bool>) -> Option<bool> {
+        let some = false;
+        let r = b || o?;
+        Some(some && r)
+    }
+
+    fn fresh_name_taken(b: bool) -> Result<bool, u8> {
+        let ok = false;
+        let ok_1 = true;
+        let r = b || fallible()?;
+        Ok(ok && r && ok_1)
+    }
+
+    fn fb(x: u8) -> Result<u8, u8> {
+        Ok(x)
+    }
+
+    fn mutated_ok(b: bool) -> Result<u8, u8> {
+        let mut ok = 0u8;
+        let r = if b {
+            ok = 1;
+            fb(5)?
+        } else {
+            0
+        };
+        Ok(ok.wrapping_add(r))
+    }
+
+    fn bump(v: &mut u8) -> u8 {
+        *v = v.wrapping_add(1);
+        *v
+    }
+
+    fn add(a: u8, b: u8) -> u8 {
+        a.wrapping_add(b)
+    }
+
+    fn mutated_tmp0(b: bool, mut y: u8) -> u8 {
+        let mut tmp0 = 0u8;
+        let r = if b {
+            tmp0 = 1;
+            bump(&mut y)
+        } else {
+            0
+        };
+        add(add(tmp0, r), y)
+    }
+
+    fn mutated_hoist(b: bool, mut y: u8) -> u8 {
+        let mut hoist1 = 0u8;
+        let mut hoist2 = 0u8;
+        let r = if b {
+            hoist1 = 1;
+            hoist2 = 1;
+            add(bump(&mut y), bump(&mut y))
+        } else {
+            0
+        };
+        add(add(hoist1, hoist2), r)
+    }
+
+    fn shadowing_let(b: bool) -> Result<u8, u8> {
+        let x = 5u8;
+        let r = if b {
+            let x = x + 1;
+            if fallible()? {
+                return Ok(x);
+            }
+            x
+        } else {
+            2
+        };
+        Ok(x + r)
+    }
+}

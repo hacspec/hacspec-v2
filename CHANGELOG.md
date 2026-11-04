@@ -51,6 +51,10 @@ Changes to the OCaml engine:
  - Keep reads of a variable before a later mutation of it in the same
    expression
  - Rename hoisted `let`s that would shadow another variable (#1734)
+ - Rename the bindings of a branch that would capture the variables of the
+   code moved into it by the control-flow rewriting
+ - Name the bindings introduced for `?`, `&mut` arguments and hoisting apart
+   from the variables of the item
 
 ### Changed
 

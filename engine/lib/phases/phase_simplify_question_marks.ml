@@ -25,6 +25,10 @@ module%inlined_contents Make (FA : Features.T) = struct
       include Features.SUBTYPE.On.Question_mark
     end
 
+    (** The local names of the item being translated, which the binders
+        introduced for [?] avoid. *)
+    let taken_names = ref (Set.empty (module String))
+
     module QuestionMarks = struct
       [@@@warning "-9"]
 
@@ -216,6 +220,11 @@ module%inlined_contents Make (FA : Features.T) = struct
             let kind = qm_kind_of_typ e.span in
             let span = expr.span in
             let mk_var name : local_ident =
+              let name =
+                if Set.mem !taken_names name then
+                  UA.Capture.fresh_name !taken_names name
+                else name
+              in
               { name; id = Local_ident.mk_id Expr (-1) }
             in
             let mk_cons =
@@ -300,7 +309,12 @@ module%inlined_contents Make (FA : Features.T) = struct
       |> [%inline_body dexpr_unwrapped]
     [@@inline_ands bindings_of dexpr]
 
-    [%%inline_defs "Item.*"]
+    [%%inline_defs "Item.*" - ditems]
+
+    let ditems (items : A.item list) : B.item list =
+      List.concat_map items ~f:(fun item ->
+          taken_names := UA.Capture.all_names#visit_item () item;
+          ditem item)
   end
 
   include Implem

@@ -476,3 +476,175 @@ letfun new_tests__legacy__hoisting__lib__evaluation_order__two_mut_refs(
        ) in
        (a, b, hax_temp_output).
 
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__fallible(
+         wildcard8 : bitstring
+       ) =
+       true.
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__or_ok(b : bool) =
+       let ok = (false) in
+       let r = (
+         if b
+         then (true)
+         else (
+           let ok_1_ = new_tests__legacy__hoisting__lib__control_flow_capture__fallible(
+             ()
+           ) in ok_1_
+           else bool_err()
+         )
+       ) in
+       ok && r.
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__if_ok(b : bool) =
+       let ok = (false) in
+       let r = (
+         if b
+         then (true)
+         else (
+           let ok_1_ = new_tests__legacy__hoisting__lib__control_flow_capture__fallible(
+             ()
+           ) in ok_1_
+           else bool_err()
+         )
+       ) in
+       ok && r.
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__or_some(
+         b : bool, o : Option
+       ) =
+       let some = (false) in
+       let r = (
+         if b
+         then (true)
+         else (
+           let Some(bool_to_bitstring(some_1_)) = o in some_1_
+           else let None() = o in todo return;
+         )
+       ) in
+       Some(bool_to_bitstring(some && r)).
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__fresh_name_taken(
+         b : bool
+       ) =
+       let ok = (false) in
+       let ok_1_ = (true) in
+       let r = (
+         if b
+         then (true)
+         else (
+           let ok_2_ = new_tests__legacy__hoisting__lib__control_flow_capture__fallible(
+             ()
+           ) in ok_2_
+           else bool_err()
+         )
+       ) in
+       ok && r && ok_1_.
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__fb(x : nat) =
+       x.
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__mutated_ok(
+         b : bool
+       ) =
+       let ok = (0) in
+       let (ok: nat, r: nat) = (
+         if b
+         then
+           (let ok = (1) in
+            let ok_1_ = new_tests__legacy__hoisting__lib__control_flow_capture__fb(
+              5
+            ) in (ok, ok_1_)
+            else bitstring_err())
+         else ((ok, 0))
+       ) in
+       core_models__num__impl_u8__wrapping_add(ok, r).
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__bump(v : nat) =
+       let v = (core_models__num__impl_u8__wrapping_add(v, 1)) in
+       let hax_temp_output = (v) in
+       (v, hax_temp_output).
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__add(
+         a : nat, b : nat
+       ) =
+       core_models__num__impl_u8__wrapping_add(a, b).
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__mutated_tmp0(
+         b : bool, y : nat
+       ) =
+       let tmp0 = (0) in
+       let ((tmp0: nat, y: nat), r: nat) = (
+         if b
+         then
+           (let tmp0 = (1) in
+            let (tmp0_1_: nat, v_out: nat) = (
+              new_tests__legacy__hoisting__lib__control_flow_capture__bump(y)
+            ) in
+            let y = (tmp0_1_) in
+            ((tmp0, y), v_out))
+         else (((tmp0, y), 0))
+       ) in
+       new_tests__legacy__hoisting__lib__control_flow_capture__add(
+         new_tests__legacy__hoisting__lib__control_flow_capture__add(tmp0, r), y
+       ).
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__mutated_hoist(
+         b : bool, y : nat
+       ) =
+       let hoist1 = (0) in
+       let hoist2 = (0) in
+       let ((hoist1: nat, hoist2: nat, y: nat), r: nat) = (
+         if b
+         then
+           (let hoist1 = (1) in
+            let hoist2 = (1) in
+            let (tmp0: nat, v_out: nat) = (
+              new_tests__legacy__hoisting__lib__control_flow_capture__bump(y)
+            ) in
+            let y = (tmp0) in
+            let hoist31 = (v_out) in
+            let (tmp0: nat, v_out: nat) = (
+              new_tests__legacy__hoisting__lib__control_flow_capture__bump(y)
+            ) in
+            let y = (tmp0) in
+            let hoist30 = (v_out) in
+            (
+              (hoist1, hoist2, y),
+              new_tests__legacy__hoisting__lib__control_flow_capture__add(
+                hoist31, hoist30
+              )
+            ))
+         else (((hoist1, hoist2, y), 0))
+       ) in
+       new_tests__legacy__hoisting__lib__control_flow_capture__add(
+         new_tests__legacy__hoisting__lib__control_flow_capture__add(
+           hoist1, hoist2
+         ),
+         r
+       ).
+
+letfun new_tests__legacy__hoisting__lib__control_flow_capture__shadowing_let(
+         b : bool
+       ) =
+       let x = (5) in
+       let r = (
+         if b
+         then
+           (let x = (core_models__ops__arith__f_add(x, 1)) in
+            let hoist32 = new_tests__legacy__hoisting__lib__control_flow_capture__fallible(
+              ()
+            ) in (
+              let wildcard9: bitstring = (
+                if hoist32
+                then
+                  (let hoist33 = (todo return;) in
+                   bitstring_err())
+                else (())
+              ) in
+              x
+            )
+            else nat_err())
+         else (2)
+       ) in
+       core_models__ops__arith__f_add(x, r).
+
