@@ -65,6 +65,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  `else` branch, whatever Rust does. A query about the other   *)
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
+(*  - 1 × conversion of the library modelled as the identity, although its types are represented differently *)
 (*  - 1 × `core__iter__traits__iterator__Iterator__map` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*  - 1 × `core__num__Impl_6__checked_add` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
@@ -106,9 +107,7 @@ letfun new_tests__legacy__proverif_combinators__lib__for_each_then(v: bitstring,
   x.
 (* src: src/legacy/proverif-combinators/lib.rs:34:0-36:1 new_tests__legacy__proverif_combinators__lib__collect_option *)
 letfun new_tests__legacy__proverif_combinators__lib__collect_option(v: bitstring) =
-  core__iter__traits__iterator__Iterator__collect(
-    core__iter__traits__iterator__Iterator__map(
-      core__iter__traits__collect__IntoIterator__into_iter(v),
-      bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-    )
-  ).
+  (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (core__iter__traits__iterator__Iterator__map(
+    core__iter__traits__collect__IntoIterator__into_iter(v),
+    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
+  )).

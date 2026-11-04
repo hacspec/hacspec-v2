@@ -86,6 +86,10 @@ A library function that hax's libraries do not model is declared as an abstract 
 
 A panic, a failed assertion or a call of a function returning `!` ends the trace, after the model evaluates what Rust evaluates first, such as the message of a `panic!` or an `assert!`, or the body of the diverging function.
 
+## Conversions
+
+Many conversions of the library, such as `From`, `Into`, `to_be_bytes`, `to_string` or `as_bytes`, are modelled as the identity, and so is an `as` cast. That changes the value when the two types are represented differently, as from `x` to `Some(x)`, from an integer to its bytes or from a string to its bytes: such a conversion is marked with a `HAX WARNING`, but for the widening of an integer. Equality is syntactic, on these terms: `20 + 30 == 50` is false in the model, as is a test on the length of bytes the model does not build. More generally, the models of the library are exact on small concrete values only, such as integers up to 16 and sequences of up to three elements, and otherwise give an opaque term, which matches no pattern: `v.last()` on a sequence the model does not know is neither `Some(..)` nor `None`.
+
 ## Writing the model
 
 Two things are written by hand: abstract models for the functions whose Rust code should not be extracted, and the analysis file.

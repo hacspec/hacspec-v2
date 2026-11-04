@@ -62,6 +62,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  `else` branch, whatever Rust does. A query about the other   *)
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
+(*  - 5 × conversion of the library modelled as the identity, although its types are represented differently *)
 (*  - 1 × `core__slice__Impl__swap` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
@@ -150,29 +151,23 @@ letfun new_tests__legacy__mut_ref_functionalization__lib__test_append(wildcard: 
   tmp0_1) else bitstring_err()) else bitstring_err().
 (* src: src/legacy/mut-ref-functionalization/lib.rs:48:0-59:1 new_tests__legacy__mut_ref_functionalization__lib__f *)
 letfun new_tests__legacy__mut_ref_functionalization__lib__f(wildcard: bitstring) =
-  alloc__slice__Impl__to_vec(
-    core__slice__Impl__swap(
+  (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (core__slice__Impl__swap(
+    (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) ((* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (core__slice__Impl__swap(
       alloc__vec__Impl_1__as_slice(
-        alloc__slice__Impl__to_vec(
-          core__slice__Impl__swap(
-            alloc__vec__Impl_1__as_slice(
-              alloc__vec__Impl_1__push(
-                alloc__vec__Impl_1__push(
-                  alloc__vec__Impl__new_kw(rust_primitives__hax__Tuple0__Tuple0),
-                  nat_1
-                ),
-                nat_2
-              )
-            ),
-            nat_0,
+        alloc__vec__Impl_1__push(
+          alloc__vec__Impl_1__push(
+            alloc__vec__Impl__new_kw(rust_primitives__hax__Tuple0__Tuple0),
             nat_1
-          )
+          ),
+          nat_2
         )
       ),
       nat_0,
       nat_1
-    )
-  ).
+    ))),
+    nat_0,
+    nat_1
+  )).
 (* src: src/legacy/mut-ref-functionalization/lib.rs:61:0-63:1 new_tests__legacy__mut_ref_functionalization__lib__Foo *)
 fun new_tests__legacy__mut_ref_functionalization__lib__Foo__Foo(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
@@ -196,32 +191,28 @@ reduc forall v_0: bitstring, v_1: bitstring;
 letfun new_tests__legacy__mut_ref_functionalization__lib__g(x: bitstring) =
   let x_2 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
   let x_3 = new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair(
-    alloc__slice__Impl__to_vec(
-      core__slice__Impl__swap(
-        alloc__vec__Impl_1__as_slice(
-          new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair__a(x_2)
-        ),
-        nat_0,
-        nat_1
-      )
-    ),
+    (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (core__slice__Impl__swap(
+      alloc__vec__Impl_1__as_slice(
+        new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair__a(x_2)
+      ),
+      nat_0,
+      nat_1
+    )),
     new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair__b(x_2)
   ) in
   new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair__a(
     new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair(
       new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair__a(x_3),
       new_tests__legacy__mut_ref_functionalization__lib__Foo__Foo(
-        alloc__slice__Impl__to_vec(
-          core__slice__Impl__swap(
-            alloc__vec__Impl_1__as_slice(
-              new_tests__legacy__mut_ref_functionalization__lib__Foo__Foo__field(
-                new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair__b(x_3)
-              )
-            ),
-            nat_0,
-            nat_1
-          )
-        )
+        (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (core__slice__Impl__swap(
+          alloc__vec__Impl_1__as_slice(
+            new_tests__legacy__mut_ref_functionalization__lib__Foo__Foo__field(
+              new_tests__legacy__mut_ref_functionalization__lib__Pair__Pair__b(x_3)
+            )
+          ),
+          nat_0,
+          nat_1
+        ))
       )
     )
   ).

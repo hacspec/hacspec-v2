@@ -70,6 +70,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 2 × use of the trait item `into_checked` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *)
 (*  - 1 × use of the trait item `mul` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *)
 (*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
+(*  - 2 × conversion of the library modelled as the identity, although its types are represented differently *)
 (*  - 1 × `core__num__Impl_11__wrapping_add` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*  - 1 × `core__num__Impl_6__wrapping_add` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*  - 1 × `core__num__Impl_8__wrapping_add` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
@@ -457,7 +458,8 @@ letfun new_tests__legacy__attributes__lib__issue_2089__Impl_1__h(
   x: bitstring,
   y: bitstring,
   z: bitstring
-) = y.
+) =
+  (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (y).
 (* src: src/legacy/attributes/lib.rs:583:8-585:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__plain *)
 letfun new_tests__legacy__attributes__lib__issue_2089__Impl_1__plain(x: bitstring) = x.
 (* src: src/legacy/attributes/lib.rs:628:4-628:21 new_tests__legacy__attributes__lib__issue_1276__S *)
@@ -561,7 +563,9 @@ reduc forall v_0: bitstring, v_1: bitstring;
   ) = v_1.
 (* src: src/legacy/attributes/lib.rs:117:0-120:1 new_tests__legacy__attributes__lib__props *)
 letfun new_tests__legacy__attributes__lib__props(wildcard: bitstring) =
-  let wildcard_1 = hax_lib__assume(hax_lib__prop__Impl__from_bool(True())) in
+  let wildcard_1 = (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (hax_lib__prop__Impl__from_bool(
+    True()
+  )) in
   let wildcard_2 = hax_lib__assert_prop(hax_lib__prop__Impl__from_bool(True())) in
   let wildcard_3 = rust_primitives__hax__Tuple0__Tuple0 in
   rust_primitives__hax__Tuple0__Tuple0.

@@ -68,6 +68,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  `else` branch, whatever Rust does. A query about the other   *)
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
+(*  - 1 × conversion of the library modelled as the identity, although its types are represented differently *)
 (*  - 1 × `core__iter__traits__iterator__Iterator__max` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
@@ -136,7 +137,9 @@ letfun new_tests__legacy__generics__lib__g(arr: bitstring) =
   rust_primitives__hax__machine_int__add(
     core__option__Impl__unwrap_or(
       core__iter__traits__iterator__Iterator__max(
-        core__iter__traits__collect__IntoIterator__into_iter(arr)
+        core__iter__traits__collect__IntoIterator__into_iter(
+          (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (arr)
+        )
       ),
       bitstring_err() (* HAX ERROR: use of a const generic parameter as a value *)
     ),

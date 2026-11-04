@@ -229,9 +229,9 @@ letfun new_tests__legacy__traits__lib__for_clauses__u_f(x: bitstring) =
 
 (* src: src/legacy/traits/lib.rs:22:4-24:5 new_tests__legacy__traits__lib__Impl__function_of_super_trait *)
 letfun new_tests__legacy__traits__lib__Impl__function_of_super_trait(self: bitstring) =
-  (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) core__num__Impl_2__abs(
+  (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (core__num__Impl_2__abs(
     self
-  ).
+  )).
 (* src: src/legacy/traits/lib.rs:48:0-48:14 new_tests__legacy__traits__lib__Struct *)
 fun new_tests__legacy__traits__lib__Struct__Struct(): bitstring [data].
 

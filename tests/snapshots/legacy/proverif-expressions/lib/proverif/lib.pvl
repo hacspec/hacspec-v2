@@ -175,12 +175,12 @@ letfun new_tests__legacy__proverif_expressions__lib__Code_cast_to_repr(x: bitstr
   else bitstring_err().
 (* src: src/legacy/proverif-expressions/lib.rs:73:0-75:1 new_tests__legacy__proverif_expressions__lib__discriminant *)
 letfun new_tests__legacy__proverif_expressions__lib__discriminant(c: bitstring) =
-  (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) new_tests__legacy__proverif_expressions__lib__Code_cast_to_repr(
+  (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (new_tests__legacy__proverif_expressions__lib__Code_cast_to_repr(
     c
-  ).
+  )).
 (* src: src/legacy/proverif-expressions/lib.rs:77:0-79:1 new_tests__legacy__proverif_expressions__lib__cast *)
 letfun new_tests__legacy__proverif_expressions__lib__cast(x: bitstring) =
-  (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x.
+  (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x).
 (* src: src/legacy/proverif-expressions/lib.rs:81:0-91:1 new_tests__legacy__proverif_expressions__lib__literals *)
 letfun new_tests__legacy__proverif_expressions__lib__literals(wildcard: bitstring) =
   rust_primitives__hax__Tuple7__Tuple7(
@@ -273,13 +273,13 @@ letfun new_tests__legacy__proverif_expressions__lib__widen(x: bitstring) = x.
 (* src: src/legacy/proverif-expressions/lib.rs:194:0-196:1 new_tests__legacy__proverif_expressions__lib__narrow_roundtrip *)
 letfun new_tests__legacy__proverif_expressions__lib__narrow_roundtrip(x: bitstring) =
   rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x,
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x),
     x
   ).
 (* src: src/legacy/proverif-expressions/lib.rs:198:0-200:1 new_tests__legacy__proverif_expressions__lib__sign_change *)
 letfun new_tests__legacy__proverif_expressions__lib__sign_change(x: bitstring) =
   rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x,
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x),
     nat_255
   ).
 (* src: src/legacy/proverif-expressions/lib.rs:203:0-206:1 new_tests__legacy__proverif_expressions__lib__range_bounds *)

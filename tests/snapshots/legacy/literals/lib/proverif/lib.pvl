@@ -198,84 +198,84 @@ letfun new_tests__legacy__literals__lib__casts(
   let wildcard_1 = rust_primitives__hax__machine_int__add(
     rust_primitives__hax__machine_int__add(
       rust_primitives__hax__machine_int__add(rust_primitives__hax__machine_int__add(x8, x16), x32),
-      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x64
+      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x64)
     ),
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) xs
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (xs)
   ) in
   let wildcard_2 = rust_primitives__hax__machine_int__add(
     rust_primitives__hax__machine_int__add(
       rust_primitives__hax__machine_int__add(
         rust_primitives__hax__machine_int__add(x8, x16),
-        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x32
+        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x32)
       ),
-      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x64
+      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x64)
     ),
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) xs
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (xs)
   ) in
   let wildcard_3 = rust_primitives__hax__machine_int__add(
     rust_primitives__hax__machine_int__add(
       rust_primitives__hax__machine_int__add(
         rust_primitives__hax__machine_int__add(
           x8,
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x16
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x16)
         ),
-        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x32
+        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x32)
       ),
-      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x64
+      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x64)
     ),
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) xs
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (xs)
   ) in
   let wildcard_4 = rust_primitives__hax__machine_int__add(
     rust_primitives__hax__machine_int__add(
       rust_primitives__hax__machine_int__add(
         rust_primitives__hax__machine_int__add(
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x8,
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x16
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x8),
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x16)
         ),
-        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x32
+        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x32)
       ),
-      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x64
+      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x64)
     ),
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) xs
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (xs)
   ) in
   let wildcard_5 = rust_primitives__hax__machine_int__add(
     rust_primitives__hax__machine_int__add(
       rust_primitives__hax__machine_int__add(
         rust_primitives__hax__machine_int__add(
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x8,
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x16
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x8),
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x16)
         ),
-        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x32
+        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x32)
       ),
-      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x64
+      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x64)
     ),
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) xs
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (xs)
   ) in
   let wildcard_6 = rust_primitives__hax__machine_int__add(
     rust_primitives__hax__machine_int__add(
       rust_primitives__hax__machine_int__add(
         rust_primitives__hax__machine_int__add(
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x8,
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x16
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x8),
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x16)
         ),
-        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x32
+        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x32)
       ),
-      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x64
+      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x64)
     ),
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) xs
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (xs)
   ) in
   let wildcard_7 = rust_primitives__hax__machine_int__add(
     rust_primitives__hax__machine_int__add(
       rust_primitives__hax__machine_int__add(
         rust_primitives__hax__machine_int__add(
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x8,
-          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x16
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x8),
+          (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x16)
         ),
-        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x32
+        (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x32)
       ),
-      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) x64
+      (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (x64)
     ),
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) xs
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (xs)
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/literals/lib.rs:87:0-89:1 new_tests__legacy__literals__lib__empty_array *)

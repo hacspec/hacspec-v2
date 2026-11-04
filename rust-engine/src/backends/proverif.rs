@@ -48,6 +48,8 @@ mod names {
 pub struct ProVerifPrinter {
     /// Facts about the crate being printed.
     analysis: Rc<Analysis>,
+    /// Whether the Result model is `--result-errors`.
+    result_errors: bool,
 }
 
 /// Bundled `primitives.pvl`, parsed so its names are not re-declared in
@@ -624,6 +626,26 @@ impl Printer for ProVerifPrinter {
 }
 
 impl ProVerifPrinter {
+    /// Whether the identity from `from` to `to` may change the value; the
+    /// default Result model represents a `Result` by its `Ok` payload.
+    fn changes_value(&self, from: &Ty, to: &Ty) -> bool {
+        if self.result_errors {
+            changes_value(from, to)
+        } else {
+            changes_value(ok_payload(from), ok_payload(to))
+        }
+    }
+
+    /// Whether the identity model `name` may change the value: the default
+    /// `result.pvl` makes its `Result` plumbing (`transpose`, ...) the identity
+    /// on `Ok` payloads, which is exact, but for the fallible conversions.
+    fn inexact_identity(&self, name: &str) -> bool {
+        identity_models(self.result_errors).contains(name)
+            && (self.result_errors
+                || !default_result_identities().contains(name)
+                || name.contains("__Try"))
+    }
+
     fn render_id(&self, id: &GlobalId) -> String {
         render_id(id)
     }
@@ -1651,6 +1673,24 @@ const _: () = {
                         paren_doc!(comma_sep!(args.iter().map(|a| docs![a])))
                     ]
                 }
+                // A conversion the library models as the identity changes the
+                // value when the two types are represented differently, as from
+                // `x` to `Some(x)` or from a `u32` to its bytes.
+                ExprKind::App { head, args, .. }
+                    if matches!(&*head.kind, ExprKind::GlobalId(g)
+                        if self.inexact_identity(&render_id(g)))
+                        && matches!(&args[..], [arg] if self.changes_value(&arg.ty, &expr.ty)) =>
+                {
+                    docs![
+                        warning_marker(
+                            "conversion of the library modelled as the identity, although its \
+                             types are represented differently"
+                        ),
+                        " (",
+                        &args[0],
+                        ")"
+                    ]
+                }
                 // A cast that may change the value is still the identity: a
                 // documented approximation, with a warning.
                 ExprKind::App { head, args, .. }
@@ -1662,8 +1702,9 @@ const _: () = {
                         warning_marker(
                             "`as` cast modelled as the identity, although it may change the value"
                         ),
-                        " ",
-                        arg
+                        " (",
+                        arg,
+                        ")"
                     ]
                 }
                 ExprKind::App { head, args, .. } if is_passthrough(head) => {
@@ -2285,6 +2326,109 @@ pub(crate) fn expr_is_atomic(expr: &Expr) -> bool {
     }
 }
 
+/// The functions `primitives.pvl` and the Result library of the model model as
+/// the identity.
+fn identity_models(result_errors: bool) -> &'static HashSet<String> {
+    static NAMES: [OnceLock<HashSet<String>>; 2] = [OnceLock::new(), OnceLock::new()];
+    let result_pvl = if result_errors {
+        RESULT_ERRORS_PVL
+    } else {
+        RESULT_PVL
+    };
+    NAMES[result_errors as usize].get_or_init(|| {
+        identity_models_of(PRIMITIVES_PVL)
+            .union(&identity_models_of(result_pvl))
+            .cloned()
+            .collect()
+    })
+}
+
+/// The functions the default `result.pvl` models as the identity.
+fn default_result_identities() -> &'static HashSet<String> {
+    static NAMES: OnceLock<HashSet<String>> = OnceLock::new();
+    NAMES.get_or_init(|| identity_models_of(RESULT_PVL))
+}
+
+/// The functions that the library `lib` models as the identity.
+fn identity_models_of(lib: &str) -> HashSet<String> {
+    lib.lines()
+        .filter_map(|l| {
+            let (name, rest) = l.strip_prefix("letfun ")?.split_once('(')?;
+            let (param, body) = rest.split_once(": bitstring) = ")?;
+            let body = body.split("(*").next()?.trim();
+            (body == format!("{param}.")).then(|| name.to_string())
+        })
+        .collect()
+}
+
+/// The `Ok` payload type of `ty`, if it is a `Result`.
+fn ok_payload(ty: &Ty) -> &Ty {
+    match ty.kind() {
+        TyKind::App { head, args } if *head == crate::names::core::result::Result => {
+            match args.first() {
+                Some(GenericValue::Ty(t)) => t,
+                _ => ty,
+            }
+        }
+        _ => ty,
+    }
+}
+
+/// How the model represents a value of `ty`, as far as a conversion can tell:
+/// an integer, a boolean (`hax_lib`'s `Prop` too), a sequence (vectors,
+/// arrays, slices and their iterators), a string, or a value of another type.
+#[derive(PartialEq)]
+enum Repr<'a> {
+    Int,
+    Bool,
+    Seq,
+    Str,
+    Other(&'a Ty),
+}
+
+fn repr(ty: &Ty) -> Repr<'_> {
+    match ty.kind() {
+        TyKind::Ref { inner, .. } => repr(inner),
+        TyKind::Primitive(PrimitiveTy::Int(_)) => Repr::Int,
+        TyKind::Primitive(PrimitiveTy::Str) => Repr::Str,
+        TyKind::Array { .. } | TyKind::Slice(_) => Repr::Seq,
+        TyKind::Primitive(PrimitiveTy::Bool) => Repr::Bool,
+        TyKind::App { head, args } => {
+            if render_id(head) == "hax_lib__prop__Prop" {
+                Repr::Bool
+            } else if *head == crate::names::alloc::boxed::Box {
+                match args.first() {
+                    Some(GenericValue::Ty(t)) => repr(t),
+                    _ => Repr::Other(ty),
+                }
+            } else if *head == crate::names::alloc::string::String {
+                Repr::Str
+            } else if *head == crate::names::alloc::vec::Vec || render_id(head).contains("__iter") {
+                Repr::Seq
+            } else {
+                Repr::Other(ty)
+            }
+        }
+        _ => Repr::Other(ty),
+    }
+}
+
+/// Whether the identity from `from` to `to` may change the value.
+fn changes_value(from: &Ty, to: &Ty) -> bool {
+    match (repr(from), repr(to)) {
+        (Repr::Int, Repr::Int) => !is_lossless_cast(strip_refs(from), strip_refs(to)),
+        (a, b) => a != b,
+    }
+}
+
+/// `ty` without its references.
+fn strip_refs(ty: &Ty) -> &Ty {
+    match ty.kind() {
+        TyKind::Ref { inner, .. } => strip_refs(inner),
+        _ => ty,
+    }
+}
+
 /// Whether `head` is an identity on ProVerif terms, such as `Into::into`:
 /// every value is a `bitstring`.
 fn is_passthrough(head: &Expr) -> bool {
@@ -2413,6 +2557,7 @@ impl Backend for ProVerifBackend {
         }
         let mut printer = ProVerifPrinter {
             analysis: analysis.clone(),
+            result_errors: self.options.result_errors,
             ..printer
         };
         let (contents, positions) = printer.print(module);
