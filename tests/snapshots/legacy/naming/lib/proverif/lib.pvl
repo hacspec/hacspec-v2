@@ -47,6 +47,8 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
 (*  - use of the trait item `ASSOCIATED_CONSTANT` that resolves to no impl of the crate (e.g. on a generic type) *)
 (*  - Closures not supported in ProVerif *)
 (*****************************************************************)
@@ -59,14 +61,16 @@ fun new_tests__legacy__naming__lib__functions_defined_in_trait_impls__A__A(): bi
 letfun new_tests__legacy__naming__lib__functions_defined_in_trait_impls__Impl__eq(
   self: bitstring,
   other: bitstring
-) = bitstring_err().
+) =
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
 (* src: src/legacy/naming/lib.rs:178:4-178:13 new_tests__legacy__naming__lib__functions_defined_in_trait_impls__B *)
 fun new_tests__legacy__naming__lib__functions_defined_in_trait_impls__B__B(): bitstring [data].
 (* src: src/legacy/naming/lib.rs:181:8-183:9 new_tests__legacy__naming__lib__functions_defined_in_trait_impls__Impl_1__eq *)
 letfun new_tests__legacy__naming__lib__functions_defined_in_trait_impls__Impl_1__eq(
   self: bitstring,
   other: bitstring
-) = bitstring_err().
+) =
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
 (* src: src/legacy/naming/lib.rs:120:4-122:5 new_tests__legacy__naming__lib__ambiguous_names__debug *)
 (*  @fail(extraction): ssprove(HAX0001) *)
 letfun new_tests__legacy__naming__lib__ambiguous_names__debug(label: bitstring, value: bitstring) =

@@ -1,4 +1,4 @@
-//! @fail(extraction): proverif(HAX0001)
+//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! Trait calls resolve to the impl whose trait arguments and Self type match,

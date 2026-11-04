@@ -8,10 +8,6 @@
 (* boundary. Only Rust constructors are declared `[data]`: any   *)
 (* other function may be one-way.                                *)
 (*****************************************************************)
-(* referenced by: new_tests__legacy__proverif_result__lib__Impl_5__cmp, new_tests__legacy__proverif_result__lib__Impl_6__partial_cmp, new_tests__legacy__proverif_result__lib__Impl_7__cmp *)
-fun core__cmp__Ord__cmp(bitstring, bitstring): bitstring.
-(* referenced by: new_tests__legacy__proverif_result__lib__make_output *)
-fun core__default__Default__default(bitstring): bitstring.
 (* referenced by: new_tests__legacy__proverif_result__lib__next_generic *)
 (* result destructured as: rust_primitives__hax__Tuple2__Tuple2(_, _) *)
 fun core__iter__traits__iterator__Iterator__next(bitstring): bitstring.
