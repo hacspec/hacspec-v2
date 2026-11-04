@@ -47,6 +47,7 @@ let equivalent (x: (i32 & Core_models.Option.t_Option i32)) : i32 =
     mk_i32 0
   | x, _ -> x
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let deep_capture (x: Core_models.Result.t_Result (i32 & i32) (i32 & i32)) : i32 =
   match x <: Core_models.Result.t_Result (i32 & i32) (i32 & i32) with
   | Core_models.Result.Result_Ok (Rust_primitives.Integers.MkInt 1, x)

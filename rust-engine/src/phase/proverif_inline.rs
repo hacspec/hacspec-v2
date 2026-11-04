@@ -16,7 +16,7 @@ use crate::ast::utils::mappers::{Renaming, ScopedRenamer};
 use crate::ast::visitors::*;
 use crate::ast::*;
 use crate::backends::proverif::analysis::hides_body;
-use crate::backends::proverif::{generated_local, render_local};
+use crate::backends::proverif::{generated_local, is_warning, render_local};
 use crate::phase::Phase;
 
 /// Phase inlining `#[hax_lib::pv_inline]` and higher-order functions.
@@ -107,6 +107,10 @@ struct InlineVisitor<'a> {
     inlinable: &'a HashMap<GlobalId, (Vec<Pat>, Expr)>,
     /// Counter numbering the binders of inlined bodies.
     next_fresh: usize,
+    /// The `HAX WARNING`s of the inlinable functions.
+    warnings: HashMap<GlobalId, Vec<Attribute>>,
+    /// Those of the functions inlined into the current function.
+    inlined_warnings: Vec<Attribute>,
 }
 
 impl InlineVisitor<'_> {
@@ -123,6 +127,11 @@ impl InlineVisitor<'_> {
             return None;
         };
         let (mut params, mut body) = self.inlinable.get(g).cloned()?;
+        for w in self.warnings.get(g).into_iter().flatten() {
+            if !self.inlined_warnings.contains(w) {
+                self.inlined_warnings.push(w.clone());
+            }
+        }
         if params.len() != args.len() {
             return None;
         }
@@ -237,9 +246,34 @@ impl Phase for ProverifInline {
             inlinable.remove(&f);
         }
 
+        // The `HAX WARNING`s of an inlined function go to the functions it is
+        // inlined into, since its own item is not printed.
+        let warnings = items
+            .iter()
+            .flat_map(|item| match &item.kind {
+                ItemKind::Impl { items, .. } => {
+                    items.iter().map(|ii| (ii.ident, &ii.meta)).collect()
+                }
+                _ => vec![(item.ident, &item.meta)],
+            })
+            .filter(|(name, _)| inlinable.contains_key(name))
+            .map(|(name, meta)| {
+                let warnings = meta.attributes.iter().filter(|a| is_warning(a));
+                (name, warnings.cloned().collect())
+            })
+            .collect();
         let mut visitor = InlineVisitor {
             inlinable: &inlinable,
             next_fresh: 0,
+            warnings,
+            inlined_warnings: vec![],
+        };
+        let warn = |visitor: &mut InlineVisitor, meta: &mut Metadata| {
+            for w in std::mem::take(&mut visitor.inlined_warnings) {
+                if !meta.attributes.contains(&w) {
+                    meta.attributes.push(w);
+                }
+            }
         };
         for item in items.iter_mut() {
             if inlinable.contains_key(&item.ident) {
@@ -250,9 +284,13 @@ impl Phase for ProverifInline {
                     if inlinable.contains_key(&impl_item.ident) {
                         mark_late_skip(&mut impl_item.meta);
                     }
+                    visitor.visit_impl_item(impl_item);
+                    warn(&mut visitor, &mut impl_item.meta);
                 }
+                continue;
             }
             visitor.visit_item(item);
+            warn(&mut visitor, &mut item.meta);
         }
     }
 }

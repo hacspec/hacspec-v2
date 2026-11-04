@@ -3,6 +3,7 @@ module New_tests.Legacy__guards__lib
 open FStar.Mul
 open Core_models
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let if_let_guard (x: Core_models.Option.t_Option (Core_models.Result.t_Result i32 i32)) : i32 =
   match x <: Core_models.Option.t_Option (Core_models.Result.t_Result i32 i32) with
   | Core_models.Option.Option_None  -> mk_i32 0
@@ -24,6 +25,7 @@ let if_let_guard (x: Core_models.Option.t_Option (Core_models.Result.t_Result i3
       | Core_models.Option.Option_Some (Core_models.Result.Result_Err y) -> y
       | _ -> mk_i32 1
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001)
 let equivalent (x: Core_models.Option.t_Option (Core_models.Result.t_Result i32 i32)) : i32 =
   match x <: Core_models.Option.t_Option (Core_models.Result.t_Result i32 i32) with
   | Core_models.Option.Option_None  -> mk_i32 0
@@ -45,6 +47,7 @@ let equivalent (x: Core_models.Option.t_Option (Core_models.Result.t_Result i32 
       | Core_models.Option.Option_Some (Core_models.Result.Result_Err y) -> y
       | _ -> mk_i32 1
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let multiple_guards (x: Core_models.Option.t_Option (Core_models.Result.t_Result i32 i32)) : i32 =
   match x <: Core_models.Option.t_Option (Core_models.Result.t_Result i32 i32) with
   | Core_models.Option.Option_None  -> mk_i32 0

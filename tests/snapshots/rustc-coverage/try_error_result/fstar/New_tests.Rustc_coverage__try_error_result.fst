@@ -120,7 +120,7 @@ let impl_Thing2__call (self: t_Thing2) (return_error: bool)
     Core_models.Result.Result_Err (() <: Prims.unit) <: Core_models.Result.t_Result u32 Prims.unit
   else Core_models.Result.Result_Ok (mk_u32 57) <: Core_models.Result.t_Result u32 Prims.unit
 
-/// @fail(extraction): proverif(HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
 let test2 (_: Prims.unit) : Core_models.Result.t_Result Prims.unit Prims.unit =
   let thing1:t_Thing1 = Thing1 <: t_Thing1 in
   let countdown:i32 = mk_i32 10 in
@@ -437,6 +437,7 @@ let test2 (_: Prims.unit) : Core_models.Result.t_Result Prims.unit Prims.unit =
     <:
     Core_models.Result.t_Result Prims.unit Prims.unit
 
+/// @fail(extraction): proverif(HAX0001)
 let main (_: Prims.unit) : Core_models.Result.t_Result Prims.unit Prims.unit =
   let _:Prims.unit =
     Core_models.Result.impl__expect_err #Prims.unit

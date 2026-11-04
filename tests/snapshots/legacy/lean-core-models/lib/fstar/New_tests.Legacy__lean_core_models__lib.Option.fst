@@ -15,7 +15,7 @@ let impl: Core_models.Default.t_Default t_S =
     f_default = fun (_: Prims.unit) -> { f_f1 = mk_u32 42 } <: t_S
   }
 
-/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 let test (_: Prims.unit) : Prims.unit =
   let o1:Core_models.Option.t_Option i32 =
     Core_models.Option.Option_Some (mk_i32 4) <: Core_models.Option.t_Option i32

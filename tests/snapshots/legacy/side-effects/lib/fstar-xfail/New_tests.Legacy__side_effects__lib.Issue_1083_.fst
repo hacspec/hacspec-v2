@@ -17,6 +17,7 @@ let impl: t_MyFrom u16 u8 =
     f_my_from = fun (x: u8) -> cast (x <: u8) <: u16
   }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let f (x: u8) : Core_models.Result.t_Result u16 u16 =
   match
     Core_models.Ops.Try_trait.f_branch #(Core_models.Result.t_Result Rust_primitives.Hax.t_Never u8)

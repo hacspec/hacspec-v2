@@ -16,7 +16,7 @@ impl Default for S {
     }
 }
 
-/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 fn test() {
     let o1 = Option::Some(4);
     let o2: Option<i32> = None;

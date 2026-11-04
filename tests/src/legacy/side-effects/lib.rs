@@ -172,6 +172,7 @@ mod issue_1083 {
         }
     }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
     fn f(x: u8) -> Result<u16, u16> {
         Err(1u8)?;
         Ok(u16::my_from(x))

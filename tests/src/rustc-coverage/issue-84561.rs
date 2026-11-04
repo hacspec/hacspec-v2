@@ -156,7 +156,7 @@ macro_rules! debug {
 }
 
 /// @fail(extraction): ssprove(HAX0002, HAX0008, HAX0008, HAX0008), coq(HAX0008, HAX0008, HAX0008, HAX0002), fstar(HAX0002, HAX0002, HAX0008, HAX0008, HAX0008), legacy-lean(HAX0002, HAX0002, HAX0008, HAX0008, HAX0008)
-/// @fail(extraction): proverif(HAX0008, HAX0008, HAX0008, HAX0002)
+/// @fail(extraction): proverif(HAX0002, HAX0008, HAX0008, HAX0008)
 fn test1() {
     debug!("debug is enabled");
     debug!("debug is enabled");

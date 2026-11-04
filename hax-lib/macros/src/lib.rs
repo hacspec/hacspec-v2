@@ -183,13 +183,14 @@ passthrough_attributes! {
     /// constant stubs such as `#[pv_stub("nat_0")]`.
     pv_stub;
 
-    /// Declare this function as the one-sided inverse of another, emitting
-    /// `reduc forall x: bitstring; self(other(x)) = x.`.
+    /// Declare this function `g`, of one argument or a `self` receiver, as the
+    /// one-sided inverse of another function `f`: `g` matches its argument
+    /// against `f(x)` and returns `x`. With `--result-errors`, a function
+    /// returning a `Result` returns `Ok`, and an `Err` off the image of `f`.
     ///
-    /// A ProVerif `reduc` rewrites on *constructors*, so the other function has
-    /// to be one — annotate it `#[hax_lib::pv_constructor]` (or
-    /// `#[hax_lib::opaque]`). Pointing this at a `letfun` produces a `reduc`
-    /// ProVerif rejects.
+    /// A ProVerif pattern only matches *constructors*, so the other function
+    /// has to be one — annotate it `#[hax_lib::pv_constructor]` (or
+    /// `#[hax_lib::opaque]`).
     pv_inverse_of;
 }
 
@@ -391,6 +392,16 @@ attribute_macros! {
     fn pv_handwritten(_attr, item) {
         let item: ItemFn = parse_macro_input!(item);
         let attr = AttrPayload::PVHandwritten;
+        quote! {#attr #item}.into()
+    }
+
+    /// A marker exempting a `fn` from the ProVerif backend's checks of its
+    /// uses of `Result`: the extracted body is kept as is, and its model is
+    /// marked with a `HAX WARNING`. The Result model may then get the function
+    /// wrong, for example by dropping an arm that recovers from an `Err`.
+    fn pv_unchecked_results(_attr, item) {
+        let item: ItemFn = parse_macro_input!(item);
+        let attr = AttrPayload::PVUncheckedResults;
         quote! {#attr #item}.into()
     }
 

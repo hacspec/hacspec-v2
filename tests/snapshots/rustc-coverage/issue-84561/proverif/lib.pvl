@@ -463,7 +463,7 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/issue-84561.rs:160:0-169:1 new_tests__rustc_coverage__issue_84561__test1 *)
 (*  @fail(extraction): ssprove(HAX0002, HAX0008, HAX0008, HAX0008), coq(HAX0008, HAX0008, HAX0008, HAX0002), fstar(HAX0002, HAX0002, HAX0008, HAX0008, HAX0008), legacy-lean(HAX0002, HAX0002, HAX0008, HAX0008, HAX0008) *)
-(*  @fail(extraction): proverif(HAX0008, HAX0008, HAX0008, HAX0002) *)
+(*  @fail(extraction): proverif(HAX0002, HAX0008, HAX0008, HAX0008) *)
 letfun new_tests__rustc_coverage__issue_84561__test1(wildcard: bitstring) =
   let wildcard_1 = (bitstring_err() (* HAX ERROR: a node of kind [Unsafe] have been found in the AST *)) in
   let wildcard_4 = (bitstring_err() (* HAX ERROR: a node of kind [Unsafe] have been found in the AST *)) in
