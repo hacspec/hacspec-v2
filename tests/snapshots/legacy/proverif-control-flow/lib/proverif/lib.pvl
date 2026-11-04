@@ -48,6 +48,8 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
 (*  - Let-chains (e.g. `if let .. && let ..`) are not supported. *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - Loops containing `return` not supported in ProVerif *)
 (*  - Loops not supported in ProVerif *)
 (*  - Loops not supported in ProVerif *)
@@ -85,107 +87,11 @@ letfun new_tests__legacy__proverif_control_flow__lib__if_let_chain(x: bitstring,
   bitstring_err() (* HAX ERROR: Let-chains (e.g. `if let .. && let ..`) are not supported. *).
 (* src: src/legacy/proverif-control-flow/lib.rs:45:0-53:1 new_tests__legacy__proverif_control_flow__lib__nested_for *)
 letfun new_tests__legacy__proverif_control_flow__lib__nested_for(xs: bitstring, ys: bitstring) =
-  let acc_3 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    xs
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let acc_1 = bl__acc0 in
-  let bl__acc1 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    ys
-  )) in let bl__acc0 = (acc_1) in 
-  let rust_primitives__hax__array_cons(y, bl__seq1) = bl__seq0 in (let acc_2 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(y, bl__seq2) = bl__seq1 in (let acc_2 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(y, bl__seq3) = bl__seq2 in (let acc_2 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let acc_1 = bl__acc1 in
-  let bl__acc2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    ys
-  )) in let bl__acc0 = (acc_1) in 
-  let rust_primitives__hax__array_cons(y, bl__seq1) = bl__seq0 in (let acc_2 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(y, bl__seq2) = bl__seq1 in (let acc_2 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(y, bl__seq3) = bl__seq2 in (let acc_2 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let acc_1 = bl__acc2 in
-  let bl__acc3 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    ys
-  )) in let bl__acc0 = (acc_1) in 
-  let rust_primitives__hax__array_cons(y, bl__seq1) = bl__seq0 in (let acc_2 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(y, bl__seq2) = bl__seq1 in (let acc_2 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(y, bl__seq3) = bl__seq2 in (let acc_2 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__bitxor(
-    rust_primitives__hax__machine_int__bitxor(acc_2, x),
-    y
-  )) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  acc_3.
+  let acc_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  acc_1.
 (* src: src/legacy/proverif-control-flow/lib.rs:55:0-64:1 new_tests__legacy__proverif_control_flow__lib__for_break *)
 letfun new_tests__legacy__proverif_control_flow__lib__for_break(xs: bitstring) =
-  (let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    xs
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let acc_1 = bl__acc0 in
-  let bl__cf0 = (let hax__cond0 = rust_primitives__hax__machine_int__eq(x, nat_0) in
-  let (=True()) = hax__cond0
-    in core__ops__control_flow__ControlFlow__Break(
-      rust_primitives__hax__Tuple2__Tuple2(rust_primitives__hax__Tuple0__Tuple0, acc_1)
-    )
-    else core__ops__control_flow__ControlFlow__Continue(
-      rust_primitives__hax__machine_int__bitxor(acc_1, x)
-    )) in
-  let core__ops__control_flow__ControlFlow__Break(bl__brk0) = bl__cf0 in (let rust_primitives__hax__Tuple2__Tuple2(bl__bv0, bl__out0) = bl__brk0 in bl__out0 else bitstring_err())
-  else let core__ops__control_flow__ControlFlow__Continue(bl__acc1) = bl__cf0 in (let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let acc_1 = bl__acc1 in
-  let bl__cf1 = (let hax__cond0 = rust_primitives__hax__machine_int__eq(x, nat_0) in
-  let (=True()) = hax__cond0
-    in core__ops__control_flow__ControlFlow__Break(
-      rust_primitives__hax__Tuple2__Tuple2(rust_primitives__hax__Tuple0__Tuple0, acc_1)
-    )
-    else core__ops__control_flow__ControlFlow__Continue(
-      rust_primitives__hax__machine_int__bitxor(acc_1, x)
-    )) in
-  let core__ops__control_flow__ControlFlow__Break(bl__brk1) = bl__cf1 in (let rust_primitives__hax__Tuple2__Tuple2(bl__bv1, bl__out1) = bl__brk1 in bl__out1 else bitstring_err())
-  else let core__ops__control_flow__ControlFlow__Continue(bl__acc2) = bl__cf1 in (let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let acc_1 = bl__acc2 in
-  let bl__cf2 = (let hax__cond0 = rust_primitives__hax__machine_int__eq(x, nat_0) in
-  let (=True()) = hax__cond0
-    in core__ops__control_flow__ControlFlow__Break(
-      rust_primitives__hax__Tuple2__Tuple2(rust_primitives__hax__Tuple0__Tuple0, acc_1)
-    )
-    else core__ops__control_flow__ControlFlow__Continue(
-      rust_primitives__hax__machine_int__bitxor(acc_1, x)
-    )) in
-  let core__ops__control_flow__ControlFlow__Break(bl__brk2) = bl__cf2 in (let rust_primitives__hax__Tuple2__Tuple2(bl__bv2, bl__out2) = bl__brk2 in bl__out2 else bitstring_err())
-  else let core__ops__control_flow__ControlFlow__Continue(bl__acc3) = bl__cf2 in (let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *))).
+  bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *).
 (* src: src/legacy/proverif-control-flow/lib.rs:66:0-73:1 new_tests__legacy__proverif_control_flow__lib__for_return *)
 letfun new_tests__legacy__proverif_control_flow__lib__for_return(xs: bitstring) =
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in

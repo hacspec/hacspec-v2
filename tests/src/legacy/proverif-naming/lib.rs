@@ -1,3 +1,4 @@
+//! @fail(extraction): proverif(HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! Names the backend generates never capture or merge the user's.

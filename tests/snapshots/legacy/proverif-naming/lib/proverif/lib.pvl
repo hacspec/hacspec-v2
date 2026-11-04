@@ -34,13 +34,31 @@
 (* Only typechecks with result.pvl loaded. *)
 letfun hax_result_model_check__new_tests() = hax_result_model__result.
 
-(* src: src/legacy/proverif-naming/lib.rs:5:0-7:1 new_tests__legacy__proverif_naming__lib__g *)
+(*****************************************************************)
+(*  INCOMPLETE MODEL — this extraction did not fully succeed.    *)
+(*                                                               *)
+(*  Each `HAX ERROR` below marks a construct the ProVerif        *)
+(*  backend could not express; it renders as `bitstring_err()`,  *)
+(*  so the enclosing declaration has NO value and every process  *)
+(*  reaching it dies. Queries over the dead part come back       *)
+(*  `true` for lack of any trace, NOT because they hold.         *)
+(*                                                               *)
+(*  The `hax_extraction_error__*` query below fails on purpose,  *)
+(*  so this shows up in the verification summary. Fix the errors *)
+(*  (or model the items by hand) before trusting any result.     *)
+(*                                                               *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*****************************************************************)
+free hax_extraction_error__new_tests: bitstring.
+query attacker(hax_extraction_error__new_tests).
+
+(* src: src/legacy/proverif-naming/lib.rs:6:0-8:1 new_tests__legacy__proverif_naming__lib__g *)
 letfun new_tests__legacy__proverif_naming__lib__g(x: bitstring) = x.
-(* src: src/legacy/proverif-naming/lib.rs:10:0-15:1 new_tests__legacy__proverif_naming__lib__rebinding *)
+(* src: src/legacy/proverif-naming/lib.rs:11:0-16:1 new_tests__legacy__proverif_naming__lib__rebinding *)
 letfun new_tests__legacy__proverif_naming__lib__rebinding(a: bitstring, b: bitstring) =
   let x_2 = new_tests__legacy__proverif_naming__lib__g(a) in
   rust_primitives__hax__machine_int__add(new_tests__legacy__proverif_naming__lib__g(b), x_2).
-(* src: src/legacy/proverif-naming/lib.rs:18:0-20:1 new_tests__legacy__proverif_naming__lib__literals *)
+(* src: src/legacy/proverif-naming/lib.rs:19:0-21:1 new_tests__legacy__proverif_naming__lib__literals *)
 letfun new_tests__legacy__proverif_naming__lib__literals(wildcard: bitstring) =
   rust_primitives__hax__Tuple4__Tuple4(
     string_lit__a_x20b,
@@ -49,10 +67,10 @@ letfun new_tests__legacy__proverif_naming__lib__literals(wildcard: bitstring) =
     string_lit__empty
   ).
 fun extern__external(bitstring, bitstring): bitstring.
-(* src: src/legacy/proverif-naming/lib.rs:24:0-24:21 new_tests__legacy__proverif_naming__lib__external *)
+(* src: src/legacy/proverif-naming/lib.rs:25:0-25:21 new_tests__legacy__proverif_naming__lib__external *)
 letfun new_tests__legacy__proverif_naming__lib__external(u_rng: bitstring, new_kw: bitstring) =
   extern__external(u_rng, new_kw).
-(* src: src/legacy/proverif-naming/lib.rs:31:0-35:1 new_tests__legacy__proverif_naming__lib__Triple *)
+(* src: src/legacy/proverif-naming/lib.rs:32:0-36:1 new_tests__legacy__proverif_naming__lib__Triple *)
 fun new_tests__legacy__proverif_naming__lib__Triple__Triple(
   bitstring,
   bitstring,
@@ -70,10 +88,10 @@ reduc forall v_0: bitstring, v_1: bitstring, v_2: bitstring;
   new_tests__legacy__proverif_naming__lib__Triple__Triple__c(
     new_tests__legacy__proverif_naming__lib__Triple__Triple(v_0, v_1, v_2)
   ) = v_2.
-(* src: src/legacy/proverif-naming/lib.rs:37:0-39:1 new_tests__legacy__proverif_naming__lib__make_triple *)
+(* src: src/legacy/proverif-naming/lib.rs:38:0-40:1 new_tests__legacy__proverif_naming__lib__make_triple *)
 letfun new_tests__legacy__proverif_naming__lib__make_triple(x: bitstring) =
   new_tests__legacy__proverif_naming__lib__Triple__Triple(x, x, x).
-(* src: src/legacy/proverif-naming/lib.rs:41:0-46:1 new_tests__legacy__proverif_naming__lib__update *)
+(* src: src/legacy/proverif-naming/lib.rs:42:0-47:1 new_tests__legacy__proverif_naming__lib__update *)
 letfun new_tests__legacy__proverif_naming__lib__update(x: bitstring) =
   let hax__operand0 = new_tests__legacy__proverif_naming__lib__make_triple(x) in
   new_tests__legacy__proverif_naming__lib__Triple__Triple(
@@ -81,19 +99,19 @@ letfun new_tests__legacy__proverif_naming__lib__update(x: bitstring) =
     new_tests__legacy__proverif_naming__lib__Triple__Triple__b(hax__operand0),
     new_tests__legacy__proverif_naming__lib__Triple__Triple__c(hax__operand0)
   ).
-(* src: src/legacy/proverif-naming/lib.rs:49:0-54:1 new_tests__legacy__proverif_naming__lib__if_without_else *)
+(* src: src/legacy/proverif-naming/lib.rs:50:0-55:1 new_tests__legacy__proverif_naming__lib__if_without_else *)
 letfun new_tests__legacy__proverif_naming__lib__if_without_else(c: bitstring, x: bitstring) =
   let wildcard = (let (=True()) = c
     in (let wildcard_1 = new_tests__legacy__proverif_naming__lib__g(x) in
     rust_primitives__hax__Tuple0__Tuple0)
     else rust_primitives__hax__Tuple0__Tuple0) in
   x.
-(* src: src/legacy/proverif-naming/lib.rs:57:0-61:1 new_tests__legacy__proverif_naming__lib__underscore_prefix *)
+(* src: src/legacy/proverif-naming/lib.rs:58:0-62:1 new_tests__legacy__proverif_naming__lib__underscore_prefix *)
 letfun new_tests__legacy__proverif_naming__lib__underscore_prefix(a: bitstring, b: bitstring) = a.
-(* src: src/legacy/proverif-naming/lib.rs:64:0-66:1 new_tests__legacy__proverif_naming__lib__literal_name *)
+(* src: src/legacy/proverif-naming/lib.rs:65:0-67:1 new_tests__legacy__proverif_naming__lib__literal_name *)
 letfun new_tests__legacy__proverif_naming__lib__literal_name(nat_3_v0: bitstring) =
   rust_primitives__hax__machine_int__add(nat_3_v0, nat_3).
-(* src: src/legacy/proverif-naming/lib.rs:68:0-71:1 new_tests__legacy__proverif_naming__lib__Point *)
+(* src: src/legacy/proverif-naming/lib.rs:69:0-72:1 new_tests__legacy__proverif_naming__lib__Point *)
 fun new_tests__legacy__proverif_naming__lib__Point__Point(bitstring, bitstring): bitstring [data].
 reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__proverif_naming__lib__Point__Point__x(
@@ -103,7 +121,7 @@ reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__proverif_naming__lib__Point__Point__y(
     new_tests__legacy__proverif_naming__lib__Point__Point(v_0, v_1)
   ) = v_1.
-(* src: src/legacy/proverif-naming/lib.rs:74:0-79:1 new_tests__legacy__proverif_naming__lib__generated_names *)
+(* src: src/legacy/proverif-naming/lib.rs:75:0-80:1 new_tests__legacy__proverif_naming__lib__generated_names *)
 letfun new_tests__legacy__proverif_naming__lib__generated_names(
   hax__struct_base: bitstring,
   p: bitstring,
@@ -113,32 +131,5 @@ letfun new_tests__legacy__proverif_naming__lib__generated_names(
     hax__struct_base,
     new_tests__legacy__proverif_naming__lib__Point__Point__y(p)
   ) in
-  let w = ((let bl__seq0 = (core__slice__Impl__iter(
-    v
-  )) in let bl__acc0 = (rust_primitives__hax__array_nil()) in 
-  let rust_primitives__hax__array_cons(y, bl__seq1) = bl__seq0 in (let u__map_acc_1 = bl__acc0 in
-  let bl__acc1 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc_1,
-    rust_primitives__hax__array_cons(
-      rust_primitives__hax__machine_int__add(y, hax__struct_base),
-      rust_primitives__hax__array_nil()
-    )
-  )) in
-  let rust_primitives__hax__array_cons(y, bl__seq2) = bl__seq1 in (let u__map_acc_1 = bl__acc1 in
-  let bl__acc2 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc_1,
-    rust_primitives__hax__array_cons(
-      rust_primitives__hax__machine_int__add(y, hax__struct_base),
-      rust_primitives__hax__array_nil()
-    )
-  )) in
-  let rust_primitives__hax__array_cons(y, bl__seq3) = bl__seq2 in (let u__map_acc_1 = bl__acc2 in
-  let bl__acc3 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc_1,
-    rust_primitives__hax__array_cons(
-      rust_primitives__hax__machine_int__add(y, hax__struct_base),
-      rust_primitives__hax__array_nil()
-    )
-  )) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
+  let w = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
   rust_primitives__hax__Tuple2__Tuple2(q, w).

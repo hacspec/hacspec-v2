@@ -1,3 +1,4 @@
+//! @fail(extraction): proverif(HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! The ProVerif model evaluates operands, record fields and the operands of

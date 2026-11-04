@@ -1,4 +1,5 @@
 //! @fail(tc): legacy-lean(1), fstar(2)
+//! @fail(extraction): proverif(HAX0001)
 #![allow(unused_assignments, unused_variables)]
 
 #[rustfmt::skip]

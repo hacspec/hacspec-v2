@@ -8,9 +8,7 @@
 (* boundary. Only Rust constructors are declared `[data]`: any   *)
 (* other function may be one-way.                                *)
 (*****************************************************************)
-(* referenced by: new_tests__rustc_coverage__try_error_result__Impl_1__call, new_tests__rustc_coverage__try_error_result__test2 *)
+(* referenced by: new_tests__rustc_coverage__try_error_result__Impl_1__call *)
 const nat_57: bitstring.
-(* referenced by: new_tests__rustc_coverage__try_error_result__test2 *)
-const string_lit__call_x20should_x20fail: bitstring.
 (* referenced by: new_tests__rustc_coverage__try_error_result__main *)
 const string_lit__test1_x20should_x20fail: bitstring.

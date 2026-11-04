@@ -49,6 +49,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*                                                               *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - this assigns a value that assigns, or calls a function taking a `&mut` of, a variable of the assigned place, which the model may read before; bind the value with a `let` first *)
 (*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*****************************************************************)
@@ -148,15 +149,8 @@ letfun new_tests__legacy__side_effects__lib__local_mutation(x: bitstring) =
     let hoist4 = core__iter__traits__collect__IntoIterator__into_iter(
       core__ops__range__Range__Range(nat_0, nat_10)
     ) in
-    let y_4 = ((let bl__seq0 = (hoist4) in let bl__acc0 = (y_2) in 
-    let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let y_3 = bl__acc0 in
-    let bl__acc1 = (core__num__Impl_8__wrapping_add(x_2, i)) in
-    let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let y_3 = bl__acc1 in
-    let bl__acc2 = (core__num__Impl_8__wrapping_add(x_2, i)) in
-    let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let y_3 = bl__acc2 in
-    let bl__acc3 = (core__num__Impl_8__wrapping_add(x_2, i)) in
-    let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-    core__num__Impl_8__wrapping_add(x_2, y_4))
+    let y_3 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+    core__num__Impl_8__wrapping_add(x_2, y_3))
     else (let wildcard = (bitstring_err() (* HAX ERROR: this assigns a value that assigns, or calls a function taking a `&mut` of, a variable of the assigned place, which the model may read before; bind the value with a `let` first *)) in
     core__num__Impl_8__wrapping_add(x_1, nat_0)).
 (* src: src/legacy/side-effects/lib.rs:50:0-68:1 new_tests__legacy__side_effects__lib__early_returns *)

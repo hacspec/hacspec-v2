@@ -52,6 +52,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - use of the trait item `associated_function` that resolves to no impl of the crate (e.g. on a generic type) *)
 (*  - use of the trait item `to_t` that resolves to no impl of the crate (e.g. on a generic type) *)
 (*  - use of the trait item `bar` that resolves to no impl of the crate (e.g. on a generic type) *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - Closures not supported in ProVerif *)
 (*  - use of the trait item `assoc_f` that resolves to no impl of the crate (e.g. on a generic type) *)
 (*  - use of the trait item `method_f` that resolves to no impl of the crate (e.g. on a generic type) *)
@@ -235,23 +236,7 @@ letfun new_tests__legacy__traits__lib__Impl_2__method(x: bitstring) =
   bitstring_err() (* HAX ERROR: use of the trait item `bar` that resolves to no impl of the crate (e.g. on a generic type) *).
 (* src: src/legacy/traits/lib.rs:60:0-62:1 new_tests__legacy__traits__lib__closure_impl_expr *)
 letfun new_tests__legacy__traits__lib__closure_impl_expr(it: bitstring) =
-  (let bl__seq0 = (it) in let bl__acc0 = (rust_primitives__hax__array_nil()) in 
-  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let u__map_acc = bl__acc0 in
-  let bl__acc1 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc,
-    rust_primitives__hax__array_cons(x, rust_primitives__hax__array_nil())
-  )) in
-  let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let u__map_acc = bl__acc1 in
-  let bl__acc2 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc,
-    rust_primitives__hax__array_cons(x, rust_primitives__hax__array_nil())
-  )) in
-  let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let u__map_acc = bl__acc2 in
-  let bl__acc3 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc,
-    rust_primitives__hax__array_cons(x, rust_primitives__hax__array_nil())
-  )) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *))).
+  bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *).
 (* src: src/legacy/traits/lib.rs:65:0-67:1 new_tests__legacy__traits__lib__closure_impl_expr_fngen *)
 (*  @fail(extraction): legacy-lean(HAX0001) *)
 letfun new_tests__legacy__traits__lib__closure_impl_expr_fngen(it: bitstring, f: bitstring) =

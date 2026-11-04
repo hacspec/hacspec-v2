@@ -48,15 +48,18 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
 (*  - Let-chains (e.g. `if let .. && let ..`) are not supported. *)
+(*  - the body of this loop may be observable, but the model runs a bounded number of iterations, and none over an iterator that is not a list; move the observable calls out of the loop *)
+(*  - the body of this loop may be observable, but the model runs a bounded number of iterations, and none over an iterator that is not a list; move the observable calls out of the loop *)
+(*  - the body of this loop may be observable, but the model runs a bounded number of iterations, and none over an iterator that is not a list; move the observable calls out of the loop *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/rustc-coverage/branch/if-let.rs:39:0-41:1 new_tests__rustc_coverage__branch__if_let__say *)
+(* src: src/rustc-coverage/branch/if-let.rs:40:0-42:1 new_tests__rustc_coverage__branch__if_let__say *)
 letfun new_tests__rustc_coverage__branch__if_let__say(message: bitstring) =
   let wildcard = core__hint__black_box(message) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/branch/if-let.rs:13:0-22:1 new_tests__rustc_coverage__branch__if_let__if_let *)
+(* src: src/rustc-coverage/branch/if-let.rs:14:0-23:1 new_tests__rustc_coverage__branch__if_let__if_let *)
 letfun new_tests__rustc_coverage__branch__if_let__if_let(input: bitstring) =
   let wildcard = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
     core__ops__range__Range__Range(nat_0, nat_1)
@@ -72,65 +75,20 @@ letfun new_tests__rustc_coverage__branch__if_let__if_let(input: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0) in
   let wildcard_5 = new_tests__rustc_coverage__branch__if_let__say(string_lit__done) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/branch/if-let.rs:26:0-36:1 new_tests__rustc_coverage__branch__if_let__if_let_chain *)
+(* src: src/rustc-coverage/branch/if-let.rs:27:0-37:1 new_tests__rustc_coverage__branch__if_let__if_let_chain *)
 (*  @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001, HAX0001), legacy-lean(HAX0001, HAX0001), fstar(HAX0001, HAX0001) *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__rustc_coverage__branch__if_let__if_let_chain(a: bitstring, b: bitstring) =
   let wildcard = (bitstring_err() (* HAX ERROR: Let-chains (e.g. `if let .. && let ..`) are not supported. *)) in
   let wildcard_4 = new_tests__rustc_coverage__branch__if_let__say(string_lit__done) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/branch/if-let.rs:44:0-59:1 new_tests__rustc_coverage__branch__if_let__main *)
+(* src: src/rustc-coverage/branch/if-let.rs:45:0-60:1 new_tests__rustc_coverage__branch__if_let__main *)
 letfun new_tests__rustc_coverage__branch__if_let__main(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__branch__if_let__if_let(Some(string_lit__x)) in
   let wildcard_2 = new_tests__rustc_coverage__branch__if_let__if_let(Some(string_lit__x)) in
   let wildcard_3 = new_tests__rustc_coverage__branch__if_let__if_let(None()) in
-  let wildcard_4 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_8)
-  )) in 
-  let rust_primitives__hax__array_cons(wildcard_5, bl__seq1) = bl__seq0 in (let bl__unit0 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    Some(string_lit__a),
-    Some(string_lit__b)
-  )) in
-  let rust_primitives__hax__array_cons(wildcard_5, bl__seq2) = bl__seq1 in (let bl__unit1 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    Some(string_lit__a),
-    Some(string_lit__b)
-  )) in
-  let rust_primitives__hax__array_cons(wildcard_5, bl__seq3) = bl__seq2 in (let bl__unit2 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    Some(string_lit__a),
-    Some(string_lit__b)
-  )) in
-  rust_primitives__hax__Tuple0__Tuple0 (* more than LOOP_BOUND elements *)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0))) in
-  let wildcard_6 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_4)
-  )) in 
-  let rust_primitives__hax__array_cons(wildcard_7, bl__seq1) = bl__seq0 in (let bl__unit0 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    Some(string_lit__a),
-    None()
-  )) in
-  let rust_primitives__hax__array_cons(wildcard_7, bl__seq2) = bl__seq1 in (let bl__unit1 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    Some(string_lit__a),
-    None()
-  )) in
-  let rust_primitives__hax__array_cons(wildcard_7, bl__seq3) = bl__seq2 in (let bl__unit2 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    Some(string_lit__a),
-    None()
-  )) in
-  rust_primitives__hax__Tuple0__Tuple0 (* more than LOOP_BOUND elements *)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0))) in
-  let wildcard_8 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_2)
-  )) in 
-  let rust_primitives__hax__array_cons(wildcard_9, bl__seq1) = bl__seq0 in (let bl__unit0 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    None(),
-    Some(string_lit__b)
-  )) in
-  let rust_primitives__hax__array_cons(wildcard_9, bl__seq2) = bl__seq1 in (let bl__unit1 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    None(),
-    Some(string_lit__b)
-  )) in
-  let rust_primitives__hax__array_cons(wildcard_9, bl__seq3) = bl__seq2 in (let bl__unit2 = (new_tests__rustc_coverage__branch__if_let__if_let_chain(
-    None(),
-    Some(string_lit__b)
-  )) in
-  rust_primitives__hax__Tuple0__Tuple0 (* more than LOOP_BOUND elements *)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0))) in
-  let wildcard_10 = new_tests__rustc_coverage__branch__if_let__if_let_chain(None(), None()) in
+  let wildcard_4 = (bitstring_err() (* HAX ERROR: the body of this loop may be observable, but the model runs a bounded number of iterations, and none over an iterator that is not a list; move the observable calls out of the loop *)) in
+  let wildcard_5 = (bitstring_err() (* HAX ERROR: the body of this loop may be observable, but the model runs a bounded number of iterations, and none over an iterator that is not a list; move the observable calls out of the loop *)) in
+  let wildcard_6 = (bitstring_err() (* HAX ERROR: the body of this loop may be observable, but the model runs a bounded number of iterations, and none over an iterator that is not a list; move the observable calls out of the loop *)) in
+  let wildcard_7 = new_tests__rustc_coverage__branch__if_let__if_let_chain(None(), None()) in
   rust_primitives__hax__Tuple0__Tuple0.

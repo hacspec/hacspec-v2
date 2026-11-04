@@ -74,6 +74,10 @@ In every function, the backend keeps the Rust evaluation order of arguments, rec
 
 Rust calls some impls of the crate implicitly, where the model does not call them. The backend rejects an impl of `Deref`, `DerefMut`, `Index`, `IndexMut`, `Iterator`, `IntoIterator`, `FromIterator`, `Extend`, `Sum`, `Product`, `Default`, `Debug`, `Display`, `Drop`, `Hasher` or `BuildHasher` that calls a hand-written model; any hand-written (not derived) impl of `Clone`, `PartialEq`, `Eq`, `PartialOrd`, `Ord` or `Hash`, which the model replaces with a structural one in derived impls and library types; a call of a library function (of hax's libraries, or of `hex`, `rand` and `rand_core`, which `primitives.pvl` models) given an impl of the crate that calls a hand-written model, such as `try_into` or `parse`, or a bound of a generic function whose trait has such an impl (`From` and `Into` are resolved to the impls of the crate); and iterating over an iterator of the crate, which the model does not walk. `#[hax_lib::pv_unchecked_results]` does not exempt from these checks.
 
+## Loops
+
+ProVerif has no loops. The backend unrolls a `for` loop over a list three times, and the later iterations do not run; over an iterator that is not a list, such as a range with a variable bound or an adapter like `enumerate`, no iteration runs. The values of the variables the loop updates are then terms that match no pattern and equal no value, and the events and table inserts of its body are lost. The backend therefore rejects a `for` loop that updates a variable, including the loops that `map(..).collect()` and similar adapters become, and a loop whose body may be observable, calling a hand-written model. Such code needs a hand-written model, such as a `replace_body` on the function holding the loop.
+
 ## Writing the model
 
 Two things are written by hand: abstract models for the functions whose Rust code should not be extracted, and the analysis file.

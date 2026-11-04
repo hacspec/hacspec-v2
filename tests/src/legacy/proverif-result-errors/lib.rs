@@ -1,4 +1,4 @@
-//! @fail(extraction): proverif(HAX0001)
+//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //! @cli: into proverif --result-errors --keep-trait-calls **::Kept::**
 //!

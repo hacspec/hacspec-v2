@@ -48,7 +48,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
 (*  - use of a const generic parameter as a value *)
-(*  - use of a const generic parameter as a value *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - use of a const generic parameter as a value *)
 (*  - use of a const generic parameter as a value *)
 (*  - use of a const generic parameter as a value *)
@@ -99,29 +99,8 @@ letfun new_tests__legacy__generics__lib__foo(arr: bitstring) =
     bitstring_err() (* HAX ERROR: use of a const generic parameter as a value *),
     nat_9
   ) in
-  let acc_2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(
-      nat_0,
-      bitstring_err() (* HAX ERROR: use of a const generic parameter as a value *)
-    )
-  )) in let bl__acc0 = (acc) in 
-  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let acc_1 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__add(
-    acc_1,
-    core__ops__index__Index__index(arr, i)
-  )) in
-  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let acc_1 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__add(
-    acc_1,
-    core__ops__index__Index__index(arr, i)
-  )) in
-  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let acc_1 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__add(
-    acc_1,
-    core__ops__index__Index__index(arr, i)
-  )) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  acc_2.
+  let acc_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  acc_1.
 (* src: src/legacy/generics/lib.rs:18:0-20:1 new_tests__legacy__generics__lib__repeat *)
 letfun new_tests__legacy__generics__lib__repeat(x: bitstring) =
   rust_primitives__hax__repeat(

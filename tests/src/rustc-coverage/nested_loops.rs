@@ -1,4 +1,4 @@
-//! @fail(extraction): proverif(HAX0001)
+//! @fail(extraction): proverif(HAX0001, HAX0001)
 //! @fail(tc): fstar(2), legacy-lean(1)
 /// @fail(extraction): ssprove(HAX0001, HAX0001, HAX0001), coq(HAX0001, HAX0001, HAX0001, HAX0001)
 

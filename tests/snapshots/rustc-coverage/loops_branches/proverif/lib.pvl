@@ -48,26 +48,14 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
 (*  - Loops not supported in ProVerif *)
-(*  - Loops containing `return` not supported in ProVerif *)
-(*  - Loops containing `return` not supported in ProVerif *)
-(*  - Loops containing `return` not supported in ProVerif *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - Loops not supported in ProVerif *)
-(*  - Loops containing `return` not supported in ProVerif *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
-
-(*****************************************************************)
-(*  WARNINGS — branches the model may not follow as Rust does.   *)
-(*                                                               *)
-(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
-(*  the model cannot always evaluate. When it cannot, no arm of  *)
-(*  a `match` is taken (the trace ends) and an `if` takes its    *)
-(*  `else` branch, whatever Rust does. A query about the other   *)
-(*  branch may then hold for lack of any trace.                  *)
-(*                                                               *)
-(*  - 4 × branch on a result of `core__fmt__Impl_11__write_fmt`, which the model does not define *)
-(*****************************************************************)
 
 (* src: src/rustc-coverage/loops_branches.rs:8:0-8:17 new_tests__rustc_coverage__loops_branches__DebugTest *)
 fun new_tests__rustc_coverage__loops_branches__DebugTest__DebugTest(): bitstring [data].
@@ -86,17 +74,15 @@ letfun new_tests__rustc_coverage__loops_branches__Impl__fmt(self: bitstring, f: 
       core__fmt__rt__Impl_1__new_const(
         rust_primitives__hax__array_cons(string_lit__cool, rust_primitives__hax__array_nil())
       )
-    ) in ((* HAX WARNING: branch on a result of `core__fmt__Impl_11__write_fmt`, which the model does not define *)
-    let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
+    ) in (let hax__scrut0 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
     let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
-    else let core__ops__control_flow__ControlFlow__Continue(f_5: bitstring) = hax__scrut0 in
-      rust_primitives__hax__Tuple2__Tuple2(f_5, rust_primitives__hax__Tuple0__Tuple0())
+    else let core__ops__control_flow__ControlFlow__Continue(f_2: bitstring) = hax__scrut0 in
+      rust_primitives__hax__Tuple2__Tuple2(f_2, rust_primitives__hax__Tuple0__Tuple0())
     else bitstring_err()) else bitstring_err())
-    else ((* HAX WARNING: branch on a result of `core__fmt__Impl_11__write_fmt`, which the model does not define *)
-    let hax__scrut1 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
+    else (let hax__scrut1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
     let core__ops__control_flow__ControlFlow__Break(ret_1: bitstring) = hax__scrut1 in ret_1
-    else let core__ops__control_flow__ControlFlow__Continue(f_9: bitstring) = hax__scrut1 in
-      rust_primitives__hax__Tuple2__Tuple2(f_9, rust_primitives__hax__Tuple0__Tuple0())
+    else let core__ops__control_flow__ControlFlow__Continue(f_3: bitstring) = hax__scrut1 in
+      rust_primitives__hax__Tuple2__Tuple2(f_3, rust_primitives__hax__Tuple0__Tuple0())
     else bitstring_err()).
 (* src: src/rustc-coverage/loops_branches.rs:34:0-34:19 new_tests__rustc_coverage__loops_branches__DisplayTest *)
 fun new_tests__rustc_coverage__loops_branches__DisplayTest__DisplayTest(): bitstring [data].
@@ -104,28 +90,26 @@ fun new_tests__rustc_coverage__loops_branches__DisplayTest__DisplayTest(): bitst
 (* src: src/rustc-coverage/loops_branches.rs:38:4-56:5 new_tests__rustc_coverage__loops_branches__Impl_1__fmt *)
 letfun new_tests__rustc_coverage__loops_branches__Impl_1__fmt(self: bitstring, f: bitstring) =
   let (=True()) = False()
-    in ((* HAX WARNING: branch on a result of `core__fmt__Impl_11__write_fmt`, which the model does not define *)
-    let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
+    in (let hax__scrut0 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
     let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
-    else let core__ops__control_flow__ControlFlow__Continue(f_4: bitstring) = hax__scrut0 in
-      rust_primitives__hax__Tuple2__Tuple2(f_4, rust_primitives__hax__Tuple0__Tuple0())
+    else let core__ops__control_flow__ControlFlow__Continue(f_1: bitstring) = hax__scrut0 in
+      rust_primitives__hax__Tuple2__Tuple2(f_1, rust_primitives__hax__Tuple0__Tuple0())
     else bitstring_err())
-    else (let wildcard_1 = (let (=True()) = False()
+    else (let wildcard = (let (=True()) = False()
       in (bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *))
       else rust_primitives__hax__Tuple0__Tuple0) in
     let rust_primitives__hax__Tuple2__Tuple2(
-      tmp0_2: bitstring,
-      out_kw_2: bitstring
+      tmp0: bitstring,
+      out_kw: bitstring
     ) = core__fmt__Impl_11__write_fmt(
       f,
       core__fmt__rt__Impl_1__new_const(
         rust_primitives__hax__array_cons(string_lit__cool, rust_primitives__hax__array_nil())
       )
-    ) in ((* HAX WARNING: branch on a result of `core__fmt__Impl_11__write_fmt`, which the model does not define *)
-    let hax__scrut1 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
+    ) in (let hax__scrut1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
     let core__ops__control_flow__ControlFlow__Break(ret_1: bitstring) = hax__scrut1 in ret_1
-    else let core__ops__control_flow__ControlFlow__Continue(f_9: bitstring) = hax__scrut1 in
-      rust_primitives__hax__Tuple2__Tuple2(f_9, rust_primitives__hax__Tuple0__Tuple0())
+    else let core__ops__control_flow__ControlFlow__Continue(f_3: bitstring) = hax__scrut1 in
+      rust_primitives__hax__Tuple2__Tuple2(f_3, rust_primitives__hax__Tuple0__Tuple0())
     else bitstring_err()) else bitstring_err()).
 (* src: src/rustc-coverage/loops_branches.rs:60:0-65:1 new_tests__rustc_coverage__loops_branches__main *)
 (*  @fail(extraction): ssprove(HAX0001) *)

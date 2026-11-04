@@ -1,4 +1,5 @@
 //! @fail(tc): legacy-lean(1), fstar(2)
+//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
 #![feature(coverage_attribute, let_chains)]
 //@ edition: 2021
 //@ compile-flags: -Zcoverage-options=branch

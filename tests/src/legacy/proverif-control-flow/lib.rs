@@ -1,5 +1,5 @@
+//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //!
 //! Control flow ProVerif has no direct form for: early returns, `while` and
 //! `loop`, `break` and `continue` in a `for`, nested loops, `let … else` and

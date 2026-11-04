@@ -22,14 +22,10 @@ fun core__ops__bit__BitXor__bitxor(bitstring, bitstring): bitstring.
 const float_lit__1_x2e0: bitstring.
 (* referenced by: new_tests__legacy__lean_tests__lib__loops__while_loop1 *)
 fun hax_lib__u_internal_loop_decreases(bitstring): bitstring.
-(* referenced by: new_tests__legacy__lean_tests__lib__loops__for_loop_with_spec *)
-fun hax_lib__u_internal_loop_invariant(bitstring): bitstring.
 (* referenced by: new_tests__legacy__lean_tests__lib__casts__casting_edge_cases *)
 const nat_128: bitstring.
 (* referenced by: new_tests__legacy__lean_tests__lib__monadic__test *)
 const nat_19: bitstring.
-(* referenced by: new_tests__legacy__lean_tests__lib__loops__for_loop_with_spec *)
-const nat_200: bitstring.
 (* referenced by: new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_1__f *)
 const nat_21: bitstring.
 (* referenced by: new_tests__legacy__lean_tests__lib__traits__associated_types__Impl__f *)
