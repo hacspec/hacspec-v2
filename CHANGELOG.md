@@ -54,6 +54,8 @@ ProVerif backend and library:
    from its `Err`
  - Add `#[hax_lib::pv_unchecked_results]`, which exempts a function from
    these checks
+ - Keep the Rust evaluation order of arguments, record fields and the
+   operands of `&&` and `||`
  - `#[pv_inverse_of(f)]` on `g` makes `g` match its argument against `f`,
    without a `reduc`, and accepts methods
 

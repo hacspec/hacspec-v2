@@ -2308,6 +2308,7 @@ impl Backend for ProVerifBackend {
                 TransformHaxLibInline.into(),
                 Specialize.into(),
                 SimplifyQuestionMarks.into(),
+                ProverifSequenceOperands,
                 // Checks the uses of `Result` on code close to the source.
                 result_check,
                 AndMutDefsite.into(),

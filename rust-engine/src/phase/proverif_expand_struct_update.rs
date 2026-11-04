@@ -107,12 +107,20 @@ impl AstVisitorMut for ExpandStructUpdateVisitor {
         else {
             return;
         };
-        // A positional constructor with no base is already in declaration order.
-        if base.is_none() && !*is_record {
+        let tuple = tuple_info(*constructor, &expr.ty);
+        let info = self.structs.get(constructor).or(tuple.as_ref());
+        // A positional constructor with no base is in declaration order, unless
+        // its fields are named out of order, as in `S { 1: a, 0: b }`.
+        let in_order = info.is_none_or(|info| {
+            fields
+                .iter()
+                .zip(&info.fields)
+                .all(|((f, _), (g, _))| f == g)
+        });
+        if base.is_none() && !*is_record && in_order {
             return;
         }
-        let tuple = tuple_info(*constructor, &expr.ty);
-        let Some(info) = self.structs.get(constructor).or(tuple.as_ref()) else {
+        let Some(info) = info else {
             // `Range`'s declaration order, as `primitives.pvl` declares it.
             if *constructor == Range::Constructor && base.is_none() {
                 fields.sort_by_key(|(field, _)| *field != Range::start);

@@ -161,12 +161,16 @@ letfun new_tests__legacy__mut_ref_functionalization__lib__test_append(wildcard: 
       rust_primitives__hax__array_cons(nat_1, rust_primitives__hax__array_cons(nat_2, rust_primitives__hax__array_cons(nat_3, rust_primitives__hax__array_nil())))
     )
   ) in (let wildcard_1 = rust_primitives__hax__Tuple0__Tuple0 in
-  alloc__vec__Impl_1__append(
+  let rust_primitives__hax__Tuple2__Tuple2(
+    tmp0_1: bitstring,
+    wildcard_2: bitstring
+  ) = alloc__vec__Impl_1__append(
     tmp0,
     new_tests__legacy__mut_ref_functionalization__lib__build_vec(
       rust_primitives__hax__Tuple0__Tuple0
     )
-  )) else bitstring_err().
+  ) in (let wildcard_3 = rust_primitives__hax__Tuple0__Tuple0 in
+  tmp0_1) else bitstring_err()) else bitstring_err().
 (* src: src/legacy/mut-ref-functionalization/lib.rs:47:0-58:1 new_tests__legacy__mut_ref_functionalization__lib__f *)
 letfun new_tests__legacy__mut_ref_functionalization__lib__f(wildcard: bitstring) =
   alloc__slice__Impl__to_vec(
@@ -328,6 +332,9 @@ letfun new_tests__legacy__mut_ref_functionalization__lib__k(
   arg_3_wild2: bitstring
 ) =
   let arg_1_wild2 = core__ops__index__Index__index(vec, nat_1) in
+  let arg_3_wild = core__ops__index__Index__index(vec, nat_2) in
+  let arg_1_wild1 = core__ops__index__Index__index(vec, nat_3) in
+  let arg_3_wild1 = core__ops__index__Index__index(vec, nat_4) in
   rust_primitives__hax__Tuple4__Tuple4(
     alloc__slice__Impl__to_vec(
       rust_primitives__hax__monomorphized_update_at__update_at_usize(
@@ -336,13 +343,10 @@ letfun new_tests__legacy__mut_ref_functionalization__lib__k(
         rust_primitives__hax__machine_int__add(
           rust_primitives__hax__machine_int__add(
             rust_primitives__hax__machine_int__add(
-              rust_primitives__hax__machine_int__add(
-                arg_1_wild,
-                core__ops__index__Index__index(vec, nat_2)
-              ),
-              core__ops__index__Index__index(vec, nat_3)
+              rust_primitives__hax__machine_int__add(arg_1_wild, arg_3_wild),
+              arg_1_wild1
             ),
-            core__ops__index__Index__index(vec, nat_4)
+            arg_3_wild1
           ),
           arg_1_wild
         )

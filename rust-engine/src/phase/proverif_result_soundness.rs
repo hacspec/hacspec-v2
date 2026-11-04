@@ -143,7 +143,7 @@ fn lib_call(g: &GlobalId, args: &[Expr], ty: &Ty, types: &ResultTypes) -> Option
 
 /// The crates whose functions hax's libraries model, with no event and no
 /// table.
-const LIBRARY_CRATES: &[&str] = &["alloc", "core", "hax_lib", "rust_primitives", "std"];
+pub(crate) const LIBRARY_CRATES: &[&str] = &["alloc", "core", "hax_lib", "rust_primitives", "std"];
 
 /// Whether the model extracts the function with these `meta` and `body`.
 fn is_extracted(meta: &Metadata, body: &Expr) -> bool {
@@ -295,7 +295,12 @@ fn is_result(ty: &Ty) -> bool {
 }
 
 /// A diagnostic of the rejection of `node`, in the phase `context`.
-fn diagnostic(node: impl Into<Fragment>, span: Span, context: &str, details: String) -> Diagnostic {
+pub(crate) fn diagnostic(
+    node: impl Into<Fragment>,
+    span: Span,
+    context: &str,
+    details: String,
+) -> Diagnostic {
     let info = DiagnosticInfo {
         context: Context::Phase(context.into()),
         span,
@@ -309,7 +314,7 @@ fn diagnostic(node: impl Into<Fragment>, span: Span, context: &str, details: Str
 
 /// Replaces `e` by an error node reporting `diagnostics`, and those of the
 /// error nodes inside `e`, which it hides.
-fn replace_by_error(e: &mut Expr, mut diagnostics: Vec<Diagnostic>) {
+pub(crate) fn replace_by_error(e: &mut Expr, mut diagnostics: Vec<Diagnostic>) {
     struct Finder(Vec<Diagnostic>);
     impl AstVisitor for Finder {
         fn enter_expr_kind(&mut self, kind: &ExprKind) {
@@ -432,7 +437,7 @@ fn diverges_with_err(e: &Expr) -> bool {
 
 /// Whether `e` holds a `return`, a `break`, a `continue` or an assignment,
 /// outside a closure.
-fn leaves(e: &Expr) -> bool {
+pub(crate) fn leaves(e: &Expr) -> bool {
     struct Finder(bool);
     impl AstVisitor for Finder {
         fn visit_expr(&mut self, e: &Expr) {

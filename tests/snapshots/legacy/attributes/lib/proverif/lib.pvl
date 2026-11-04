@@ -590,15 +590,13 @@ letfun new_tests__legacy__attributes__lib__verifcation_status__another_panicfree
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/attributes/lib.rs:592:4-596:5 new_tests__legacy__attributes__lib__props__f *)
 letfun new_tests__legacy__attributes__lib__props__f(x: bitstring, y: bitstring) =
+  let xprop = hax_lib__prop__constructors__from_bool(y) in
   hax_lib__prop__constructors__not_kw(
     hax_lib__prop__constructors__implies(
       hax_lib__prop__constructors__or_kw(
         hax_lib__prop__constructors__and(
           hax_lib__prop__constructors__and(
-            hax_lib__prop__constructors__and(
-              hax_lib__prop__constructors__from_bool(y),
-              hax_lib__prop__constructors__from_bool(y)
-            ),
+            hax_lib__prop__constructors__and(hax_lib__prop__constructors__from_bool(y), xprop),
             hax_lib__prop__constructors__from_bool(y)
           ),
           hax_lib__prop__constructors__from_bool(y)

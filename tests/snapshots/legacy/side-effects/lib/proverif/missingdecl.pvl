@@ -14,7 +14,7 @@ fun core__num__Impl_6__wrapping_add(bitstring, bitstring): bitstring.
 fun core__num__Impl_8__wrapping_add(bitstring, bitstring): bitstring.
 (* referenced by: new_tests__legacy__side_effects__lib__local_mutation *)
 fun core__num__Impl_8__wrapping_sub(bitstring, bitstring): bitstring.
-(* referenced by: new_tests__legacy__side_effects__lib__early_returns, new_tests__legacy__side_effects__lib__local_mutation, new_tests__legacy__side_effects__lib__monad_lifting *)
+(* referenced by: new_tests__legacy__side_effects__lib__early_returns, new_tests__legacy__side_effects__lib__monad_lifting *)
 const nat_123: bitstring.
 (* referenced by: new_tests__legacy__side_effects__lib__simplifiable_question_mark *)
 const nat_20: bitstring.

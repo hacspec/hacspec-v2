@@ -809,7 +809,7 @@ fn option_map_kept(o: Option<u8>) -> Option<Result<u8, Error>> {
 // A function value applied on an `Err` path, a checked caller of an
 // unchecked function, and a conversion of a `Result` by an impl.
 
-/// @fail(extraction): proverif(HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn err_arm_fn_value(r: Result<u8, Error>, o: Option<u8>) -> Result<u8, Error> {
     let f: fn(u8) -> u8 = record;
     match r {
@@ -973,7 +973,7 @@ fn checked_failure() -> Result<u8, u8> {
     Err(0)
 }
 
-/// @fail(extraction): proverif(HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn observable_expect_arg() -> u8 {
     checked_failure().expect({
         record(2);

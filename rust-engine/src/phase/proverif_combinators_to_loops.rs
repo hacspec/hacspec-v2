@@ -356,10 +356,17 @@ impl AstVisitorMut for ProverifCombinatorsToLoopsVisitor {
             None
         };
         let ty = expr.ty.clone();
-        let Some(new_kind) = rewrite(*head, args, result_ty.as_ref().unwrap_or(&ty), span) else {
+        // The iterator appears twice in the result, so a computed one is bound
+        // first, to be evaluated once.
+        let mut args = args.clone();
+        let bound = (result_ty.is_some() && !args[0].is_leaf()).then(|| {
+            let (pat, var) = local("hax__iter", &args[0].ty, span);
+            (pat, std::mem::replace(&mut args[0], var))
+        });
+        let Some(new_kind) = rewrite(*head, &args, result_ty.as_ref().unwrap_or(&ty), span) else {
             return;
         };
-        *expr = match result_ty {
+        let result = match result_ty {
             Some(result_ty) => Expr::tuple(
                 vec![
                     advanced_iterator(args[0].clone()),
@@ -368,6 +375,18 @@ impl AstVisitorMut for ProverifCombinatorsToLoopsVisitor {
                 span,
             ),
             None => new_kind.promote(ty, span),
+        };
+        *expr = match bound {
+            Some((lhs, rhs)) => {
+                let ty = result.ty.clone();
+                ExprKind::Let {
+                    lhs,
+                    rhs,
+                    body: result,
+                }
+                .promote(ty, span)
+            }
+            None => result,
         };
     }
 }
