@@ -57,7 +57,8 @@ query attacker(hax_extraction_error__new_tests).
 (* src: src/rustc-coverage/issue-93054.rs:9:0-9:13 new_tests__rustc_coverage__issue_93054__Never_cast_to_repr *)
 letfun new_tests__rustc_coverage__issue_93054__Never_cast_to_repr(x: bitstring) = bitstring_err().
 (* src: src/rustc-coverage/issue-93054.rs:17:4-19:5 new_tests__rustc_coverage__issue_93054__Impl__bar *)
-letfun new_tests__rustc_coverage__issue_93054__Impl__bar(self: bitstring) = bitstring_err().
+letfun new_tests__rustc_coverage__issue_93054__Impl__bar(self: bitstring) =
+  (let hax__never = (bitstring_err()) in bitstring_err()).
 (* src: src/rustc-coverage/issue-93054.rs:24:0-26:1 new_tests__rustc_coverage__issue_93054__foo2 *)
 (*  @fail(extraction): fstar(HAX0001), ssprove(HAX0001), legacy-lean(HAX0001), coq(HAX0001) *)
 (*  @fail(extraction): proverif(HAX0001) *)
@@ -67,8 +68,13 @@ letfun new_tests__rustc_coverage__issue_93054__foo2(never: bitstring) =
 letfun new_tests__rustc_coverage__issue_93054__make(wildcard: bitstring) = None().
 (* src: src/rustc-coverage/issue-93054.rs:12:4-15:5 new_tests__rustc_coverage__issue_93054__Impl__foo *)
 letfun new_tests__rustc_coverage__issue_93054__Impl__foo(self: bitstring) =
-  let wildcard = bitstring_err() in
-  bitstring_err().
+  let wildcard = (let hax__never = (bitstring_err()) in bitstring_err()) in
+  (let hax__never = (let hax__scrut0 = new_tests__rustc_coverage__issue_93054__make(
+    rust_primitives__hax__Tuple0__Tuple0
+  ) in
+  let Some(never) = hax__scrut0 in Some(bitstring_err())
+  else let None() = hax__scrut0 in None()
+  else bitstring_err()) in bitstring_err()).
 (* src: src/rustc-coverage/issue-93054.rs:32:0-32:12 new_tests__rustc_coverage__issue_93054__main *)
 letfun new_tests__rustc_coverage__issue_93054__main(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.

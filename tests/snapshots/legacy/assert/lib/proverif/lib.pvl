@@ -37,11 +37,19 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (* src: src/legacy/assert/lib.rs:3:0-10:1 new_tests__legacy__assert__lib__asserts *)
 letfun new_tests__legacy__assert__lib__asserts(wildcard: bitstring) =
   let wildcard_1 = (let hax__cond0 = core__ops__bit__Not__not_kw(True()) in
-  let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0) in
+  let (=True()) = hax__cond0
+    in (let hax__never = (core__panicking__panic(
+      string_lit__assertion_x20failed_x3a_x20true
+    )) in bitstring_err())
+    else rust_primitives__hax__Tuple0__Tuple0) in
   let wildcard_2 = (let hax__cond1 = core__ops__bit__Not__not_kw(
     rust_primitives__hax__machine_int__eq(nat_1, nat_1)
   ) in
-  let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0) in
+  let (=True()) = hax__cond1
+    in (let hax__never = (core__panicking__panic(
+      string_lit__assertion_x20failed_x3a_x20_x7b_x20assert_x21_x28true_x29_x3b_x201_x20_x3d_x3d_x201_x20_x7d
+    )) in bitstring_err())
+    else rust_primitives__hax__Tuple0__Tuple0) in
   let wildcard_3 = (let hax__scrut2 = rust_primitives__hax__Tuple2__Tuple2(nat_2, nat_2) in
   let rust_primitives__hax__Tuple2__Tuple2(
     left_val: bitstring,
@@ -50,7 +58,14 @@ letfun new_tests__legacy__assert__lib__asserts(wildcard: bitstring) =
     (let hax__cond3 = core__ops__bit__Not__not_kw(
       rust_primitives__hax__machine_int__eq(left_val, right_val)
     ) in
-    let (=True()) = hax__cond3 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond3
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val,
+        right_val,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_4 = (let hax__scrut4 = rust_primitives__hax__Tuple2__Tuple2(nat_1, nat_2) in
   let rust_primitives__hax__Tuple2__Tuple2(
@@ -58,6 +73,13 @@ letfun new_tests__legacy__assert__lib__asserts(wildcard: bitstring) =
     right_val_1: bitstring
   ) = hax__scrut4 in
     (let hax__cond5 = rust_primitives__hax__machine_int__eq(left_val_1, right_val_1) in
-    let (=True()) = hax__cond5 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond5
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_1,
+        right_val_1,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.

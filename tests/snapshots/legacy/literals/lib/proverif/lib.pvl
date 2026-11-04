@@ -132,7 +132,12 @@ letfun new_tests__legacy__literals__lib__math_integers(x: bitstring) =
     rust_primitives__hax__int__add(x, rust_primitives__hax__int__mul(x, x))
   ).
 (* src: src/legacy/literals/lib.rs:41:0-43:1 new_tests__legacy__literals__lib__panic_with_msg *)
-letfun new_tests__legacy__literals__lib__panic_with_msg(wildcard: bitstring) = bitstring_err().
+letfun new_tests__legacy__literals__lib__panic_with_msg(wildcard: bitstring) =
+  (let hax__never = (core__panicking__panic_fmt(
+    core__fmt__rt__Impl_1__new_const(
+      rust_primitives__hax__array_cons(string_lit__with_x20msg, rust_primitives__hax__array_nil())
+    )
+  )) in bitstring_err()).
 (* src: src/legacy/literals/lib.rs:46:0-48:1 new_tests__legacy__literals__lib__Foo *)
 fun new_tests__legacy__literals__lib__Foo__Foo(bitstring): bitstring [data].
 reduc forall v_0: bitstring;

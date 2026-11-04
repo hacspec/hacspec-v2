@@ -112,7 +112,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__ops__bit__Not__not_kw(core__cmp__PartialEq__eq(left_val, right_val)) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val,
+        right_val,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let baz = new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_0) in
   let wildcard_2 = (let hax__scrut2 = rust_primitives__hax__Tuple2__Tuple2(
@@ -124,7 +131,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_1: bitstring
   ) = hax__scrut2 in
     (let hax__cond3 = core__cmp__PartialEq__eq(left_val_1, right_val_1) in
-    let (=True()) = hax__cond3 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond3
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_1,
+        right_val_1,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_3 = std__io__stdio__u_print(
     core__fmt__rt__Impl_1__new_v1(
@@ -168,7 +182,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     (let hax__cond5 = core__ops__bit__Not__not_kw(
       core__cmp__PartialEq__eq(left_val_2, right_val_2)
     ) in
-    let (=True()) = hax__cond5 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond5
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val_2,
+        right_val_2,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_10 = (let hax__scrut6 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_0),
@@ -179,7 +200,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_3: bitstring
   ) = hax__scrut6 in
     (let hax__cond7 = core__cmp__PartialEq__eq(left_val_3, right_val_3) in
-    let (=True()) = hax__cond7 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond7
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_3,
+        right_val_3,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_11 = (let hax__scrut8 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_2),
@@ -192,7 +220,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     (let hax__cond9 = core__ops__bit__Not__not_kw(
       core__cmp__PartialEq__eq(left_val_4, right_val_4)
     ) in
-    let (=True()) = hax__cond9 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond9
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val_4,
+        right_val_4,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let bar_1 = new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_0) in
   let wildcard_12 = (let hax__scrut10 = rust_primitives__hax__Tuple2__Tuple2(
@@ -204,7 +239,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_5: bitstring
   ) = hax__scrut10 in
     (let hax__cond11 = core__cmp__PartialEq__eq(left_val_5, right_val_5) in
-    let (=True()) = hax__cond11 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond11
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_5,
+        right_val_5,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_13 = (let hax__scrut12 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_0),
@@ -215,7 +257,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_6: bitstring
   ) = hax__scrut12 in
     (let hax__cond13 = core__cmp__PartialEq__eq(left_val_6, right_val_6) in
-    let (=True()) = hax__cond13 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond13
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_6,
+        right_val_6,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_14 = (let hax__scrut14 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_3),
@@ -228,7 +277,16 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     (let hax__cond15 = core__ops__bit__Not__not_kw(
       core__cmp__PartialEq__eq(left_val_7, right_val_7)
     ) in
-    let (=True()) = hax__cond15 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond15
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val_7,
+        right_val_7,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__with_x20a_x20message, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_15 = std__io__stdio__u_print(
     core__fmt__rt__Impl_1__new_v1(
@@ -261,7 +319,25 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_8: bitstring
   ) = hax__scrut16 in
     (let hax__cond17 = core__cmp__PartialEq__eq(left_val_8, right_val_8) in
-    let (=True()) = hax__cond17 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond17
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_8,
+        right_val_8,
+        Some(core__fmt__rt__Impl_1__new_v1(
+          rust_primitives__hax__array_cons(string_lit___empty, rust_primitives__hax__array_nil()),
+          rust_primitives__hax__array_cons(core__fmt__rt__Impl__new_display(
+            rust_primitives__hax__Tuple1__Tuple1__0(
+              rust_primitives__hax__Tuple1__Tuple1(
+                let (=True()) = is_true
+                  in string_lit__true_x20message
+                  else string_lit__false_x20message
+              )
+            )
+          ), rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_20 = (let hax__scrut18 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_0),
@@ -272,7 +348,25 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_9: bitstring
   ) = hax__scrut18 in
     (let hax__cond19 = core__cmp__PartialEq__eq(left_val_9, right_val_9) in
-    let (=True()) = hax__cond19 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond19
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_9,
+        right_val_9,
+        Some(core__fmt__rt__Impl_1__new_v1(
+          rust_primitives__hax__array_cons(string_lit___empty, rust_primitives__hax__array_nil()),
+          rust_primitives__hax__array_cons(core__fmt__rt__Impl__new_display(
+            rust_primitives__hax__Tuple1__Tuple1__0(
+              rust_primitives__hax__Tuple1__Tuple1(
+                let (=True()) = is_true
+                  in string_lit__true_x20message
+                  else string_lit__false_x20message
+              )
+            )
+          ), rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let is_true_1 = rust_primitives__hax__machine_int__eq(
     core__iter__traits__exact_size__ExactSizeIterator__len(
@@ -291,7 +385,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     (let hax__cond21 = core__ops__bit__Not__not_kw(
       core__cmp__PartialEq__eq(left_val_10, right_val_10)
     ) in
-    let (=True()) = hax__cond21 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond21
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val_10,
+        right_val_10,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_22 = (let hax__scrut22 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_0),
@@ -302,7 +403,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_11: bitstring
   ) = hax__scrut22 in
     (let hax__cond23 = core__cmp__PartialEq__eq(left_val_11, right_val_11) in
-    let (=True()) = hax__cond23 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond23
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_11,
+        right_val_11,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_23 = (let hax__scrut24 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_2),
@@ -315,7 +423,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     (let hax__cond25 = core__ops__bit__Not__not_kw(
       core__cmp__PartialEq__eq(left_val_12, right_val_12)
     ) in
-    let (=True()) = hax__cond25 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond25
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val_12,
+        right_val_12,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_24 = (let hax__scrut26 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_1),
@@ -326,7 +441,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_13: bitstring
   ) = hax__scrut26 in
     (let hax__cond27 = core__cmp__PartialEq__eq(left_val_13, right_val_13) in
-    let (=True()) = hax__cond27 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond27
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_13,
+        right_val_13,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_25 = (let (=True()) = is_true_1
     in (let wildcard_26 = (let hax__scrut28 = rust_primitives__hax__Tuple2__Tuple2(
@@ -338,7 +460,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
       right_val_14: bitstring
     ) = hax__scrut28 in
       (let hax__cond29 = core__cmp__PartialEq__eq(left_val_14, right_val_14) in
-      let (=True()) = hax__cond29 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+      let (=True()) = hax__cond29
+        in (let hax__never = (core__panicking__assert_failed(
+          core__panicking__AssertKind__Ne(),
+          left_val_14,
+          right_val_14,
+          None()
+        )) in bitstring_err())
+        else rust_primitives__hax__Tuple0__Tuple0)
     else bitstring_err()) in
     rust_primitives__hax__Tuple0__Tuple0)
     else (let wildcard_27 = (let hax__scrut30 = rust_primitives__hax__Tuple2__Tuple2(
@@ -352,7 +481,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
       (let hax__cond31 = core__ops__bit__Not__not_kw(
         core__cmp__PartialEq__eq(left_val_15, right_val_15)
       ) in
-      let (=True()) = hax__cond31 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+      let (=True()) = hax__cond31
+        in (let hax__never = (core__panicking__assert_failed(
+          core__panicking__AssertKind__Eq(),
+          left_val_15,
+          right_val_15,
+          None()
+        )) in bitstring_err())
+        else rust_primitives__hax__Tuple0__Tuple0)
     else bitstring_err()) in
     rust_primitives__hax__Tuple0__Tuple0)) in
   let wildcard_28 = (let (=True()) = is_true_1
@@ -365,7 +501,16 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
       right_val_16: bitstring
     ) = hax__scrut32 in
       (let hax__cond33 = core__cmp__PartialEq__eq(left_val_16, right_val_16) in
-      let (=True()) = hax__cond33 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+      let (=True()) = hax__cond33
+        in (let hax__never = (core__panicking__assert_failed(
+          core__panicking__AssertKind__Ne(),
+          left_val_16,
+          right_val_16,
+          Some(core__fmt__rt__Impl_1__new_const(
+            rust_primitives__hax__array_cons(string_lit__with_x20a_x20message, rust_primitives__hax__array_nil())
+          ))
+        )) in bitstring_err())
+        else rust_primitives__hax__Tuple0__Tuple0)
     else bitstring_err()) in
     rust_primitives__hax__Tuple0__Tuple0)
     else (let wildcard_30 = (let hax__scrut34 = rust_primitives__hax__Tuple2__Tuple2(
@@ -379,7 +524,16 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
       (let hax__cond35 = core__ops__bit__Not__not_kw(
         core__cmp__PartialEq__eq(left_val_17, right_val_17)
       ) in
-      let (=True()) = hax__cond35 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+      let (=True()) = hax__cond35
+        in (let hax__never = (core__panicking__assert_failed(
+          core__panicking__AssertKind__Eq(),
+          left_val_17,
+          right_val_17,
+          Some(core__fmt__rt__Impl_1__new_const(
+            rust_primitives__hax__array_cons(string_lit__with_x20a_x20message, rust_primitives__hax__array_nil())
+          ))
+        )) in bitstring_err())
+        else rust_primitives__hax__Tuple0__Tuple0)
     else bitstring_err()) in
     rust_primitives__hax__Tuple0__Tuple0)) in
   let wildcard_31 = (let hax__scrut36 = rust_primitives__hax__Tuple2__Tuple2(
@@ -393,7 +547,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_18: bitstring
   ) = hax__scrut36 in
     (let hax__cond37 = core__cmp__PartialEq__eq(left_val_18, right_val_18) in
-    let (=True()) = hax__cond37 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond37
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_18,
+        right_val_18,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_32 = (let hax__scrut38 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_5),
@@ -406,7 +567,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_19: bitstring
   ) = hax__scrut38 in
     (let hax__cond39 = core__cmp__PartialEq__eq(left_val_19, right_val_19) in
-    let (=True()) = hax__cond39 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond39
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_19,
+        right_val_19,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_33 = (let hax__scrut40 = rust_primitives__hax__Tuple2__Tuple2(
     let (=True()) = is_true_1
@@ -421,7 +589,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
         (let hax__cond42 = core__ops__bit__Not__not_kw(
           core__cmp__PartialEq__eq(left_val_20, right_val_20)
         ) in
-        let (=True()) = hax__cond42 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+        let (=True()) = hax__cond42
+          in (let hax__never = (core__panicking__assert_failed(
+            core__panicking__AssertKind__Eq(),
+            left_val_20,
+            right_val_20,
+            None()
+          )) in bitstring_err())
+          else rust_primitives__hax__Tuple0__Tuple0)
       else bitstring_err()) in
       new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_0))
       else (let wildcard_35 = (let hax__scrut43 = rust_primitives__hax__Tuple2__Tuple2(
@@ -435,7 +610,14 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
         right_val_21: bitstring
       ) = hax__scrut43 in
         (let hax__cond44 = core__cmp__PartialEq__eq(left_val_21, right_val_21) in
-        let (=True()) = hax__cond44 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+        let (=True()) = hax__cond44
+          in (let hax__never = (core__panicking__assert_failed(
+            core__panicking__AssertKind__Ne(),
+            left_val_21,
+            right_val_21,
+            None()
+          )) in bitstring_err())
+          else rust_primitives__hax__Tuple0__Tuple0)
       else bitstring_err()) in
       new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_1)),
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_5)
@@ -445,7 +627,16 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     right_val_22: bitstring
   ) = hax__scrut40 in
     (let hax__cond45 = core__cmp__PartialEq__eq(left_val_22, right_val_22) in
-    let (=True()) = hax__cond45 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond45
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val_22,
+        right_val_22,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__with_x20a_x20message, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_36 = (let hax__scrut46 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_1),
@@ -458,7 +649,16 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     (let hax__cond47 = core__ops__bit__Not__not_kw(
       core__cmp__PartialEq__eq(left_val_23, right_val_23)
     ) in
-    let (=True()) = hax__cond47 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond47
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val_23,
+        right_val_23,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__this_x20assert_x20should_x20fail, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_37 = (let hax__scrut48 = rust_primitives__hax__Tuple2__Tuple2(
     new_tests__rustc_coverage__issue_84561__Foo__Foo(nat_3),
@@ -471,7 +671,16 @@ letfun new_tests__rustc_coverage__issue_84561__test3(wildcard: bitstring) =
     (let hax__cond49 = core__ops__bit__Not__not_kw(
       core__cmp__PartialEq__eq(left_val_24, right_val_24)
     ) in
-    let (=True()) = hax__cond49 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond49
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val_24,
+        right_val_24,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__this_x20assert_x20should_x20not_x20be_x20reached, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/issue-84561.rs:160:0-169:1 new_tests__rustc_coverage__issue_84561__test1 *)

@@ -118,7 +118,12 @@ letfun new_tests__rustc_coverage__inline__display(xs: bitstring) =
   let wildcard_3 = rust_primitives__hax__Tuple0__Tuple0 in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/inline.rs:53:0-55:1 new_tests__rustc_coverage__inline__error *)
-letfun new_tests__rustc_coverage__inline__error(wildcard: bitstring) = bitstring_err().
+letfun new_tests__rustc_coverage__inline__error(wildcard: bitstring) =
+  (let hax__never = (core__panicking__panic_fmt(
+    core__fmt__rt__Impl_1__new_const(
+      rust_primitives__hax__array_cons(string_lit__error, rust_primitives__hax__array_nil())
+    )
+  )) in bitstring_err()).
 (* src: src/rustc-coverage/inline.rs:18:0-31:1 new_tests__rustc_coverage__inline__permutate *)
 letfun new_tests__rustc_coverage__inline__permutate(xs: bitstring, k: bitstring) =
   let n = new_tests__rustc_coverage__inline__length(xs) in

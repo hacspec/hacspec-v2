@@ -59,4 +59,5 @@ letfun new_tests__legacy__proverif_match__lib__or_zero(x: bitstring) =
 (* src: src/legacy/proverif-match/lib.rs:26:0-26:12 new_tests__legacy__proverif_match__lib__Void_cast_to_repr *)
 letfun new_tests__legacy__proverif_match__lib__Void_cast_to_repr(x: bitstring) = bitstring_err().
 (* src: src/legacy/proverif-match/lib.rs:28:0-30:1 new_tests__legacy__proverif_match__lib__absurd *)
-letfun new_tests__legacy__proverif_match__lib__absurd(v: bitstring) = bitstring_err().
+letfun new_tests__legacy__proverif_match__lib__absurd(v: bitstring) =
+  (let hax__never = (bitstring_err()) in bitstring_err()).

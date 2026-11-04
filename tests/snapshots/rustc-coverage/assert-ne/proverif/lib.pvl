@@ -72,6 +72,13 @@ letfun new_tests__rustc_coverage__assert_ne__main(wildcard: bitstring) =
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond2 = core__cmp__PartialEq__eq(left_val, right_val) in
-    let (=True()) = hax__cond2 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond2
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val,
+        right_val,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0().

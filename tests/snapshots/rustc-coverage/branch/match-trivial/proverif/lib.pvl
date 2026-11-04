@@ -70,8 +70,10 @@ letfun new_tests__rustc_coverage__branch__match_trivial__u_uninhabited(x: bitstr
   let rust_primitives__hax__array_cons(wildcard_1, bl__seq2) = bl__seq1 in (let bl__unit1 = (rust_primitives__hax__Tuple0__Tuple0) in
   let rust_primitives__hax__array_cons(wildcard_1, bl__seq3) = bl__seq2 in (let bl__unit2 = (rust_primitives__hax__Tuple0__Tuple0) in
   rust_primitives__hax__Tuple0__Tuple0 (* more than LOOP_BOUND elements *)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0))) in
-  let wildcard_2 = bitstring_err() in
-  bitstring_err().
+  let wildcard_2 = (let hax__never = (bitstring_err()) in bitstring_err()) in
+  (let hax__never = (new_tests__rustc_coverage__branch__match_trivial__consume(
+    string_lit__done
+  )) in bitstring_err()).
 (* src: src/rustc-coverage/branch/match-trivial.rs:31:0-39:1 new_tests__rustc_coverage__branch__match_trivial__trivial *)
 letfun new_tests__rustc_coverage__branch__match_trivial__trivial(x: bitstring) =
   let wildcard = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(

@@ -75,7 +75,16 @@ letfun new_tests__rustc_coverage__assert__might_fail_assert(one_plus_one: bitstr
     (let hax__cond1 = core__ops__bit__Not__not_kw(
       rust_primitives__hax__machine_int__eq(left_val, right_val)
     ) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val,
+        right_val,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__the_x20argument_x20was_x20wrong, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/assert.rs:13:0-24:1 new_tests__rustc_coverage__assert__main *)

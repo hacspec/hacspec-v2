@@ -49,6 +49,9 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*                                                               *)
 (*  - Loops not supported in ProVerif *)
 (*  - Loops not supported in ProVerif *)
+(*  - Loops not supported in ProVerif *)
+(*  - Loops not supported in ProVerif *)
+(*  - Loops not supported in ProVerif *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
@@ -64,7 +67,11 @@ letfun new_tests__rustc_coverage__let_else_loop__loopy(cond: bitstring) =
 (* src: src/rustc-coverage/let_else_loop.rs:19:0-22:1 new_tests__rustc_coverage__let_else_loop__u_loop_either_way *)
 (*  @fail(extraction): fstar(HAX0001, HAX0001), legacy-lean(HAX0001, HAX0001), coq(HAX0001, HAX0001) *)
 letfun new_tests__rustc_coverage__let_else_loop__u_loop_either_way(cond: bitstring) =
-  let (=True()) = cond in bitstring_err()
+  let (=True()) = cond in
+    (let hax__never = (rust_primitives__hax__Tuple2__Tuple2(
+      bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
+      rust_primitives__hax__Tuple0__Tuple0
+    )) in bitstring_err())
   else rust_primitives__hax__Tuple2__Tuple2(
     bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
     rust_primitives__hax__Tuple0__Tuple0
@@ -72,7 +79,15 @@ letfun new_tests__rustc_coverage__let_else_loop__u_loop_either_way(cond: bitstri
 (* src: src/rustc-coverage/let_else_loop.rs:27:0-33:1 new_tests__rustc_coverage__let_else_loop__u_if *)
 (*  @fail(extraction): legacy-lean(HAX0001, HAX0001), fstar(HAX0001, HAX0001), coq(HAX0001, HAX0001) *)
 letfun new_tests__rustc_coverage__let_else_loop__u_if(cond: bitstring) =
-  let (=True()) = cond in bitstring_err() else bitstring_err().
+  let (=True()) = cond
+    in (let hax__never = (rust_primitives__hax__Tuple2__Tuple2(
+      bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
+      rust_primitives__hax__Tuple0__Tuple0
+    )) in bitstring_err())
+    else (let hax__never = (rust_primitives__hax__Tuple2__Tuple2(
+      bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
+      rust_primitives__hax__Tuple0__Tuple0
+    )) in bitstring_err()).
 (* src: src/rustc-coverage/let_else_loop.rs:36:0-38:1 new_tests__rustc_coverage__let_else_loop__main *)
 letfun new_tests__rustc_coverage__let_else_loop__main(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__let_else_loop__loopy(True()) in
