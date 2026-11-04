@@ -36,6 +36,7 @@ mod proverif_ok_only_results;
 mod proverif_reject_higher_order;
 mod proverif_reject_unsupported;
 mod proverif_resolve_trait_calls;
+mod proverif_result_soundness;
 mod proverif_simplify_bindings;
 mod reject_not_do_lean_dsl;
 
@@ -55,6 +56,13 @@ macro_rules! declare_phase_kind {
             /// [`proverif_resolve_trait_calls::ProverifResolveTraitCalls`], with
             /// the `--keep-trait-calls` paths.
             ProverifResolveTraitCalls(Vec<String>),
+            /// The phase [`proverif_result_soundness::ProverifRejectRecovery`],
+            /// with the `--keep-trait-calls` paths.
+            ProverifRejectRecovery(Vec<String>),
+            /// The phase
+            /// [`proverif_result_soundness::ProverifRejectUnknownErrors`], with
+            /// the `--keep-trait-calls` paths.
+            ProverifRejectUnknownErrors(Vec<String>),
             /// A legacy (OCaml) phase.
             Legacy(crate::phase::legacy::LegacyOCamlPhase),
         }
@@ -68,6 +76,12 @@ macro_rules! declare_phase_kind {
                     }
                     Self::ProverifResolveTraitCalls(kept) => {
                         proverif_resolve_trait_calls::ProverifResolveTraitCalls { kept }.apply(items)
+                    }
+                    Self::ProverifRejectRecovery(kept) => {
+                        proverif_result_soundness::ProverifRejectRecovery { kept }.apply(items)
+                    }
+                    Self::ProverifRejectUnknownErrors(kept) => {
+                        proverif_result_soundness::ProverifRejectUnknownErrors { kept }.apply(items)
                     }
                     Self::Legacy(phase) => phase.apply(items),
                 }

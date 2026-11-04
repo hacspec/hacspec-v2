@@ -77,4 +77,37 @@ letfun new_tests__legacy__proverif_replace_body__lib__replaced_body(x: bitstring
 (* src: src/legacy/proverif-replace-body/lib.rs:57:0-59:1 new_tests__legacy__proverif_replace_body__lib__pack *)
 (* marked as constructor *)
 fun new_tests__legacy__proverif_replace_body__lib__pack(bitstring): bitstring [data].
-reduc forall x: bitstring; new_tests__legacy__proverif_replace_body__lib__unpack(new_tests__legacy__proverif_replace_body__lib__pack(x)) = x.
+(* src: src/legacy/proverif-replace-body/lib.rs:61:0-61:31 new_tests__legacy__proverif_replace_body__lib__unpack *)
+letfun new_tests__legacy__proverif_replace_body__lib__unpack(bytes: bitstring) =
+  let new_tests__legacy__proverif_replace_body__lib__pack(hax__inverse) = bytes in hax__inverse.
+(* src: src/legacy/proverif-replace-body/lib.rs:68:0-68:22 new_tests__legacy__proverif_replace_body__lib__Bytes *)
+fun new_tests__legacy__proverif_replace_body__lib__Bytes__Bytes(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_replace_body__lib__Bytes__Bytes__0(
+    new_tests__legacy__proverif_replace_body__lib__Bytes__Bytes(v_0)
+  ) = v_0.
+(* src: src/legacy/proverif-replace-body/lib.rs:71:0-73:1 new_tests__legacy__proverif_replace_body__lib__pack_bytes *)
+(* marked as constructor *)
+fun new_tests__legacy__proverif_replace_body__lib__pack_bytes(bitstring): bitstring [data].
+(* src: src/legacy/proverif-replace-body/lib.rs:76:4-76:41 new_tests__legacy__proverif_replace_body__lib__Impl_1__unpack *)
+letfun new_tests__legacy__proverif_replace_body__lib__Impl_1__unpack(self: bitstring) =
+  let new_tests__legacy__proverif_replace_body__lib__pack_bytes(hax__inverse) = self in hax__inverse.
+(* src: src/legacy/proverif-replace-body/lib.rs:82:0-84:1 new_tests__legacy__proverif_replace_body__lib__round_trip *)
+letfun new_tests__legacy__proverif_replace_body__lib__round_trip(x: bitstring) =
+  new_tests__legacy__proverif_replace_body__lib__Impl_1__unpack(
+    new_tests__legacy__proverif_replace_body__lib__pack_bytes(x)
+  ).
+(* src: src/legacy/proverif-replace-body/lib.rs:87:4-87:41 new_tests__legacy__proverif_replace_body__lib__Impl_2__unpack_assoc *)
+letfun new_tests__legacy__proverif_replace_body__lib__Impl_2__unpack_assoc(b: bitstring) =
+  let new_tests__legacy__proverif_replace_body__lib__pack_bytes(hax__inverse) = b in hax__inverse.
+(* src: src/legacy/proverif-replace-body/lib.rs:94:0-94:27 new_tests__legacy__proverif_replace_body__lib__OtherBytes *)
+fun new_tests__legacy__proverif_replace_body__lib__OtherBytes__OtherBytes(
+  bitstring
+): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_replace_body__lib__OtherBytes__OtherBytes__0(
+    new_tests__legacy__proverif_replace_body__lib__OtherBytes__OtherBytes(v_0)
+  ) = v_0.
+(* src: src/legacy/proverif-replace-body/lib.rs:97:4-97:41 new_tests__legacy__proverif_replace_body__lib__Impl_3__unpack *)
+letfun new_tests__legacy__proverif_replace_body__lib__Impl_3__unpack(self: bitstring) =
+  let new_tests__legacy__proverif_replace_body__lib__pack_bytes(hax__inverse) = self in hax__inverse.

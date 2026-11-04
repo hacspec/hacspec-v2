@@ -722,42 +722,70 @@ impl AstVisitor for ExternRefCollector {
     }
 }
 
+/// The ProVerif `text` without its `(* … *)` comments, which do not nest.
+fn strip_comments(text: &str) -> String {
+    let mut out = String::new();
+    let mut rest = text;
+    while let Some(i) = rest.find("(*") {
+        out.push_str(&rest[..i]);
+        out.push(' ');
+        rest = rest[i + 2..]
+            .split_once("*)")
+            .map_or("", |(_, after)| after);
+    }
+    out.push_str(rest);
+    out
+}
+
 /// Every name that a `fun`, `letfun`, `const` or `reduc` declaration of the
 /// ProVerif `text` introduces.
 pub(crate) fn scan_declared_names(text: &str) -> Vec<String> {
+    let ident = |s: &str| {
+        let s = s.trim_start();
+        let end = s
+            .find(|c: char| !(c.is_alphanumeric() || c == '_' || c == '\''))
+            .unwrap_or(s.len());
+        s[..end].to_string()
+    };
     let mut out = Vec::new();
-    for line in text.lines().map(str::trim_start) {
-        for kw in ["fun ", "letfun ", "const "] {
-            if let Some(rest) = line.strip_prefix(kw) {
-                let end = rest.find(['(', ':', ' ', '\t']).unwrap_or(rest.len());
-                if end > 0 {
-                    out.push(rest[..end].to_string());
-                }
+    // Every declaration ends with a `.`, which terms do not hold.
+    for decl in strip_comments(text).split('.') {
+        // A `def M(..) { .. }` block holds declarations.
+        let decl = decl
+            .trim_start()
+            .trim_start_matches(['}', ' ', '\t', '\n', '\r']);
+        let decl = match decl.strip_prefix("def") {
+            Some(rest) if rest.starts_with(char::is_whitespace) => {
+                rest.split_once('{').map_or("", |(_, d)| d).trim_start()
             }
-        }
-    }
-    // A `reduc forall …; NAME(…) = …` header may span several lines.
-    let mut rest = text;
-    while let Some(i) = rest.find("reduc") {
-        let starts_line = rest[..i]
-            .rsplit('\n')
-            .next()
-            .is_none_or(|indent| indent.trim().is_empty());
-        rest = &rest[i + "reduc".len()..];
-        if !starts_line || !rest.trim_start().starts_with("forall") {
-            continue;
-        }
-        let Some((_, tail)) = rest.split_once(';') else {
-            break;
+            _ => decl,
         };
-        let head = tail.trim_start();
-        let end = head
-            .find(|c: char| c == '(' || c.is_whitespace())
-            .unwrap_or(head.len());
-        if end > 0 {
-            out.push(head[..end].to_string());
-        }
-        rest = tail;
+        let decl = decl
+            .strip_prefix("private")
+            .filter(|r| r.starts_with(char::is_whitespace))
+            .map_or(decl, str::trim_start);
+        let kw_end = decl.find(char::is_whitespace).unwrap_or(decl.len());
+        let (kw, rest) = decl.split_at(kw_end);
+        let names = match kw {
+            "fun" | "letfun" => vec![ident(rest)],
+            "const" => rest
+                .split(':')
+                .next()
+                .unwrap_or_default()
+                .split(',')
+                .map(ident)
+                .collect(),
+            "reduc" => {
+                let rest = rest.trim_start();
+                let head = match rest.strip_prefix("forall") {
+                    Some(binders) => binders.split_once(';').map_or("", |(_, h)| h),
+                    None => rest,
+                };
+                vec![ident(head)]
+            }
+            _ => continue,
+        };
+        out.extend(names.into_iter().filter(|n| !n.is_empty()));
     }
     out
 }

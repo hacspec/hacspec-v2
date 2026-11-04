@@ -8,5 +8,23 @@
 (* boundary. Only Rust constructors are declared `[data]`: any   *)
 (* other function may be one-way.                                *)
 (*****************************************************************)
-(* (none — every referenced symbol is defined in lib.pvl, *)
-(* primitives.pvl, or a -lib'd dependency.)               *)
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__Impl_5__cmp, new_tests__legacy__proverif_result_errors__lib__Impl_6__partial_cmp, new_tests__legacy__proverif_result_errors__lib__Impl_7__cmp *)
+fun core__cmp__Ord__cmp(bitstring, bitstring): bitstring.
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__library_calls_impl, new_tests__legacy__proverif_result_errors__lib__library_calls_supertrait *)
+fun core__cmp__max(bitstring, bitstring): bitstring.
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__make_output *)
+fun core__default__Default__default(bitstring): bitstring.
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__next_generic *)
+(* result destructured as: rust_primitives__hax__Tuple2__Tuple2(_, _) *)
+fun core__iter__traits__iterator__Iterator__next(bitstring): bitstring.
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__err_arm_fn_value, new_tests__legacy__proverif_result_errors__lib__option_map_fn *)
+fun core__option__Impl__map(bitstring, bitstring): bitstring.
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__missing_model *)
+(* result destructured as: core__result__Result__Err(_); core__result__Result__Ok(_) *)
+fun core__str__converts__from_utf8(bitstring): bitstring.
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__kept_on_err_path *)
+fun new_tests__legacy__proverif_result_errors__lib__Kept__kept_tag(bitstring): bitstring.
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__observable_expect_arg *)
+const string_lit__error: bitstring.
+(* referenced by: new_tests__legacy__proverif_result_errors__lib__err_arm_then_catch_all, new_tests__legacy__proverif_result_errors__lib__nested_leave_on_err, new_tests__legacy__proverif_result_errors__lib__panicking_arm *)
+const string_lit__explicit_x20panic: bitstring.
