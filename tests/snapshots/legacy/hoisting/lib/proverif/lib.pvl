@@ -648,3 +648,88 @@ letfun new_tests__legacy__hoisting__lib__control_flow_capture__shadowing_let(
        ) in
        core_models__ops__arith__f_add(x, r).
 
+letfun new_tests__legacy__hoisting__lib__short_circuit_panic__index(
+         v : bitstring, i : nat
+       ) =
+       core_models__cmp__f_ge(i, core_models__slice__impl__len(v)) || core_models__cmp__f_gt(
+         core_models__ops__index__f_index(v, i), 0
+       ).
+
+letfun new_tests__legacy__hoisting__lib__short_circuit_panic__division(
+         a : nat, b : nat
+       ) =
+       core_models__cmp__f_eq(b, 0) || core_models__cmp__f_gt(
+         core_models__ops__arith__f_div(a, b), 1
+       ).
+
+letfun new_tests__legacy__hoisting__lib__short_circuit_panic__overflow(
+         a : nat, b : nat
+       ) =
+       core_models__cmp__f_gt(a, 200) || core_models__cmp__f_gt(
+         core_models__ops__arith__f_add(a, b), 3
+       ).
+
+letfun new_tests__legacy__hoisting__lib__short_circuit_panic__nested(
+         a : bool, v : bitstring, i : nat
+       ) =
+       a && core_models__cmp__f_ge(i, core_models__slice__impl__len(v)) || core_models__cmp__f_gt(
+         core_models__ops__index__f_index(v, i), 0
+       ).
+
+letfun new_tests__legacy__hoisting__lib__short_circuit_panic__while_condition(
+         n : nat, m : nat
+       ) =
+       let i = (0) in
+       let j = (0) in
+       let (i: nat, j: nat) = (
+         rust_primitives__hax__failure(
+           "Explicit rejection by a phase in the Hax engine:
+a node of kind [Loop] have been found in the AST
+
+Note: the error was labeled with context `reject_not_in_ProVerif`.
+",
+           "{
+ (loop {
+ |Tuple2(i, j)| {
+ (if BinOp::Ast
+ .And(
+ BinOp::Ast
+ .And(
+ core_models::cmp::f_lt(i, n),
+ core_models::cmp::f_lt(j, m),
+ ),
+ core_models::ops::bit::f_not(core_models::cmp::f_eq(i, 3)),
+ )..."
+         )
+       ) in
+       i.
+
+letfun new_tests__legacy__hoisting__lib__short_circuit_panic__while_condition_len(
+         v : bitstring, n : nat
+       ) =
+       let i = (0) in
+       let i = (
+         rust_primitives__hax__failure(
+           "Explicit rejection by a phase in the Hax engine:
+a node of kind [Loop] have been found in the AST
+
+Note: the error was labeled with context `reject_not_in_ProVerif`.
+",
+           "{
+ (loop {
+ |i| {
+ (if BinOp::Ast
+ .And(
+ core_models::cmp::f_lt(i, n),
+ core_models::cmp::f_lt(
+ i,
+ core_models::slice::impl__len::<int>(v),
+ ),
+ )
+ {
+ {
+ let i: int = { core_models::ops::arith::f_a..."
+         )
+       ) in
+       i.
+

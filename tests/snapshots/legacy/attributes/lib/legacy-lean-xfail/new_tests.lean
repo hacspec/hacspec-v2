@@ -25,9 +25,10 @@ set_option hax_mvcgen.specset "bv" in
 def add3.spec (x : u32) (y : u32) (z : u32) :
     Spec
       (requires := do
-        ((← ((← ((← (x >? (10 : u32))) &&? (← (y >? (10 : u32)))))
+        (rust_primitives.hax.logical_op.and_then
+          (← ((← ((← (x >? (10 : u32))) &&? (← (y >? (10 : u32)))))
             &&? (← (z >? (10 : u32)))))
-          &&? (← ((← ((← (x +? y)) +? z)) <? u32_max))))
+          (do ((← ((← (x +? y)) +? z)) <? u32_max))))
       (ensures := fun
           result => do
           (hax_lib.prop.constructors.implies
@@ -55,8 +56,9 @@ def swap_and_mut_req_ens.spec (x : u32) (y : u32) :
       (requires := do ((← (x <? (40 : u32))) &&? (← (y <? (300 : u32)))))
       (ensures := fun
           ⟨x_future, y_future, result⟩ => do
-          ((← ((← (x_future ==? y)) &&? (← (y_future ==? x))))
-            &&? (← (result ==? (← (x +? y))))))
+          (rust_primitives.hax.logical_op.and_then
+            (← ((← (x_future ==? y)) &&? (← (y_future ==? x))))
+            (do (result ==? (← (x +? y))))))
       (swap_and_mut_req_ens (x : u32) (y : u32)) := {
   pureRequires := by hax_construct_pure <;> bv_decide
   pureEnsures := by hax_construct_pure <;> bv_decide
@@ -128,9 +130,11 @@ def add3_lemma.spec (x : u32) :
       (requires := do pure True)
       (ensures := fun
           _ => do
-          ((← ((← (x <=? (10 : u32)))
-              ||? (← (x >=? (← (u32_max /? (3 : u32)))))))
-            ||? (← ((← (add3 x x x)) ==? (← (x *? (3 : u32)))))))
+          (rust_primitives.hax.logical_op.or_else
+            (← (rust_primitives.hax.logical_op.or_else
+              (← (x <=? (10 : u32)))
+              (do (x >=? (← (u32_max /? (3 : u32)))))))
+            (do ((← (add3 x x x)) ==? (← (x *? (3 : u32)))))))
       (add3_lemma (x : u32)) := {
   pureRequires := by hax_construct_pure <;> bv_decide
   pureEnsures := by hax_construct_pure <;> bv_decide
@@ -248,8 +252,9 @@ set_option hax_mvcgen.specset "bv" in
 def Impl_1.mul_hoisted.spec (self : Foo) (rhs : Foo) :
     Spec
       (requires := do
-        ((← ((Foo._0 rhs) ==? (0 : u8)))
-          ||? (← ((Foo._0 self) <? (← ((255 : u8) /? (Foo._0 rhs)))))))
+        (rust_primitives.hax.logical_op.or_else
+          (← ((Foo._0 rhs) ==? (0 : u8)))
+          (do ((Foo._0 self) <? (← ((255 : u8) /? (Foo._0 rhs)))))))
       (ensures := fun _ => pure True)
       (Impl_1.mul_hoisted (self : Foo) (rhs : Foo)) := {
   pureRequires := by hax_construct_pure <;> bv_decide
@@ -489,9 +494,11 @@ def two_mut_and_result.spec (a : u8) (b : u64) :
       (requires := do pure True)
       (ensures := fun
           ⟨a_future, b_future, result⟩ => do
-          ((← ((← (a_future
+          ((← (rust_primitives.hax.logical_op.and_then
+              (← (a_future
                 ==? (← (core_models.num.Impl_6.wrapping_add a (1 : u8)))))
-              &&? (← (b_future
+              (do
+              (b_future
                 ==? (← (core_models.num.Impl_9.wrapping_add b (2 : u64)))))))
             &&? (← (result ==? (← (a_future ==? (0 : u8)))))))
       (two_mut_and_result (a : u8) (b : u64)) := {
@@ -864,10 +871,12 @@ def
         (N))) :
     Spec
       (requires := do
-        ((← (rust_primitives.hax.int.lt
+        (rust_primitives.hax.logical_op.and_then
+          (← (rust_primitives.hax.int.lt
             (← (rust_primitives.hax.int.from_machine M))
             (← (hax_lib.int.Impl_7._unsafe_from_str "32768"))))
-          &&? (← (rust_primitives.hax.int.eq
+          (do
+          (rust_primitives.hax.int.eq
             (← (rust_primitives.hax.int.from_machine M))
             (← (rust_primitives.hax.int.mul
               (← (rust_primitives.hax.int.from_machine N))

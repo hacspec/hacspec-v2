@@ -40,8 +40,9 @@ def main (_ : rust_primitives.hax.Tuple0) :
         RustM rust_primitives.hax.Tuple0)));
   let _ ←
     if
-    (← ((← (申し訳ございません rust_primitives.hax.Tuple0.mk))
-      &&? (← (申し訳ございません rust_primitives.hax.Tuple0.mk)))) then do
+    (← (rust_primitives.hax.logical_op.and_then
+      (← (申し訳ございません rust_primitives.hax.Tuple0.mk))
+      (do (申し訳ございません rust_primitives.hax.Tuple0.mk)))) then do
       let _ ←
         (std.io.stdio._print
           (← (core_models.fmt.rt.Impl_1.new_const ((1 : usize))
