@@ -77,6 +77,9 @@ query attacker(hax_extraction_error__new_tests).
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
 (*  - 1 × `pv_unchecked_results`: the uses of `Result` in this function are not checked against the Result model *)
+(*  - 1 × `core__hash__Hash__hash` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__iter__traits__iterator__Iterator__filter_map` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__iter__traits__iterator__Iterator__next` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/legacy/proverif-skipped-impls/lib.rs:10:0-13:1 new_tests__legacy__proverif_skipped_impls__lib__Error *)

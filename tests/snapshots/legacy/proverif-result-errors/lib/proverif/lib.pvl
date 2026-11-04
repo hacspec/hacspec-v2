@@ -112,6 +112,8 @@ query attacker(hax_extraction_error__new_tests).
 (*  `else` branch, whatever Rust does. A query about the other   *)
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
+(*  - 1 × `new_tests__legacy__proverif_result_errors__lib__opaque_result` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
+(*  - 1 × `new_tests__legacy__proverif_result_errors__lib__encode` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
 (*  - 1 × `replace_body` keeps the `&mut` parameters `st` unchanged *)
 (*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
 (*  - 1 × `core__str__converts__from_utf8` returns a `Result` but has no model: unless its declaration in missingdecl.pvl is replaced by one returning `hax_result_ok(..)` or `hax_result_err(..)`, every path through its uses is lost *)
@@ -119,6 +121,12 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 3 × `pv_unchecked_results`: the uses of `Result` in this function are not checked against the Result model *)
 (*  - 1 × `core__result__Impl_3__transpose` returns a `Result` but has no model: unless its declaration in missingdecl.pvl is replaced by one returning `hax_result_ok(..)` or `hax_result_err(..)`, every path through its uses is lost *)
 (*  - 2 × `new_tests__legacy__proverif_result_errors__lib__Kept__dec` is a kept trait call returning a `Result`: unless its hand-written model returns `hax_result_ok(..)` or `hax_result_err(..)`, every path through its uses is lost *)
+(*  - 1 × `core__cmp__max` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__iter__traits__iterator__Iterator__next` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__option__Impl__map` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__str__converts__from_utf8` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `new_tests__legacy__proverif_result_errors__lib__Kept__kept_tag` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `extern__derive` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/legacy/proverif-result-errors/lib.rs:10:0-13:1 new_tests__legacy__proverif_result_errors__lib__Error *)
@@ -273,6 +281,7 @@ letfun new_tests__legacy__proverif_result_errors__lib__inspected(x: bitstring) =
     )
   else bitstring_err().
 (* src: src/legacy/proverif-result-errors/lib.rs:181:0-183:1 new_tests__legacy__proverif_result_errors__lib__opaque_result *)
+(* HAX WARNING: `new_tests__legacy__proverif_result_errors__lib__opaque_result` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
 (* opaque *)
 fun new_tests__legacy__proverif_result_errors__lib__opaque_result(bitstring): bitstring [data].
 (* src: src/legacy/proverif-result-errors/lib.rs:186:0-189:1 new_tests__legacy__proverif_result_errors__lib__use_opaque *)
@@ -283,6 +292,7 @@ letfun new_tests__legacy__proverif_result_errors__lib__use_opaque(x: bitstring) 
   else let core__result__Result__Err(err: bitstring) = hax__scrut0 in core__result__Result__Err(err)
   else bitstring_err().
 (* src: src/legacy/proverif-result-errors/lib.rs:192:0-194:1 new_tests__legacy__proverif_result_errors__lib__encode *)
+(* HAX WARNING: `new_tests__legacy__proverif_result_errors__lib__encode` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
 (* marked as constructor *)
 fun new_tests__legacy__proverif_result_errors__lib__encode(bitstring): bitstring [data].
 (* src: src/legacy/proverif-result-errors/lib.rs:196:0-196:33 new_tests__legacy__proverif_result_errors__lib__decode *)

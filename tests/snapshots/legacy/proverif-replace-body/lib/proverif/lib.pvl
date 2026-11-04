@@ -44,6 +44,8 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
 (*  - 1 × `replace_body` keeps the `&mut` parameters `self` unchanged *)
+(*  - 1 × `new_tests__legacy__proverif_replace_body__lib__pack` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
+(*  - 1 × `new_tests__legacy__proverif_replace_body__lib__pack_bytes` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
 (*****************************************************************)
 
 (* src: src/legacy/proverif-replace-body/lib.rs:5:0-5:19 new_tests__legacy__proverif_replace_body__lib__Counter *)
@@ -75,6 +77,7 @@ letfun new_tests__legacy__proverif_replace_body__lib__uses_replaced(x: bitstring
 (* src: src/legacy/proverif-replace-body/lib.rs:50:0-50:39 new_tests__legacy__proverif_replace_body__lib__replaced_body *)
 letfun new_tests__legacy__proverif_replace_body__lib__replaced_body(x: bitstring) = x.
 (* src: src/legacy/proverif-replace-body/lib.rs:57:0-59:1 new_tests__legacy__proverif_replace_body__lib__pack *)
+(* HAX WARNING: `new_tests__legacy__proverif_replace_body__lib__pack` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
 (* marked as constructor *)
 fun new_tests__legacy__proverif_replace_body__lib__pack(bitstring): bitstring [data].
 (* src: src/legacy/proverif-replace-body/lib.rs:61:0-61:31 new_tests__legacy__proverif_replace_body__lib__unpack *)
@@ -87,6 +90,7 @@ reduc forall v_0: bitstring;
     new_tests__legacy__proverif_replace_body__lib__Bytes__Bytes(v_0)
   ) = v_0.
 (* src: src/legacy/proverif-replace-body/lib.rs:71:0-73:1 new_tests__legacy__proverif_replace_body__lib__pack_bytes *)
+(* HAX WARNING: `new_tests__legacy__proverif_replace_body__lib__pack_bytes` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
 (* marked as constructor *)
 fun new_tests__legacy__proverif_replace_body__lib__pack_bytes(bitstring): bitstring [data].
 (* src: src/legacy/proverif-replace-body/lib.rs:76:4-76:41 new_tests__legacy__proverif_replace_body__lib__Impl_1__unpack *)

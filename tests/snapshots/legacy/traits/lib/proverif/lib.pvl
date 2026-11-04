@@ -73,6 +73,10 @@ query attacker(hax_extraction_error__new_tests).
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
 (*  - 1 × `as` cast modelled as the identity, although it may change the value *)
+(*  - 1 × `core__iter__traits__iterator__Iterator__filter` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__iter__traits__iterator__Iterator__map` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__iter__traits__iterator__Iterator__next` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__num__Impl_2__abs` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 

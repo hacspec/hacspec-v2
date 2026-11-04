@@ -70,6 +70,9 @@ query attacker(hax_extraction_error__new_tests).
 (*                                                               *)
 (*  - 4 × `as` cast modelled as the identity, although it may change the value *)
 (*  - 2 × `size_of` or `align_of` modelled without its type argument, so that it is the same for every type *)
+(*  - 1 × `core__mem__size_of` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `new_tests__legacy__proverif_expressions__lib__Tagged__TAG` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `new_tests__legacy__proverif_expressions__lib__Tagged__tag` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/legacy/proverif-expressions/lib.rs:10:0-12:1 new_tests__legacy__proverif_expressions__lib__array_literal *)

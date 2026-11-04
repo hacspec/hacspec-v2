@@ -45,6 +45,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*                                                               *)
 (*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
 (*  - 1 × `size_of` or `align_of` modelled without its type argument, so that it is the same for every type *)
+(*  - 1 × `core__mem__size_of` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/rustc-coverage/branch/generics.rs:7:0-13:1 new_tests__rustc_coverage__branch__generics__print_size *)

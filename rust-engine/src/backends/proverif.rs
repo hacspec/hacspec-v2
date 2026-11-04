@@ -1278,7 +1278,17 @@ const _: () = {
                 &*body.kind,
                 ExprKind::App { head, .. } if matches!(&*head.kind, ExprKind::GlobalId(g) if g == name)
             );
-            if params.is_empty() {
+            if params.is_empty() && is_erased {
+                // An opaque constant is abstract, as an opaque function is.
+                docs![
+                    warning_marker(&format!(
+                        "`{rendered}` is abstract: its value matches no pattern, so every path \
+                         that destructures it as a value of its Rust type is lost"
+                    )),
+                    hardline!(),
+                    self.const_or_applied_fun(&rendered, Some(body))
+                ]
+            } else if params.is_empty() {
                 // Rust consts; see `const_or_applied_fun`.
                 self.const_or_applied_fun(&rendered, Some(body))
             } else if as_constructor || is_erased {
@@ -1290,7 +1300,14 @@ const _: () = {
                 } else {
                     "(* opaque *)"
                 };
+                // Its value matches no pattern of its Rust type.
+                let warning = warning_marker(&format!(
+                    "`{rendered}` is abstract: its value matches no pattern but its own, so every \
+                     path that destructures it as a value of its Rust type is lost"
+                ));
                 docs![
+                    warning,
+                    hardline!(),
                     header,
                     hardline!(),
                     "fun ",
@@ -2397,7 +2414,15 @@ impl Backend for ProVerifBackend {
         let (contents, positions) = printer.print(module);
         // Undefined externals go to a separate `missingdecl.pvl`, so the
         // unsound stubs stay visible.
-        let missingdecl = self.format_external_decls(&analysis, &contents);
+        let (missingdecl, mut abstract_) = self.format_external_decls(&analysis, &contents);
+        // A `pv_extern` function is an abstract `fun` too.
+        abstract_.extend(
+            contents
+                .split("fun extern__")
+                .skip(1)
+                .filter_map(|rest| rest.split('(').next())
+                .map(|name| format!("extern__{name}")),
+        );
         // Anything the model misses arms the `hax_extraction_error` marker,
         // so the model cannot be mistaken for a complete one. See
         // [`ERROR_BANNER`].
@@ -2419,6 +2444,18 @@ impl Backend for ProVerifBackend {
                 None => warnings.push((warning, 1)),
             }
         }
+        // An abstract declaration matches no pattern, wherever its value goes.
+        let abstract_: Vec<String> = abstract_
+            .iter()
+            .map(|name| {
+                defuse_comment(&format!(
+                    "`{name}` has no model in hax's libraries: unless a library loaded \
+                     before lib.pvl defines it, its declaration in missingdecl.pvl matches no \
+                     pattern, so every path that destructures its value is lost"
+                ))
+            })
+            .collect();
+        warnings.extend(abstract_.iter().map(|w| (w.as_str(), 1)));
         if !warnings.is_empty() {
             banner.push_str(WARNING_BANNER);
             for (warning, count) in warnings {
@@ -2447,12 +2484,13 @@ impl Backend for ProVerifBackend {
 }
 
 impl ProVerifBackend {
-    /// Emit the auto-declared-externals block for the file.
+    /// Emit the auto-declared-externals block for the file, and the names it
+    /// declares abstract, but for the constructors.
     ///
     /// A name in `referenced` needs a declaration unless `primitives.pvl`,
     /// the Result library of the chosen mode, or the `rendered` body (including
     /// its verbatim quotes) already declares it.
-    fn format_external_decls(&self, analysis: &Analysis, rendered: &str) -> String {
+    fn format_external_decls(&self, analysis: &Analysis, rendered: &str) -> (String, Vec<String>) {
         let mut defined: HashSet<String> = HashSet::new();
         for s in [
             "construct_fail",
@@ -2485,6 +2523,7 @@ impl ProVerifBackend {
         }
 
         let mut decls: Vec<String> = Vec::new();
+        let mut abstract_: Vec<String> = Vec::new();
         let mut keys: Vec<String> = analysis
             .references
             .keys()
@@ -2501,6 +2540,10 @@ impl ProVerifBackend {
             }
             // Record the result shape a hand-written or imported definition must
             // produce, taken from how call sites destructure this symbol.
+            // A constant is rarely destructured.
+            if !info.is_constructor && (info.arity > 0 || info.applied) {
+                abstract_.push(name.clone());
+            }
             if let Some(shapes) = analysis.result_shapes.get(&name) {
                 decls.push(format!(
                     "(* result destructured as: {} *)",
@@ -2529,7 +2572,7 @@ impl ProVerifBackend {
         } else {
             decls.join("\n")
         };
-        format!(
+        let decls = format!(
             "(*****************************************************************)\n\
              (* missingdecl.pvl — UNDEFINED externals referenced by lib.pvl   *)\n\
              (*                                                               *)\n\
@@ -2541,7 +2584,8 @@ impl ProVerifBackend {
              (* other function may be one-way.                                *)\n\
              (*****************************************************************)\n\
              {body}\n"
-        )
+        );
+        (decls, abstract_)
     }
 }
 

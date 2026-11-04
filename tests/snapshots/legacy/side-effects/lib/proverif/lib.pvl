@@ -67,6 +67,9 @@ query attacker(hax_extraction_error__new_tests).
 (*                                                               *)
 (*  - 9 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
 (*  - 2 × branch on a result of `core__num__Impl_6__wrapping_add`, which the model does not define *)
+(*  - 1 × `core__num__Impl_6__wrapping_add` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__num__Impl_8__wrapping_add` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__num__Impl_8__wrapping_sub` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/legacy/side-effects/lib.rs:190:4-192:5 new_tests__legacy__side_effects__lib__nested_return__other_fun *)

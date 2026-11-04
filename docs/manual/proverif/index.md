@@ -33,7 +33,7 @@ keep-trait-calls = ["proverif_nsl::PublicKeyEncryption::**"]
 The extraction writes to `proofs/proverif/extraction/` (`proofs/<scenario>/proverif/extraction/` for a scenario):
 
 - `lib.pvl`: the model of the crate, one `letfun` (or `fun`, `reduc`, ...) per Rust item. It contains no `process`. Its header lists the libraries it must be loaded with.
-- `missingdecl.pvl`: an abstract declaration of every symbol `lib.pvl` uses that no library defines, such as items of dependencies or large integer literals. Each one is an ideal-functionality boundary: keep it, or replace its declaration by a definition.
+- `missingdecl.pvl`: an abstract declaration of every symbol `lib.pvl` uses that no library defines, such as items of dependencies or large integer literals. Each one is an ideal-functionality boundary: keep it, or replace its declaration by a definition; the warning banner of `lib.pvl` lists them (see [Missing models](#missing-models)).
 
 An item the backend cannot express is reported in an `INCOMPLETE MODEL` banner at the top of `lib.pvl`, together with a query that fails on every ProVerif run, so that an incomplete model never verifies.
 
@@ -77,6 +77,10 @@ Rust calls some impls of the crate implicitly, where the model does not call the
 ## Loops
 
 ProVerif has no loops. The backend unrolls a `for` loop over a list three times, and the later iterations do not run; over an iterator that is not a list, such as a range with a variable bound or an adapter like `enumerate`, no iteration runs. The values of the variables the loop updates are then terms that match no pattern and equal no value, and the events and table inserts of its body are lost. The backend therefore rejects a `for` loop that updates a variable, including the loops that `map(..).collect()` and similar adapters become, and a loop whose body may be observable, calling a hand-written model. Such code needs a hand-written model, such as a `replace_body` on the function holding the loop.
+
+## Missing models
+
+A library function that hax's libraries do not model is declared as an abstract `fun` in `missingdecl.pvl`, whose value matches no pattern. When the model destructures that value, directly or after passing it through other functions, as the lowering of a `&mut` argument does with a pair of the result and the updated value, or as a `match` on an `Option` does, every path through it is lost. The same holds for a function or a constant of the crate that is `#[hax_lib::opaque]`, a `pv_constructor` or a `pv_extern`, whose value matches no pattern but its own. A hand-written model, such as a `replace_body` or a `pv_extern`, must likewise build the values its callers destructure. The warning banner of `lib.pvl` lists each such function, and each abstract function of `missingdecl.pvl`, but for the constructors and the constants: define those whose value is destructured, in a library loaded before `lib.pvl` or in place of their declaration.
 
 ## Writing the model
 

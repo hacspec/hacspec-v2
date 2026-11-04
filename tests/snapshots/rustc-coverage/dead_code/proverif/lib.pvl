@@ -44,6 +44,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
 (*  - 3 × branch on a result of `std__env__args`, which the model does not define *)
+(*  - 1 × `std__env__args` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/rustc-coverage/dead_code.rs:4:0-14:1 new_tests__rustc_coverage__dead_code__unused_pub_fn_not_in_library *)

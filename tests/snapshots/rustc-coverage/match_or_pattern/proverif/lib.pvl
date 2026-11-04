@@ -34,6 +34,18 @@
 (* Only typechecks with result.pvl loaded. *)
 letfun hax_result_model_check__new_tests() = hax_result_model__result.
 
+(*****************************************************************)
+(*  WARNINGS — branches the model may not follow as Rust does.   *)
+(*                                                               *)
+(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
+(*  the model cannot always evaluate. When it cannot, no arm of  *)
+(*  a `match` is taken (the trace ends) and an `if` takes its    *)
+(*  `else` branch, whatever Rust does. A query about the other   *)
+(*  branch may then hold for lack of any trace.                  *)
+(*                                                               *)
+(*  - 1 × `std__env__args` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*****************************************************************)
+
 (* src: src/rustc-coverage/match_or_pattern.rs:2:0-44:1 new_tests__rustc_coverage__match_or_pattern__main *)
 letfun new_tests__rustc_coverage__match_or_pattern__main(wildcard: bitstring) =
   let is_true = rust_primitives__hax__machine_int__eq(
