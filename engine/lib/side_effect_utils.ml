@@ -148,15 +148,18 @@ struct
         method private plus = ( && )
       end
 
+    (** The local names of the expression being hoisted, which the hoisted
+        bindings avoid. *)
+    let taken_names = ref (Set.empty (module String))
+
     module CollectContext = struct
       type t = { mutable fresh_id : int }
 
-      let fresh_local_ident (self : t) : Local_ident.t =
+      let rec fresh_local_ident (self : t) : Local_ident.t =
         self.fresh_id <- self.fresh_id + 1;
-        {
-          name = "hoist" ^ Int.to_string self.fresh_id;
-          id = Local_ident.mk_id SideEffectHoistVar (-1) (* todo *);
-        }
+        let name = "hoist" ^ Int.to_string self.fresh_id in
+        if Set.mem !taken_names name then fresh_local_ident self
+        else { name; id = Local_ident.mk_id SideEffectHoistVar (-1) (* todo *) }
 
       let empty = { fresh_id = 0 }
     end
@@ -777,6 +780,7 @@ struct
         whose condition has side effects. *)
     let collect_and_hoist_effects ?(reject_effectful_while_conditions = false)
         (e : expr) : expr * SideEffects.t =
+      taken_names := U.Capture.all_names#visit_expr () e;
       let e, restore = unique_binders e in
       let e, { lbs; effects } =
         (collect_and_hoist_effects_object ~reject_effectful_while_conditions)

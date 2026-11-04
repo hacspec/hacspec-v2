@@ -122,9 +122,26 @@ module Make (F : Features.T) =
                    control flow containing a return. Rewrite it.
                 *)
                 let stmts, final = U.collect_let_bindings e in
-                let inline_in_branch branch p stmts_after final =
+                let inline_in_branch ?arm_pat branch p stmts_after final =
+                  let moved = U.make_lets stmts_after final in
+                  let avoid =
+                    Set.diff
+                      (U.Capture.free_names moved)
+                      (U.Capture.names_of_pats [ p ])
+                  in
+                  let taken = U.Capture.all_names#visit_expr () moved in
+                  let arm_pat, branch =
+                    match arm_pat with
+                    | Some pat ->
+                        let pat, branch =
+                          U.Capture.rename_pat_binders ~avoid ~taken pat branch
+                        in
+                        (Some pat, branch)
+                    | None -> (None, branch)
+                  in
                   let branch_stmts, branch_final =
-                    U.collect_let_bindings branch
+                    let stmts, final = U.collect_let_bindings branch in
+                    U.Capture.rename_let_binders ~avoid ~taken stmts final
                   in
                   let stmts_to_add =
                     match (p, branch_final) with
@@ -137,7 +154,7 @@ module Make (F : Features.T) =
                         stmts_after
                     | stmt -> stmt :: stmts_after
                   in
-                  U.make_lets (branch_stmts @ stmts_to_add) final
+                  (arm_pat, U.make_lets (branch_stmts @ stmts_to_add) final)
                 in
                 let stmts_before, stmt_and_stmts_after =
                   List.split_while stmts ~f:(fun (_, e) ->
@@ -168,12 +185,14 @@ module Make (F : Features.T) =
                   :: stmts_after ->
                     (* We know there is no "return" in the condition
                        so we must rewrite the if *)
-                    let then_ = inline_in_branch then_ p stmts_after final in
+                    let then_ =
+                      inline_in_branch then_ p stmts_after final |> snd
+                    in
                     let else_ =
                       Some
                         (match else_ with
                         | Some else_ ->
-                            inline_in_branch else_ p stmts_after final
+                            inline_in_branch else_ p stmts_after final |> snd
                         | None -> U.make_lets stmts_after final)
                     in
                     U.make_lets stmts_before
@@ -183,10 +202,14 @@ module Make (F : Features.T) =
                   :: stmts_after ->
                     let arms =
                       List.map arms ~f:(fun arm ->
-                          let body =
-                            inline_in_branch arm.arm.body p stmts_after final
+                          let arm_pat, body =
+                            inline_in_branch ~arm_pat:arm.arm.arm_pat
+                              arm.arm.body p stmts_after final
                           in
-                          { arm with arm = { arm.arm with body } })
+                          let arm_pat =
+                            Option.value arm_pat ~default:arm.arm.arm_pat
+                          in
+                          { arm with arm = { arm.arm with arm_pat; body } })
                     in
                     U.make_lets stmts_before
                       { rhs with e = Match { scrutinee; arms } }

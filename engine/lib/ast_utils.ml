@@ -670,6 +670,155 @@ module Make (F : Features.T) = struct
       |> Set.to_list)
       prefix
 
+  (** Name-based helpers to move code under binders without capturing its
+      variables. *)
+  module Capture = struct
+    type names = (string, String.comparator_witness) Set.t
+
+    let names_of_pats (pats : pat list) : names =
+      Reducers.variables_of_pats pats
+      |> Set.to_list
+      |> List.map ~f:(fun (v : local_ident) -> v.name)
+      |> Set.of_list (module String)
+
+    (** Every local name occurring in an expression or pattern. *)
+    let all_names =
+      object
+        inherit [_] Visitors.reduce
+        method zero = Set.empty (module String)
+        method plus = Set.union
+        method! visit_local_ident () v = Set.singleton (module String) v.name
+        method! visit_Local_ident__t () v = Set.singleton (module String) v.name
+      end
+
+    (** The names of the local variables occurring free in [e]. *)
+    let free_names (e : expr) : names =
+      object (self)
+        inherit [_] Visitors.reduce as super
+        method zero = Set.empty (module String)
+        method plus = Set.union
+
+        method! visit_local_ident bound v =
+          if Set.mem bound v.name then Set.empty (module String)
+          else Set.singleton (module String) v.name
+
+        method! visit_Local_ident__t bound v = self#visit_local_ident bound v
+        method! visit_pat _ _ = Set.empty (module String)
+
+        method! visit_expr bound e =
+          let under pats = Set.union bound (names_of_pats pats) in
+          match e.e with
+          | Let { lhs; rhs; body; _ } ->
+              Set.union
+                (self#visit_expr bound rhs)
+                (self#visit_expr (under [ lhs ]) body)
+          | Closure { params; body; captures } ->
+              Set.union_list
+                (module String)
+                (self#visit_expr (under params) body
+                :: List.map ~f:(self#visit_expr bound) captures)
+          | Loop { kind; state; body; _ } ->
+              let state_pats, state_init =
+                match state with
+                | Some { bpat; init; _ } -> ([ bpat ], [ init ])
+                | None -> ([], [])
+              in
+              let inner = under state_pats in
+              let kind_names, inner =
+                match kind with
+                | ForLoop { pat; it; _ } ->
+                    ( self#visit_expr bound it,
+                      Set.union inner (names_of_pats [ pat ]) )
+                | WhileLoop { condition; _ } ->
+                    (self#visit_expr inner condition, inner)
+                | ForIndexLoop { start; end_; var; _ } ->
+                    ( Set.union
+                        (self#visit_expr bound start)
+                        (self#visit_expr bound end_),
+                      Set.add inner var.name )
+                | UnconditionalLoop -> (Set.empty (module String), inner)
+              in
+              Set.union_list
+                (module String)
+                (kind_names :: self#visit_expr inner body
+                :: List.map ~f:(self#visit_expr bound) state_init)
+          | _ -> super#visit_expr bound e
+
+        method! visit_arm' bound { arm_pat; body; guard } =
+          let bound = Set.union bound (names_of_pats [ arm_pat ]) in
+          let guard_names, bound =
+            match guard with
+            | Some { guard = IfLet { lhs; rhs; _ }; _ } ->
+                ( self#visit_expr bound rhs,
+                  Set.union bound (names_of_pats [ lhs ]) )
+            | None -> (Set.empty (module String), bound)
+          in
+          Set.union guard_names (self#visit_expr bound body)
+      end
+        #visit_expr
+        (Set.empty (module String))
+        e
+
+    (** Renames every local named [from] to [into]. *)
+    let rename ~(from : string) ~(into : string) =
+      let f (v : local_ident) =
+        if String.equal v.name from then { v with name = into } else v
+      in
+      object
+        inherit [_] Visitors.map
+        method! visit_local_ident () v = f v
+        method! visit_Local_ident__t () v = f v
+      end
+
+    (** A variant of [name] that is not in [taken]. *)
+    let fresh_name (taken : names) (name : string) : string =
+      let rec go i =
+        let candidate = name ^ "_" ^ Int.to_string i in
+        if Set.mem taken candidate then go (i + 1) else candidate
+      in
+      go 1
+
+    (** Renames the variables bound by [pat] whose names are in [avoid], in
+        [pat] and in the expression [scope] they scope over. *)
+    let rename_pat_binders ~(avoid : names) ~(taken : names) (pat : pat)
+        (scope : expr) : pat * expr =
+      Set.inter (names_of_pats [ pat ]) avoid
+      |> Set.fold ~init:(pat, scope) ~f:(fun (pat, scope) name ->
+          let taken =
+            Set.union_list
+              (module String)
+              [
+                taken; all_names#visit_pat () pat; all_names#visit_expr () scope;
+              ]
+          in
+          let r = rename ~from:name ~into:(fresh_name taken name) in
+          (r#visit_pat () pat, r#visit_expr () scope))
+
+    (** Renames the variables that [stmts] bind for [final] and whose names are
+        in [avoid], from their first binding on. *)
+    let rename_let_binders ~(avoid : names) ~(taken : names)
+        (stmts : (pat * expr) list) (final : expr) : (pat * expr) list * expr =
+      let bound = names_of_pats (List.map ~f:fst stmts) in
+      Set.inter bound avoid
+      |> Set.fold ~init:(stmts, final) ~f:(fun (stmts, final) name ->
+          let taken =
+            Set.union_list
+              (module String)
+              (taken
+              :: all_names#visit_expr () final
+              :: List.concat_map stmts ~f:(fun (p, e) ->
+                  [ all_names#visit_pat () p; all_names#visit_expr () e ]))
+          in
+          let r = rename ~from:name ~into:(fresh_name taken name) in
+          let active, stmts =
+            List.fold_map stmts ~init:false ~f:(fun active (p, e) ->
+                let e = if active then r#visit_expr () e else e in
+                let active = active || Set.mem (names_of_pats [ p ]) name in
+                (active, ((if active then r#visit_pat () p else p), e)))
+          in
+          (stmts, if active then r#visit_expr () final else final))
+  end
+
   let never_typ : ty =
     let ident =
       `Concrete

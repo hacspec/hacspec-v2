@@ -46,6 +46,10 @@ struct
 
     module Place = UA.Place
 
+    (** The local names of the item being translated, which the introduced
+        bindings avoid. *)
+    let taken_names = ref (Set.empty (module String))
+
     let expect_mut_borrow_of_place_or_pure_expr (e : A.expr) :
         (Place.t, A.expr) Either.t option =
       let e = UA.Mappers.normalize_borrow_mut#visit_expr () e in
@@ -181,10 +185,13 @@ struct
           let mutargs : ((local_ident * B.lhs) option * (B.ty * span)) list =
             let to_ident_lhs i = function
               | Either.First (place : Place.t) ->
-                  let var =
-                    Local_ident.
-                      { id = mk_id Expr 0; name = "tmp" ^ Int.to_string i }
+                  let name = "tmp" ^ Int.to_string i in
+                  let name =
+                    if Set.mem !taken_names name then
+                      UA.Capture.fresh_name !taken_names name
+                    else name
                   in
+                  let var = Local_ident.{ id = mk_id Expr 0; name } in
                   Some (var, place_to_lhs place)
               | _ -> None
             in
@@ -318,6 +325,7 @@ struct
     let rec ditem' span (item : A.item') : B.item' =
       let vars = UA.Reducers.collect_local_idents#visit_item' () item in
       out_var := UA.fresh_local_ident_in (Set.to_list vars) "out";
+      taken_names := UA.Capture.all_names#visit_item' () item;
       [%inline_body ditem'] span item
     [@@inline_ands "Item.*"]
   end
