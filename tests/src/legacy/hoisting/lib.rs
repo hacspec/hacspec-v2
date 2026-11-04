@@ -329,3 +329,43 @@ mod control_flow_capture {
         Ok(x + r)
     }
 }
+
+/// A right operand of `&&` or `||` that may panic is evaluated only when
+/// needed.
+mod short_circuit_panic {
+    fn index(v: &[u8], i: usize) -> bool {
+        i >= v.len() || v[i] > 0
+    }
+
+    fn division(a: u8, b: u8) -> bool {
+        b == 0 || a / b > 1
+    }
+
+    fn overflow(a: u8, b: u8) -> bool {
+        a > 200 || a + b > 3
+    }
+
+    fn nested(a: bool, v: &[u8], i: usize) -> bool {
+        a && (i >= v.len() || v[i] > 0)
+    }
+
+    /// @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001), proverif(HAX0008)
+    fn while_condition(n: u8, m: u8) -> u8 {
+        let mut i = 0u8;
+        let mut j = 0u8;
+        while i < n && j < m && !(i == 3) {
+            i += 1;
+            j += 1;
+        }
+        i
+    }
+
+    /// @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001), proverif(HAX0008)
+    fn while_condition_len(v: &[u8], n: usize) -> usize {
+        let mut i = 0;
+        while i < n && i < v.len() {
+            i += 1;
+        }
+        i
+    }
+}

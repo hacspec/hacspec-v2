@@ -73,10 +73,12 @@ set_option hax_mvcgen.specset "bv" in
 def math_integers.spec (x : hax_lib.int.Int) :
     Spec
       (requires := do
-        ((← (rust_primitives.hax.int.gt
+        (rust_primitives.hax.logical_op.and_then
+          (← (rust_primitives.hax.int.gt
             x
             (← (hax_lib.int.Impl_7._unsafe_from_str "0"))))
-          &&? (← (rust_primitives.hax.int.lt
+          (do
+          (rust_primitives.hax.int.lt
             x
             (← (hax_lib.int.Impl_7._unsafe_from_str "16"))))))
       (ensures := fun _ => pure True)

@@ -12,6 +12,7 @@ use crate::{
     ast::{
         identifiers::global_id::view::{ConstructorKind, PathSegment, TypeDefKind},
         span::Span,
+        visitors::AstVisitor,
     },
     attributes::hax_proof_attributes,
     names::rust_primitives::hax::{
@@ -36,6 +37,86 @@ mod binops {
 const LIFT: GlobalId = lift;
 const PURE: GlobalId = pure;
 const CAST_OP: GlobalId = cast_op;
+
+/// The computation of `expr` if it is lifted into a value
+fn lifted(expr: &Expr) -> Option<&Expr> {
+    if let ExprKind::App { head, args, .. } = expr.kind()
+        && let ExprKind::GlobalId(LIFT) = head.kind()
+        && let [computation] = &args[..]
+    {
+        Some(computation)
+    } else {
+        None
+    }
+}
+
+/// Whether `expr` applies an operator on booleans or integers that cannot
+/// fail, which the printer prints as an operator of the Lean library defined
+/// with `pure`
+fn is_total(expr: &Expr) -> bool {
+    let ExprKind::App {
+        head,
+        args,
+        generic_args,
+        ..
+    } = expr.kind()
+    else {
+        return false;
+    };
+    let ExprKind::GlobalId(op) = head.kind() else {
+        return false;
+    };
+    let scalar = |arg: &Expr| arg.ty == Ty::bool() || arg.ty.is_int();
+    generic_args.is_empty()
+        && args.iter().all(scalar)
+        && match &args[..] {
+            [_] => matches!(*op, binops::not | binops::Not::not),
+            [_, _] => matches!(
+                *op,
+                binops::bitand
+                    | binops::BitAnd::bitand
+                    | binops::bitor
+                    | binops::BitOr::bitor
+                    | binops::bitxor
+                    | binops::BitXor::bitxor
+                    | binops::logical_op_and
+                    | binops::logical_op_or
+                    | binops::eq
+                    | binops::PartialEq::eq
+                    | binops::lt
+                    | binops::le
+                    | binops::gt
+                    | binops::ge
+                    | binops::ne
+                    | binops::PartialEq::ne
+            ),
+            _ => false,
+        }
+}
+
+/// Whether evaluating `expr` may fail, i.e. whether it lifts a computation
+/// other than a total operator
+fn may_fail(expr: &Expr) -> bool {
+    struct Finder(bool);
+    impl AstVisitor for Finder {
+        fn visit_expr(&mut self, expr: &Expr) {
+            match expr.kind() {
+                // A closure body is a `do` block of its own
+                ExprKind::Closure { .. } => (),
+                ExprKind::App { head, args, .. }
+                    if matches!(head.kind(), ExprKind::GlobalId(LIFT)) =>
+                {
+                    self.0 |= !args.iter().all(is_total);
+                    self.visit_inner(expr);
+                }
+                _ => self.visit_inner(expr),
+            }
+        }
+    }
+    let mut finder = Finder(false);
+    finder.visit_expr(expr);
+    finder.0
+}
 
 /// The Lean printer
 #[setup_printer_struct]
@@ -935,6 +1016,34 @@ const _: () = {
                                 _ => unreachable!(),
                             };
                             docs![symbol, softline!(), arg].parens()
+                        }
+                        (
+                            [lhs, rhs],
+                            [],
+                            ExprKind::GlobalId(
+                                op @ (binops::logical_op_and | binops::logical_op_or),
+                            ),
+                        ) if may_fail(rhs) => {
+                            // The right operand runs only when the left one does not decide
+                            let combinator = if *op == binops::logical_op_and {
+                                "rust_primitives.hax.logical_op.and_then"
+                            } else {
+                                "rust_primitives.hax.logical_op.or_else"
+                            };
+                            let rhs = match lifted(rhs) {
+                                Some(computation) => docs![computation],
+                                None => docs![reflow!("pure "), rhs],
+                            };
+                            docs![
+                                combinator,
+                                line!(),
+                                lhs,
+                                line!(),
+                                docs!["do", line!(), rhs].group().parens()
+                            ]
+                            .nest(INDENT)
+                            .group()
+                            .parens()
                         }
                         ([lhs, rhs], [], ExprKind::GlobalId(binops::Index::index)) => {
                             docs![lhs, "[", line_!(), rhs, line_!(), "]_?"]

@@ -36,6 +36,7 @@ Changes to the frontend:
 Lean backend and library:
  - `v.iter().all(..)` and `v.iter().any(..)` on slices no longer fail with an
    unknown constant
+ - Evaluate a right operand of `&&` and `||` that may panic only when needed
 
 F* backend and library:
  - `Iterator::{all, any, find, find_map, position}` now take `&mut self` as in

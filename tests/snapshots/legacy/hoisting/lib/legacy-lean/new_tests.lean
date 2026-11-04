@@ -473,3 +473,83 @@ def shadowing_let (b : Bool) : RustM (core_models.result.Result u8 u8) := do
 
 end new_tests.legacy__hoisting__lib.control_flow_capture
 
+
+namespace new_tests.legacy__hoisting__lib.short_circuit_panic
+
+@[spec]
+def index (v : (RustSlice u8)) (i : usize) : RustM Bool := do
+  (rust_primitives.hax.logical_op.or_else
+    (← (i >=? (← (core_models.slice.Impl.len u8 v))))
+    (do ((← v[i]_?) >? (0 : u8))))
+
+@[spec]
+def division (a : u8) (b : u8) : RustM Bool := do
+  (rust_primitives.hax.logical_op.or_else
+    (← (b ==? (0 : u8)))
+    (do ((← (a /? b)) >? (1 : u8))))
+
+@[spec]
+def overflow (a : u8) (b : u8) : RustM Bool := do
+  (rust_primitives.hax.logical_op.or_else
+    (← (a >? (200 : u8)))
+    (do ((← (a +? b)) >? (3 : u8))))
+
+@[spec]
+def nested (a : Bool) (v : (RustSlice u8)) (i : usize) : RustM Bool := do
+  (rust_primitives.hax.logical_op.and_then
+    a
+    (do
+    (rust_primitives.hax.logical_op.or_else
+      (← (i >=? (← (core_models.slice.Impl.len u8 v))))
+      (do ((← v[i]_?) >? (0 : u8))))))
+
+--  @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001), proverif(HAX0008)
+@[spec]
+def while_condition (n : u8) (m : u8) : RustM u8 := do
+  let i : u8 := (0 : u8);
+  let j : u8 := (0 : u8);
+  let ⟨i, j⟩ ←
+    (rust_primitives.hax.while_loop
+      (fun ⟨i, j⟩ => (do (pure true) : RustM Bool))
+      (fun ⟨i, j⟩ =>
+        (do
+        ((← ((← (i <? n)) &&? (← (j <? m)))) &&? (← (!? (← (i ==? (3 : u8))))))
+        :
+        RustM Bool))
+      (fun ⟨i, j⟩ =>
+        (do
+        (rust_primitives.hax.int.from_machine (0 : u32)) :
+        RustM hax_lib.int.Int))
+      (rust_primitives.hax.Tuple2.mk i j)
+      (fun ⟨i, j⟩ =>
+        (do
+        let i : u8 ← (i +? (1 : u8));
+        let j : u8 ← (j +? (1 : u8));
+        (pure (rust_primitives.hax.Tuple2.mk i j)) :
+        RustM (rust_primitives.hax.Tuple2 u8 u8))));
+  (pure i)
+
+--  @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001), proverif(HAX0008)
+@[spec]
+def while_condition_len (v : (RustSlice u8)) (n : usize) : RustM usize := do
+  let i : usize := (0 : usize);
+  let i : usize ←
+    (rust_primitives.hax.while_loop
+      (fun i => (do (pure true) : RustM Bool))
+      (fun i =>
+        (do
+        (rust_primitives.hax.logical_op.and_then
+          (← (i <? n))
+          (do (i <? (← (core_models.slice.Impl.len u8 v))))) :
+        RustM Bool))
+      (fun i =>
+        (do
+        (rust_primitives.hax.int.from_machine (0 : u32)) :
+        RustM hax_lib.int.Int))
+      i
+      (fun i =>
+        (do let i : usize ← (i +? (1 : usize)); (pure i) : RustM usize)));
+  (pure i)
+
+end new_tests.legacy__hoisting__lib.short_circuit_panic
+

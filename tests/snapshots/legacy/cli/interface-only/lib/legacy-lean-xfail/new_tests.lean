@@ -161,8 +161,9 @@ instance Impl_5 : T2 u8 where
 
 def padlen (b : (RustSlice u8)) (n : usize) : RustM usize := do
   if
-  (← ((← (n >? (0 : usize)))
-    &&? (← ((← b[(← (n -? (1 : usize)))]_?) ==? (0 : u8))))) then do
+  (← (rust_primitives.hax.logical_op.and_then
+    (← (n >? (0 : usize)))
+    (do ((← b[(← (n -? (1 : usize)))]_?) ==? (0 : u8))))) then do
     ((1 : usize) +? (← (padlen b (← (n -? (1 : usize))))))
   else do
     (pure (0 : usize))

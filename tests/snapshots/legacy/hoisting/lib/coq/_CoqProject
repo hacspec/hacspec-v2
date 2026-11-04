@@ -3,6 +3,7 @@
 -arg all
 
 New_tests_Legacy__hoisting__lib_While_condition.v
+New_tests_Legacy__hoisting__lib_Short_circuit_panic.v
 New_tests_Legacy__hoisting__lib_Issue_2336_.v
 New_tests_Legacy__hoisting__lib_Issue_1734_.v
 New_tests_Legacy__hoisting__lib_Evaluation_order.v

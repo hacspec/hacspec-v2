@@ -23,8 +23,9 @@ def say (message : String) : RustM rust_primitives.hax.Tuple0 := do
 def nested_if_in_condition (a : Bool) (b : Bool) (c : Bool) :
     RustM rust_primitives.hax.Tuple0 := do
   if
-  (← (a &&? (← if (← (b ||? c)) then do (pure true) else do (pure false)))) then
-  do
+  (← (rust_primitives.hax.logical_op.and_then
+    a
+    (do if (← (b ||? c)) then do (pure true) else do (pure false)))) then do
     let _ ← (say "yes");
     (pure rust_primitives.hax.Tuple0.mk)
   else do
@@ -35,10 +36,13 @@ def nested_if_in_condition (a : Bool) (b : Bool) (c : Bool) :
 def doubly_nested_if_in_condition (a : Bool) (b : Bool) (c : Bool) (d : Bool) :
     RustM rust_primitives.hax.Tuple0 := do
   if
-  (← (a
-    &&? (← if
-    (← (b ||? (← if (← (c &&? d)) then do (pure true) else do (pure false))))
-    then do
+  (← (rust_primitives.hax.logical_op.and_then
+    a
+    (do
+    if
+    (← (rust_primitives.hax.logical_op.or_else
+      b
+      (do if (← (c &&? d)) then do (pure true) else do (pure false)))) then do
       (pure false)
     else do
       (pure true)))) then do
@@ -51,7 +55,10 @@ def doubly_nested_if_in_condition (a : Bool) (b : Bool) (c : Bool) (d : Bool) :
 @[spec]
 def nested_single_condition_decision (a : Bool) (b : Bool) :
     RustM rust_primitives.hax.Tuple0 := do
-  if (← (a &&? (← if b then do (pure false) else do (pure true)))) then do
+  if
+  (← (rust_primitives.hax.logical_op.and_then
+    a
+    (do if b then do (pure false) else do (pure true)))) then do
     let _ ← (say "yes");
     (pure rust_primitives.hax.Tuple0.mk)
   else do
@@ -67,8 +74,10 @@ def nested_in_then_block_in_condition
     (e : Bool) :
     RustM rust_primitives.hax.Tuple0 := do
   if
-  (← (a
-    &&? (← if (← (b ||? c)) then do
+  (← (rust_primitives.hax.logical_op.and_then
+    a
+    (do
+    if (← (b ||? c)) then do
       if (← (d &&? e)) then do (pure true) else do (pure false)
     else do
       (pure false)))) then do
