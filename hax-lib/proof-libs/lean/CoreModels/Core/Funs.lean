@@ -72,10 +72,10 @@ def array.Array.as_mut_slice
   := do
   rust_primitives.slice.array_as_mut_slice s
 
-/-- [core_models::array::{core_models::array::Array<T, N>}::each_ref::{impl core::ops::function::FnMut<(usize,), &'_ T> for core_models::array::{core_models::array::Array<T, N>}::each_ref::{closure}<'_0, T, N>}::call_mut]:
+/-- [core_models::array::{core_models::array::Array<T, N>}::each_ref::{impl core::ops::function::FnMut<(usize,), &'_0 T> for core_models::array::{core_models::array::Array<T, N>}::each_ref::{closure}<'_0, '_1, T, N>}::call_mut]:
     Source: 'core-models/src/core/array.rs', lines 65:22-65:43 -/
 def
-  array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeSharedT.call_mut
+  array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeShared0T.call_mut
   {T : Type _} {N : Std.Usize} (c : array.Array.each_ref.closure T N)
   (tupled_args : Std.Usize) :
   RustM (T × (array.Array.each_ref.closure T N))
@@ -83,40 +83,40 @@ def
   let t ← rust_primitives.slice.array_index c tupled_args
   ok (t, c)
 
-/-- [core_models::array::{core_models::array::Array<T, N>}::each_ref::{impl core::ops::function::FnOnce<(usize,), &'_ T> for core_models::array::{core_models::array::Array<T, N>}::each_ref::{closure}<'_0, T, N>}::call_once]:
+/-- [core_models::array::{core_models::array::Array<T, N>}::each_ref::{impl core::ops::function::FnOnce<(usize,), &'_0 T> for core_models::array::{core_models::array::Array<T, N>}::each_ref::{closure}<'_0, '_1, T, N>}::call_once]:
     Source: 'core-models/src/core/array.rs', lines 65:22-65:43 -/
 def
-  array.Array.each_ref.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeSharedT.call_once
+  array.Array.each_ref.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeShared0T.call_once
   {T : Type _} {N : Std.Usize} (c : array.Array.each_ref.closure T N)
   (i : Std.Usize) :
   RustM T
   := do
   let (t, _) ←
-    array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeSharedT.call_mut
+    array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeShared0T.call_mut
       c i
   ok t
 
-/-- Trait implementation: [core_models::array::{core_models::array::Array<T, N>}::each_ref::{impl core::ops::function::FnOnce<(usize,), &'_ T> for core_models::array::{core_models::array::Array<T, N>}::each_ref::{closure}<'_0, T, N>}]
+/-- Trait implementation: [core_models::array::{core_models::array::Array<T, N>}::each_ref::{impl core::ops::function::FnOnce<(usize,), &'_0 T> for core_models::array::{core_models::array::Array<T, N>}::each_ref::{closure}<'_0, '_1, T, N>}]
     Source: 'core-models/src/core/array.rs', lines 65:22-65:43 -/
 @[reducible]
-def array.Array.each_ref.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeSharedT
+def array.Array.each_ref.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeShared0T
   (T : Type _) (N : Std.Usize) : core.ops.function.FnOnce
   (array.Array.each_ref.closure T N) Std.Usize T := {
   call_once :=
-    array.Array.each_ref.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeSharedT.call_once
+    array.Array.each_ref.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeShared0T.call_once
 }
 
-/-- Trait implementation: [core_models::array::{core_models::array::Array<T, N>}::each_ref::{impl core::ops::function::FnMut<(usize,), &'_ T> for core_models::array::{core_models::array::Array<T, N>}::each_ref::{closure}<'_0, T, N>}]
+/-- Trait implementation: [core_models::array::{core_models::array::Array<T, N>}::each_ref::{impl core::ops::function::FnMut<(usize,), &'_0 T> for core_models::array::{core_models::array::Array<T, N>}::each_ref::{closure}<'_0, '_1, T, N>}]
     Source: 'core-models/src/core/array.rs', lines 65:22-65:43 -/
 @[reducible]
-def array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeSharedT (T
-  : Type _) (N : Std.Usize) : core.ops.function.FnMut
+def array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeShared0T
+  (T : Type _) (N : Std.Usize) : core.ops.function.FnMut
   (array.Array.each_ref.closure T N) Std.Usize T := {
   FnOnceInst :=
-    array.Array.each_ref.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeSharedT T
-    N
+    array.Array.each_ref.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeShared0T
+    T N
   call_mut :=
-    array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeSharedT.call_mut
+    array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeShared0T.call_mut
 }
 
 /-- [core_models::array::{core_models::array::Array<T, N>}::each_ref]:
@@ -125,8 +125,8 @@ def array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeSharedT (T
 def array.Array.each_ref
   {T : Type _} {N : Std.Usize} (s : Array T N) : RustM (Array T N) := do
   rust_primitives.slice.array_from_fn N
-    (array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeSharedT T
-    N) s
+    (array.Array.each_ref.closure.Insts.CoreOpsFunctionFnMutTupleUsizeShared0T
+    T N) s
 
 /-- [core_models::array::from_fn]:
     Source: 'core-models/src/core/array.rs', lines 70:0-72:1
@@ -1271,7 +1271,7 @@ def convert.TryFromUTInfallible.Blanket {T : Type _} {U : Type _} (FromInst :
   try_from := convert.TryFromUTInfallible.Blanket.try_from FromInst
 }
 
-/-- [core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{impl core::ops::function::FnMut<(usize,), T> for core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{closure}<'_0, '_1, T, N>}::call_mut]:
+/-- [core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{impl core::ops::function::FnMut<(usize,), T> for core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{closure}<'_0, '_1, '_2, T, N>}::call_mut]:
     Source: 'core-models/src/core/convert.rs', lines 67:61-69:13 -/
 def
   convert.TryFromArrayShared0SliceTryFromSliceError.try_from.closure.Insts.CoreOpsFunctionFnMutTupleUsizeT.call_mut
@@ -1284,7 +1284,7 @@ def
   let t ← rust_primitives.slice.slice_index c tupled_args
   ok (t, c)
 
-/-- [core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{impl core::ops::function::FnOnce<(usize,), T> for core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{closure}<'_0, '_1, T, N>}::call_once]:
+/-- [core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{impl core::ops::function::FnOnce<(usize,), T> for core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{closure}<'_0, '_1, '_2, T, N>}::call_once]:
     Source: 'core-models/src/core/convert.rs', lines 67:61-69:13 -/
 def
   convert.TryFromArrayShared0SliceTryFromSliceError.try_from.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeT.call_once
@@ -1298,7 +1298,7 @@ def
       coremarkerCopyInst c i
   ok t
 
-/-- Trait implementation: [core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{impl core::ops::function::FnOnce<(usize,), T> for core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{closure}<'_0, '_1, T, N>}]
+/-- Trait implementation: [core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{impl core::ops::function::FnOnce<(usize,), T> for core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{closure}<'_0, '_1, '_2, T, N>}]
     Source: 'core-models/src/core/convert.rs', lines 67:61-69:13 -/
 @[reducible]
 def
@@ -1312,7 +1312,7 @@ def
     coremarkerCopyInst
 }
 
-/-- Trait implementation: [core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{impl core::ops::function::FnMut<(usize,), T> for core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{closure}<'_0, '_1, T, N>}]
+/-- Trait implementation: [core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{impl core::ops::function::FnMut<(usize,), T> for core_models::convert::{impl core_models::convert::TryFrom<&'_0 [T], core_models::array::TryFromSliceError> for [T; N]}::try_from::{closure}<'_0, '_1, '_2, T, N>}]
     Source: 'core-models/src/core/convert.rs', lines 67:61-69:13 -/
 @[reducible]
 def
