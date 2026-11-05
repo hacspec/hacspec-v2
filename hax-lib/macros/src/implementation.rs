@@ -655,11 +655,8 @@ pub fn opaque(_attr: pm::TokenStream, item: pm::TokenStream) -> pm::TokenStream 
 
 pub fn pv_inline(_attr: pm::TokenStream, item: pm::TokenStream) -> pm::TokenStream {
     let item: ItemFn = parse_macro_input!(item);
-    quote! {
-        #[cfg_attr(hax_compilation, _hax::pv_inline)]
-        #item
-    }
-    .into()
+    let attr = AttrPayload::PVInline;
+    quote! {#attr #item}.into()
 }
 
 pub fn pv_extern(attr: pm::TokenStream, item: pm::TokenStream) -> pm::TokenStream {

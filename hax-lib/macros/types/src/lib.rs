@@ -149,6 +149,7 @@ pub enum AttrPayload {
     ProtocolMessages,
     PVConstructor,
     PVHandwritten,
+    PVInline,
     TraitMethodNoPrePost,
     /// Make an item opaque
     Erased,

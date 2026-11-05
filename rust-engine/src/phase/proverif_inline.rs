@@ -26,17 +26,13 @@ pub struct ProverifInline;
 /// Bound on the substitution fixpoint, to keep the phase total.
 const MAX_INLINE_DEPTH: usize = 100;
 
-/// The tool attribute emitted by `#[hax_lib::pv_inline]`. It is not an
-/// `AttrPayload` variant, so that the OCaml engine passes it through unparsed.
-const PV_INLINE_PATH: &str = "_hax::pv_inline";
-
 /// Whether the function is tagged `#[hax_lib::pv_inline]` or is higher-order,
 /// and its body is emitted.
 fn is_inlinable(meta: &Metadata, params: &[Param]) -> bool {
     let tagged = meta
         .attributes
         .iter()
-        .any(|a| matches!(&a.kind, AttributeKind::Tool { path, .. } if path == PV_INLINE_PATH));
+        .any(|a| matches!(&a.kind, AttributeKind::Hax(AttrPayload::PVInline)));
     let higher_order = params
         .iter()
         .any(|p| matches!(p.ty.kind(), TyKind::Arrow { .. }));
