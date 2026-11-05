@@ -1,0 +1,126 @@
+(*****************************************)
+(* Preamble *)
+(*****************************************)
+
+channel c.
+
+fun construct_fail() : bitstring
+reduc construct_fail() = fail.
+
+type Option.
+fun Some(bitstring): Option [data].
+fun None(): Option [data].
+letfun Option_err() = let x = construct_fail() in None().
+
+const empty: bitstring.
+letfun bitstring_default() = empty.
+letfun bitstring_err() = let x = construct_fail() in bitstring_default().
+
+letfun nat_default() = 0.
+fun nat_to_bitstring(nat): bitstring.
+letfun nat_err() = let x = construct_fail() in nat_default().
+
+letfun bool_default() = false.
+
+
+(*****************************************)
+(* Types and Constructors *)
+(*****************************************)
+
+
+
+(*****************************************)
+(* Functions *)
+(*****************************************)
+
+letfun new_tests__legacy__closure_return__lib__in_while_condition(n : nat) =
+       let i = (0) in
+       let i = (
+         rust_primitives__hax__failure(
+           "Explicit rejection by a phase in the Hax engine:
+a node of kind [Loop] have been found in the AST
+
+Note: the error was labeled with context `reject_not_in_ProVerif`.
+",
+           "{
+ (loop {
+ |i| {
+ {
+ let c: arrow!(int -> bool) = {
+ (|x| {
+ {
+ let _: tuple0 = {
+ (if core_models::cmp::f_eq(x, 3) {
+ {
+ let hoist1: rust_primitives::hax::t_Never = {
+ (return false)
+ };
+ rust_primi..."
+         )
+       ) in
+       i.
+
+letfun new_tests__legacy__closure_return__lib__in_loop_body(n : nat) =
+       let i = (0) in
+       let i = (
+         rust_primitives__hax__failure(
+           "Explicit rejection by a phase in the Hax engine:
+a node of kind [Loop] have been found in the AST
+
+Note: the error was labeled with context `reject_not_in_ProVerif`.
+",
+           "{
+ (loop {
+ |i| {
+ (if core_models::cmp::f_lt(i, n) {
+ {
+ let c: arrow!(int -> bool) = {
+ (|x| {
+ {
+ let _: tuple0 = {
+ (if core_models::cmp::f_eq(x, 3) {
+ {
+ let hoist4: rust_primitives::hax::t_Never..."
+         )
+       ) in
+       i.
+
+letfun new_tests__legacy__closure_return__lib__nested(i : nat) =
+       let c = (
+         |x|let d = (
+           |y|let wildcard3: bitstring = (
+             if core_models__cmp__f_eq(y, 0)
+             then
+               (let hoist7 = (todo return;) in
+                bitstring_err())
+             else (())
+           ) in
+           y
+         ) in
+         let wildcard2: bitstring = (
+           if core_models__cmp__f_eq(x, 3)
+           then
+             (let hoist8 = (todo return;) in
+              bitstring_err())
+           else (())
+         ) in
+         core_models__ops__arith__f_add(x, 1)
+       ) in
+       let wildcard1: bitstring = (
+         rust_primitives__hax__failure(
+           "Explicit rejection by a phase in the Hax engine:
+a node of kind [Loop] have been found in the AST
+
+Note: the error was labeled with context `reject_not_in_ProVerif`.
+",
+           "{
+ for j in (core_models::iter::traits::collect::f_into_iter(core_models::ops::range::Range {
+ f_start: 0,
+ f_end: i,
+ })) {
+ (if core_models::cmp::f_eq(
+ core_models::ops::function::f_call(c, Tuple1(..."
+         )
+       ) in
+       core_models__ops__function__f_call(c, (i)).
+

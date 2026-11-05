@@ -31,6 +31,7 @@ module Make (F : Features.T) =
             match e with
             | Return _ -> true
             | (Break _ | Continue _) when break_continue -> true
+            | Closure _ -> false
             | _ -> super#visit_expr' break_continue e
         end
 
@@ -43,6 +44,7 @@ module Make (F : Features.T) =
           method! visit_expr' () e =
             match e with
             | Return { e; witness; _ } -> (e.typ, Some witness)
+            | Closure _ -> (U.unit_typ, None)
             | _ -> super#visit_expr' () e
         end
 
@@ -81,11 +83,20 @@ module Make (F : Features.T) =
               MS.expr_Match ~scrutinee:loop ~arms ~typ:return_type
             in
             match e.e with
+            (* closure bodies are rewritten separately, see [ditems] *)
+            | Closure _ -> e
             (* This is supposed to improve performance but it might actually make it worse in some cases *)
             | _ when not (has_cf#visit_expr true e) -> e
             | Loop loop ->
                 let return_inside = has_cf#visit_expr false loop.body in
                 let new_body = self#visit_expr true loop.body in
+                let kind =
+                  match loop.kind with
+                  | WhileLoop { condition; witness } ->
+                      WhileLoop
+                        { condition = self#visit_expr false condition; witness }
+                  | kind -> kind
+                in
                 let loop_expr =
                   {
                     e with
@@ -93,6 +104,7 @@ module Make (F : Features.T) =
                       Loop
                         {
                           loop with
+                          kind;
                           body = { new_body with typ = loop.body.typ };
                         };
                   }
@@ -192,5 +204,26 @@ module Make (F : Features.T) =
             | _ -> super#visit_expr in_loop e
         end
 
-      let ditems = List.map ~f:(rewrite_control_flow#visit_item false)
+      (** Rewrites each closure body on its own, as a `return` in a closure
+          exits only the closure. *)
+      let rewrite_closures =
+        object (self)
+          inherit [_] Visitors.map as super
+
+          method! visit_expr' () e =
+            match e with
+            | Closure ({ body; _ } as closure) ->
+                let body =
+                  self#visit_expr () body
+                  |> rewrite_control_flow#visit_expr false
+                in
+                Closure { closure with body }
+            | _ -> super#visit_expr' () e
+        end
+
+      let ditems =
+        List.map
+          ~f:
+            (rewrite_control_flow#visit_item false
+            >> rewrite_closures#visit_item ())
     end)
