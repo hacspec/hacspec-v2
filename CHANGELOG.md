@@ -44,6 +44,21 @@ F* backend and library:
  - `Formatter::write_str` is now `Core_models.Fmt.impl_11__write_str`, the name
    extracted client code calls, instead of `impl_Formatter__write_str`
 
+ProVerif backend and library:
+ - Breaking: full re-implementation of the backend under the Rust engine. The library
+   scope and its interface with extracted code is also refactored.
+ - Reject the code that each Result model would get wrong: by default, a
+   `Result` that is not returned or consumed at once, or code that goes on
+   after an `Err`; with `--result-errors`, the same for a `Result` that may
+   carry the error of a hand-written model, except that an arm may recover
+   from its `Err`
+ - Add `#[hax_lib::pv_unchecked_results]`, which exempts a function from
+   these checks
+ - Keep the Rust evaluation order of arguments, record fields and the
+   operands of `&&` and `||`
+ - `#[pv_inverse_of(f)]` on `g` makes `g` match its argument against `f`,
+   without a `reduc`, and accepts methods
+
 ### Changed
 
 Changes to `cargo-hax`:
@@ -96,6 +111,7 @@ F* backend and library:
  - Breaking: `Core_models.Ops.Range.impl` to `impl_4` are now the `RangeBounds`
    instances, with the `Iterator` instances of `Range` moving to `impl_5` to
    `impl_16`
+
 
 ## [0.4.1] - 2026-09-23
 

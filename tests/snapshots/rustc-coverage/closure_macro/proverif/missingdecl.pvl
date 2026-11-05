@@ -1,0 +1,16 @@
+(*****************************************************************)
+(* missingdecl.pvl — UNDEFINED externals referenced by lib.pvl   *)
+(*                                                               *)
+(* Each symbol below is referenced by lib.pvl but defined by     *)
+(* none of the hax libraries, so it is declared abstract here.   *)
+(* Define it — by hand or by extracting the crate that owns it — *)
+(* or deliberately leave it abstract, as an ideal-functionality  *)
+(* boundary. Only Rust constructors are declared `[data]`: any   *)
+(* other function may be one-way.                                *)
+(*****************************************************************)
+(* referenced by: new_tests__rustc_coverage__closure_macro__main *)
+const string_lit__Starting_x20service_x0a: bitstring.
+(* referenced by: new_tests__rustc_coverage__closure_macro__main *)
+const string_lit__arg: bitstring.
+(* referenced by: new_tests__rustc_coverage__closure_macro__load_configuration_files *)
+const string_lit__config: bitstring.

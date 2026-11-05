@@ -165,6 +165,33 @@ passthrough_attributes! {
     /// refinement type: the use of such a type yields static proof
     /// obligations.
     refinement_type;
+
+    /// β-inline every call to this ProVerif helper at the use site; the
+    /// marked item itself drops out of the extracted model.
+    pv_inline;
+
+    /// Model a Rust function as a uniform-bitstring `extern__<fn>` ProVerif
+    /// letfun, deriving the declaration arity and body-call arguments from the
+    /// annotated function's signature. The symbol is named after the bare
+    /// function name, which two modules can share; pass an explicit name
+    /// (`#[pv_extern("mymod_encrypt")]`) when they do, or the two functions
+    /// become one symbol in the model. Every parameter must be a plain
+    /// identifier.
+    pv_extern;
+
+    /// Shorthand for `#[hax_lib::proverif::replace_body(<lit>)]`, for trivial
+    /// constant stubs such as `#[pv_stub("nat_0")]`.
+    pv_stub;
+
+    /// Declare this function `g`, of one argument or a `self` receiver, as the
+    /// one-sided inverse of another function `f`: `g` matches its argument
+    /// against `f(x)` and returns `x`. With `--result-errors`, a function
+    /// returning a `Result` returns `Ok`, and an `Err` off the image of `f`.
+    ///
+    /// A ProVerif pattern only matches *constructors*, so the other function
+    /// has to be one — annotate it `#[hax_lib::pv_constructor]` (or
+    /// `#[hax_lib::opaque]`).
+    pv_inverse_of;
 }
 
 attribute_macros! {
@@ -365,6 +392,16 @@ attribute_macros! {
     fn pv_handwritten(_attr, item) {
         let item: ItemFn = parse_macro_input!(item);
         let attr = AttrPayload::PVHandwritten;
+        quote! {#attr #item}.into()
+    }
+
+    /// A marker exempting a `fn` from the ProVerif backend's checks of its
+    /// uses of `Result`: the extracted body is kept as is, and its model is
+    /// marked with a `HAX WARNING`. The Result model may then get the function
+    /// wrong, for example by dropping an arm that recovers from an `Err`.
+    fn pv_unchecked_results(_attr, item) {
+        let item: ItemFn = parse_macro_input!(item);
+        let attr = AttrPayload::PVUncheckedResults;
         quote! {#attr #item}.into()
     }
 

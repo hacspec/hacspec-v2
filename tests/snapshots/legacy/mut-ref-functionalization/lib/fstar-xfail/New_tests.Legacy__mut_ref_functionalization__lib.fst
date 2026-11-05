@@ -5,7 +5,6 @@ open Core_models
 
 type t_S = { f_b:t_Array u8 (mk_usize 5) }
 
-/// @fail(extraction): proverif(HAX0008)
 let foo (lhs rhs: t_S) : t_S =
   let lhs:t_S =
     Rust_primitives.Hax.Folds.fold_range (mk_usize 0)
@@ -128,12 +127,15 @@ let test_append (_: Prims.unit) : Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global =
   let vec1:Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global = tmp0 in
   let vec2:Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global = tmp1 in
   let _:Prims.unit = () in
-  let vec1:Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global =
+  let (tmp0: Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global), (_: Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global)
+  =
     Alloc.Vec.impl_1__append #u8
       #Alloc.Alloc.t_Global
       vec1
       (build_vec () <: Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global)
   in
+  let vec1:Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global = tmp0 in
+  let _:Prims.unit = () in
   vec1
 
 let f (_: Prims.unit) : Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global =
@@ -169,7 +171,6 @@ type t_Pair (v_T: Type0) = {
   f_b:t_Foo
 }
 
-/// @fail(extraction): proverif(HAX0008)
 let g (x: t_Pair (Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global))
     : Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global =
   let x:t_Pair (Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global) = x in

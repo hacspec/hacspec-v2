@@ -17,7 +17,6 @@ namespace new_tests.legacy__mut_ref_functionalization__lib
 structure S where
   b : (RustArray u8 5)
 
---  @fail(extraction): proverif(HAX0008)
 @[spec]
 def foo (lhs : S) (rhs : S) : RustM S := do
   let lhs : S ←
@@ -107,10 +106,12 @@ def test_append (_ : rust_primitives.hax.Tuple0) :
   let vec1 : (alloc.vec.Vec u8 alloc.alloc.Global) := tmp0;
   let vec2 : (alloc.vec.Vec u8 alloc.alloc.Global) := tmp1;
   let _ := rust_primitives.hax.Tuple0.mk;
-  let vec1 : (alloc.vec.Vec u8 alloc.alloc.Global) ←
+  let ⟨tmp0, _⟩ ←
     (alloc.vec.Impl_1.append u8 alloc.alloc.Global
       vec1
       (← (build_vec rust_primitives.hax.Tuple0.mk)));
+  let vec1 : (alloc.vec.Vec u8 alloc.alloc.Global) := tmp0;
+  let _ := rust_primitives.hax.Tuple0.mk;
   (pure vec1)
 
 @[spec]
@@ -143,7 +144,6 @@ structure Pair (T : Type) where
   a : T
   b : Foo
 
---  @fail(extraction): proverif(HAX0008)
 @[spec]
 def g (x : (Pair (alloc.vec.Vec u8 alloc.alloc.Global))) :
     RustM (alloc.vec.Vec u8 alloc.alloc.Global) := do

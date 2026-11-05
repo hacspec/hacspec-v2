@@ -90,7 +90,9 @@ Equations test_append (_ : both 'unit) : both (t_Vec int8 t_Global) :=
     letb vec1 := tmp0 in
     letb vec2 := tmp1 in
     letb _ := ret_both (tt : 'unit) in
-    letb vec1 := impl_1__append vec1 build_vec in
+    letb '(tmp0,_) := impl_1__append vec1 build_vec in
+    letb vec1 := tmp0 in
+    letb _ := ret_both (tt : 'unit) in
     vec1 : both (t_Vec int8 t_Global).
 Fail Next Obligation.
 

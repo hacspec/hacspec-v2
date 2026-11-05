@@ -245,9 +245,11 @@ struct
                 B.{ e = Assign { lhs; e; witness }; span; typ = UB.unit_typ })
           in
           (* TODO: this should be greatly simplified when `lhs` type will accept tuples (issue #222) *)
+          (* The call returns the value of the place alone only when it takes
+             no other `&mut`, such as a temporary. *)
           match assigns with
           | [ { e = Assign { lhs; witness; _ }; span; typ } ]
-            when UB.is_unit_typ otype ->
+            when UB.is_unit_typ otype && List.length mutargs = 1 ->
               { e = Assign { lhs; e = f_call; witness }; span; typ }
               |> extract_vec_ref
           | _ ->
