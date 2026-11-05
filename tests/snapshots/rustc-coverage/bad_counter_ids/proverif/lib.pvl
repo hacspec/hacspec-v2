@@ -82,7 +82,14 @@ letfun new_tests__rustc_coverage__bad_counter_ids__eq_good(wildcard: bitstring) 
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__ops__bit__Not__not_kw(core__cmp__PartialEq__eq(left_val, right_val)) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val,
+        right_val,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/bad_counter_ids.rs:24:0-27:1 new_tests__rustc_coverage__bad_counter_ids__eq_good_message *)
@@ -102,7 +109,16 @@ letfun new_tests__rustc_coverage__bad_counter_ids__eq_good_message(wildcard: bit
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__ops__bit__Not__not_kw(core__cmp__PartialEq__eq(left_val, right_val)) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val,
+        right_val,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__message_x20b, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/bad_counter_ids.rs:29:0-32:1 new_tests__rustc_coverage__bad_counter_ids__ne_good *)
@@ -122,7 +138,14 @@ letfun new_tests__rustc_coverage__bad_counter_ids__ne_good(wildcard: bitstring) 
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__cmp__PartialEq__eq(left_val, right_val) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val,
+        right_val,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/bad_counter_ids.rs:34:0-37:1 new_tests__rustc_coverage__bad_counter_ids__ne_good_message *)
@@ -142,7 +165,16 @@ letfun new_tests__rustc_coverage__bad_counter_ids__ne_good_message(wildcard: bit
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__cmp__PartialEq__eq(left_val, right_val) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val,
+        right_val,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__message_x20d, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/bad_counter_ids.rs:39:0-42:1 new_tests__rustc_coverage__bad_counter_ids__eq_bad *)
@@ -162,7 +194,14 @@ letfun new_tests__rustc_coverage__bad_counter_ids__eq_bad(wildcard: bitstring) =
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__ops__bit__Not__not_kw(core__cmp__PartialEq__eq(left_val, right_val)) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val,
+        right_val,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/bad_counter_ids.rs:44:0-47:1 new_tests__rustc_coverage__bad_counter_ids__eq_bad_message *)
@@ -182,7 +221,16 @@ letfun new_tests__rustc_coverage__bad_counter_ids__eq_bad_message(wildcard: bits
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__ops__bit__Not__not_kw(core__cmp__PartialEq__eq(left_val, right_val)) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Eq(),
+        left_val,
+        right_val,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__message_x20f, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/bad_counter_ids.rs:49:0-52:1 new_tests__rustc_coverage__bad_counter_ids__ne_bad *)
@@ -202,7 +250,14 @@ letfun new_tests__rustc_coverage__bad_counter_ids__ne_bad(wildcard: bitstring) =
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__cmp__PartialEq__eq(left_val, right_val) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val,
+        right_val,
+        None()
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/bad_counter_ids.rs:54:0-57:1 new_tests__rustc_coverage__bad_counter_ids__ne_bad_message *)
@@ -222,7 +277,16 @@ letfun new_tests__rustc_coverage__bad_counter_ids__ne_bad_message(wildcard: bits
     right_val: bitstring
   ) = hax__scrut0 in
     (let hax__cond1 = core__cmp__PartialEq__eq(left_val, right_val) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__assert_failed(
+        core__panicking__AssertKind__Ne(),
+        left_val,
+        right_val,
+        Some(core__fmt__rt__Impl_1__new_const(
+          rust_primitives__hax__array_cons(string_lit__message_x20h, rust_primitives__hax__array_nil())
+        ))
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/bad_counter_ids.rs:62:0-72:1 new_tests__rustc_coverage__bad_counter_ids__main *)

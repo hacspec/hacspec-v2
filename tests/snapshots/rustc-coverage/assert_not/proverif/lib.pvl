@@ -37,17 +37,33 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (* src: src/rustc-coverage/assert_not.rs:6:0-11:1 new_tests__rustc_coverage__assert_not__main *)
 letfun new_tests__rustc_coverage__assert_not__main(wildcard: bitstring) =
   let wildcard_1 = (let hax__cond0 = core__ops__bit__Not__not_kw(True()) in
-  let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0) in
+  let (=True()) = hax__cond0
+    in (let hax__never = (core__panicking__panic(
+      string_lit__assertion_x20failed_x3a_x20true
+    )) in bitstring_err())
+    else rust_primitives__hax__Tuple0__Tuple0) in
   let wildcard_2 = (let hax__cond1 = core__ops__bit__Not__not_kw(
     core__ops__bit__Not__not_kw(False())
   ) in
-  let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0) in
+  let (=True()) = hax__cond1
+    in (let hax__never = (core__panicking__panic(
+      string_lit__assertion_x20failed_x3a_x20_x21false
+    )) in bitstring_err())
+    else rust_primitives__hax__Tuple0__Tuple0) in
   let wildcard_3 = (let hax__cond2 = core__ops__bit__Not__not_kw(
     core__ops__bit__Not__not_kw(core__ops__bit__Not__not_kw(True()))
   ) in
-  let (=True()) = hax__cond2 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0) in
+  let (=True()) = hax__cond2
+    in (let hax__never = (core__panicking__panic(
+      string_lit__assertion_x20failed_x3a_x20_x21_x21true
+    )) in bitstring_err())
+    else rust_primitives__hax__Tuple0__Tuple0) in
   let wildcard_4 = (let hax__cond3 = core__ops__bit__Not__not_kw(
     core__ops__bit__Not__not_kw(core__ops__bit__Not__not_kw(core__ops__bit__Not__not_kw(False())))
   ) in
-  let (=True()) = hax__cond3 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0) in
+  let (=True()) = hax__cond3
+    in (let hax__never = (core__panicking__panic(
+      string_lit__assertion_x20failed_x3a_x20_x21_x21_x21false
+    )) in bitstring_err())
+    else rust_primitives__hax__Tuple0__Tuple0) in
   rust_primitives__hax__Tuple0__Tuple0.

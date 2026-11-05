@@ -82,6 +82,10 @@ ProVerif has no loops. The backend unrolls a `for` loop over a list three times,
 
 A library function that hax's libraries do not model is declared as an abstract `fun` in `missingdecl.pvl`, whose value matches no pattern. When the model destructures that value, directly or after passing it through other functions, as the lowering of a `&mut` argument does with a pair of the result and the updated value, or as a `match` on an `Option` does, every path through it is lost. The same holds for a function or a constant of the crate that is `#[hax_lib::opaque]`, a `pv_constructor` or a `pv_extern`, whose value matches no pattern but its own. A hand-written model, such as a `replace_body` or a `pv_extern`, must likewise build the values its callers destructure. The warning banner of `lib.pvl` lists each such function, and each abstract function of `missingdecl.pvl`, but for the constructors and the constants: define those whose value is destructured, in a library loaded before `lib.pvl` or in place of their declaration.
 
+## Panics
+
+A panic, a failed assertion or a call of a function returning `!` ends the trace, after the model evaluates what Rust evaluates first, such as the message of a `panic!` or an `assert!`, or the body of the diverging function.
+
 ## Writing the model
 
 Two things are written by hand: abstract models for the functions whose Rust code should not be extracted, and the analysis file.

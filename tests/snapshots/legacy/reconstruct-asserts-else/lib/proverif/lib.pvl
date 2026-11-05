@@ -37,15 +37,26 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (* src: src/legacy/reconstruct-asserts-else/lib.rs:7:0-9:1 new_tests__legacy__reconstruct_asserts_else__lib__checked_incr *)
 (*  Value in the else branch. *)
 letfun new_tests__legacy__reconstruct_asserts_else__lib__checked_incr(c: bitstring, x: bitstring) =
-  let (=True()) = c in bitstring_err() else rust_primitives__hax__machine_int__add(x, nat_1).
+  let (=True()) = c
+    in (let hax__never = (core__panicking__panic(string_lit__explicit_x20panic)) in bitstring_err())
+    else rust_primitives__hax__machine_int__add(x, nat_1).
 (* src: src/legacy/reconstruct-asserts-else/lib.rs:12:0-20:1 new_tests__legacy__reconstruct_asserts_else__lib__nested *)
 (*  Nested panic-elses. *)
 letfun new_tests__legacy__reconstruct_asserts_else__lib__nested(
   c: bitstring,
   d: bitstring,
   x: bitstring
-) = let (=True()) = c in bitstring_err() else (let (=True()) = d in bitstring_err() else x).
+) =
+  let (=True()) = c
+    in (let hax__never = (core__panicking__panic(string_lit__explicit_x20panic)) in bitstring_err())
+    else (let (=True()) = d
+      in (let hax__never = (core__panicking__panic(
+        string_lit__explicit_x20panic
+      )) in bitstring_err())
+      else x).
 (* src: src/legacy/reconstruct-asserts-else/lib.rs:23:0-25:1 new_tests__legacy__reconstruct_asserts_else__lib__bare *)
 (*  No else. *)
 letfun new_tests__legacy__reconstruct_asserts_else__lib__bare(c: bitstring) =
-  let (=True()) = c in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0.
+  let (=True()) = c
+    in (let hax__never = (core__panicking__panic(string_lit__explicit_x20panic)) in bitstring_err())
+    else rust_primitives__hax__Tuple0__Tuple0.

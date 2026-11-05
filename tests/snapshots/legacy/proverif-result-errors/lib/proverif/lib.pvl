@@ -207,7 +207,8 @@ letfun new_tests__legacy__proverif_result_errors__lib__propagating_arms(r: bitst
 (* src: src/legacy/proverif-result-errors/lib.rs:89:0-94:1 new_tests__legacy__proverif_result_errors__lib__panicking_arm *)
 letfun new_tests__legacy__proverif_result_errors__lib__panicking_arm(r: bitstring) =
   let core__result__Result__Ok(v: bitstring) = r in v
-  else let core__result__Result__Err(wildcard: bitstring) = r in bitstring_err()
+  else let core__result__Result__Err(wildcard: bitstring) = r in
+    (let hax__never = (core__panicking__panic(string_lit__explicit_x20panic)) in bitstring_err())
   else bitstring_err().
 (* src: src/legacy/proverif-result-errors/lib.rs:96:0-101:1 new_tests__legacy__proverif_result_errors__lib__wildcard_err *)
 letfun new_tests__legacy__proverif_result_errors__lib__wildcard_err(r: bitstring) =
@@ -505,7 +506,8 @@ letfun new_tests__legacy__proverif_result_errors__lib__err_taken_first(x: bitstr
 (* src: src/legacy/proverif-result-errors/lib.rs:373:0-379:1 new_tests__legacy__proverif_result_errors__lib__err_arm_then_catch_all *)
 letfun new_tests__legacy__proverif_result_errors__lib__err_arm_then_catch_all(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result_errors__lib__check(x) in
-  let core__result__Result__Err(wildcard: bitstring) = hax__scrut0 in bitstring_err()
+  let core__result__Result__Err(wildcard: bitstring) = hax__scrut0 in
+    (let hax__never = (core__panicking__panic(string_lit__explicit_x20panic)) in bitstring_err())
   else let core__result__Result__Ok((=nat_1)) = hax__scrut0 in nat_1
   else nat_2.
 (* src: src/legacy/proverif-result-errors/lib.rs:381:0-387:1 new_tests__legacy__proverif_result_errors__lib__two_pending *)
@@ -927,7 +929,8 @@ letfun new_tests__legacy__proverif_result_errors__lib__nested_leave_on_err(
   let core__result__Result__Ok(v: bitstring) = hax__scrut0 in core__result__Result__Ok(v)
   else let core__result__Result__Err(wildcard: bitstring) = hax__scrut0 in
     (let (=True()) = c in core__result__Result__Ok(nat_1)
-    else let (=False()) = c in bitstring_err()
+    else let (=False()) = c in
+      (let hax__never = (core__panicking__panic(string_lit__explicit_x20panic)) in bitstring_err())
     else bitstring_err())
   else bitstring_err().
 (* src: src/legacy/proverif-result-errors/lib.rs:862:0-868:1 new_tests__legacy__proverif_result_errors__lib__rematched *)

@@ -61,7 +61,11 @@ letfun new_tests__rustc_coverage__panic_unwind__might_panic(should_panic: bitstr
       )
     ) in
     let wildcard_1 = rust_primitives__hax__Tuple0__Tuple0 in
-    bitstring_err())
+    (let hax__never = (core__panicking__panic_fmt(
+      core__fmt__rt__Impl_1__new_const(
+        rust_primitives__hax__array_cons(string_lit__panics, rust_primitives__hax__array_nil())
+      )
+    )) in bitstring_err()))
     else (let wildcard_2 = std__io__stdio__u_print(
       core__fmt__rt__Impl_1__new_const(
         rust_primitives__hax__array_cons(string_lit__Don_x27t_x20Panic_x0a, rust_primitives__hax__array_nil())

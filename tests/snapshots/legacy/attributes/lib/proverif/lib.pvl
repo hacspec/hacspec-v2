@@ -588,7 +588,11 @@ letfun new_tests__legacy__attributes__lib__verifcation_status__a_function_which_
   wildcard: bitstring
 ) =
   let hax__cond0 = core__ops__bit__Not__not_kw(False()) in
-  let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0.
+  let (=True()) = hax__cond0
+    in (let hax__never = (core__panicking__panic(
+      string_lit__assertion_x20failed_x3a_x20false
+    )) in bitstring_err())
+    else rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/attributes/lib.rs:465:4-469:5 new_tests__legacy__attributes__lib__verifcation_status__a_panicfree_function *)
 letfun new_tests__legacy__attributes__lib__verifcation_status__a_panicfree_function(
   wildcard: bitstring

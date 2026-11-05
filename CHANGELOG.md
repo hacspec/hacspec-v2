@@ -62,6 +62,8 @@ ProVerif backend and library:
    observable, since the model runs a bounded number of iterations
  - Warn of the library functions without a model, whose value matches no
    pattern
+ - Evaluate the message of a panic, and the call of a function returning
+   `!`, before ending the trace
  - `#[pv_inverse_of(f)]` on `g` makes `g` match its argument against `f`,
    without a `reduc`, and accepts methods
 

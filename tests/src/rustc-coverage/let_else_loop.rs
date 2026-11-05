@@ -1,4 +1,4 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001)
+//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @fail(tc): legacy-lean(1), fstar(2)
 #![feature(coverage_attribute)]
 //@ edition: 2021

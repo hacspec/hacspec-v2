@@ -851,7 +851,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records(wildc
     wildcard_5: bitstring
   ) = c in
     (let hax__cond0 = core__ops__bit__Not__not_kw(True()) in
-    let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond0
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20true
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_6 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records__E__C(
     f1: bitstring,
@@ -862,7 +866,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records(wildc
     (let hax__cond1 = core__ops__bit__Not__not_kw(
       rust_primitives__hax__machine_int__eq(f1, nat_1)
     ) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20f1_x20_x3d_x3d_x201
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_10 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records__E__C(
     f1_1: bitstring,
@@ -878,7 +886,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records(wildc
         in False()
         else logical_and_opaque(hax__cond3)
     ) in
-    let (=True()) = hax__cond2 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond2
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20f1_x20_x3d_x3d_x201_x20_x26_x26_x20f2_x20_x3d_x3d_x202
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_13 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records__E__C(
     wildcard_14: bitstring,
@@ -894,7 +906,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records(wildc
         in False()
         else logical_and_opaque(hax__cond5)
     ) in
-    let (=True()) = hax__cond4 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond4
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20f2_x20_x3d_x3d_x202_x20_x26_x26_x20f4_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_16 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records__E__C(
     f1_2: bitstring,
@@ -923,7 +939,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_records(wildc
         in False()
         else logical_and_opaque(hax__cond7)
     ) in
-    let (=True()) = hax__cond6 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond6
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20f1_x20_x3d_x3d_x201_x20_x26_x26_x20f2_x20_x3d_x3d_x202_x20_x26_x26_x20f3_x20_x3d_x3d_x203_x20_x26_x26_x20f4_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/lean-tests/matching.rs:60:4-65:5 new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs__S *)
@@ -964,7 +984,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs(wildc
     wildcard_5: bitstring
   ) = c in
     (let hax__cond0 = core__ops__bit__Not__not_kw(True()) in
-    let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond0
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20true
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_6 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs__S__S(
     f1: bitstring,
@@ -975,7 +999,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs(wildc
     (let hax__cond1 = core__ops__bit__Not__not_kw(
       rust_primitives__hax__machine_int__eq(f1, nat_1)
     ) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20f1_x20_x3d_x3d_x201
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_10 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs__S__S(
     f1_1: bitstring,
@@ -991,7 +1019,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs(wildc
         in False()
         else logical_and_opaque(hax__cond3)
     ) in
-    let (=True()) = hax__cond2 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond2
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20f1_x20_x3d_x3d_x201_x20_x26_x26_x20f2_x20_x3d_x3d_x202
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_13 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs__S__S(
     wildcard_14: bitstring,
@@ -1007,7 +1039,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs(wildc
         in False()
         else logical_and_opaque(hax__cond5)
     ) in
-    let (=True()) = hax__cond4 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond4
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20f2_x20_x3d_x3d_x202_x20_x26_x26_x20f4_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_16 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs__S__S(
     f1_2: bitstring,
@@ -1036,7 +1072,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_structs(wildc
         in False()
         else logical_and_opaque(hax__cond7)
     ) in
-    let (=True()) = hax__cond6 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond6
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20f1_x20_x3d_x3d_x201_x20_x26_x26_x20f2_x20_x3d_x3d_x202_x20_x26_x26_x20f3_x20_x3d_x3d_x203_x20_x26_x26_x20f4_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/lean-tests/matching.rs:91:0-115:1 new_tests__legacy__lean_tests__lib__matching__test_ellipsis_bare_tuples *)
@@ -1051,7 +1091,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_bare_tuples(
     wildcard_5: bitstring
   ) = t in
     (let hax__cond0 = core__ops__bit__Not__not_kw(True()) in
-    let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond0
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20true
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_6 = (let rust_primitives__hax__Tuple4__Tuple4(
     a: bitstring,
@@ -1062,7 +1106,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_bare_tuples(
     (let hax__cond1 = core__ops__bit__Not__not_kw(
       rust_primitives__hax__machine_int__eq(a, nat_1)
     ) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20a_x20_x3d_x3d_x201
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_10 = (let rust_primitives__hax__Tuple4__Tuple4(
     a_1: bitstring,
@@ -1078,7 +1126,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_bare_tuples(
         in False()
         else logical_and_opaque(hax__cond3)
     ) in
-    let (=True()) = hax__cond2 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond2
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20a_x20_x3d_x3d_x201_x20_x26_x26_x20b_x20_x3d_x3d_x202
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_13 = (let rust_primitives__hax__Tuple4__Tuple4(
     wildcard_14: bitstring,
@@ -1089,7 +1141,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_bare_tuples(
     (let hax__cond4 = core__ops__bit__Not__not_kw(
       rust_primitives__hax__machine_int__eq(d, nat_4)
     ) in
-    let (=True()) = hax__cond4 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond4
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20d_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_17 = (let rust_primitives__hax__Tuple4__Tuple4(
     wildcard_18: bitstring,
@@ -1105,7 +1161,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_bare_tuples(
         in False()
         else logical_and_opaque(hax__cond6)
     ) in
-    let (=True()) = hax__cond5 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond5
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20c_x20_x3d_x3d_x203_x20_x26_x26_x20d_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_20 = (let rust_primitives__hax__Tuple4__Tuple4(
     a_2: bitstring,
@@ -1121,7 +1181,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_bare_tuples(
         in False()
         else logical_and_opaque(hax__cond8)
     ) in
-    let (=True()) = hax__cond7 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond7
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20a_x20_x3d_x3d_x201_x20_x26_x26_x20d_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_23 = (let rust_primitives__hax__Tuple4__Tuple4(
     a_3: bitstring,
@@ -1150,7 +1214,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_bare_tuples(
         in False()
         else logical_and_opaque(hax__cond10)
     ) in
-    let (=True()) = hax__cond9 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond9
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20a_x20_x3d_x3d_x201_x20_x26_x26_x20b_x20_x3d_x3d_x202_x20_x26_x26_x20c_x20_x3d_x3d_x203_x20_x26_x26_x20d_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/lean-tests/matching.rs:118:4-120:5 new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples__F *)
@@ -1191,7 +1259,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples(wildca
     wildcard_5: bitstring
   ) = d in
     (let hax__cond0 = core__ops__bit__Not__not_kw(True()) in
-    let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond0
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20true
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_6 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples__F__D(
     a: bitstring,
@@ -1202,7 +1274,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples(wildca
     (let hax__cond1 = core__ops__bit__Not__not_kw(
       rust_primitives__hax__machine_int__eq(a, nat_1)
     ) in
-    let (=True()) = hax__cond1 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond1
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20a_x20_x3d_x3d_x201
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_10 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples__F__D(
     a_1: bitstring,
@@ -1218,7 +1294,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples(wildca
         in False()
         else logical_and_opaque(hax__cond3)
     ) in
-    let (=True()) = hax__cond2 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond2
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20a_x20_x3d_x3d_x201_x20_x26_x26_x20b_x20_x3d_x3d_x202
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_13 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples__F__D(
     wildcard_14: bitstring,
@@ -1229,7 +1309,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples(wildca
     (let hax__cond4 = core__ops__bit__Not__not_kw(
       rust_primitives__hax__machine_int__eq(d_1, nat_4)
     ) in
-    let (=True()) = hax__cond4 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond4
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20d_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_17 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples__F__D(
     wildcard_18: bitstring,
@@ -1245,7 +1329,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples(wildca
         in False()
         else logical_and_opaque(hax__cond6)
     ) in
-    let (=True()) = hax__cond5 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond5
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20c_x20_x3d_x3d_x203_x20_x26_x26_x20d_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_20 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples__F__D(
     a_2: bitstring,
@@ -1261,7 +1349,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples(wildca
         in False()
         else logical_and_opaque(hax__cond8)
     ) in
-    let (=True()) = hax__cond7 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond7
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20a_x20_x3d_x3d_x201_x20_x26_x26_x20d_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   let wildcard_23 = (let new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples__F__D(
     a_3: bitstring,
@@ -1290,7 +1382,11 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples(wildca
         in False()
         else logical_and_opaque(hax__cond10)
     ) in
-    let (=True()) = hax__cond9 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
+    let (=True()) = hax__cond9
+      in (let hax__never = (core__panicking__panic(
+        string_lit__assertion_x20failed_x3a_x20a_x20_x3d_x3d_x201_x20_x26_x26_x20b_x20_x3d_x3d_x202_x20_x26_x26_x20c_x20_x3d_x3d_x203_x20_x26_x26_x20d_x20_x3d_x3d_x204
+      )) in bitstring_err())
+      else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/lean-tests/loops.rs:56:4-59:5 new_tests__legacy__lean_tests__lib__loops__errors__Error *)

@@ -1669,9 +1669,13 @@ const _: () = {
                 ExprKind::App { head, args, .. } if is_passthrough(head) => {
                     args.first().map(|a| docs![a]).unwrap_or(nil!())
                 }
-                ExprKind::App { head, .. } if matches!(&*head.kind, ExprKind::GlobalId(g) if *g == names::never_to_any) =>
-                {
-                    docs!["bitstring_err()"]
+                // The diverging value, such as a panic message or a call of a
+                // function returning `!`, is evaluated before the failure.
+                ExprKind::App { head, args, .. } if matches!(&*head.kind, ExprKind::GlobalId(g) if *g == names::never_to_any) => {
+                    match args.first() {
+                        Some(arg) => docs!["(let hax__never = (", arg, ") in bitstring_err())"],
+                        None => docs!["bitstring_err()"],
+                    }
                 }
 
                 // `&&` and `||` evaluate their right operand only when the left
@@ -2272,7 +2276,7 @@ pub(crate) fn expr_is_atomic(expr: &Expr) -> bool {
             false
         }
         // Any other application renders `f(args)` / `f()` — and the
-        // `never_to_any` special case as `bitstring_err()`.
+        // `never_to_any` special case as a parenthesized `let`.
         ExprKind::App { .. } => true,
         ExprKind::Construct { .. } => true,
         // Cons-list `array_cons(...)` form.
