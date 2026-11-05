@@ -117,8 +117,8 @@ letfun new_tests__legacy__lean_core_models__lib__result__tests(wildcard: bitstri
     string_lit__Should_x20be_x20Ok
   ) in
   let hax__scrut0 = core__result__Impl__map(v1, f) in
-  let hoist2 = hax__scrut0 in
-    let hoist1 = v2 in rust_primitives__hax__machine_int__add(hoist2, hoist1).
+  let hax__operand0 = hax__scrut0 in
+    let hoist1 = v2 in rust_primitives__hax__machine_int__add(hax__operand0, hoist1).
 
 (* src: src/legacy/lean-core-models/phantom.rs:9:0-11:1 new_tests__legacy__lean_core_models__lib__phantom__Bar *)
 fun new_tests__legacy__lean_core_models__lib__phantom__Bar__Bar(bitstring): bitstring [data].

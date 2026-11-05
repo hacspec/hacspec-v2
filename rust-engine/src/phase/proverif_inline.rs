@@ -121,8 +121,9 @@ impl InlineVisitor<'_> {
     /// The inlined copy of a call of an inlinable function.
     ///
     /// A closure or leaf argument is substituted for its parameter, so that a
-    /// call of a closure parameter is β-reduced. Any other argument is bound
-    /// with a `let`, so it is evaluated exactly once, as in Rust.
+    /// call of a closure parameter is β-reduced, but a constant, which may be
+    /// a `letfun` call. Any other argument is bound with a `let`, so it is
+    /// evaluated exactly once, as in Rust.
     fn inline_call(&mut self, expr: &Expr) -> Option<Expr> {
         let ExprKind::App { head, args, .. } = &*expr.kind else {
             return None;
@@ -143,7 +144,10 @@ impl InlineVisitor<'_> {
         let mut env = HashMap::new();
         let mut lets = Vec::new();
         for (param, arg) in params.into_iter().zip(args) {
-            let is_substitutable = arg.is_leaf() || matches!(&*arg.kind, ExprKind::Closure { .. });
+            let constant = matches!(&*arg.kind, ExprKind::GlobalId(g) if !g.is_constructor())
+                && !matches!(arg.ty.kind(), TyKind::Arrow { .. });
+            let is_substitutable =
+                arg.is_leaf() && !constant || matches!(&*arg.kind, ExprKind::Closure { .. });
             match param.as_binder() {
                 Some(id) if is_substitutable => {
                     env.insert(id.clone(), arg.clone());

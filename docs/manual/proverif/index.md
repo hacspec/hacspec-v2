@@ -66,6 +66,10 @@ With `--result-errors`, errors are values and recovery is modelled: use it when 
 
 Under both models, a `Result` given to a library function that hax's libraries do not model, or to a generic function, is rejected. `#[hax_lib::pv_unchecked_results]` exempts a function from these checks, and marks its model with a `HAX WARNING`.
 
+## Evaluation order
+
+In every function, the backend keeps the Rust evaluation order of arguments, record fields and the operands of `&&` and `||`, binding operands with `let`s where later steps would reorder them. It cannot do so for the arguments of a call taking a `&mut`, whose lowering needs them in place: it rejects such a call when an argument that calls something precedes one that holds a `?`, a `return`, a `break`, a `continue`, a `let`, an assignment or another such call. It also rejects a call taking a `&mut` that returns `()` only as an instance of a generic return type, which the lowering mistakes for a function returning `()`, an assigned or `&mut`-borrowed element whose index calls something that may be observable, an element assigned a value that calls something, or borrowed mutably by a call with an argument that calls something, whose index is not a variable, a literal or a constant, an index that assigns, or calls a function taking a `&mut` of, a variable of the indexed place, an assignment whose value assigns, or calls a function taking a `&mut` of, a variable of the assigned place, and a match guard that holds a `?`, a `return`, a `let`, an assignment or a call taking a `&mut`. Binding the operand, index or value with a `let` first is accepted.
+
 ## Writing the model
 
 Two things are written by hand: abstract models for the functions whose Rust code should not be extracted, and the analysis file.

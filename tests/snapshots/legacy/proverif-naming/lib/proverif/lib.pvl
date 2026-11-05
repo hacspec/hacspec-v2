@@ -38,10 +38,8 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 letfun new_tests__legacy__proverif_naming__lib__g(x: bitstring) = x.
 (* src: src/legacy/proverif-naming/lib.rs:10:0-15:1 new_tests__legacy__proverif_naming__lib__rebinding *)
 letfun new_tests__legacy__proverif_naming__lib__rebinding(a: bitstring, b: bitstring) =
-  rust_primitives__hax__machine_int__add(
-    new_tests__legacy__proverif_naming__lib__g(b),
-    new_tests__legacy__proverif_naming__lib__g(a)
-  ).
+  let x_2 = new_tests__legacy__proverif_naming__lib__g(a) in
+  rust_primitives__hax__machine_int__add(new_tests__legacy__proverif_naming__lib__g(b), x_2).
 (* src: src/legacy/proverif-naming/lib.rs:18:0-20:1 new_tests__legacy__proverif_naming__lib__literals *)
 letfun new_tests__legacy__proverif_naming__lib__literals(wildcard: bitstring) =
   rust_primitives__hax__Tuple4__Tuple4(
@@ -77,11 +75,11 @@ letfun new_tests__legacy__proverif_naming__lib__make_triple(x: bitstring) =
   new_tests__legacy__proverif_naming__lib__Triple__Triple(x, x, x).
 (* src: src/legacy/proverif-naming/lib.rs:41:0-46:1 new_tests__legacy__proverif_naming__lib__update *)
 letfun new_tests__legacy__proverif_naming__lib__update(x: bitstring) =
-  let hax__struct_base = new_tests__legacy__proverif_naming__lib__make_triple(x) in
+  let hax__operand0 = new_tests__legacy__proverif_naming__lib__make_triple(x) in
   new_tests__legacy__proverif_naming__lib__Triple__Triple(
     nat_0,
-    new_tests__legacy__proverif_naming__lib__Triple__Triple__b(hax__struct_base),
-    new_tests__legacy__proverif_naming__lib__Triple__Triple__c(hax__struct_base)
+    new_tests__legacy__proverif_naming__lib__Triple__Triple__b(hax__operand0),
+    new_tests__legacy__proverif_naming__lib__Triple__Triple__c(hax__operand0)
   ).
 (* src: src/legacy/proverif-naming/lib.rs:49:0-54:1 new_tests__legacy__proverif_naming__lib__if_without_else *)
 letfun new_tests__legacy__proverif_naming__lib__if_without_else(c: bitstring, x: bitstring) =
@@ -111,6 +109,10 @@ letfun new_tests__legacy__proverif_naming__lib__generated_names(
   p: bitstring,
   v: bitstring
 ) =
+  let q = new_tests__legacy__proverif_naming__lib__Point__Point(
+    hax__struct_base,
+    new_tests__legacy__proverif_naming__lib__Point__Point__y(p)
+  ) in
   let w = ((let bl__seq0 = (core__slice__Impl__iter(
     v
   )) in let bl__acc0 = (rust_primitives__hax__array_nil()) in 
@@ -139,10 +141,4 @@ letfun new_tests__legacy__proverif_naming__lib__generated_names(
     )
   )) in
   let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  rust_primitives__hax__Tuple2__Tuple2(
-    new_tests__legacy__proverif_naming__lib__Point__Point(
-      hax__struct_base,
-      new_tests__legacy__proverif_naming__lib__Point__Point__y(p)
-    ),
-    w
-  ).
+  rust_primitives__hax__Tuple2__Tuple2(q, w).

@@ -56,6 +56,7 @@ query attacker(hax_extraction_error__new_tests).
 letfun new_tests__rustc_coverage__inline__length(xs: bitstring) = core__slice__Impl__len(xs).
 (* src: src/rustc-coverage/inline.rs:38:0-42:1 new_tests__rustc_coverage__inline__swap *)
 letfun new_tests__rustc_coverage__inline__swap(xs: bitstring, i: bitstring, j: bitstring) =
+  let t = core__ops__index__Index__index(xs, i) in
   rust_primitives__hax__monomorphized_update_at__update_at_usize(
     rust_primitives__hax__monomorphized_update_at__update_at_usize(
       xs,
@@ -63,7 +64,7 @@ letfun new_tests__rustc_coverage__inline__swap(xs: bitstring, i: bitstring, j: b
       core__ops__index__Index__index(xs, j)
     ),
     j,
-    core__ops__index__Index__index(xs, i)
+    t
   ).
 (* src: src/rustc-coverage/inline.rs:45:0-50:1 new_tests__rustc_coverage__inline__display *)
 (*  @fail(extraction): ssprove(HAX0001) *)

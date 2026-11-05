@@ -106,10 +106,12 @@ def test_append (_ : rust_primitives.hax.Tuple0) :
   let vec1 : (alloc.vec.Vec u8 alloc.alloc.Global) := tmp0;
   let vec2 : (alloc.vec.Vec u8 alloc.alloc.Global) := tmp1;
   let _ := rust_primitives.hax.Tuple0.mk;
-  let vec1 : (alloc.vec.Vec u8 alloc.alloc.Global) ←
+  let ⟨tmp0, _⟩ ←
     (alloc.vec.Impl_1.append u8 alloc.alloc.Global
       vec1
       (← (build_vec rust_primitives.hax.Tuple0.mk)));
+  let vec1 : (alloc.vec.Vec u8 alloc.alloc.Global) := tmp0;
+  let _ := rust_primitives.hax.Tuple0.mk;
   (pure vec1)
 
 @[spec]

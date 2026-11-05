@@ -91,13 +91,14 @@ letfun new_tests__rustc_coverage__overflow__might_overflow(to_add: bitstring) =
     )
   ) in
   let wildcard_4 = rust_primitives__hax__Tuple0__Tuple0 in
+  let result = rust_primitives__hax__machine_int__add(to_add, add_to) in
   let wildcard_5 = std__io__stdio__u_print(
     core__fmt__rt__Impl_1__new_const(
       rust_primitives__hax__array_cons(string_lit__continuing_x20after_x20overflow_x20check_x0a, rust_primitives__hax__array_nil())
     )
   ) in
   let wildcard_6 = rust_primitives__hax__Tuple0__Tuple0 in
-  rust_primitives__hax__machine_int__add(to_add, add_to).
+  result.
 (* src: src/rustc-coverage/overflow.rs:20:0-33:1 new_tests__rustc_coverage__overflow__main *)
 (*  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001) *)
 letfun new_tests__rustc_coverage__overflow__main(wildcard: bitstring) =

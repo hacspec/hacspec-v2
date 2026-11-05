@@ -1317,6 +1317,7 @@ letfun new_tests__legacy__lean_tests__lib__floats__N() = float_lit__1_x2e0.
 (* src: src/legacy/lean-tests/floats.rs:10:0-15:1 new_tests__legacy__lean_tests__lib__floats__test *)
 (*  @fail(extraction): ssprove(HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__floats__test(wildcard: bitstring) =
+  let l5 = new_tests__legacy__lean_tests__lib__floats__N() in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/lean-tests/floats.rs:18:0-20:1 new_tests__legacy__lean_tests__lib__floats__f *)
 (*  @fail(extraction): ssprove(HAX0001) *)
@@ -1895,6 +1896,10 @@ letfun new_tests__legacy__lean_tests__lib__comments__heavily_documented(wildcard
 (* src: src/legacy/lean-tests/casts.rs:5:0-27:1 new_tests__legacy__lean_tests__lib__casts__casting_edge_cases *)
 (*  Returns true if all casting edge cases behave as expected. *)
 letfun new_tests__legacy__lean_tests__lib__casts__casting_edge_cases(u_dummy: bitstring) =
+  let case1 = rust_primitives__hax__machine_int__eq(
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_256,
+    nat_0
+  ) in
   let case2 = rust_primitives__hax__machine_int__eq(
     (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_neg_1,
     nat_255
@@ -1908,15 +1913,11 @@ letfun new_tests__legacy__lean_tests__lib__casts__casting_edge_cases(u_dummy: bi
     (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_4294967295,
     nat_neg_1
   ) in
-  let hax__cond0 = (let hax__cond1 = (let hax__cond2 = (let hax__cond3 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_256,
-    nat_0
-  ) in
-  let (=True()) = hax__cond3
+  let hax__cond0 = (let hax__cond1 = (let hax__cond2 = (let (=True()) = case1
     in case2
-    else let (=False()) = hax__cond3
+    else let (=False()) = case1
     in False()
-    else logical_and_opaque(hax__cond3)) in
+    else logical_and_opaque(case1)) in
   let (=True()) = hax__cond2
     in case3
     else let (=False()) = hax__cond2

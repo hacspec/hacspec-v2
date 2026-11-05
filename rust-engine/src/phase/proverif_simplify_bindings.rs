@@ -156,10 +156,65 @@ fn uncond_use(e: &Expr, x: &LocalId) -> bool {
     }
 }
 
+/// Whether evaluating `e` reaches `x` before any call, so that a call bound to
+/// `x` may move there without passing another one: `Some(true)` if it does,
+/// `Some(false)` if a call or a branch comes first, `None` if neither occurs.
+fn reached_before_calls(e: &Expr, x: &LocalId) -> Option<bool> {
+    let first = |es: Vec<&Expr>| es.into_iter().find_map(|e| reached_before_calls(e, x));
+    match &*e.kind {
+        ExprKind::LocalId(id) => (id == x).then_some(true),
+        ExprKind::Literal(_) => None,
+        ExprKind::GlobalId(g) => (!g.is_constructor()).then_some(false),
+        ExprKind::Let { rhs, body, .. } => first(vec![rhs, body]),
+        ExprKind::App { head, args, .. } => {
+            let head_is_name = matches!(&*head.kind, ExprKind::GlobalId(_));
+            let operands = (!head_is_name).then_some(head).into_iter().chain(args);
+            first(operands.collect()).or_else(|| {
+                (!matches!(&*head.kind, ExprKind::GlobalId(g) if g.is_constructor()))
+                    .then_some(false)
+            })
+        }
+        ExprKind::Construct { fields, base, .. } => {
+            first(fields.iter().map(|(_, f)| f).chain(base).collect())
+        }
+        ExprKind::Array(es) => first(es.iter().collect()),
+        ExprKind::Ascription { e, .. }
+        | ExprKind::Borrow { inner: e, .. }
+        | ExprKind::AddressOf { inner: e, .. }
+        | ExprKind::Block { body: e, .. }
+        | ExprKind::Return { value: e } => reached_before_calls(e, x),
+        ExprKind::If { condition: e, .. } | ExprKind::Match { scrutinee: e, .. } => {
+            Some(reached_before_calls(e, x).unwrap_or(false))
+        }
+        _ => Some(false),
+    }
+}
+
+/// Whether `e` calls a function.
+fn has_call(e: &Expr) -> bool {
+    struct Finder(bool);
+    impl AstVisitor for Finder {
+        fn enter_expr_kind(&mut self, kind: &ExprKind) {
+            self.0 |= match kind {
+                ExprKind::App { head, .. } => {
+                    !matches!(&*head.kind, ExprKind::GlobalId(g) if g.is_constructor())
+                }
+                ExprKind::GlobalId(g) => !g.is_constructor(),
+                _ => false,
+            };
+        }
+    }
+    let mut finder = Finder(false);
+    finder.visit_expr(e);
+    finder.0
+}
+
 /// Inlines, bottom-up, each `let x = e in body` whose `x` is used once. ProVerif
-/// evaluates a `let` eagerly, so a leaf `e` is inlined anywhere, a failable
-/// atomic one only into an unconditionally evaluated position, and any other
-/// never. The `let` of an unused leaf is dropped.
+/// evaluates a `let` eagerly, so a local or a literal `e` is inlined anywhere,
+/// another atomic one (such as a call, or a constant, which may be a `letfun`
+/// call) only into an unconditionally evaluated position reached before any
+/// other call, which keeps the order of calls, and any other never. The `let`
+/// of an unused local or literal is dropped.
 struct InlineSingleUse;
 
 impl AstVisitorMut for InlineSingleUse {
@@ -175,10 +230,18 @@ impl AstVisitorMut for InlineSingleUse {
         let Some(x) = lhs.as_binder() else {
             return;
         };
+        // A constant may be a `letfun` call, which may be observable.
+        let leaf =
+            rhs.is_leaf() && !matches!(&*rhs.kind, ExprKind::GlobalId(g) if !g.is_constructor());
         let inlined = match count_uses(body, x) {
             (_, true) => None,
-            (0, _) if rhs.is_leaf() => Some(body.clone()),
-            (1, _) if rhs.is_leaf() || (expr_is_atomic(rhs) && uncond_use(body, x)) => {
+            (0, _) if leaf => Some(body.clone()),
+            (1, _)
+                if leaf
+                    || (expr_is_atomic(rhs)
+                        && uncond_use(body, x)
+                        && (!has_call(rhs) || reached_before_calls(body, x) == Some(true))) =>
+            {
                 let mut body = body.clone();
                 substitute(&mut body, x, rhs);
                 Some(body)
