@@ -195,8 +195,9 @@ impl Phase for ProverifRejectUnsupported {
     }
 }
 
-/// Phase rejecting the std fallible conversions under `--result-errors`,
-/// whose `result_errors.pvl` model always succeeds.
+/// Phase rejecting the fallible library functions under `--result-errors`
+/// whose `result_errors.pvl` model always succeeds: the std fallible
+/// conversions and `TryRngCore::try_fill_bytes`.
 #[derive(Default, Debug)]
 pub struct ProverifRejectTryConversions;
 
@@ -220,6 +221,7 @@ impl AstVisitorMut for RejectTryConversions {
             && [
                 "core__convert__TryInto__try_into",
                 "core__convert__TryFrom__try_from",
+                "rand_core__TryRngCore__try_fill_bytes",
             ]
             .contains(&render_id(g).as_str())
         {
@@ -228,7 +230,8 @@ impl AstVisitorMut for RejectTryConversions {
                 DiagnosticInfoKind::Unimplemented {
                     issue_id: None,
                     details: Some(
-                        "std fallible conversion under `--result-errors`, whose error is not modelled"
+                        "fallible library function under `--result-errors`, whose model always \
+                         returns `Ok`: its error is not modelled"
                             .into(),
                     ),
                 },

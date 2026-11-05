@@ -17,7 +17,7 @@ cargo hax into proverif
 The backend accepts three options (see `cargo hax into proverif --help`):
 
 - `--keep-trait-calls <PATHS>` keeps calls of the given trait items as calls of the trait item rather than of the impl they dispatch to, so that a hand-written model covers every impl.
-- `--result-errors` keeps `Ok` and `Err` as constructors, so error paths stay reachable. By default, a `Result` is its `Ok` payload and producing an `Err` ends the trace, which keeps the state space small.
+- `--result-errors` models errors as values, for protocols that recover from them or react to them (see [Errors](#errors)).
 - `--assume-items <CLAUSES>` extracts only the signature of the selected items, as abstract functions.
 
 For a project, store the configuration as a [proof scenario](../tools.md#proof-scenarios) in `hax.toml`, and run it with `cargo hax extract`:
@@ -56,6 +56,16 @@ proverif -lib <hax>/hax-lib/proof-libs/proverif/primitives \
          proofs/proverif/analysis.pv
 ```
 
+## Errors
+
+The backend has two models of `Result`.
+
+By default, errors are fatal: a `Result` is its `Ok` payload, and an `Err` ends the trace, as if the session stopped with no observable reaction. The backend accepts only code that uses `Result` this way: a `Result` is returned, or consumed at once (`?`, `match`, `unwrap`, `expect`, `map`, or `map_err` with a closure or a constructor), and a branch that may see an `Err` returns an `Err` or panics, calling nothing that may emit an event. Anything else is rejected, such as binding, storing or discarding a `Result`, `is_err()` or `ok()`, or recovering from an `Err`.
+
+With `--result-errors`, errors are values and recovery is modelled: use it when the protocol reacts to errors. A hand-written model of a function returning a `Result` returns `hax_result_ok(..)` or `hax_result_err(..)`. Its error is a placeholder, not the Rust error value, so the code may propagate it or match it with `Err(_)`, but not inspect it. The uses of a library function returning a `Result` without a model are marked with a `HAX WARNING`.
+
+Under both models, a `Result` given to a library function that hax's libraries do not model, or to a generic function, is rejected. `#[hax_lib::pv_unchecked_results]` exempts a function from these checks, and marks its model with a `HAX WARNING`.
+
 ## Writing the model
 
 Two things are written by hand: abstract models for the functions whose Rust code should not be extracted, and the analysis file.
@@ -64,8 +74,8 @@ Two things are written by hand: abstract models for the functions whose Rust cod
 
 Cryptographic code, parsing and serialization are not meaningful as symbolic terms, so they get an abstract model through `hax_lib` attributes:
 
-- `#[hax_lib::proverif::replace_body("...")]` replaces the body of a function by a ProVerif expression, typically a call to `cryptolib.pvl`, such as `crypto__aead_enc(key, message, empty)`.
-- `#[hax_lib::pv_constructor]` makes a function a ProVerif constructor, for an injective encoding, and `#[hax_lib::pv_inverse_of(f)]` makes a function its inverse, for the matching decoding.
+- `#[hax_lib::proverif::replace_body("...")]` replaces the body of a function by a ProVerif expression, typically a call to `cryptolib.pvl`, such as `crypto__aead_enc(key, message, empty)`. For a function returning a `Result`, see [Errors](#errors).
+- `#[hax_lib::pv_constructor]` makes a function a ProVerif constructor, for an injective encoding, and `#[hax_lib::pv_inverse_of(f)]` makes a function `g` of one argument, or a method `g(self)`, its inverse, for the matching decoding: `g` matches its argument against the constructor `f`. With `--result-errors`, an inverse returning a `Result` returns `Ok`, and an `Err` off the image of `f`.
 - `#[hax_lib::pv_extern]` makes a function an abstract one-way function of its arguments.
 - `#[hax_lib::opaque]` drops the code of an item. With `--keep-trait-calls`, the trait items are then defined once in a hand-written `.pvl` file, loaded before `lib.pvl`.
 - `#[hax_lib::proverif::before("...")]`, `after` and `replace` insert verbatim ProVerif declarations around, or instead of, an item.

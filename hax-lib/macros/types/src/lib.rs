@@ -149,6 +149,9 @@ pub enum AttrPayload {
     ProtocolMessages,
     PVConstructor,
     PVHandwritten,
+    /// Exempt a function from the ProVerif backend's checks of its uses of
+    /// `Result`
+    PVUncheckedResults,
     TraitMethodNoPrePost,
     /// Make an item opaque
     Erased,

@@ -47,17 +47,26 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - Closures not supported in ProVerif *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - Closures not supported in ProVerif *)
 (*  - Closures not supported in ProVerif *)
 (*  - Closures not supported in ProVerif *)
 (*  - Closures not supported in ProVerif *)
 (*  - Closures not supported in ProVerif *)
 (*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - Closures not supported in ProVerif *)
 (*  - Closures not supported in ProVerif *)
 (*  - Closures not supported in ProVerif *)
@@ -86,28 +95,27 @@ reduc forall v_0: bitstring;
   ) = v_0.
 (* src: src/legacy/lean-core-models/result.rs:16:0-43:1 new_tests__legacy__lean_core_models__lib__result__tests *)
 letfun new_tests__legacy__lean_core_models__lib__result__tests(wildcard: bitstring) =
-  let v1 = nat_1 in
-  let v2 = bitstring_err() in
+  let v1 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let v2 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let f = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
-  let v5 = core__result__Impl__map(
-    nat_1,
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
+  let v5 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let v6 = (bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let v7 = (bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let v8 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let v9 = core__result__Impl__is_ok(
+    bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ) in
-  let v6 = core__result__Impl__map_or(nat_1, nat_9, f) in
-  let v7 = core__result__Impl__map_or_else(
-    nat_1,
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *),
-    f
+  let v10 = core__result__Impl__is_err(
+    bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ) in
-  let v8 = (let hax__ok = nat_0 in hax__ok) in
-  let v9 = core__result__Impl__is_ok(v1) in
-  let v10 = core__result__Impl__is_err(v1) in
-  let v11 = core__result__Impl__and_then(
-    v1,
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
+  let v11 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let v12 = core__result__Impl__unwrap(
+    bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ) in
-  let v12 = core__result__Impl__unwrap(nat_0) in
-  let v13 = core__result__Impl__expect(nat_0, string_lit__Should_x20be_x20Ok) in
+  let v13 = core__result__Impl__expect(
+    bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *),
+    string_lit__Should_x20be_x20Ok
+  ) in
   let hax__scrut0 = core__result__Impl__map(v1, f) in
   let hoist2 = hax__scrut0 in
     let hoist1 = v2 in rust_primitives__hax__machine_int__add(hoist2, hoist1).
@@ -171,20 +179,14 @@ letfun new_tests__legacy__lean_core_models__lib__option__test(wildcard: bitstrin
     bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *),
     bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
   ) in
-  let o11 = core__option__Impl__ok_or(
-    Some(nat_3),
-    new_tests__legacy__lean_core_models__lib__option__E__C(nat_0)
-  ) in
-  let o12 = core__option__Impl__ok_or_else(
-    Some(nat_1),
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-  ) in
+  let o11 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let o12 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let o13 = core__option__Impl__and_then(
     None(),
     bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
   ) in
   let rust_primitives__hax__Tuple2__Tuple2(
-    wildcard_4: bitstring,
+    wildcard_3: bitstring,
     out_kw: bitstring
   ) = core__option__Impl__take(
     Some(new_tests__legacy__lean_core_models__lib__option__S__S(nat_9))

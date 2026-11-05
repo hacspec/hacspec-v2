@@ -47,6 +47,15 @@ F* backend and library:
 ProVerif backend and library:
  - Breaking: full re-implementation of the backend under the Rust engine. The library
    scope and its interface with extracted code is also refactored.
+ - Reject the code that each Result model would get wrong: by default, a
+   `Result` that is not returned or consumed at once, or code that goes on
+   after an `Err`; with `--result-errors`, the same for a `Result` that may
+   carry the error of a hand-written model, except that an arm may recover
+   from its `Err`
+ - Add `#[hax_lib::pv_unchecked_results]`, which exempts a function from
+   these checks
+ - `#[pv_inverse_of(f)]` on `g` makes `g` match its argument against `f`,
+   without a `reduc`, and accepts methods
 
 ### Changed
 

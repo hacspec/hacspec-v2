@@ -47,22 +47,10 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
-(*  - Closures not supported in ProVerif *)
+(*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
-
-(*****************************************************************)
-(*  WARNINGS — branches the model may not follow as Rust does.   *)
-(*                                                               *)
-(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
-(*  the model cannot always evaluate. When it cannot, no arm of  *)
-(*  a `match` is taken (the trace ends) and an `if` takes its    *)
-(*  `else` branch, whatever Rust does. A query about the other   *)
-(*  branch may then hold for lack of any trace.                  *)
-(*                                                               *)
-(*  - 1 × branch on a result of `core__result__Impl__or_else`, which the model does not define *)
-(*****************************************************************)
 
 (* src: src/rustc-coverage/closure_macro.rs:31:0-33:1 new_tests__rustc_coverage__closure_macro__load_configuration_files *)
 letfun new_tests__rustc_coverage__closure_macro__load_configuration_files(wildcard: bitstring) =
@@ -76,15 +64,9 @@ letfun new_tests__rustc_coverage__closure_macro__main(wildcard: bitstring) =
     )
   ) in
   let wildcard_2 = rust_primitives__hax__Tuple0__Tuple0 in
-  (* HAX WARNING: branch on a result of `core__result__Impl__or_else`, which the model does not define *)
-  let hax__scrut0 = core__result__Impl__or_else(
-    new_tests__rustc_coverage__closure_macro__load_configuration_files(
-      rust_primitives__hax__Tuple0__Tuple0
-    ),
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-  ) in
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let config = hax__scrut0 in
-    let wildcard_10 = rust_primitives__hax__Tuple2__Tuple2(
+    let wildcard_3 = rust_primitives__hax__Tuple2__Tuple2(
       config,
       core__convert__From__from(string_lit__arg)
     ) in
