@@ -52,14 +52,13 @@ pub struct ProVerifPrinter {
 
 /// Bundled `primitives.pvl`, parsed so its names are not re-declared in
 /// `missingdecl.pvl`.
-const PRIMITIVES_PVL: &str = include_str!("../../../hax-lib/proof-libs/proverif/primitives.pvl");
+const PRIMITIVES_PVL: &str = include_str!("proverif/libs/primitives.pvl");
 
 /// Bundled `result.pvl` — the default Result model.
-const RESULT_PVL: &str = include_str!("../../../hax-lib/proof-libs/proverif/result.pvl");
+const RESULT_PVL: &str = include_str!("proverif/libs/result.pvl");
 
 /// Bundled `result_errors.pvl` — the Result model of `--result-errors`.
-const RESULT_ERRORS_PVL: &str =
-    include_str!("../../../hax-lib/proof-libs/proverif/result_errors.pvl");
+const RESULT_ERRORS_PVL: &str = include_str!("proverif/libs/result_errors.pvl");
 
 /// The library that models `Result` in the chosen mode, without extension.
 fn result_lib(result_errors: bool) -> &'static str {
