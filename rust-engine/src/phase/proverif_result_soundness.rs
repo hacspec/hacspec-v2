@@ -105,10 +105,20 @@ fn dispatch(
     g: &GlobalId,
     impl_: Option<&ImplExpr>,
 ) -> Option<GlobalId> {
-    let ImplExprKind::Concrete(goal) = &*impl_?.kind else {
-        return None;
-    };
-    impls.get(&goal.trait_)?.get(&method_name(g)?).copied()
+    match &*impl_?.kind {
+        ImplExprKind::Concrete(goal) => impls.get(&goal.trait_)?.get(&method_name(g)?).copied(),
+        // A generic impl, applied to the impls of its bounds.
+        ImplExprKind::ImplApp { impl_, .. } => dispatch(impls, g, Some(impl_)),
+        _ => None,
+    }
+}
+
+/// The impls a generic impl `i` is applied to, which its methods may call.
+fn impl_args(i: &ImplExpr) -> Vec<&ImplExpr> {
+    match &*i.kind {
+        ImplExprKind::ImplApp { impl_, args } => args.iter().chain(impl_args(impl_)).collect(),
+        _ => vec![],
+    }
 }
 
 /// The library function `g` that handles `Result`s, if it is one, applied to
@@ -580,7 +590,8 @@ impl Quiet {
         // A library function may call any method of the impls it is given.
         let bounds = bounds.iter().all(|b| self.impl_(b));
         if let Some(m) = dispatch(&self.impls, g, impl_) {
-            return self.fns.contains(&m) && bounds;
+            let args = impl_.is_none_or(|i| impl_args(i).into_iter().all(|a| self.impl_(a)));
+            return self.fns.contains(&m) && bounds && args;
         }
         LIBRARY_CRATES.contains(&g.krate()) && impl_.is_none_or(|i| self.impl_(i)) && bounds
     }

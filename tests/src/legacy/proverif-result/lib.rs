@@ -1333,3 +1333,46 @@ fn map_err_by_inline_path(x: u8) -> Result<u8, Logged> {
 fn map_err_by_reference(x: u8) -> Result<u8, Logged> {
     check(x).map_err(&Logged::conv)
 }
+
+// A method of a generic impl, called while an `Err` is pending.
+
+trait Note {
+    fn note(&self) -> u8;
+}
+
+struct Quietly<T>(T);
+
+impl<T: Clone> Note for Quietly<T> {
+    fn note(&self) -> u8 {
+        1
+    }
+}
+
+struct Loudly<T>(T);
+
+impl<T: Clone> Note for Loudly<T> {
+    fn note(&self) -> u8 {
+        record(1)
+    }
+}
+
+fn err_arm_quiet_generic(r: Result<u8, Error>, n: Quietly<u8>) -> Result<u8, Error> {
+    match r {
+        Ok(v) => Ok(v),
+        Err(e) => {
+            n.note();
+            Err(e)
+        }
+    }
+}
+
+/// @fail(extraction): proverif(HAX0001)
+fn err_arm_noisy_generic(r: Result<u8, Error>, n: Loudly<u8>) -> Result<u8, Error> {
+    match r {
+        Ok(v) => Ok(v),
+        Err(e) => {
+            n.note();
+            Err(e)
+        }
+    }
+}

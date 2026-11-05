@@ -89,6 +89,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result_errors.
 (*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - `new_tests__legacy__proverif_result_errors__lib__Impl_18__decode` returns a `Result`, but it is opaque or a `pv_constructor`, so its value is neither `Ok(..)` nor `Err(..)` under `--result-errors`; give it a `replace_body` model *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
@@ -1306,6 +1307,39 @@ letfun new_tests__legacy__proverif_result_errors__lib__map_err_by_inline_path(x:
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result_errors__lib__map_err_by_reference(x: bitstring) =
   bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *).
+(* src: src/legacy/proverif-result-errors/lib.rs:1303:0-1303:21 new_tests__legacy__proverif_result_errors__lib__Checked *)
+fun new_tests__legacy__proverif_result_errors__lib__Checked__Checked(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_result_errors__lib__Checked__Checked__0(
+    new_tests__legacy__proverif_result_errors__lib__Checked__Checked(v_0)
+  ) = v_0.
+(* src: src/legacy/proverif-result-errors/lib.rs:1306:4-1308:5 new_tests__legacy__proverif_result_errors__lib__Impl_17__decode *)
+letfun new_tests__legacy__proverif_result_errors__lib__Impl_17__decode(self: bitstring) =
+  new_tests__legacy__proverif_result_errors__lib__check(nat_1).
+(* src: src/legacy/proverif-result-errors/lib.rs:1311:0-1317:1 new_tests__legacy__proverif_result_errors__lib__inspect_checked *)
+letfun new_tests__legacy__proverif_result_errors__lib__inspect_checked(x: bitstring) =
+  let hax__scrut0 = new_tests__legacy__proverif_result_errors__lib__Impl_17__decode(x) in
+  let core__result__Result__Ok(v: bitstring) = hax__scrut0 in v
+  else let core__result__Result__Err(
+    new_tests__legacy__proverif_result_errors__lib__Error__Invalid()
+  ) = hax__scrut0 in nat_1
+  else let core__result__Result__Err(
+    new_tests__legacy__proverif_result_errors__lib__Error__Other()
+  ) = hax__scrut0 in nat_2
+  else bitstring_err().
+(* src: src/legacy/proverif-result-errors/lib.rs:1319:0-1319:20 new_tests__legacy__proverif_result_errors__lib__Hidden *)
+fun new_tests__legacy__proverif_result_errors__lib__Hidden__Hidden(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_result_errors__lib__Hidden__Hidden__0(
+    new_tests__legacy__proverif_result_errors__lib__Hidden__Hidden(v_0)
+  ) = v_0.
+(* src: src/legacy/proverif-result-errors/lib.rs:1323:4-1325:5 new_tests__legacy__proverif_result_errors__lib__Impl_18__decode *)
+(* opaque *)
+fun new_tests__legacy__proverif_result_errors__lib__Impl_18__decode(bitstring): bitstring [data].
+(* src: src/legacy/proverif-result-errors/lib.rs:1329:0-1331:1 new_tests__legacy__proverif_result_errors__lib__decode_hidden *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__proverif_result_errors__lib__decode_hidden(x: bitstring) =
+  bitstring_err() (* HAX ERROR: `new_tests__legacy__proverif_result_errors__lib__Impl_18__decode` returns a `Result`, but it is opaque or a `pv_constructor`, so its value is neither `Ok(..)` nor `Err(..)` under `--result-errors`; give it a `replace_body` model *).
 
 
 (* src: src/legacy/proverif-result-errors/lib.rs:1200:0-1202:1 new_tests__legacy__proverif_result_errors__lib__make_output *)

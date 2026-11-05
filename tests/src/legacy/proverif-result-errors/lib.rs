@@ -1297,3 +1297,35 @@ fn map_err_by_inline_path(x: u8) -> Result<u8, Logged> {
 fn map_err_by_reference(x: u8) -> Result<u8, Logged> {
     check(x).map_err(&Logged::conv)
 }
+
+// Methods of generic impls: an extracted one, and an opaque one.
+
+struct Checked<T>(T);
+
+impl<T: Clone> Decode for Checked<T> {
+    fn decode(&self) -> Result<u8, Error> {
+        check(1)
+    }
+}
+
+fn inspect_checked(x: Checked<u8>) -> u8 {
+    match x.decode() {
+        Ok(v) => v,
+        Err(Error::Invalid) => 1,
+        Err(Error::Other) => 2,
+    }
+}
+
+struct Hidden<T>(T);
+
+impl<T: Clone> Decode for Hidden<T> {
+    #[hax_lib::opaque]
+    fn decode(&self) -> Result<u8, Error> {
+        check(1)
+    }
+}
+
+/// @fail(extraction): proverif(HAX0001)
+fn decode_hidden(x: Hidden<u8>) -> Result<u8, Error> {
+    x.decode()
+}
