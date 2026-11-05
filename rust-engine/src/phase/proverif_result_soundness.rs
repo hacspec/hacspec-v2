@@ -675,6 +675,15 @@ enum Pos {
     Tail,
 }
 
+/// What a run of [`Check`] does.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Mode {
+    /// Grows `opaque_fns`, leaving the items unchanged; `true` once it grew.
+    Infer(bool),
+    /// Rejects what the check does not accept.
+    Reject,
+}
+
 /// The two checks (see the module documentation).
 struct Check {
     /// Whether the model is `--result-errors`.
@@ -699,10 +708,7 @@ struct Check {
     err_binders: HashSet<LocalId>,
     /// The label and the position of each enclosing loop.
     loops: Vec<(Option<Symbol>, Pos)>,
-    /// Whether to reject, or only to compute `opaque_fns`.
-    reject: bool,
-    /// Whether `opaque_fns` grew.
-    changed: bool,
+    mode: Mode,
     context: &'static str,
     hint: &'static str,
 }
@@ -720,7 +726,7 @@ const UNKNOWN_HINT: &str = "the `Err` of a function whose body is not extracted 
 
 impl Check {
     fn reject(&self, e: &mut Expr, what: &str) {
-        if self.reject {
+        if self.mode == Mode::Reject {
             let d = diagnostic(
                 e.clone(),
                 e.meta.span,
@@ -733,7 +739,7 @@ impl Check {
 
     /// Rejects `e`, which holds the patterns `pats` that are rejected.
     fn reject_pats(&self, e: &mut Expr, pats: Vec<(Pat, &str)>) {
-        if self.reject && !pats.is_empty() {
+        if self.mode == Mode::Reject && !pats.is_empty() {
             let diagnostics = pats
                 .into_iter()
                 .map(|(p, what)| {
@@ -862,7 +868,9 @@ impl Check {
             let opaque = self.opaque(e);
             if opaque && pos == Pos::Tail {
                 let current = self.current.unwrap();
-                self.changed |= self.opaque_fns.insert(current);
+                if self.opaque_fns.insert(current) {
+                    self.mode = Mode::Infer(true);
+                }
             }
             opaque && pos == Pos::Value
         } else {
@@ -1253,6 +1261,31 @@ impl Check {
         }
     }
 
+    /// Computes `opaque_fns`. Whether a function returns an unknown error
+    /// depends on the leaves in tail position and on the locals bound to an
+    /// unknown error, which the check follows, so it runs the check without
+    /// rejecting until `opaque_fns` stops growing.
+    fn infer_opaque_fns(&mut self, items: &[Item]) {
+        // An unchecked function may return an unknown error.
+        self.opaque_fns = fn_decls(items)
+            .filter(|d| unchecked(d.meta))
+            .map(|d| d.name)
+            .collect();
+        let mut bodies: Vec<(GlobalId, Expr)> = fn_decls(items)
+            .filter(|d| is_extracted(d.meta, d.body) && !unchecked(d.meta))
+            .map(|d| (d.name, d.body.clone()))
+            .collect();
+        // `opaque_fns` only grows, so this terminates.
+        self.mode = Mode::Infer(true);
+        while self.mode == Mode::Infer(true) {
+            self.mode = Mode::Infer(false);
+            for (name, body) in &mut bodies {
+                self.function(*name, body);
+            }
+        }
+        self.mode = Mode::Reject;
+    }
+
     /// Checks the function `name`, of body `body`.
     fn function(&mut self, name: GlobalId, body: &mut Expr) {
         self.current = Some(name);
@@ -1294,8 +1327,7 @@ impl Check {
             current: None,
             err_binders: HashSet::new(),
             loops: vec![],
-            reject: true,
-            changed: false,
+            mode: Mode::Reject,
             context: if errors {
                 stringify!(ProverifRejectUnknownErrors)
             } else {
@@ -1599,26 +1631,7 @@ impl Phase for ProverifRejectUnknownErrors<'_> {
         };
         funs.visit_fns(items);
         check.types = funs.types;
-        // An unchecked function may return an unknown error.
-        check.opaque_fns = fn_decls(items)
-            .filter(|d| unchecked(d.meta))
-            .map(|d| d.name)
-            .collect();
-        // `opaque_fns` only grows, so this terminates. Without rejecting, the
-        // check leaves the items unchanged.
-        check.reject = false;
-        check.changed = true;
-        let mut bodies: Vec<(GlobalId, Expr)> = fn_decls(items)
-            .filter(|d| is_extracted(d.meta, d.body) && !unchecked(d.meta))
-            .map(|d| (d.name, d.body.clone()))
-            .collect();
-        while check.changed {
-            check.changed = false;
-            for (name, body) in &mut bodies {
-                check.function(*name, body);
-            }
-        }
-        check.reject = true;
+        check.infer_opaque_fns(items);
         for_each_checked_fn(items, |name, body| check.function(name, body));
     }
 }
