@@ -464,9 +464,7 @@ pub fn make_fn_decoration(
         };
         use AttrPayload::NeverErased;
         quote! {
-            // ProVerif ignores contracts, and typechecking `#phi` here could
-            // require `#[cfg(hax)]`-only helpers across the dependency tree.
-            #[cfg(all(#DebugOrHaxCfgExpr, not(hax_backend_proverif)))]
+            #[cfg(#DebugOrHaxCfgExpr)]
             #late_skip
             const _: () = {
                 #quantifiers
