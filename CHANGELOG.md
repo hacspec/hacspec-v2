@@ -64,6 +64,8 @@ ProVerif backend and library:
    pattern
  - Evaluate the message of a panic, and the call of a function returning
    `!`, before ending the trace
+ - Warn of the conversions the library models as the identity, between
+   types represented differently
  - `#[pv_inverse_of(f)]` on `g` makes `g` match its argument against `f`,
    without a `reduc`, and accepts methods
 

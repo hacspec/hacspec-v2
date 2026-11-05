@@ -62,6 +62,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
 (*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
+(*  - 1 × conversion of the library modelled as the identity, although its types are represented differently *)
 (*****************************************************************)
 
 (* src: src/rustc-coverage/inline.rs:33:0-35:1 new_tests__rustc_coverage__inline__length *)
@@ -142,12 +143,10 @@ letfun new_tests__rustc_coverage__inline__permutate(xs: bitstring, k: bitstring)
   xs_1.
 (* src: src/rustc-coverage/inline.rs:13:0-16:1 new_tests__rustc_coverage__inline__permutations *)
 letfun new_tests__rustc_coverage__inline__permutations(xs: bitstring) =
-  let ys_1 = alloc__slice__Impl__to_vec(
-    new_tests__rustc_coverage__inline__permutate(
-      alloc__vec__Impl_1__as_slice(alloc__borrow__ToOwned__to_owned(xs)),
-      nat_0
-    )
-  ) in
+  let ys_1 = (* HAX WARNING: conversion of the library modelled as the identity, although its types are represented differently *) (new_tests__rustc_coverage__inline__permutate(
+    alloc__vec__Impl_1__as_slice(alloc__borrow__ToOwned__to_owned(xs)),
+    nat_0
+  )) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/inline.rs:8:0-10:1 new_tests__rustc_coverage__inline__main *)
 (*  @fail(extraction): ssprove(HAX0001) *)

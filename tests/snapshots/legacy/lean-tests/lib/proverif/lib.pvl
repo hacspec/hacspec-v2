@@ -1958,20 +1958,20 @@ letfun new_tests__legacy__lean_tests__lib__comments__heavily_documented(wildcard
 (*  Returns true if all casting edge cases behave as expected. *)
 letfun new_tests__legacy__lean_tests__lib__casts__casting_edge_cases(u_dummy: bitstring) =
   let case1 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_256,
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (nat_256),
     nat_0
   ) in
   let case2 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_neg_1,
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (nat_neg_1),
     nat_255
   ) in
   let case3 = rust_primitives__hax__machine_int__eq(nat_neg_1, nat_neg_1) in
   let case4 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_128,
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (nat_128),
     nat_neg_128
   ) in
   let case5 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_4294967295,
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) (nat_4294967295),
     nat_neg_1
   ) in
   let hax__cond0 = (let hax__cond1 = (let hax__cond2 = (let (=True()) = case1
