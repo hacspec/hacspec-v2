@@ -58,6 +58,8 @@ ProVerif backend and library:
    operands of `&&` and `||`
  - Reject the impls of the crate that Rust calls implicitly but the model
    does not call
+ - Reject the `for` loops that update variables or whose body may be
+   observable, since the model runs a bounded number of iterations
  - `#[pv_inverse_of(f)]` on `g` makes `g` match its argument against `f`,
    without a `reduc`, and accepts methods
 

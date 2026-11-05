@@ -1,4 +1,4 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
+//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! `#[hax_lib::pv_inline]` β-inlines every call to `apply_twice`, with the

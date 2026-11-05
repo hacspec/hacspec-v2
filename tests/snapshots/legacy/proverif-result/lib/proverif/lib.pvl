@@ -82,6 +82,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
@@ -112,9 +113,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]`; a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand; this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
@@ -469,17 +468,8 @@ letfun new_tests__legacy__proverif_result__lib__early_return_before_use(
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__pure_loop_before_use(x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
-  let n_2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, x)
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let n_1 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__add(n_1, i)) in
-  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let n_1 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__add(n_1, i)) in
-  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let n_1 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__add(n_1, i)) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let v = r in rust_primitives__hax__machine_int__add(v, n_2).
+  let n_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  let v = r in rust_primitives__hax__machine_int__add(v, n_1).
 (* src: src/legacy/proverif-result/lib.rs:436:0-447:1 new_tests__legacy__proverif_result__lib__ok_or_repacked *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__ok_or_repacked(x: bitstring) =
@@ -738,20 +728,8 @@ letfun new_tests__legacy__proverif_result__lib__return_ok_on_err(x: bitstring) =
 (* src: src/legacy/proverif-result/lib.rs:872:0-882:1 new_tests__legacy__proverif_result__lib__continue_on_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__continue_on_err(xs: bitstring) =
-  let n_3 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    xs
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let n_1 = bl__acc0 in
-  let bl__acc1 = (let v = (bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
-  v) in
-  let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let n_1 = bl__acc1 in
-  let bl__acc2 = (let v = (bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
-  v) in
-  let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let n_1 = bl__acc2 in
-  let bl__acc3 = (let v = (bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
-  v) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  n_3.
+  let n_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand; this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  n_1.
 (* src: src/legacy/proverif-result/lib.rs:885:0-893:1 new_tests__legacy__proverif_result__lib__nested_leave_on_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__nested_leave_on_err(x: bitstring, c: bitstring) =

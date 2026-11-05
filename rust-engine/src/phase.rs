@@ -34,6 +34,7 @@ mod proverif_inline;
 mod proverif_name_wildcards;
 mod proverif_ok_only_results;
 mod proverif_reject_higher_order;
+mod proverif_reject_loops;
 mod proverif_reject_unsupported;
 mod proverif_resolve_trait_calls;
 mod proverif_result_soundness;
@@ -103,6 +104,7 @@ declare_phase_kind! {
     ProverifOkOnlyResults = proverif_ok_only_results::ProverifOkOnlyResults,
     ProverifSimplifyBindings = proverif_simplify_bindings::ProverifSimplifyBindings,
     ProverifRejectHigherOrder = proverif_reject_higher_order::ProverifRejectHigherOrder,
+    ProverifRejectLoops = proverif_reject_loops::ProverifRejectLoops,
     ProverifRejectUnsupported = proverif_reject_unsupported::ProverifRejectUnsupported,
     ProverifRejectTryConversions = proverif_reject_unsupported::ProverifRejectTryConversions,
     ProverifSequenceOperands = proverif_sequence_operands::ProverifSequenceOperands,

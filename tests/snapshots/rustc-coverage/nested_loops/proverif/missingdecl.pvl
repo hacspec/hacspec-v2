@@ -9,12 +9,4 @@
 (* other function may be one-way.                                *)
 (*****************************************************************)
 (* referenced by: new_tests__rustc_coverage__nested_loops__main *)
-const nat_100: bitstring.
-(* referenced by: new_tests__rustc_coverage__nested_loops__main *)
-const nat_30: bitstring.
-(* referenced by: new_tests__rustc_coverage__nested_loops__main *)
-const nat_50: bitstring.
-(* referenced by: new_tests__rustc_coverage__nested_loops__main *)
-const nat_90: bitstring.
-(* referenced by: new_tests__rustc_coverage__nested_loops__main *)
 fun std__env__args(bitstring): bitstring.

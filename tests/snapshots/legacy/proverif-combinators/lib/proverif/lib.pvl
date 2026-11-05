@@ -47,74 +47,21 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - Closures not supported in ProVerif *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(*****************************************************************)
-(*  WARNINGS — branches the model may not follow as Rust does.   *)
-(*                                                               *)
-(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
-(*  the model cannot always evaluate. When it cannot, no arm of  *)
-(*  a `match` is taken (the trace ends) and an `if` takes its    *)
-(*  `else` branch, whatever Rust does. A query about the other   *)
-(*  branch may then hold for lack of any trace.                  *)
-(*                                                               *)
-(*  - 6 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
-(*****************************************************************)
-
 (* src: src/legacy/proverif-combinators/lib.rs:7:0-9:1 new_tests__legacy__proverif_combinators__lib__collect_in_order *)
 letfun new_tests__legacy__proverif_combinators__lib__collect_in_order(v: bitstring) =
-  (let bl__seq0 = (core__slice__Impl__iter(
-    v
-  )) in let bl__acc0 = (rust_primitives__hax__array_nil()) in 
-  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let u__map_acc = bl__acc0 in
-  let bl__acc1 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc,
-    rust_primitives__hax__array_cons(x, rust_primitives__hax__array_nil())
-  )) in
-  let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let u__map_acc = bl__acc1 in
-  let bl__acc2 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc,
-    rust_primitives__hax__array_cons(x, rust_primitives__hax__array_nil())
-  )) in
-  let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let u__map_acc = bl__acc2 in
-  let bl__acc3 = (alloc__vec__Impl_2__extend_from_slice(
-    u__map_acc,
-    rust_primitives__hax__array_cons(x, rust_primitives__hax__array_nil())
-  )) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *))).
+  bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *).
 (* src: src/legacy/proverif-combinators/lib.rs:11:0-13:1 new_tests__legacy__proverif_combinators__lib__filter_map_in_order *)
 letfun new_tests__legacy__proverif_combinators__lib__filter_map_in_order(v: bitstring) =
-  (let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    v
-  )) in let bl__acc0 = (rust_primitives__hax__array_nil()) in 
-  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let u__filter_map_acc = bl__acc0 in
-  let bl__acc1 = (let Some(u__filter_map_y) = x in
-    alloc__vec__Impl_2__extend_from_slice(
-      u__filter_map_acc,
-      rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
-    )
-  else let None() = x in u__filter_map_acc
-  else bitstring_err()) in
-  let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let u__filter_map_acc = bl__acc1 in
-  let bl__acc2 = (let Some(u__filter_map_y) = x in
-    alloc__vec__Impl_2__extend_from_slice(
-      u__filter_map_acc,
-      rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
-    )
-  else let None() = x in u__filter_map_acc
-  else bitstring_err()) in
-  let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let u__filter_map_acc = bl__acc2 in
-  let bl__acc3 = (let Some(u__filter_map_y) = x in
-    alloc__vec__Impl_2__extend_from_slice(
-      u__filter_map_acc,
-      rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
-    )
-  else let None() = x in u__filter_map_acc
-  else bitstring_err()) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *))).
+  bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *).
 (* src: src/legacy/proverif-combinators/lib.rs:17:0-22:1 new_tests__legacy__proverif_combinators__lib__find_twice *)
 letfun new_tests__legacy__proverif_combinators__lib__find_twice(v: bitstring) =
   let it = core__iter__traits__collect__IntoIterator__into_iter(v) in
@@ -123,29 +70,7 @@ letfun new_tests__legacy__proverif_combinators__lib__find_twice(v: bitstring) =
     out_kw: bitstring
   ) = rust_primitives__hax__Tuple2__Tuple2(
     hax_iter_advanced(it),
-    (let bl__seq0 = (it) in let bl__acc0 = (None()) in 
-    let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let u__find_acc = bl__acc0 in
-    let bl__acc1 = (let Some(wildcard) = u__find_acc in u__find_acc
-    else let None() = u__find_acc in
-      ((* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
-      let hax__cond0 = rust_primitives__hax__machine_int__gt(x, nat_0) in
-      let (=True()) = hax__cond0 in Some(x) else None())
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let u__find_acc = bl__acc1 in
-    let bl__acc2 = (let Some(wildcard) = u__find_acc in u__find_acc
-    else let None() = u__find_acc in
-      ((* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
-      let hax__cond0 = rust_primitives__hax__machine_int__gt(x, nat_0) in
-      let (=True()) = hax__cond0 in Some(x) else None())
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let u__find_acc = bl__acc2 in
-    let bl__acc3 = (let Some(wildcard) = u__find_acc in u__find_acc
-    else let None() = u__find_acc in
-      ((* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
-      let hax__cond0 = rust_primitives__hax__machine_int__gt(x, nat_0) in
-      let (=True()) = hax__cond0 in Some(x) else None())
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))
+    bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
   ) in (let it_1 = tmp0 in
   let a = out_kw in
   let rust_primitives__hax__Tuple2__Tuple2(
@@ -153,29 +78,7 @@ letfun new_tests__legacy__proverif_combinators__lib__find_twice(v: bitstring) =
     out_kw_1: bitstring
   ) = rust_primitives__hax__Tuple2__Tuple2(
     hax_iter_advanced(it_1),
-    (let bl__seq0 = (it_1) in let bl__acc0 = (None()) in 
-    let rust_primitives__hax__array_cons(x_1, bl__seq1) = bl__seq0 in (let u__find_acc_1 = bl__acc0 in
-    let bl__acc1 = (let Some(wildcard_1) = u__find_acc_1 in u__find_acc_1
-    else let None() = u__find_acc_1 in
-      ((* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
-      let hax__cond1 = rust_primitives__hax__machine_int__gt(x_1, nat_0) in
-      let (=True()) = hax__cond1 in Some(x_1) else None())
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(x_1, bl__seq2) = bl__seq1 in (let u__find_acc_1 = bl__acc1 in
-    let bl__acc2 = (let Some(wildcard_1) = u__find_acc_1 in u__find_acc_1
-    else let None() = u__find_acc_1 in
-      ((* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
-      let hax__cond1 = rust_primitives__hax__machine_int__gt(x_1, nat_0) in
-      let (=True()) = hax__cond1 in Some(x_1) else None())
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(x_1, bl__seq3) = bl__seq2 in (let u__find_acc_1 = bl__acc2 in
-    let bl__acc3 = (let Some(wildcard_1) = u__find_acc_1 in u__find_acc_1
-    else let None() = u__find_acc_1 in
-      ((* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
-      let hax__cond1 = rust_primitives__hax__machine_int__gt(x_1, nat_0) in
-      let (=True()) = hax__cond1 in Some(x_1) else None())
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))
+    bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
   ) in rust_primitives__hax__Tuple2__Tuple2(a, out_kw_1) else bitstring_err()) else bitstring_err().
 (* src: src/legacy/proverif-combinators/lib.rs:26:0-31:1 new_tests__legacy__proverif_combinators__lib__for_each_then *)
 letfun new_tests__legacy__proverif_combinators__lib__for_each_then(v: bitstring, x: bitstring) =

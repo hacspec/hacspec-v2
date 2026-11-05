@@ -55,9 +55,9 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - use of the trait item `f2` that resolves to no impl of the crate (e.g. on a generic type) *)
 (*  - use of the trait item `One` that resolves to no impl of the crate (e.g. on a generic type) *)
 (*  - `new_tests__legacy__lean_tests__lib__recursion__factorial` is recursive; its body is dropped *)
-(*  - Loops containing `return` not supported in ProVerif *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - Closures not supported in ProVerif *)
-(*  - Loops containing `return` not supported in ProVerif *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - use of a const generic parameter as a value *)
 (*  - use of a const generic parameter as a value *)
 (*  - use of a const generic parameter as a value *)
@@ -72,10 +72,9 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - Closures not supported in ProVerif *)
 (*  - call of a function value through the `Fn` traits *)
 (*  - call of a function value through the `Fn` traits *)
-(*  - Loops containing `return` not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - Loops not supported in ProVerif *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
@@ -90,7 +89,6 @@ query attacker(hax_extraction_error__new_tests).
 (*  `else` branch, whatever Rust does. A query about the other   *)
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
-(*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
 (*  - 1 × use of the trait item `f` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *)
 (*  - 4 × `as` cast modelled as the identity, although it may change the value *)
 (*****************************************************************)
@@ -1297,18 +1295,17 @@ reduc forall v_0: bitstring;
   ) = v_0.
 (* src: src/legacy/lean-tests/loops.rs:61:4-71:5 new_tests__legacy__lean_tests__lib__loops__errors__loop3 *)
 letfun new_tests__legacy__lean_tests__lib__loops__errors__loop3(wildcard: bitstring) =
-  let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
   let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
-  else let core__ops__control_flow__ControlFlow__Continue(x_2: bitstring) = hax__scrut0 in x_2
+  else let core__ops__control_flow__ControlFlow__Continue(x_1: bitstring) = hax__scrut0 in x_1
   else bitstring_err().
 (* src: src/legacy/lean-tests/loops.rs:73:4-86:5 new_tests__legacy__lean_tests__lib__loops__errors__loop4 *)
 letfun new_tests__legacy__lean_tests__lib__loops__errors__loop4(wildcard: bitstring) =
   let f = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
-  (* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
-  let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
   let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
-  else let core__ops__control_flow__ControlFlow__Continue(e_2: bitstring) = hax__scrut0 in
-    rust_primitives__hax__Tuple2__Tuple2(e_2, e_2)
+  else let core__ops__control_flow__ControlFlow__Continue(e_1: bitstring) = hax__scrut0 in
+    rust_primitives__hax__Tuple2__Tuple2(e_1, e_1)
   else bitstring_err().
 (* src: src/legacy/lean-tests/floats.rs:7:0-7:19 new_tests__legacy__lean_tests__lib__floats__N *)
 (*  @fail(extraction): ssprove(HAX0001) *)
@@ -1798,58 +1795,19 @@ letfun new_tests__legacy__lean_tests__lib__nested_control_flow__complex_nesting(
   ).
 (* src: src/legacy/lean-tests/loops.rs:6:0-12:1 new_tests__legacy__lean_tests__lib__loops__loop1 *)
 letfun new_tests__legacy__lean_tests__lib__loops__loop1(wildcard: bitstring) =
-  let x_2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_1, nat_10)
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let x_1 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__add(x_1, i)) in
-  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let x_1 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__add(x_1, i)) in
-  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let x_1 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__add(x_1, i)) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  x_2.
+  let x_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  x_1.
 (* src: src/legacy/lean-tests/loops.rs:15:0-24:1 new_tests__legacy__lean_tests__lib__loops__loop2 *)
 letfun new_tests__legacy__lean_tests__lib__loops__loop2(wildcard: bitstring) =
-  let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
   let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
-  else let core__ops__control_flow__ControlFlow__Continue(x_2: bitstring) = hax__scrut0 in x_2
+  else let core__ops__control_flow__ControlFlow__Continue(x_1: bitstring) = hax__scrut0 in x_1
   else bitstring_err().
 (* src: src/legacy/lean-tests/loops.rs:29:0-40:1 new_tests__legacy__lean_tests__lib__loops__for_loop_with_spec *)
 (*  For-loop with a spec *)
 letfun new_tests__legacy__lean_tests__lib__loops__for_loop_with_spec(y: bitstring) =
-  let x_4 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, y)
-  )) in let bl__acc0 = (y) in 
-  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let x_1 = bl__acc0 in
-  let bl__acc1 = (let wildcard = hax_lib__u_internal_loop_invariant(
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-  ) in
-  let hax__cond0 = rust_primitives__hax__machine_int__eq(
-    rust_primitives__hax__machine_int__rem(x_1, nat_5),
-    nat_0
-  ) in
-  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
-  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let x_1 = bl__acc1 in
-  let bl__acc2 = (let wildcard = hax_lib__u_internal_loop_invariant(
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-  ) in
-  let hax__cond0 = rust_primitives__hax__machine_int__eq(
-    rust_primitives__hax__machine_int__rem(x_1, nat_5),
-    nat_0
-  ) in
-  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
-  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let x_1 = bl__acc2 in
-  let bl__acc3 = (let wildcard = hax_lib__u_internal_loop_invariant(
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-  ) in
-  let hax__cond0 = rust_primitives__hax__machine_int__eq(
-    rust_primitives__hax__machine_int__rem(x_1, nat_5),
-    nat_0
-  ) in
-  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  x_4.
+  let x_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  x_1.
 (* src: src/legacy/lean-tests/loops.rs:46:0-53:1 new_tests__legacy__lean_tests__lib__loops__while_loop1 *)
 (*  while-loop *)
 (*  @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001) *)

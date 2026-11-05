@@ -47,6 +47,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - REPLACE `new_tests__legacy__proverif_inline__lib__handwritten` by a hand-written model *)
 (*  - higher-order reference to a function or constructor *)
 (*  - call of a function value through the `Fn` traits *)
@@ -66,16 +67,7 @@ letfun new_tests__legacy__proverif_inline__lib__run(start: bitstring) =
   ).
 (* src: src/legacy/proverif-inline/lib.rs:38:0-40:1 new_tests__legacy__proverif_inline__lib__run_sum *)
 letfun new_tests__legacy__proverif_inline__lib__run_sum(v: bitstring) =
-  let inl11__acc = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    v
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(inl9__x, bl__seq1) = bl__seq0 in (let inl10__acc = bl__acc0 in
-  let bl__acc1 = (new_tests__legacy__proverif_inline__lib__increment(inl10__acc)) in
-  let rust_primitives__hax__array_cons(inl9__x, bl__seq2) = bl__seq1 in (let inl10__acc = bl__acc1 in
-  let bl__acc2 = (new_tests__legacy__proverif_inline__lib__increment(inl10__acc)) in
-  let rust_primitives__hax__array_cons(inl9__x, bl__seq3) = bl__seq2 in (let inl10__acc = bl__acc2 in
-  let bl__acc3 = (new_tests__legacy__proverif_inline__lib__increment(inl10__acc)) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
+  let inl11__acc = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
   let (=True()) = True() in inl11__acc else inl11__acc.
 (* src: src/legacy/proverif-inline/lib.rs:48:0-50:1 new_tests__legacy__proverif_inline__lib__run_twice *)
 letfun new_tests__legacy__proverif_inline__lib__run_twice(start: bitstring) =

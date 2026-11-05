@@ -55,6 +55,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result_errors.
 (*  - a `Result` used here is not propagated: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this generic function is instantiated with a type that holds a `Result`: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - this reads the error of a hand-written model: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this pattern inspects the error of a hand-written model: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
@@ -71,6 +72,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result_errors.
 (*  - higher-order reference to a function or constructor *)
 (*  - this reads the error of a hand-written model: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this library function, which takes a `Result`, has no model: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*  - this pattern inspects the error of a hand-written model: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this pattern inspects the error of a hand-written model: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
@@ -519,18 +521,9 @@ letfun new_tests__legacy__proverif_result_errors__lib__early_return_before_use(
 (* src: src/legacy/proverif-result-errors/lib.rs:397:0-405:1 new_tests__legacy__proverif_result_errors__lib__pure_loop_before_use *)
 letfun new_tests__legacy__proverif_result_errors__lib__pure_loop_before_use(x: bitstring) =
   let r = new_tests__legacy__proverif_result_errors__lib__check(x) in
-  let n_2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, x)
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let n_1 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__add(n_1, i)) in
-  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let n_1 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__add(n_1, i)) in
-  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let n_1 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__add(n_1, i)) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
+  let n_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
   let core__result__Result__Ok(v: bitstring) = r in
-    core__result__Result__Ok(rust_primitives__hax__machine_int__add(v, n_2))
+    core__result__Result__Ok(rust_primitives__hax__machine_int__add(v, n_1))
   else let core__result__Result__Err(err: bitstring) = r in core__result__Result__Err(err)
   else bitstring_err().
 (* src: src/legacy/proverif-result-errors/lib.rs:410:0-421:1 new_tests__legacy__proverif_result_errors__lib__ok_or_repacked *)
@@ -913,26 +906,8 @@ letfun new_tests__legacy__proverif_result_errors__lib__return_ok_on_err(x: bitst
   else bitstring_err().
 (* src: src/legacy/proverif-result-errors/lib.rs:838:0-848:1 new_tests__legacy__proverif_result_errors__lib__continue_on_err *)
 letfun new_tests__legacy__proverif_result_errors__lib__continue_on_err(xs: bitstring) =
-  let n_2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    xs
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let n_1 = bl__acc0 in
-  let bl__acc1 = (let hax__scrut0 = new_tests__legacy__proverif_result_errors__lib__check(x) in
-  let core__result__Result__Ok(v: bitstring) = hax__scrut0 in v
-  else let core__result__Result__Err(wildcard: bitstring) = hax__scrut0 in n_1
-  else bitstring_err()) in
-  let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let n_1 = bl__acc1 in
-  let bl__acc2 = (let hax__scrut0 = new_tests__legacy__proverif_result_errors__lib__check(x) in
-  let core__result__Result__Ok(v: bitstring) = hax__scrut0 in v
-  else let core__result__Result__Err(wildcard: bitstring) = hax__scrut0 in n_1
-  else bitstring_err()) in
-  let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let n_1 = bl__acc2 in
-  let bl__acc3 = (let hax__scrut0 = new_tests__legacy__proverif_result_errors__lib__check(x) in
-  let core__result__Result__Ok(v: bitstring) = hax__scrut0 in v
-  else let core__result__Result__Err(wildcard: bitstring) = hax__scrut0 in n_1
-  else bitstring_err()) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  core__result__Result__Ok(n_2).
+  let n_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  core__result__Result__Ok(n_1).
 (* src: src/legacy/proverif-result-errors/lib.rs:850:0-858:1 new_tests__legacy__proverif_result_errors__lib__nested_leave_on_err *)
 letfun new_tests__legacy__proverif_result_errors__lib__nested_leave_on_err(
   x: bitstring,

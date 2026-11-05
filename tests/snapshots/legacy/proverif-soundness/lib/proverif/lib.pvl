@@ -51,6 +51,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
@@ -178,14 +179,5 @@ letfun new_tests__legacy__proverif_soundness__lib__five_pushes(
     ),
     e
   ) in
-  let acc_2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    v_5
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let acc_1 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__bitxor(acc_1, x)) in
-  let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let acc_1 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__bitxor(acc_1, x)) in
-  let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let acc_1 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__bitxor(acc_1, x)) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  acc_2.
+  let acc_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  acc_1.

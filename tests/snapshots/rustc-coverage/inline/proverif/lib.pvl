@@ -47,10 +47,22 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
-(*  - `new_tests__rustc_coverage__inline__permutate` is recursive; its body is dropped *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
+
+(*****************************************************************)
+(*  WARNINGS — branches the model may not follow as Rust does.   *)
+(*                                                               *)
+(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
+(*  the model cannot always evaluate. When it cannot, no arm of  *)
+(*  a `match` is taken (the trace ends) and an `if` takes its    *)
+(*  `else` branch, whatever Rust does. A query about the other   *)
+(*  branch may then hold for lack of any trace.                  *)
+(*                                                               *)
+(*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
+(*****************************************************************)
 
 (* src: src/rustc-coverage/inline.rs:33:0-35:1 new_tests__rustc_coverage__inline__length *)
 letfun new_tests__rustc_coverage__inline__length(xs: bitstring) = core__slice__Impl__len(xs).
@@ -108,11 +120,21 @@ letfun new_tests__rustc_coverage__inline__display(xs: bitstring) =
 (* src: src/rustc-coverage/inline.rs:53:0-55:1 new_tests__rustc_coverage__inline__error *)
 letfun new_tests__rustc_coverage__inline__error(wildcard: bitstring) = bitstring_err().
 (* src: src/rustc-coverage/inline.rs:18:0-31:1 new_tests__rustc_coverage__inline__permutate *)
-(* HAX ERROR: `new_tests__rustc_coverage__inline__permutate` is recursive; its body is dropped *)
-(* It is modelled as an uninterpreted injective one-way symbol, which *)
-(* the real function need not be. Replace with a hand-written model  *)
-(* before trusting any result that depends on it.                    *)
-fun new_tests__rustc_coverage__inline__permutate(bitstring, bitstring): bitstring.
+letfun new_tests__rustc_coverage__inline__permutate(xs: bitstring, k: bitstring) =
+  let n = new_tests__rustc_coverage__inline__length(xs) in
+  let xs_1 = (let hax__cond0 = rust_primitives__hax__machine_int__eq(k, n) in
+  let (=True()) = hax__cond0
+    in (let wildcard = new_tests__rustc_coverage__inline__display(xs) in
+    xs)
+    else ((* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
+    let hax__cond1 = rust_primitives__hax__machine_int__lt(k, n) in
+    let (=True()) = hax__cond1
+      in (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *))
+      else (let wildcard_1 = new_tests__rustc_coverage__inline__error(
+        rust_primitives__hax__Tuple0__Tuple0
+      ) in
+      xs))) in
+  xs_1.
 (* src: src/rustc-coverage/inline.rs:13:0-16:1 new_tests__rustc_coverage__inline__permutations *)
 letfun new_tests__rustc_coverage__inline__permutations(xs: bitstring) =
   let ys_1 = alloc__slice__Impl__to_vec(

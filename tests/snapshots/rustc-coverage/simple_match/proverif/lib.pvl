@@ -47,9 +47,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
-(*  - Sorry, Hax does not support declare-first let bindings (see https://doc.rust-lang.org/rust-by-example/variable_bindings/declare.html) for now. *)
-(*  - Sorry, Hax does not support declare-first let bindings (see https://doc.rust-lang.org/rust-by-example/variable_bindings/declare.html) for now. *)
-(*  - Sorry, Hax does not support declare-first let bindings (see https://doc.rust-lang.org/rust-by-example/variable_bindings/declare.html) for now. *)
+(*  - the body of this loop may be observable, but the model runs a bounded number of iterations, and none over an iterator that is not a list; move the observable calls out of the loop; Sorry, Hax does not support declare-first let bindings (see https://doc.rust-lang.org/rust-by-example/variable_bindings/declare.html) for now. *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
@@ -66,7 +64,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 1 × branch on a result of `std__env__args`, which the model does not define *)
 (*****************************************************************)
 
-(* src: src/rustc-coverage/simple_match.rs:7:0-47:1 new_tests__rustc_coverage__simple_match__main *)
+(* src: src/rustc-coverage/simple_match.rs:8:0-48:1 new_tests__rustc_coverage__simple_match__main *)
 (*  @fail(extraction): fstar(HAX0001), legacy-lean(HAX0001), ssprove(HAX0001), coq(HAX0001) *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__simple_match__main(wildcard: bitstring) =
@@ -79,12 +77,6 @@ letfun new_tests__rustc_coverage__simple_match__main(wildcard: bitstring) =
   ) in
   let (=True()) = hax__cond0 in nat_0 else nat_1) in
   rust_primitives__hax__Tuple2__Tuple2(
-    (let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-      core__ops__range__Range__Range(nat_0, nat_2)
-    )) in 
-    let rust_primitives__hax__array_cons(wildcard_1, bl__seq1) = bl__seq0 in (let bl__unit0 = (bitstring_err() (* HAX ERROR: Sorry, Hax does not support declare-first let bindings (see https://doc.rust-lang.org/rust-by-example/variable_bindings/declare.html) for now. *)) in
-    let rust_primitives__hax__array_cons(wildcard_1, bl__seq2) = bl__seq1 in (let bl__unit1 = (bitstring_err() (* HAX ERROR: Sorry, Hax does not support declare-first let bindings (see https://doc.rust-lang.org/rust-by-example/variable_bindings/declare.html) for now. *)) in
-    let rust_primitives__hax__array_cons(wildcard_1, bl__seq3) = bl__seq2 in (let bl__unit2 = (bitstring_err() (* HAX ERROR: Sorry, Hax does not support declare-first let bindings (see https://doc.rust-lang.org/rust-by-example/variable_bindings/declare.html) for now. *)) in
-    rust_primitives__hax__Tuple0__Tuple0 (* more than LOOP_BOUND elements *)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0)),
+    bitstring_err() (* HAX ERROR: the body of this loop may be observable, but the model runs a bounded number of iterations, and none over an iterator that is not a list; move the observable calls out of the loop; Sorry, Hax does not support declare-first let bindings (see https://doc.rust-lang.org/rust-by-example/variable_bindings/declare.html) for now. *),
     rust_primitives__hax__Tuple0__Tuple0
   ).

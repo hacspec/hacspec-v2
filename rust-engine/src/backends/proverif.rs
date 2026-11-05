@@ -2335,6 +2335,7 @@ impl Backend for ProVerifBackend {
                 ProverifResolveTraitCalls(self.options.keep_trait_calls.clone()),
                 ProverifInline,
                 ProverifCombinatorsToLoops,
+                ProverifRejectLoops,
                 ProverifExpandStructUpdate,
                 ProverifFlattenBindingSubpatterns,
                 ProverifRejectUnsupported,

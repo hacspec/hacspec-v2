@@ -34,7 +34,30 @@
 (* Only typechecks with result.pvl loaded. *)
 letfun hax_result_model_check__new_tests() = hax_result_model__result.
 
-(* src: src/rustc-coverage/continue.rs:5:0-71:1 new_tests__rustc_coverage__continue__main *)
+(*****************************************************************)
+(*  INCOMPLETE MODEL — this extraction did not fully succeed.    *)
+(*                                                               *)
+(*  Each `HAX ERROR` below marks a construct the ProVerif        *)
+(*  backend could not express; it renders as `bitstring_err()`,  *)
+(*  so the enclosing declaration has NO value and every process  *)
+(*  reaching it dies. Queries over the dead part come back       *)
+(*  `true` for lack of any trace, NOT because they hold.         *)
+(*                                                               *)
+(*  The `hax_extraction_error__*` query below fails on purpose,  *)
+(*  so this shows up in the verification summary. Fix the errors *)
+(*  (or model the items by hand) before trusting any result.     *)
+(*                                                               *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*  - this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)
+(*****************************************************************)
+free hax_extraction_error__new_tests: bitstring.
+query attacker(hax_extraction_error__new_tests).
+
+(* src: src/rustc-coverage/continue.rs:6:0-72:1 new_tests__rustc_coverage__continue__main *)
 (*  @fail(extraction): coq(HAX0008, HAX0008, HAX0008, HAX0008, HAX0001), ssprove(HAX0008, HAX0008, HAX0008, HAX0008, HAX0001) *)
 letfun new_tests__rustc_coverage__continue__main(wildcard: bitstring) =
   let is_true = rust_primitives__hax__machine_int__eq(
@@ -43,95 +66,11 @@ letfun new_tests__rustc_coverage__continue__main(wildcard: bitstring) =
     ),
     nat_1
   ) in
-  let x_3 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_10)
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(wildcard_1, bl__seq1) = bl__seq0 in (let x_1 = bl__acc0 in
-  let bl__acc1 = (let (=True()) = is_true in x_1
-  else nat_3) in
-  let rust_primitives__hax__array_cons(wildcard_1, bl__seq2) = bl__seq1 in (let x_1 = bl__acc1 in
-  let bl__acc2 = (let (=True()) = is_true in x_1
-  else nat_3) in
-  let rust_primitives__hax__array_cons(wildcard_1, bl__seq3) = bl__seq2 in (let x_1 = bl__acc2 in
-  let bl__acc3 = (let (=True()) = is_true in x_1
-  else nat_3) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let x_6 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_10)
-  )) in let bl__acc0 = (x_3) in 
-  let rust_primitives__hax__array_cons(wildcard_2, bl__seq1) = bl__seq0 in (let x_4 = bl__acc0 in
-  let bl__acc1 = (let (=False()) = is_true in nat_3
-  else x_4) in
-  let rust_primitives__hax__array_cons(wildcard_2, bl__seq2) = bl__seq1 in (let x_4 = bl__acc1 in
-  let bl__acc2 = (let (=False()) = is_true in nat_3
-  else x_4) in
-  let rust_primitives__hax__array_cons(wildcard_2, bl__seq3) = bl__seq2 in (let x_4 = bl__acc2 in
-  let bl__acc3 = (let (=False()) = is_true in nat_3
-  else x_4) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let x_9 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_10)
-  )) in let bl__acc0 = (x_6) in 
-  let rust_primitives__hax__array_cons(wildcard_3, bl__seq1) = bl__seq0 in (let x_7 = bl__acc0 in
-  let bl__acc1 = (let (=True()) = is_true in nat_3
-  else x_7) in
-  let rust_primitives__hax__array_cons(wildcard_3, bl__seq2) = bl__seq1 in (let x_7 = bl__acc1 in
-  let bl__acc2 = (let (=True()) = is_true in nat_3
-  else x_7) in
-  let rust_primitives__hax__array_cons(wildcard_3, bl__seq3) = bl__seq2 in (let x_7 = bl__acc2 in
-  let bl__acc3 = (let (=True()) = is_true in nat_3
-  else x_7) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let x_11 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_10)
-  )) in let bl__acc0 = (x_9) in 
-  let rust_primitives__hax__array_cons(wildcard_4, bl__seq1) = bl__seq0 in (let x_10 = bl__acc0 in
-  let bl__acc1 = (let (=True()) = is_true in x_10 else nat_3) in
-  let rust_primitives__hax__array_cons(wildcard_4, bl__seq2) = bl__seq1 in (let x_10 = bl__acc1 in
-  let bl__acc2 = (let (=True()) = is_true in x_10 else nat_3) in
-  let rust_primitives__hax__array_cons(wildcard_4, bl__seq3) = bl__seq2 in (let x_10 = bl__acc2 in
-  let bl__acc3 = (let (=True()) = is_true in x_10 else nat_3) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let x_16 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_10)
-  )) in let bl__acc0 = (x_11) in 
-  let rust_primitives__hax__array_cons(wildcard_6, bl__seq1) = bl__seq0 in (let x_12 = bl__acc0 in
-  let bl__acc1 = (let x_14 = (let (=False()) = is_true in nat_1
-  else let wildcard_5 = x_12 in
-  x_12) in
-  nat_3) in
-  let rust_primitives__hax__array_cons(wildcard_6, bl__seq2) = bl__seq1 in (let x_12 = bl__acc1 in
-  let bl__acc2 = (let x_14 = (let (=False()) = is_true in nat_1
-  else let wildcard_5 = x_12 in
-  x_12) in
-  nat_3) in
-  let rust_primitives__hax__array_cons(wildcard_6, bl__seq3) = bl__seq2 in (let x_12 = bl__acc2 in
-  let bl__acc3 = (let x_14 = (let (=False()) = is_true in nat_1
-  else let wildcard_5 = x_12 in
-  x_12) in
-  nat_3) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let x_19 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, nat_10)
-  )) in let bl__acc0 = (x_16) in 
-  let rust_primitives__hax__array_cons(wildcard_7, bl__seq1) = bl__seq0 in (let x_17 = bl__acc0 in
-  let bl__cf0 = (let (=False()) = is_true in core__ops__control_flow__ControlFlow__Continue(nat_3)
-  else core__ops__control_flow__ControlFlow__Break(
-    rust_primitives__hax__Tuple2__Tuple2(rust_primitives__hax__Tuple0__Tuple0, x_17)
-  )) in
-  let core__ops__control_flow__ControlFlow__Break(bl__brk0) = bl__cf0 in (let rust_primitives__hax__Tuple2__Tuple2(bl__bv0, bl__out0) = bl__brk0 in bl__out0 else bitstring_err())
-  else let core__ops__control_flow__ControlFlow__Continue(bl__acc1) = bl__cf0 in (let rust_primitives__hax__array_cons(wildcard_7, bl__seq2) = bl__seq1 in (let x_17 = bl__acc1 in
-  let bl__cf1 = (let (=False()) = is_true in core__ops__control_flow__ControlFlow__Continue(nat_3)
-  else core__ops__control_flow__ControlFlow__Break(
-    rust_primitives__hax__Tuple2__Tuple2(rust_primitives__hax__Tuple0__Tuple0, x_17)
-  )) in
-  let core__ops__control_flow__ControlFlow__Break(bl__brk1) = bl__cf1 in (let rust_primitives__hax__Tuple2__Tuple2(bl__bv1, bl__out1) = bl__brk1 in bl__out1 else bitstring_err())
-  else let core__ops__control_flow__ControlFlow__Continue(bl__acc2) = bl__cf1 in (let rust_primitives__hax__array_cons(wildcard_7, bl__seq3) = bl__seq2 in (let x_17 = bl__acc2 in
-  let bl__cf2 = (let (=False()) = is_true in core__ops__control_flow__ControlFlow__Continue(nat_3)
-  else core__ops__control_flow__ControlFlow__Break(
-    rust_primitives__hax__Tuple2__Tuple2(rust_primitives__hax__Tuple0__Tuple0, x_17)
-  )) in
-  let core__ops__control_flow__ControlFlow__Break(bl__brk2) = bl__cf2 in (let rust_primitives__hax__Tuple2__Tuple2(bl__bv2, bl__out2) = bl__brk2 in bl__out2 else bitstring_err())
-  else let core__ops__control_flow__ControlFlow__Continue(bl__acc3) = bl__cf2 in (let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  let wildcard_8 = x_19 in
+  let x_1 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  let x_2 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  let x_3 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  let x_4 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  let x_5 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  let x_6 = (bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *)) in
+  let wildcard_1 = x_6 in
   rust_primitives__hax__Tuple0__Tuple0.
