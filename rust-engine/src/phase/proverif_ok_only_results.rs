@@ -8,7 +8,6 @@
 //! or a `let` that needs an `Err` never matches, so it is dropped; any other
 //! `Err` pattern is rejected.
 
-use super::proverif_result_soundness::Quiet;
 use crate::ast::span::Span;
 use crate::ast::*;
 use crate::ast::{diagnostics::*, visitors::*};
@@ -22,9 +21,7 @@ pub struct ProverifOkOnlyResults;
 
 #[setup_error_handling_struct]
 #[derive(Default)]
-struct OkOnlyResults {
-    quiet: Quiet,
-}
+struct OkOnlyResults;
 
 impl VisitorWithContext for OkOnlyResults {
     fn context(&self) -> Context {
@@ -61,6 +58,18 @@ fn arm_needs_err(arm: &Arm) -> bool {
         })
 }
 
+/// Whether evaluating `e` can do nothing but produce its value.
+fn is_value(e: &Expr) -> bool {
+    match &*e.kind {
+        ExprKind::Literal(_) | ExprKind::LocalId(_) => true,
+        ExprKind::Construct { fields, base, .. } => {
+            base.is_none() && fields.iter().all(|(_, f)| is_value(f))
+        }
+        ExprKind::GlobalId(g) => g.is_constructor(),
+        _ => false,
+    }
+}
+
 /// The error sink, which the printer renders as `bitstring_err()`.
 fn sink(ty: Ty, span: Span) -> Expr {
     Expr::standalone_fn_app(never_to_any, vec![], vec![], ty, span)
@@ -94,22 +103,20 @@ impl AstVisitorMut for OkOnlyResults {
                 fields,
                 ..
             } if *constructor == Err::Constructor => {
-                // A payload that may be observable is still evaluated before
-                // the sink.
+                // As in Rust, the payload is evaluated before the sink.
                 let (ty, span) = (expr.ty.clone(), expr.meta.span);
                 *expr = std::mem::take(fields).into_iter().rev().fold(
                     sink(ty.clone(), span),
                     |body, (_, field)| {
-                        if !self.quiet.expr(&field) {
-                            ExprKind::Let {
-                                lhs: PatKind::Wild.promote(field.ty.clone(), span),
-                                rhs: field,
-                                body,
-                            }
-                            .promote(ty.clone(), span)
-                        } else {
-                            body
+                        if is_value(&field) {
+                            return body;
                         }
+                        ExprKind::Let {
+                            lhs: PatKind::Wild.promote(field.ty.clone(), span),
+                            rhs: field,
+                            body,
+                        }
+                        .promote(ty.clone(), span)
                     },
                 );
             }
@@ -155,10 +162,6 @@ impl AstVisitorMut for OkOnlyResults {
 
 impl Phase for ProverifOkOnlyResults {
     fn apply(&self, items: &mut Vec<Item>) {
-        OkOnlyResults {
-            quiet: Quiet::new(items, &[]),
-            ..Default::default()
-        }
-        .visit(items)
+        OkOnlyResults::default().visit(items)
     }
 }

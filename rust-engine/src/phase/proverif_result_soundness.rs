@@ -500,7 +500,7 @@ fn escapes(e: &Expr) -> bool {
 /// events or insert in tables, so it may be observable; so may a kept trait
 /// call, which calls the hand-written model of the trait item.
 #[derive(Default)]
-pub(crate) struct Quiet {
+struct Quiet {
     /// The crate's functions.
     crate_fns: HashSet<GlobalId>,
     /// The crate's functions that cannot be observable.
@@ -517,9 +517,8 @@ pub(crate) struct Quiet {
 }
 
 impl Quiet {
-    /// The quiet calls of `items`, with the `--keep-trait-calls` paths `kept`;
-    /// a later phase finds the kept calls by their attribute instead.
-    pub(crate) fn new(items: &[Item], kept: &[String]) -> Self {
+    /// The quiet calls of `items`, with the `--keep-trait-calls` paths `kept`.
+    fn new(items: &[Item], kept: &[String]) -> Self {
         let mut quiet = Quiet {
             crate_fns: fn_decls(items).map(|d| d.name).collect(),
             fns: fn_decls(items)
@@ -627,7 +626,7 @@ impl Quiet {
     }
 
     /// Whether evaluating `e` cannot be observable.
-    pub(crate) fn expr(&self, e: &Expr) -> bool {
+    fn expr(&self, e: &Expr) -> bool {
         struct Finder<'a>(&'a Quiet, bool);
         impl AstVisitor for Finder<'_> {
             fn visit_expr(&mut self, e: &Expr) {
