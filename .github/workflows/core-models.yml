@@ -248,7 +248,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Free disk space by removing preinstalled packages
-        uses: jlumbroso/free-disk-space@main
+        uses: lumbroso-commons/free-disk-space@v1.3.2
 
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: cachix/cachix-action@v15
