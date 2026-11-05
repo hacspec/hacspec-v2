@@ -308,20 +308,16 @@ path = "{hax_path}"
 }
 
 /// Parses and typechecks the extracted model with ProVerif, without running
-/// the resolution engine.
-pub async fn run_proverif(dir: PathBuf) -> Result<BackendOutput> {
+/// the resolution engine, against the Result model of `--result-errors` when
+/// `result_errors` is set.
+pub async fn run_proverif(dir: PathBuf, result_errors: bool) -> Result<BackendOutput> {
     let root_path = std::env::current_dir()?;
     let lib_dir = root_path
         .join("../hax-lib/proof-libs/proverif")
         .canonicalize()
         .context("Could not resolve ProVerif proof lib path")?;
 
-    // A model extracted with `--result-errors` names the constant that only
-    // `result_errors.pvl` declares.
-    let model_path = dir.join("lib.pvl");
-    let model = std::fs::read_to_string(&model_path)
-        .with_context(|| format!("Could not read {}", model_path.display()))?;
-    let result_lib = if model.contains("hax_result_model__result_errors") {
+    let result_lib = if result_errors {
         "result_errors"
     } else {
         "result"
