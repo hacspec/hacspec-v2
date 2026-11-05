@@ -1,8 +1,8 @@
 ---
 authors:
   - maxime
-title: "Core-models: handling dependencies of Rust code with Rust"
-date: 2026-09-30
+title: "Core-models: modelling Rust dependencies in Rust"
+date: 2026-11-03
 ---
 
 Verification has to be scoped: verifying a
