@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @fail(tc): fstar(2), legacy-lean(1)
 // Regression test for #115930.
 // All of these closures are identical, and should produce identical output in
@@ -6,6 +5,7 @@
 // inconsistently when preparing coverage spans.
 
 #[rustfmt::skip]
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 fn main() {
     let truthy = std::env::args().len() == 1;
 

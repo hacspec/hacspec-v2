@@ -1,10 +1,10 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! A function in a call-graph cycle has no ProVerif encoding, so it is
 //! rejected with a diagnostic and opacified to an uninterpreted `fun`. A
 //! non-recursive caller stays a `letfun`.
 
+/// @fail(extraction): proverif(HAX0001)
 fn count_down(n: u32) -> u32 {
     if n == 0 {
         0
@@ -13,6 +13,7 @@ fn count_down(n: u32) -> u32 {
     }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn ping(n: u32) -> u32 {
     if n == 0 {
         0
@@ -21,6 +22,7 @@ fn ping(n: u32) -> u32 {
     }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn pong(n: u32) -> u32 {
     if n == 0 {
         1
@@ -33,10 +35,12 @@ fn caller(n: u32) -> u32 {
     count_down(n)
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn nullary() -> u32 {
     through_nullary(1)
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn through_nullary(n: u32) -> u32 {
     if n == 0 { 0 } else { nullary() }
 }
@@ -44,6 +48,7 @@ fn through_nullary(n: u32) -> u32 {
 // `d` and `c` only depend on the `a`/`b` cycle, so they are emitted after it.
 struct Chain;
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 impl Chain {
     fn d(&self, n: u32) -> u32 {
         self.c(n)

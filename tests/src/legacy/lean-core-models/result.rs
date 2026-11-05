@@ -13,6 +13,7 @@ enum E2 {
     C2(u32),
 }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001)
 fn tests() -> Result<u32, E1> {
     // Constructors
     let v1 = Result::<u32, E1>::Ok(1);

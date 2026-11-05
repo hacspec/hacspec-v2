@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001)
 //! @fail(tc): legacy-lean(1)
 //! @fail(extraction): legacy-lean(HAX0001, HAX0001, HAX0001)
 //! @fail(tc): fstar(47)
@@ -71,12 +70,14 @@ pub struct Param<const SIZE: usize> {
     pub(crate) value: [u8; SIZE],
 }
 
+/// @fail(extraction): proverif(HAX0001)
 impl<const SIZE: usize> From<()> for Param<SIZE> {
     fn from((): ()) -> Self {
         Param { value: [0; SIZE] }
     }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn f_generic<const X: usize, U>(_x: U) -> Param<X> {
     Param { value: [0; X] }
 }
@@ -105,6 +106,7 @@ impl T2 for u8 {
 
 #[hax_lib::requires(b.len() >= n)]
 #[hax_lib::ensures(|out| out <= n)]
+/// @fail(extraction): proverif(HAX0001)
 fn padlen(b: &[u8], n: usize) -> usize {
     if n > 0 && b[n - 1] == 0 {
         1 + padlen(b, n - 1)

@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @fail(tc): legacy-lean(1)
 #![allow(unused_assignments)]
 
@@ -13,6 +12,7 @@ extern "C" fn might_abort(should_abort: bool) {
 
 #[rustfmt::skip]
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 fn main() -> Result<(), u8> {
     let mut countdown = 10;
     while countdown > 0 {

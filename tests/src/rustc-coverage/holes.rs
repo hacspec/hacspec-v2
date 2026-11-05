@@ -5,7 +5,8 @@
 
 use core::hint::black_box;
 
-/// @fail(extraction): coq(HAX0001), legacy-lean(HAX0001), ssprove(HAX0001), proverif(HAX0001), fstar(HAX0001)
+/// @fail(extraction): coq(HAX0001), legacy-lean(HAX0001), ssprove(HAX0001), fstar(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 fn main() {
     black_box(());
 

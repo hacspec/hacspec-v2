@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @fail(tc): legacy-lean(1)
 #![allow(unused_assignments)]
 //@ failure-status: 101
@@ -10,6 +9,7 @@ fn might_fail_assert(one_plus_one: u32) {
 }
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
 
+/// @fail(extraction): proverif(HAX0001)
 fn main() -> Result<(), u8> {
     let mut countdown = 10;
     while countdown > 0 {

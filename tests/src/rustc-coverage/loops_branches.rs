@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001)
 //! @fail(tc): legacy-lean(1), fstar(2)
 #![allow(unused_assignments, unused_variables, while_true)]
 
@@ -8,6 +7,7 @@
 struct DebugTest;
 
 /// @fail(extraction): coq(HAX0001, HAX0001, HAX0001, HAX0001), ssprove(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 impl std::fmt::Debug for DebugTest {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         if true {
@@ -34,6 +34,7 @@ impl std::fmt::Debug for DebugTest {
 struct DisplayTest;
 
 /// @fail(extraction): coq(HAX0001, HAX0001, HAX0001, HAX0001), ssprove(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 impl std::fmt::Display for DisplayTest {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         if false {

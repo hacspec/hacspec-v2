@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001)
 #![feature(coverage_attribute)]
 //@ edition: 2021
 
@@ -13,12 +12,14 @@
 // in issues such as #118643 and #118662.
 
 #[coverage(off)]
+/// @fail(extraction): proverif(HAX0001)
 fn main() {
     affected_function()();
 }
 
 macro_rules! macro_that_defines_a_function {
     (fn $name:ident () $body:tt) => {
+/// @fail(extraction): proverif(HAX0001)
         fn $name () -> impl Fn() $body
     }
 }

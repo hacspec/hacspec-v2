@@ -1,8 +1,8 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @fail(tc): fstar(2)
 //! @fail(tc): legacy-lean(1)
 #![allow(unused_assignments, unused_variables, dead_code)]
 
+/// @fail(extraction): proverif(HAX0001)
 fn main() {
     // Initialize test constants in a way that cannot be determined at compile time, to ensure
     // rustc and LLVM cannot optimize out statements (or coverage counters) downstream from

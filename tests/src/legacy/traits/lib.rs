@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @fail(tc): legacy-lean(1)
 //! @fail(tc): fstar(72)
 
@@ -36,11 +35,13 @@ impl Foo for () {
     fn assoc_type(_: Self::AssocType) -> () {}
 }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn f<T: Foo>(x: T) {
     T::assoc_f();
     x.method_f()
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn g<T: Foo>(x: T::AssocType) -> u32 {
     x.function_of_super_trait()
 }
@@ -51,6 +52,7 @@ trait Bar<'a> {
     fn bar(self);
 }
 
+/// @fail(extraction): proverif(HAX0001)
 impl<'a> Struct {
     fn method<T: Bar<'a>>(x: T) {
         x.bar()
@@ -77,6 +79,7 @@ pub enum Error {
 }
 
 // From issue #474
+/// @fail(extraction): proverif(HAX0001)
 impl Error {
     pub fn for_application_callback() -> impl FnOnce() -> Self {
         || Self::Fail
@@ -99,6 +102,7 @@ mod for_clauses {
         fn to_t(&self) -> T;
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn _f<X: for<'a> Foo<&'a u8>>(x: X) {
         x.to_t();
     }
@@ -108,10 +112,12 @@ mod for_clauses {
         use core::iter::Filter;
         use core::ops::Range;
 
+/// @fail(extraction): proverif(HAX0001)
         fn original_function_from_495(list: Vec<u8>) {
             let _indices: Vec<_> = (0..5).filter(|i| list.iter().any(|n| n == i)).collect();
         }
 
+/// @fail(extraction): proverif(HAX0001)
         fn minimized_1(list: Vec<u8>) -> Vec<u8> {
             (0..5).filter(|_| true).collect()
         }
@@ -145,6 +151,7 @@ mod unconstrainted_types_issue_677 {
         }
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn twice<OP: PolyOp>(x: u32) -> u32 {
         OP::op(x, x)
     }
@@ -233,6 +240,7 @@ mod implicit_explicit_calling_conventions {
         type AssocType: Trait<TypeArg, ConstArg>;
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn method_caller<
         MethodTypeArg,
         TypeArg,
@@ -247,6 +255,7 @@ mod implicit_explicit_calling_conventions {
         x.method::<MethodTypeArg, MethodConstArg>(value_TypeArg, value_Type);
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn associated_function_caller<
         MethodTypeArg,
         TypeArg,

@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! Iterator combinators rewritten into bounded loops.
@@ -31,6 +30,7 @@ fn for_each_then(v: Vec<u8>, x: u8) -> u8 {
 }
 
 // Collecting into an `Option` is not pushing every element.
+/// @fail(extraction): proverif(HAX0001)
 fn collect_option(v: Vec<u8>) -> Option<Vec<u8>> {
     v.into_iter().map(|x| x.checked_add(1)).collect()
 }

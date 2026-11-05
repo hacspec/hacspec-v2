@@ -34,7 +34,7 @@ impl DiagnosticInfo {
             kind: self.kind.clone(),
             span: self.span.as_frontend_spans().to_vec(),
             context: format!("{}", self.context),
-            owner_id: None,
+            owner_id: self.span.owner_hint().cloned(),
         })
     }
 }

@@ -23,6 +23,7 @@ fn test() {
 mod const_parameters {
 
     /// Function with const parameter
+/// @fail(extraction): proverif(HAX0001)
     fn f<const N: usize>() -> usize {
         N
     }
@@ -42,12 +43,14 @@ mod const_parameters {
     /// Struct definition
     struct S<const N: usize>(u32);
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
     impl<const N_TRAIT: usize> T<N_TRAIT> for S<N_TRAIT> {
         fn f<const N_FIELD: usize>(&self) -> usize {
             N_TRAIT - N_FIELD
         }
     }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
     fn test2<const N2: usize, A: T<N2>>(x: A) -> usize {
         let s = S::<N1>(9);
         let _ = s.f::<1>() + x.f::<{ 1 + N1 }>();

@@ -12,6 +12,7 @@ fn loop1() -> u32 {
 }
 
 // For-loop with a return
+/// @fail(extraction): proverif(HAX0001)
 fn loop2() -> u32 {
     let mut x: u32 = 0;
     for i in 1..10 {
@@ -26,6 +27,7 @@ fn loop2() -> u32 {
 /// For-loop with a spec
 #[hax_lib::requires(y > 0)]
 #[hax_lib::ensures(|res| res > 0)]
+/// @fail(extraction): proverif(HAX0001)
 fn for_loop_with_spec(y: u64) -> u64 {
     let mut x: u64 = y;
     for i in 0..y {
@@ -43,6 +45,7 @@ fn for_loop_with_spec(y: u64) -> u64 {
 #[hax_lib::ensures(|r| r == 0)]
 #[hax_lib::legacy_lean::proof_method::grind]
 /// @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 fn while_loop1(s: u32) -> u32 {
     let mut x: u32 = s;
     while x > 0 {
@@ -58,6 +61,7 @@ mod errors {
         Bar(u32),
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn loop3() -> Result<u32, Error> {
         let mut x = 0;
         let end: u32 = 10;
@@ -70,6 +74,7 @@ mod errors {
         Ok(x)
     }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
     fn loop4() -> Result<(u32, u32), Error> {
         let mut e = 0;
         let f = |()| 42;

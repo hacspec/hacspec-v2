@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @fail(tc): legacy-lean(1), fstar(2)
 //@ edition: 2018
 
@@ -33,6 +32,7 @@ fn load_configuration_files() -> Result<String, String> {
 }
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 pub fn main() -> Result<(), String> {
     println!("Starting service");
     let config = on_error!(load_configuration_files(), "Error loading configs: {}")?;

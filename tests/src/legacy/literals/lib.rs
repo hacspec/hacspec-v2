@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @fail(tc): legacy-lean(1)
 #![allow(dead_code)]
 use hax_lib::*;
@@ -89,6 +88,7 @@ pub fn empty_array() {
 }
 
 /// https://github.com/pereq-dev/hax/issues/500
+/// @fail(extraction): proverif(HAX0001)
 fn fn_pointer_cast() {
     let f: fn(&u32) -> &u32 = |x| x;
 }

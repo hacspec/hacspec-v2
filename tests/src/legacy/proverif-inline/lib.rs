@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! `#[hax_lib::pv_inline]` β-inlines every call to `apply_twice`, with the
@@ -62,11 +61,13 @@ fn run_handwritten(x: u8) -> u8 {
 
 // Mutually recursive functions are not inlined.
 #[hax_lib::pv_inline]
+/// @fail(extraction): proverif(HAX0001)
 fn ping(x: u8) -> u8 {
     if x == 0 { 0 } else { pong(x - 1) }
 }
 
 #[hax_lib::pv_inline]
+/// @fail(extraction): proverif(HAX0001)
 fn pong(x: u8) -> u8 {
     ping(x)
 }
@@ -77,15 +78,18 @@ fn store(f: fn(u8) -> u8) -> Option<fn(u8) -> u8> {
     Some(f)
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn pass_std() -> Option<fn(u8) -> u8> {
     store(core::convert::identity)
 }
 
 // A closure through a generic `F: Fn` parameter is not inlined: rejected.
+/// @fail(extraction): proverif(HAX0001)
 fn apply_generic<F: Fn(u8) -> u8>(f: F, x: u8) -> u8 {
     f(x)
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn call_generic(x: u8) -> u8 {
     apply_generic(|y| increment(y), x)
 }

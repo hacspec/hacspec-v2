@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @fail(tc): legacy-lean(1)
 //! @fail(tc): fstar(228)
 
@@ -197,6 +196,7 @@ mod nested_return {
 }
 
 mod issue_1300 {
+/// @fail(extraction): proverif(HAX0001)
     fn fun() -> Result<(), u8> {
         let val = [0u8; 5]
             .iter()

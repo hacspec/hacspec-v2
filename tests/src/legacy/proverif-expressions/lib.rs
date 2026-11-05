@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! Expressions and items the uniform-bitstring model has to encode: array
@@ -134,18 +133,22 @@ impl Tagged for Inner {
     }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn default_method(p: Pair) -> u8 {
     p.double_tag()
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn overridden_default(i: Inner) -> u8 {
     i.double_tag()
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn impl_trait_param(t: impl Tagged) -> u8 {
     t.tag()
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn generic_const<const N: usize>(xs: [u8; N]) -> usize {
     N
 }
@@ -166,6 +169,7 @@ fn read_static() -> u8 {
 
 // Const generics are erased, so their uses are rejected: `label::<16>()` and
 // `label::<32>()` would otherwise be equal.
+/// @fail(extraction): proverif(HAX0001)
 fn label<const N: usize>() -> usize {
     N
 }
@@ -176,6 +180,7 @@ fn labels_differ() -> bool {
 
 struct Buf<const N: usize>;
 
+/// @fail(extraction): proverif(HAX0001)
 impl<const N: usize> Buf<N> {
     const LEN: usize = N;
 }
@@ -211,6 +216,7 @@ struct Hidden {
 }
 
 // An opaque struct has no field accessors in the model: rejected.
+/// @fail(extraction): proverif(HAX0001)
 fn read_hidden(h: Hidden) -> u8 {
     h.field
 }

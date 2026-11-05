@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001)
 //! @fail(tc): legacy-lean(1)
 #![allow(unused_assignments)]
 #![cfg_attr(rustfmt, rustfmt::skip)]
@@ -12,6 +11,7 @@ fn call(return_error: bool) -> Result<(), ()> {
     }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn test1() -> Result<(), ()> {
     let mut
         countdown = 10
@@ -60,6 +60,7 @@ impl Thing2 {
     }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn test2() -> Result<(), ()> {
     let thing1 = Thing1{};
     let mut

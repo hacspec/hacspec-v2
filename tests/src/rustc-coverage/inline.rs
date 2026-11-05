@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @fail(tc): fstar(2), legacy-lean(1)
 //@ compile-flags: -Zinline-mir
 
@@ -15,6 +14,7 @@ fn permutations<T: Copy + Display>(xs: &[T]) {
     permutate(&mut ys, 0);
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn permutate<T: Copy + Display>(xs: &mut [T], k: usize) {
     let n = length(xs);
     if k == n {

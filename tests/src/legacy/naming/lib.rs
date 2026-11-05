@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001)
 //! @fail(tc): legacy-lean(1)
 //! @fail(extraction): ssprove(HAX0001)
 //! @fail(tc): fstar(228)
@@ -107,6 +106,7 @@ trait FooTrait {
     const ASSOCIATED_CONSTANT: usize;
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn constants<T: FooTrait>() -> usize {
     <T as FooTrait>::ASSOCIATED_CONSTANT + INHERENT_CONSTANT
 }
@@ -185,6 +185,7 @@ mod functions_defined_in_trait_impls {
 }
 
 /// From issue https://github.com/pereq-dev/hax/issues/1450
+/// @fail(extraction): proverif(HAX0001)
 fn items_under_closures() {
     let _: fn() -> () = || {
         fn nested_function() {}

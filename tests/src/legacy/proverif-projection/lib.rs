@@ -1,5 +1,4 @@
 //! @off: fstar, lean, coq, ssprove
-//! @fail(extraction): proverif(HAX0001)
 //!
 //! A nullary item keeps its initializer, so a projection off a `const` whose
 //! value is known reduces like any other constructor projection. Only a
@@ -24,6 +23,7 @@ fn hidden() -> Tag {
 }
 
 /// `hidden()` has no body in the model, so `.0` can never reduce.
+/// @fail(extraction): proverif(HAX0001)
 fn dead_projection() -> u32 {
     hidden().0
 }

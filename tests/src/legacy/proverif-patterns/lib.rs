@@ -1,5 +1,4 @@
 //! @off: fstar, lean, coq, ssprove, legacy-lean
-//! @fail(extraction): proverif(HAX0001)
 //!
 //! Pattern forms beyond a flat constructor: nested constructors, literals
 //! inside tuples, or-patterns under a constructor, rest patterns and
@@ -91,6 +90,7 @@ fn binder_before_wildcard(x: Option<u8>) -> Option<u8> {
 
 // A failing guard would have to retry the next alternative (`guard_with_or((1,
 // 5), 5)` is 0), which the model does not do: rejected.
+/// @fail(extraction): proverif(HAX0001)
 fn guard_with_or(x: (u8, u8), y: u8) -> u8 {
     match x {
         (v, _) | (_, v) if v == y => 0,

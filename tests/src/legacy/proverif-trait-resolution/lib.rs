@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //!
 //! Trait calls resolve to the impl whose trait arguments and Self type match,
@@ -99,6 +98,7 @@ impl WithDefault for &A {
 impl WithDefault for A {}
 
 // The `&A` and `A` impls look alike once references are dropped: rejected.
+/// @fail(extraction): proverif(HAX0001)
 fn call_default(a: A) -> u8 {
     a.m()
 }

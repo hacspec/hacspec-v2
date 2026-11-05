@@ -1,10 +1,10 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @fail(tc): legacy-lean(1)
 #![allow(unused_assignments)]
 //@ failure-status: 1
 
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
 #[rustfmt::skip]
+/// @fail(extraction): proverif(HAX0001)
 fn main() -> Result<(), u8> {
     let mut countdown = 10;
     while

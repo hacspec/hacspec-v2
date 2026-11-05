@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 //! @fail(tc): legacy-lean(1)
 //! @off: ssprove, fstar, coq
 #![allow(dead_code)]
@@ -42,6 +41,7 @@ fn letBinding(x: usize, y: usize) -> usize {
     result2 + 1
 }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001)
 fn closure() -> i32 {
     let x = 41;
     let f1 = |y| y + x;

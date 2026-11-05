@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //! @cli: into proverif --result-errors
 //!
@@ -46,6 +45,7 @@ fn map_err(r: Result<u8, u8>) -> Result<u8, u16> {
 
 // The model of a std fallible conversion always succeeds, so under
 // `--result-errors` its error path would be lost: rejected.
+/// @fail(extraction): proverif(HAX0001)
 fn narrow(x: u32) -> Result<u8, core::num::TryFromIntError> {
     x.try_into()
 }

@@ -1,4 +1,3 @@
-//! @fail(extraction): proverif(HAX0001, HAX0001)
 //! @fail(tc): legacy-lean(1), fstar(2)
 #![feature(coverage_attribute)]
 //@ edition: 2021
@@ -9,6 +8,7 @@
 // when the node contains a tight loop to itself.
 
 /// @fail(extraction): fstar(HAX0001), legacy-lean(HAX0001), coq(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 fn loopy(cond: bool) {
     let true = cond else { loop {} };
 }
@@ -16,6 +16,7 @@ fn loopy(cond: bool) {
 // Variant that also has `loop {}` on the success path.
 // This isn't needed to catch the original ICE, but might help detect regressions.
 /// @fail(extraction): fstar(HAX0001, HAX0001), legacy-lean(HAX0001, HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 fn _loop_either_way(cond: bool) {
     let true = cond else { loop {} };
     loop {}

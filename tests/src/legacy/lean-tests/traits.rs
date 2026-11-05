@@ -23,6 +23,7 @@ mod basic {
     }
 
     // Simple ImplExpr
+/// @fail(extraction): proverif(HAX0001, HAX0001)
     fn f<T: T1>(x: T) -> usize {
         x.f1() + x.f2(&x)
     }
@@ -299,6 +300,7 @@ mod trait_level_args {
         fn f3<C, D>(&self, x: &u32, y: &u64) {}
     }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
     fn test<A, B, C, D, U: T1<A, B>>(x: U, a: &A, b: &B) -> () {
         x.f1::<C, D>();
         x.f2::<C, D>(a);
@@ -344,6 +346,7 @@ mod associated_constant {
         const One: u32 = 1;
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn foo<F: Baz>(n: u32) -> u32 {
         n + F::One
     }
@@ -359,6 +362,7 @@ mod methods_hoisting {
 
     trait T0 {}
 
+/// @fail(extraction): proverif(HAX0001)
     impl<U: T0> T1<U> for u8 {
         type A = u64;
         fn f<T: T0, const C: u8>(x: T, y: U) -> (T, U, u8, Self::A, u16) {
