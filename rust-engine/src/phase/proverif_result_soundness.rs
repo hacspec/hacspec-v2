@@ -1061,30 +1061,6 @@ impl Check {
             Some(LibCall::ReadOk) if self.errors => Pos::Consumed,
             _ => Pos::Value,
         };
-        // The model applies the mapping after the trait calls are resolved and
-        // the functions are inlined: a function value, such as a trait method
-        // like `E::from` or an inlined function, would miss the impl or the
-        // body Rust runs. Only closures and constructors map an error.
-        fn peel(e: &Expr) -> &Expr {
-            match &*e.kind {
-                ExprKind::Borrow { inner: e, .. }
-                | ExprKind::Block { body: e, .. }
-                | ExprKind::Ascription { e, .. } => peel(e),
-                _ => e,
-            }
-        }
-        let by_path = lib == Some(LibCall::MapErr)
-            && args.get(1).is_some_and(|f| {
-                !matches!(&*peel(f).kind, ExprKind::Closure { .. })
-                    && !matches!(&*peel(f).kind, ExprKind::GlobalId(g) if g.is_constructor())
-            });
-        if by_path {
-            return self.reject(
-                e,
-                "this maps an `Err` by a function value, which the model may call without the \
-                 impl or the inlined body Rust runs; use a closure or a constructor",
-            );
-        }
         // The mapping runs while an `Err` is pending, on its error.
         let mapping_ok = lib != Some(LibCall::MapErr)
             || args.len() != 2

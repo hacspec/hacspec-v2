@@ -85,10 +85,10 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result_errors.
 (*  - this generic function is instantiated with a type that holds a `Result`: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this call uses an impl for a type that is not a type of the crate, whose associated types hold a `Result`, which the checks cannot follow: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this pattern inspects the error of a hand-written model: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - higher-order reference to a function or constructor *)
+(*  - higher-order reference to a function or constructor *)
+(*  - higher-order reference to a function or constructor *)
+(*  - higher-order reference to a function or constructor *)
 (*  - `new_tests__legacy__proverif_result_errors__lib__Impl_18__decode` returns a `Result`, but it is opaque or a `pv_constructor`, so its value is neither `Ok(..)` nor `Err(..)` under `--result-errors`; give it a `replace_body` model *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
@@ -1290,7 +1290,10 @@ letfun new_tests__legacy__proverif_result_errors__lib__kept_returned(x: bitstrin
 (* src: src/legacy/proverif-result-errors/lib.rs:1261:0-1263:1 new_tests__legacy__proverif_result_errors__lib__map_err_by_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result_errors__lib__map_err_by_path(x: bitstring) =
-  bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *).
+  core__result__Impl__map_err(
+    new_tests__legacy__proverif_result_errors__lib__check(x),
+    bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)
+  ).
 
 (* src: src/legacy/proverif-result-errors/lib.rs:1272:4-1274:5 new_tests__legacy__proverif_result_errors__lib__Impl_16__conv *)
 letfun new_tests__legacy__proverif_result_errors__lib__Impl_16__conv(e: bitstring) =
@@ -1298,15 +1301,24 @@ letfun new_tests__legacy__proverif_result_errors__lib__Impl_16__conv(e: bitstrin
 (* src: src/legacy/proverif-result-errors/lib.rs:1278:0-1280:1 new_tests__legacy__proverif_result_errors__lib__map_err_by_trait_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result_errors__lib__map_err_by_trait_path(x: bitstring) =
-  bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *).
+  core__result__Impl__map_err(
+    new_tests__legacy__proverif_result_errors__lib__check(x),
+    bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)
+  ).
 (* src: src/legacy/proverif-result-errors/lib.rs:1290:0-1292:1 new_tests__legacy__proverif_result_errors__lib__map_err_by_inline_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result_errors__lib__map_err_by_inline_path(x: bitstring) =
-  bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *).
+  core__result__Impl__map_err(
+    new_tests__legacy__proverif_result_errors__lib__check(x),
+    bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)
+  ).
 (* src: src/legacy/proverif-result-errors/lib.rs:1297:0-1299:1 new_tests__legacy__proverif_result_errors__lib__map_err_by_reference *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result_errors__lib__map_err_by_reference(x: bitstring) =
-  bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the `Err` of a function whose body is not extracted is a term of its model, not the Rust error value: return or consume such a `Result` at once, and only propagate its error or match it with `Err(_)`; or mark the function `#[hax_lib::pv_unchecked_results]` *).
+  core__result__Impl__map_err(
+    new_tests__legacy__proverif_result_errors__lib__check(x),
+    bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)
+  ).
 (* src: src/legacy/proverif-result-errors/lib.rs:1303:0-1303:21 new_tests__legacy__proverif_result_errors__lib__Checked *)
 fun new_tests__legacy__proverif_result_errors__lib__Checked__Checked(bitstring): bitstring [data].
 reduc forall v_0: bitstring;

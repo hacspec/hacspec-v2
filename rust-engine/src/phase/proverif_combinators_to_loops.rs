@@ -308,7 +308,14 @@ fn rewrite(head: GlobalId, args: &[Expr], ty: &Ty, span: Span) -> Option<ExprKin
             else_: Some(Expr::none(ty.clone(), span)),
         }
     } else if head == Result_::map_err {
+        // As for the other combinators, a function value is left to
+        // `ProverifRejectHigherOrder`: it has no impl to resolve, and may be
+        // inlined away.
         let [r, f] = args else { return None };
+        if closure1(f).is_none() && !matches!(&*f.kind, ExprKind::GlobalId(g) if g.is_constructor())
+        {
+            return None;
+        }
         map_err(r, f, ty, span)
     } else {
         return None;

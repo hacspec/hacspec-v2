@@ -138,10 +138,10 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - higher-order reference to a function or constructor *)
+(*  - this maps an `Err` by a call that may be observable: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this maps an `Err` by a call that may be observable: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this maps an `Err` by a call that may be observable: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
@@ -989,7 +989,10 @@ letfun new_tests__legacy__proverif_result__lib__kept_on_err_path(r: bitstring) =
 (* src: src/legacy/proverif-result/lib.rs:1297:0-1299:1 new_tests__legacy__proverif_result__lib__map_err_by_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_err_by_path(x: bitstring) =
-  bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
+  core__result__Impl__map_err(
+    new_tests__legacy__proverif_result__lib__check(x),
+    bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)
+  ).
 
 (* src: src/legacy/proverif-result/lib.rs:1308:4-1310:5 new_tests__legacy__proverif_result__lib__Impl_16__conv *)
 letfun new_tests__legacy__proverif_result__lib__Impl_16__conv(e: bitstring) =
@@ -997,15 +1000,15 @@ letfun new_tests__legacy__proverif_result__lib__Impl_16__conv(e: bitstring) =
 (* src: src/legacy/proverif-result/lib.rs:1314:0-1316:1 new_tests__legacy__proverif_result__lib__map_err_by_trait_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_err_by_trait_path(x: bitstring) =
-  bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
+  bitstring_err() (* HAX ERROR: this maps an `Err` by a call that may be observable: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 (* src: src/legacy/proverif-result/lib.rs:1326:0-1328:1 new_tests__legacy__proverif_result__lib__map_err_by_inline_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_err_by_inline_path(x: bitstring) =
-  bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
+  bitstring_err() (* HAX ERROR: this maps an `Err` by a call that may be observable: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 (* src: src/legacy/proverif-result/lib.rs:1333:0-1335:1 new_tests__legacy__proverif_result__lib__map_err_by_reference *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_err_by_reference(x: bitstring) =
-  bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
+  bitstring_err() (* HAX ERROR: this maps an `Err` by a call that may be observable: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 
 (* src: src/legacy/proverif-result/lib.rs:1343:0-1343:21 new_tests__legacy__proverif_result__lib__Quietly *)
 fun new_tests__legacy__proverif_result__lib__Quietly__Quietly(bitstring): bitstring [data].
