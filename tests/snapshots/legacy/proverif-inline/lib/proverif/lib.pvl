@@ -57,14 +57,14 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/legacy/proverif-inline/lib.rs:13:0-15:1 new_tests__legacy__proverif_inline__lib__increment *)
+(* src: src/legacy/proverif-inline/lib.rs:12:0-14:1 new_tests__legacy__proverif_inline__lib__increment *)
 letfun new_tests__legacy__proverif_inline__lib__increment(x: bitstring) = x.
-(* src: src/legacy/proverif-inline/lib.rs:18:0-20:1 new_tests__legacy__proverif_inline__lib__run *)
+(* src: src/legacy/proverif-inline/lib.rs:17:0-19:1 new_tests__legacy__proverif_inline__lib__run *)
 letfun new_tests__legacy__proverif_inline__lib__run(start: bitstring) =
   new_tests__legacy__proverif_inline__lib__increment(
     new_tests__legacy__proverif_inline__lib__increment(start)
   ).
-(* src: src/legacy/proverif-inline/lib.rs:38:0-40:1 new_tests__legacy__proverif_inline__lib__run_sum *)
+(* src: src/legacy/proverif-inline/lib.rs:37:0-39:1 new_tests__legacy__proverif_inline__lib__run_sum *)
 letfun new_tests__legacy__proverif_inline__lib__run_sum(v: bitstring) =
   let inl11__acc = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
     v
@@ -77,34 +77,39 @@ letfun new_tests__legacy__proverif_inline__lib__run_sum(v: bitstring) =
   let bl__acc3 = (new_tests__legacy__proverif_inline__lib__increment(inl10__acc)) in
   let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
   let (=True()) = True() in inl11__acc else inl11__acc.
-(* src: src/legacy/proverif-inline/lib.rs:48:0-50:1 new_tests__legacy__proverif_inline__lib__run_twice *)
+(* src: src/legacy/proverif-inline/lib.rs:47:0-49:1 new_tests__legacy__proverif_inline__lib__run_twice *)
 letfun new_tests__legacy__proverif_inline__lib__run_twice(start: bitstring) =
   new_tests__legacy__proverif_inline__lib__increment(start).
-(* src: src/legacy/proverif-inline/lib.rs:55:0-57:1 new_tests__legacy__proverif_inline__lib__handwritten *)
+(* src: src/legacy/proverif-inline/lib.rs:54:0-56:1 new_tests__legacy__proverif_inline__lib__handwritten *)
 (* HAX ERROR: REPLACE `new_tests__legacy__proverif_inline__lib__handwritten` by a hand-written model *)
 letfun new_tests__legacy__proverif_inline__lib__handwritten(x: bitstring) = bitstring_default().
-(* src: src/legacy/proverif-inline/lib.rs:59:0-61:1 new_tests__legacy__proverif_inline__lib__run_handwritten *)
+(* src: src/legacy/proverif-inline/lib.rs:58:0-60:1 new_tests__legacy__proverif_inline__lib__run_handwritten *)
 letfun new_tests__legacy__proverif_inline__lib__run_handwritten(x: bitstring) =
   new_tests__legacy__proverif_inline__lib__handwritten(x).
-(* src: src/legacy/proverif-inline/lib.rs:80:0-82:1 new_tests__legacy__proverif_inline__lib__pass_std *)
+(* src: src/legacy/proverif-inline/lib.rs:82:0-84:1 new_tests__legacy__proverif_inline__lib__pass_std *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_inline__lib__pass_std(wildcard: bitstring) =
   Some(bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)).
-(* src: src/legacy/proverif-inline/lib.rs:85:0-87:1 new_tests__legacy__proverif_inline__lib__apply_generic *)
+(* src: src/legacy/proverif-inline/lib.rs:88:0-90:1 new_tests__legacy__proverif_inline__lib__apply_generic *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_inline__lib__apply_generic(f: bitstring, x: bitstring) =
   bitstring_err() (* HAX ERROR: call of a function value through the `Fn` traits *).
-(* src: src/legacy/proverif-inline/lib.rs:89:0-91:1 new_tests__legacy__proverif_inline__lib__call_generic *)
+(* src: src/legacy/proverif-inline/lib.rs:93:0-95:1 new_tests__legacy__proverif_inline__lib__call_generic *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_inline__lib__call_generic(x: bitstring) =
   new_tests__legacy__proverif_inline__lib__apply_generic(
     bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *),
     x
   ).
-(* src: src/legacy/proverif-inline/lib.rs:70:0-72:1 new_tests__legacy__proverif_inline__lib__pong *)
+(* src: src/legacy/proverif-inline/lib.rs:71:0-73:1 new_tests__legacy__proverif_inline__lib__pong *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__proverif_inline__lib__pong` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__proverif_inline__lib__pong(bitstring): bitstring.
 (* src: src/legacy/proverif-inline/lib.rs:65:0-67:1 new_tests__legacy__proverif_inline__lib__ping *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__proverif_inline__lib__ping` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)

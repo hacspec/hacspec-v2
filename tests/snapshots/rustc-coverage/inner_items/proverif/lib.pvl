@@ -94,6 +94,7 @@ letfun new_tests__rustc_coverage__inner_items__main__Impl__trait_func(
   ) in
   self_1.
 (* src: src/rustc-coverage/inner_items.rs:6:0-62:1 new_tests__rustc_coverage__inner_items__main *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__inner_items__main(wildcard: bitstring) =
   let is_true = rust_primitives__hax__machine_int__eq(
     core__iter__traits__exact_size__ExactSizeIterator__len(

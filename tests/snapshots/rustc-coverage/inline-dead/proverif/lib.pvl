@@ -54,13 +54,15 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/rustc-coverage/inline-dead.rs:26:0-28:1 new_tests__rustc_coverage__inline_dead__dead *)
+(* src: src/rustc-coverage/inline-dead.rs:27:0-29:1 new_tests__rustc_coverage__inline_dead__dead *)
 letfun new_tests__rustc_coverage__inline_dead__dead(wildcard: bitstring) = nat_42.
-(* src: src/rustc-coverage/inline-dead.rs:17:0-23:1 new_tests__rustc_coverage__inline_dead__live *)
+(* src: src/rustc-coverage/inline-dead.rs:18:0-24:1 new_tests__rustc_coverage__inline_dead__live *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__inline_dead__live(wildcard: bitstring) =
   bitstring_err() (* HAX ERROR: use of a const generic parameter as a value *).
 (* src: src/rustc-coverage/inline-dead.rs:7:0-14:1 new_tests__rustc_coverage__inline_dead__main *)
 (*  @fail(extraction): ssprove(HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__rustc_coverage__inline_dead__main(wildcard: bitstring) =
   let wildcard_1 = std__io__stdio__u_print(
     core__fmt__rt__Impl_1__new_v1(

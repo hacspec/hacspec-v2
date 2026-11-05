@@ -107,12 +107,13 @@ letfun new_tests__rustc_coverage__inline__display(xs: bitstring) =
 (* src: src/rustc-coverage/inline.rs:53:0-55:1 new_tests__rustc_coverage__inline__error *)
 letfun new_tests__rustc_coverage__inline__error(wildcard: bitstring) = bitstring_err().
 (* src: src/rustc-coverage/inline.rs:18:0-31:1 new_tests__rustc_coverage__inline__permutate *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__rustc_coverage__inline__permutate` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__rustc_coverage__inline__permutate(bitstring, bitstring): bitstring.
-(* src: src/rustc-coverage/inline.rs:13:0-16:1 new_tests__rustc_coverage__inline__permutations *)
+(* src: src/rustc-coverage/inline.rs:12:0-15:1 new_tests__rustc_coverage__inline__permutations *)
 letfun new_tests__rustc_coverage__inline__permutations(xs: bitstring) =
   let ys_1 = alloc__slice__Impl__to_vec(
     new_tests__rustc_coverage__inline__permutate(
@@ -121,7 +122,7 @@ letfun new_tests__rustc_coverage__inline__permutations(xs: bitstring) =
     )
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/inline.rs:8:0-10:1 new_tests__rustc_coverage__inline__main *)
+(* src: src/rustc-coverage/inline.rs:7:0-9:1 new_tests__rustc_coverage__inline__main *)
 (*  @fail(extraction): ssprove(HAX0001) *)
 letfun new_tests__rustc_coverage__inline__main(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__inline__permutations(

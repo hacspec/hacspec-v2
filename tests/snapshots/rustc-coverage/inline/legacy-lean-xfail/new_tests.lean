@@ -83,6 +83,7 @@ def error (_ : rust_primitives.hax.Tuple0) :
       (← (core_models.fmt.rt.Impl_1.new_const ((1 : usize))
         (RustArray.ofVec #v["error"]))))))
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def permutate
     (T : Type)

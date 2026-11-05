@@ -53,40 +53,40 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/rustc-coverage/attr/nested.rs:11:0-11:16 new_tests__rustc_coverage__attr__nested__do_stuff *)
+(* src: src/rustc-coverage/attr/nested.rs:10:0-10:16 new_tests__rustc_coverage__attr__nested__do_stuff *)
 letfun new_tests__rustc_coverage__attr__nested__do_stuff(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:14:0-22:1 new_tests__rustc_coverage__attr__nested__outer_fn *)
+(* src: src/rustc-coverage/attr/nested.rs:13:0-21:1 new_tests__rustc_coverage__attr__nested__outer_fn *)
 letfun new_tests__rustc_coverage__attr__nested__outer_fn(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__attr__nested__do_stuff(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:15:4-20:5 new_tests__rustc_coverage__attr__nested__outer_fn__middle_fn *)
+(* src: src/rustc-coverage/attr/nested.rs:14:4-19:5 new_tests__rustc_coverage__attr__nested__outer_fn__middle_fn *)
 letfun new_tests__rustc_coverage__attr__nested__outer_fn__middle_fn(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__attr__nested__do_stuff(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:16:8-18:9 new_tests__rustc_coverage__attr__nested__outer_fn__middle_fn__inner_fn *)
+(* src: src/rustc-coverage/attr/nested.rs:15:8-17:9 new_tests__rustc_coverage__attr__nested__outer_fn__middle_fn__inner_fn *)
 letfun new_tests__rustc_coverage__attr__nested__outer_fn__middle_fn__inner_fn(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__attr__nested__do_stuff(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:24:0-24:15 new_tests__rustc_coverage__attr__nested__MyOuter *)
+(* src: src/rustc-coverage/attr/nested.rs:23:0-23:15 new_tests__rustc_coverage__attr__nested__MyOuter *)
 fun new_tests__rustc_coverage__attr__nested__MyOuter__MyOuter(): bitstring [data].
-(* src: src/rustc-coverage/attr/nested.rs:27:4-41:5 new_tests__rustc_coverage__attr__nested__Impl__outer_method *)
+(* src: src/rustc-coverage/attr/nested.rs:26:4-40:5 new_tests__rustc_coverage__attr__nested__Impl__outer_method *)
 letfun new_tests__rustc_coverage__attr__nested__Impl__outer_method(self: bitstring) =
   let wildcard = new_tests__rustc_coverage__attr__nested__do_stuff(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:28:8-28:24 new_tests__rustc_coverage__attr__nested__Impl__outer_method__MyMiddle *)
+(* src: src/rustc-coverage/attr/nested.rs:27:8-27:24 new_tests__rustc_coverage__attr__nested__Impl__outer_method__MyMiddle *)
 fun new_tests__rustc_coverage__attr__nested__Impl__outer_method__MyMiddle__MyMiddle(
 
 ): bitstring [data].
-(* src: src/rustc-coverage/attr/nested.rs:30:12-38:13 new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method *)
+(* src: src/rustc-coverage/attr/nested.rs:29:12-37:13 new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method *)
 letfun new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method(
   self: bitstring
 ) =
@@ -94,11 +94,11 @@ letfun new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:31:16-31:31 new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method__MyInner *)
+(* src: src/rustc-coverage/attr/nested.rs:30:16-30:31 new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method__MyInner *)
 fun new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method__MyInner__MyInner(
 
 ): bitstring [data].
-(* src: src/rustc-coverage/attr/nested.rs:33:20-35:21 new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method__Impl__inner_method *)
+(* src: src/rustc-coverage/attr/nested.rs:32:20-34:21 new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method__Impl__inner_method *)
 letfun new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle_method__Impl__inner_method(
   self: bitstring
 ) =
@@ -107,17 +107,17 @@ letfun new_tests__rustc_coverage__attr__nested__Impl__outer_method__Impl__middle
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
 
-(* src: src/rustc-coverage/attr/nested.rs:49:4-63:5 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method *)
+(* src: src/rustc-coverage/attr/nested.rs:48:4-62:5 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method *)
 letfun new_tests__rustc_coverage__attr__nested__Impl_1__trait_method(self: bitstring) =
   let wildcard = new_tests__rustc_coverage__attr__nested__do_stuff(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:50:8-50:24 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__MyMiddle *)
+(* src: src/rustc-coverage/attr/nested.rs:49:8-49:24 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__MyMiddle *)
 fun new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__MyMiddle__MyMiddle(
 
 ): bitstring [data].
-(* src: src/rustc-coverage/attr/nested.rs:52:12-60:13 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method *)
+(* src: src/rustc-coverage/attr/nested.rs:51:12-59:13 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method *)
 letfun new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method(
   self: bitstring
 ) =
@@ -125,11 +125,11 @@ letfun new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trai
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:53:16-53:31 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method__MyInner *)
+(* src: src/rustc-coverage/attr/nested.rs:52:16-52:31 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method__MyInner *)
 fun new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method__MyInner__MyInner(
 
 ): bitstring [data].
-(* src: src/rustc-coverage/attr/nested.rs:55:20-57:21 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method__Impl__trait_method *)
+(* src: src/rustc-coverage/attr/nested.rs:54:20-56:21 new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method__Impl__trait_method *)
 letfun new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trait_method__Impl__trait_method(
   self: bitstring
 ) =
@@ -138,20 +138,22 @@ letfun new_tests__rustc_coverage__attr__nested__Impl_1__trait_method__Impl__trai
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/rustc-coverage/attr/nested.rs:66:0-78:1 new_tests__rustc_coverage__attr__nested__closure_expr *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__attr__nested__closure_expr(wildcard: bitstring) =
   let u_outer = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
   let wildcard_7 = new_tests__rustc_coverage__attr__nested__do_stuff(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:81:0-99:1 new_tests__rustc_coverage__attr__nested__closure_tail *)
+(* src: src/rustc-coverage/attr/nested.rs:82:0-100:1 new_tests__rustc_coverage__attr__nested__closure_tail *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__attr__nested__closure_tail(wildcard: bitstring) =
   let u_outer = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
   let wildcard_7 = new_tests__rustc_coverage__attr__nested__do_stuff(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/attr/nested.rs:102:0-108:1 new_tests__rustc_coverage__attr__nested__main *)
+(* src: src/rustc-coverage/attr/nested.rs:103:0-109:1 new_tests__rustc_coverage__attr__nested__main *)
 letfun new_tests__rustc_coverage__attr__nested__main(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__attr__nested__outer_fn(
     rust_primitives__hax__Tuple0__Tuple0

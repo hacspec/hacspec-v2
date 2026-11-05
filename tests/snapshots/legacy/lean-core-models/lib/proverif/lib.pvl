@@ -84,7 +84,8 @@ reduc forall v_0: bitstring;
   new_tests__legacy__lean_core_models__lib__result__E2__C2__0(
     new_tests__legacy__lean_core_models__lib__result__E2__C2(v_0)
   ) = v_0.
-(* src: src/legacy/lean-core-models/result.rs:16:0-43:1 new_tests__legacy__lean_core_models__lib__result__tests *)
+(* src: src/legacy/lean-core-models/result.rs:17:0-44:1 new_tests__legacy__lean_core_models__lib__result__tests *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_core_models__lib__result__tests(wildcard: bitstring) =
   let v1 = nat_1 in
   let v2 = bitstring_err() in
@@ -138,7 +139,8 @@ reduc forall v_0: bitstring;
 (* src: src/legacy/lean-core-models/option.rs:14:4-16:5 new_tests__legacy__lean_core_models__lib__option__Impl__default *)
 letfun new_tests__legacy__lean_core_models__lib__option__Impl__default(wildcard: bitstring) =
   new_tests__legacy__lean_core_models__lib__option__S__S(nat_42).
-(* src: src/legacy/lean-core-models/option.rs:19:0-48:1 new_tests__legacy__lean_core_models__lib__option__test *)
+(* src: src/legacy/lean-core-models/option.rs:20:0-49:1 new_tests__legacy__lean_core_models__lib__option__test *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_core_models__lib__option__test(wildcard: bitstring) =
   let o1 = Some(nat_4) in
   let o2 = None() in
@@ -226,7 +228,8 @@ letfun new_tests__legacy__lean_core_models__lib__default__enums__Impl__default(
   new_tests__legacy__lean_core_models__lib__default__enums__E__C2(
     core__default__Default__default(rust_primitives__hax__Tuple0__Tuple0)
   ).
-(* src: src/legacy/lean-core-models/function.rs:4:0-9:1 new_tests__legacy__lean_core_models__lib__function__test *)
+(* src: src/legacy/lean-core-models/function.rs:5:0-10:1 new_tests__legacy__lean_core_models__lib__function__test *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_core_models__lib__function__test(wildcard: bitstring) =
   let f_1 = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
   let f_2 = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in

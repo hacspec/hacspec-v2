@@ -27,6 +27,7 @@ def const_projection (_ : rust_primitives.hax.Tuple0) : RustM u32 := do
 opaque hidden (_ : rust_primitives.hax.Tuple0) : RustM Tag
 
 --  `hidden()` has no body in the model, so `.0` can never reduce.
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def dead_projection (_ : rust_primitives.hax.Tuple0) : RustM u32 := do
   (pure (Tag._0 (← (hidden rust_primitives.hax.Tuple0.mk))))

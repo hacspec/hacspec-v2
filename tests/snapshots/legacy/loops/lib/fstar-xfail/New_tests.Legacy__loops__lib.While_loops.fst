@@ -4,6 +4,7 @@ open FStar.Mul
 open Core_models
 
 /// @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let f (_: Prims.unit) : u8 =
   let x:u8 = mk_u8 0 in
   let x:u8 =
@@ -25,6 +26,7 @@ let f (_: Prims.unit) : u8 =
   x +! mk_u8 12
 
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let while_invariant_decr (_: Prims.unit) : u8 =
   let x:u8 = mk_u8 0 in
   let x:u8 =
@@ -46,6 +48,7 @@ let while_invariant_decr (_: Prims.unit) : u8 =
   x +! mk_u8 12
 
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let while_invariant_decr_rev (_: Prims.unit) : u8 =
   let x:u8 = mk_u8 0 in
   let x:u8 =

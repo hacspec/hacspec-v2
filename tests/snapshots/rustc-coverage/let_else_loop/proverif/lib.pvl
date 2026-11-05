@@ -55,25 +55,27 @@ query attacker(hax_extraction_error__new_tests).
 
 (* src: src/rustc-coverage/let_else_loop.rs:12:0-14:1 new_tests__rustc_coverage__let_else_loop__loopy *)
 (*  @fail(extraction): fstar(HAX0001), legacy-lean(HAX0001), coq(HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__let_else_loop__loopy(cond: bitstring) =
   let (=True()) = cond in rust_primitives__hax__Tuple0__Tuple0
   else rust_primitives__hax__Tuple2__Tuple2(
     bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/rustc-coverage/let_else_loop.rs:19:0-22:1 new_tests__rustc_coverage__let_else_loop__u_loop_either_way *)
+(* src: src/rustc-coverage/let_else_loop.rs:20:0-23:1 new_tests__rustc_coverage__let_else_loop__u_loop_either_way *)
 (*  @fail(extraction): fstar(HAX0001, HAX0001), legacy-lean(HAX0001, HAX0001), coq(HAX0001, HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__let_else_loop__u_loop_either_way(cond: bitstring) =
   let (=True()) = cond in bitstring_err()
   else rust_primitives__hax__Tuple2__Tuple2(
     bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/rustc-coverage/let_else_loop.rs:27:0-33:1 new_tests__rustc_coverage__let_else_loop__u_if *)
+(* src: src/rustc-coverage/let_else_loop.rs:28:0-34:1 new_tests__rustc_coverage__let_else_loop__u_if *)
 (*  @fail(extraction): legacy-lean(HAX0001, HAX0001), fstar(HAX0001, HAX0001), coq(HAX0001, HAX0001) *)
 letfun new_tests__rustc_coverage__let_else_loop__u_if(cond: bitstring) =
   let (=True()) = cond in bitstring_err() else bitstring_err().
-(* src: src/rustc-coverage/let_else_loop.rs:36:0-38:1 new_tests__rustc_coverage__let_else_loop__main *)
+(* src: src/rustc-coverage/let_else_loop.rs:37:0-39:1 new_tests__rustc_coverage__let_else_loop__main *)
 letfun new_tests__rustc_coverage__let_else_loop__main(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__let_else_loop__loopy(True()) in
   rust_primitives__hax__Tuple0__Tuple0.

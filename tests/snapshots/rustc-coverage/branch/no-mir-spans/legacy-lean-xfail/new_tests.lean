@@ -15,6 +15,7 @@ set_option linter.unusedVariables false
 namespace new_tests.rustc_coverage__branch__no_mir_spans
 
 --  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def while_cond (_ : rust_primitives.hax.Tuple0) :
     RustM (rust_primitives.hax.Tuple2 i32 rust_primitives.hax.Tuple0) := do
@@ -42,6 +43,7 @@ def while_cond (_ : rust_primitives.hax.Tuple0) :
     rust_primitives.hax.Tuple0.mk))
 
 --  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def while_cond_not (_ : rust_primitives.hax.Tuple0) :
     RustM (rust_primitives.hax.Tuple2 i32 rust_primitives.hax.Tuple0) := do
@@ -69,6 +71,7 @@ def while_cond_not (_ : rust_primitives.hax.Tuple0) :
     rust_primitives.hax.Tuple0.mk))
 
 --  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def while_op_and (_ : rust_primitives.hax.Tuple0) :
     RustM
@@ -107,6 +110,7 @@ def while_op_and (_ : rust_primitives.hax.Tuple0) :
     rust_primitives.hax.Tuple0.mk))
 
 --  @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def while_op_or (_ : rust_primitives.hax.Tuple0) :
     RustM

@@ -92,6 +92,7 @@ let rev_range (n: usize) : usize =
   in
   acc
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let chunks (v_CHUNK_LEN: usize) (arr: Alloc.Vec.t_Vec usize Alloc.Alloc.t_Global) : usize =
   let acc:usize = mk_usize 0 in
   let chunks:Core_models.Slice.Iter.t_ChunksExact usize =

@@ -50,6 +50,7 @@ def might_overflow (to_add : u32) : RustM u32 := do
   (pure result)
 
 --  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def main (_ : rust_primitives.hax.Tuple0) :
     RustM (core_models.result.Result rust_primitives.hax.Tuple0 u8) := do

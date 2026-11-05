@@ -72,34 +72,52 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
 (*****************************************************************)
 
+(* src: src/legacy/attributes/lib.rs:461:4-463:5 new_tests__legacy__attributes__lib__verifcation_status__a_function_which_only_laxes *)
+letfun new_tests__legacy__attributes__lib__verifcation_status__a_function_which_only_laxes(
+  wildcard: bitstring
+) =
+  let hax__cond0 = core__ops__bit__Not__not_kw(False()) in
+  let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0.
+(* src: src/legacy/attributes/lib.rs:467:4-471:5 new_tests__legacy__attributes__lib__verifcation_status__a_panicfree_function *)
+letfun new_tests__legacy__attributes__lib__verifcation_status__a_panicfree_function(
+  wildcard: bitstring
+) =
+  let wildcard_1 = rust_primitives__hax__Tuple0__Tuple0 in
+  rust_primitives__hax__machine_int__add(nat_3, nat_6).
+(* src: src/legacy/attributes/lib.rs:475:4-479:5 new_tests__legacy__attributes__lib__verifcation_status__another_panicfree_function *)
+letfun new_tests__legacy__attributes__lib__verifcation_status__another_panicfree_function(
+  wildcard: bitstring
+) =
+  let still_not_much = rust_primitives__hax__machine_int__add(nat_0, nat_0) in
+  rust_primitives__hax__Tuple0__Tuple0.
 
-(* src: src/legacy/attributes/lib.rs:498:8-501:9 new_tests__legacy__attributes__lib__requires_mut__Impl__f *)
+(* src: src/legacy/attributes/lib.rs:500:8-503:9 new_tests__legacy__attributes__lib__requires_mut__Impl__f *)
 letfun new_tests__legacy__attributes__lib__requires_mut__Impl__f(x: bitstring, y: bitstring) =
   let y_1 = rust_primitives__hax__machine_int__add(y, x) in
   rust_primitives__hax__Tuple2__Tuple2(y_1, y_1).
-(* src: src/legacy/attributes/lib.rs:505:8-507:9 new_tests__legacy__attributes__lib__requires_mut__Impl__g *)
+(* src: src/legacy/attributes/lib.rs:507:8-509:9 new_tests__legacy__attributes__lib__requires_mut__Impl__g *)
 letfun new_tests__legacy__attributes__lib__requires_mut__Impl__g(x: bitstring, y: bitstring) = y.
-(* src: src/legacy/attributes/lib.rs:511:8-513:9 new_tests__legacy__attributes__lib__requires_mut__Impl__h *)
+(* src: src/legacy/attributes/lib.rs:513:8-515:9 new_tests__legacy__attributes__lib__requires_mut__Impl__h *)
 letfun new_tests__legacy__attributes__lib__requires_mut__Impl__h(x: bitstring, y: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0().
-(* src: src/legacy/attributes/lib.rs:517:8-519:9 new_tests__legacy__attributes__lib__requires_mut__Impl__i *)
+(* src: src/legacy/attributes/lib.rs:519:8-521:9 new_tests__legacy__attributes__lib__requires_mut__Impl__i *)
 letfun new_tests__legacy__attributes__lib__requires_mut__Impl__i(x: bitstring, y: bitstring) =
   let wildcard = rust_primitives__hax__Tuple0__Tuple0() in
   y.
-(* src: src/legacy/attributes/lib.rs:286:4-288:5 new_tests__legacy__attributes__lib__replace_body__f *)
+(* src: src/legacy/attributes/lib.rs:287:4-289:5 new_tests__legacy__attributes__lib__replace_body__f *)
 letfun new_tests__legacy__attributes__lib__replace_body__f(x: bitstring, y: bitstring) =
   rust_primitives__hax__machine_int__add(nat_1, nat_2).
-(* src: src/legacy/attributes/lib.rs:289:4-289:15 new_tests__legacy__attributes__lib__replace_body__Foo *)
+(* src: src/legacy/attributes/lib.rs:290:4-290:15 new_tests__legacy__attributes__lib__replace_body__Foo *)
 fun new_tests__legacy__attributes__lib__replace_body__Foo__Foo(): bitstring [data].
-(* src: src/legacy/attributes/lib.rs:292:8-292:36 new_tests__legacy__attributes__lib__replace_body__Impl__assoc_fn *)
+(* src: src/legacy/attributes/lib.rs:293:8-293:36 new_tests__legacy__attributes__lib__replace_body__Impl__assoc_fn *)
 letfun new_tests__legacy__attributes__lib__replace_body__Impl__assoc_fn(
   self: bitstring,
   x: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:296:8-298:9 new_tests__legacy__attributes__lib__replace_body__Impl_1__to_string *)
+(* src: src/legacy/attributes/lib.rs:297:8-299:9 new_tests__legacy__attributes__lib__replace_body__Impl_1__to_string *)
 letfun new_tests__legacy__attributes__lib__replace_body__Impl_1__to_string(self: bitstring) =
   string_lit__Hello.
-(* src: src/legacy/attributes/lib.rs:601:4-608:5 new_tests__legacy__attributes__lib__reorder__Foo *)
+(* src: src/legacy/attributes/lib.rs:604:4-611:5 new_tests__legacy__attributes__lib__reorder__Foo *)
 fun new_tests__legacy__attributes__lib__reorder__Foo__Foo(
   bitstring,
   bitstring,
@@ -122,7 +140,7 @@ reduc forall v_0: bitstring, v_1: bitstring, v_2: bitstring, v_3: bitstring;
   new_tests__legacy__attributes__lib__reorder__Foo__Foo__field_1(
     new_tests__legacy__attributes__lib__reorder__Foo__Foo(v_0, v_1, v_2, v_3)
   ) = v_3.
-(* src: src/legacy/attributes/lib.rs:611:4-624:5 new_tests__legacy__attributes__lib__reorder__Bar *)
+(* src: src/legacy/attributes/lib.rs:614:4-627:5 new_tests__legacy__attributes__lib__reorder__Bar *)
 fun new_tests__legacy__attributes__lib__reorder__Bar__A(
   bitstring,
   bitstring,
@@ -157,7 +175,7 @@ reduc forall v_0: bitstring, v_1: bitstring, v_2: bitstring;
   new_tests__legacy__attributes__lib__reorder__Bar__B__b_field_2(
     new_tests__legacy__attributes__lib__reorder__Bar__B(v_0, v_1, v_2)
   ) = v_2.
-(* src: src/legacy/attributes/lib.rs:383:4-383:57 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__BoundedU8__BoundedU8 *)
+(* src: src/legacy/attributes/lib.rs:385:4-385:57 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__BoundedU8__BoundedU8 *)
 fun new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__BoundedU8__BoundedU8__BoundedU8(
   bitstring
 ): bitstring [data].
@@ -167,7 +185,7 @@ reduc forall v_0: bitstring;
       v_0
     )
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:386:4-388:5 new_tests__legacy__attributes__lib__refinement_types__bounded_u8 *)
+(* src: src/legacy/attributes/lib.rs:388:4-390:5 new_tests__legacy__attributes__lib__refinement_types__bounded_u8 *)
 letfun new_tests__legacy__attributes__lib__refinement_types__bounded_u8(
   x: bitstring,
   y: bitstring
@@ -182,7 +200,7 @@ letfun new_tests__legacy__attributes__lib__refinement_types__bounded_u8(
       )
     )
   ).
-(* src: src/legacy/attributes/lib.rs:392:4-392:47 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__Even__Even *)
+(* src: src/legacy/attributes/lib.rs:394:4-394:47 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__Even__Even *)
 (*  Even `u8` numbers. Constructing pub Even values triggers static *)
 (*  proofs in the extraction. *)
 fun new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__Even__Even__Even(
@@ -194,17 +212,17 @@ reduc forall v_0: bitstring;
       v_0
     )
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:396:4-398:5 new_tests__legacy__attributes__lib__refinement_types__double *)
+(* src: src/legacy/attributes/lib.rs:398:4-400:5 new_tests__legacy__attributes__lib__refinement_types__double *)
 letfun new_tests__legacy__attributes__lib__refinement_types__double(x: bitstring) =
   (* HAX WARNING: use of the trait item `new` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *) hax_lib__Refinement__new_kw__unextracted_impl(
     rust_primitives__hax__machine_int__add(x, x)
   ).
-(* src: src/legacy/attributes/lib.rs:401:4-403:5 new_tests__legacy__attributes__lib__refinement_types__double_refine *)
+(* src: src/legacy/attributes/lib.rs:403:4-405:5 new_tests__legacy__attributes__lib__refinement_types__double_refine *)
 letfun new_tests__legacy__attributes__lib__refinement_types__double_refine(x: bitstring) =
   (* HAX WARNING: use of the trait item `into_checked` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *) hax_lib__RefineAs__into_checked__unextracted_impl(
     rust_primitives__hax__machine_int__add(x, x)
   ).
-(* src: src/legacy/attributes/lib.rs:406:4-406:67 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__NoE__NoE *)
+(* src: src/legacy/attributes/lib.rs:408:4-408:67 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__NoE__NoE *)
 (*  A string that contains no space. *)
 fun new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__NoE__NoE__NoE(
   bitstring
@@ -215,7 +233,7 @@ reduc forall v_0: bitstring;
       v_0
     )
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:410:4-410:81 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__ModInverse__ModInverse *)
+(* src: src/legacy/attributes/lib.rs:412:4-412:81 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__ModInverse__ModInverse *)
 (*  A modular mutliplicative inverse *)
 fun new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__ModInverse__ModInverse__ModInverse(
   bitstring
@@ -226,7 +244,7 @@ reduc forall v_0: bitstring;
       v_0
     )
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:414:4-414:46 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__FieldElement__FieldElement *)
+(* src: src/legacy/attributes/lib.rs:416:4-416:46 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__FieldElement__FieldElement *)
 (*  A field element *)
 fun new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__FieldElement__FieldElement__FieldElement(
   bitstring
@@ -237,7 +255,7 @@ reduc forall v_0: bitstring;
       v_0
     )
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:418:4-418:75 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__CompressionFactor__CompressionFactor *)
+(* src: src/legacy/attributes/lib.rs:420:4-420:75 new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__CompressionFactor__CompressionFactor *)
 (*  Example of a specific constraint on a value *)
 fun new_tests__legacy__attributes__lib__refinement_types__hax__autogenerated_refinement__CompressionFactor__CompressionFactor__CompressionFactor(
   bitstring
@@ -265,7 +283,7 @@ reduc forall v_0: bitstring;
 
 
 
-(* src: src/legacy/attributes/lib.rs:428:4-430:5 new_tests__legacy__attributes__lib__refinement_types__double_abs_i16 *)
+(* src: src/legacy/attributes/lib.rs:430:4-432:5 new_tests__legacy__attributes__lib__refinement_types__double_abs_i16 *)
 letfun new_tests__legacy__attributes__lib__refinement_types__double_abs_i16(x: bitstring) =
   (* HAX WARNING: use of the trait item `into_checked` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *) hax_lib__RefineAs__into_checked__unextracted_impl(
     (* HAX WARNING: use of the trait item `mul` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *) core__ops__arith__Mul__mul__unextracted_impl(
@@ -283,7 +301,7 @@ reduc forall v_0: bitstring;
   new_tests__legacy__attributes__lib__refined_indexes__MyArray__MyArray__0(
     new_tests__legacy__attributes__lib__refined_indexes__MyArray__MyArray(v_0)
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:170:4-178:5 new_tests__legacy__attributes__lib__refined_indexes__mutation_example *)
+(* src: src/legacy/attributes/lib.rs:171:4-179:5 new_tests__legacy__attributes__lib__refined_indexes__mutation_example *)
 (*  Triple dash comment *)
 (*  Multiline double star comment Maecenas blandit accumsan feugiat. *)
 (*     Done vitae ullamcorper est. *)
@@ -308,8 +326,9 @@ letfun new_tests__legacy__attributes__lib__refined_indexes__mutation_example(
       )
     )
   ).
+(*  @fail(extraction): proverif(HAX0001) *)
 
-(* src: src/legacy/attributes/lib.rs:154:8-156:9 new_tests__legacy__attributes__lib__refined_indexes__Impl_1__index *)
+(* src: src/legacy/attributes/lib.rs:155:8-157:9 new_tests__legacy__attributes__lib__refined_indexes__Impl_1__index *)
 (* HAX ERROR: unresolved external trait method `new_tests__legacy__attributes__lib__refined_indexes__Impl_1__index`; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol. *)
 fun new_tests__legacy__attributes__lib__refined_indexes__Impl_1__index(
@@ -346,33 +365,34 @@ letfun new_tests__legacy__attributes__lib__refined_arithmetic__Impl_1__mul(
       new_tests__legacy__attributes__lib__refined_arithmetic__Foo__Foo__0(rhs)
     )
   ).
-
-(* src: src/legacy/attributes/lib.rs:313:4-313:18 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__ViaAdd *)
+(* src: src/legacy/attributes/lib.rs:314:4-314:18 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__ViaAdd *)
 fun new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__ViaAdd__ViaAdd(
 
 ): bitstring [data].
-(* src: src/legacy/attributes/lib.rs:314:4-314:18 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__ViaMul *)
+(* src: src/legacy/attributes/lib.rs:315:4-315:18 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__ViaMul *)
 fun new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__ViaMul__ViaMul(
 
 ): bitstring [data].
-(* src: src/legacy/attributes/lib.rs:320:8-322:9 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__Impl__double *)
+
+(* src: src/legacy/attributes/lib.rs:321:8-323:9 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__Impl__double *)
 letfun new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__Impl__double(
   x: bitstring
 ) = rust_primitives__hax__machine_int__add(x, x).
-(* src: src/legacy/attributes/lib.rs:329:8-331:9 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__Impl_1__double *)
+(* src: src/legacy/attributes/lib.rs:330:8-332:9 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__Impl_1__double *)
 letfun new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__Impl_1__double(
   x: bitstring
 ) = rust_primitives__hax__machine_int__mul(x, nat_2).
 
-(* src: src/legacy/attributes/lib.rs:341:4-343:5 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__test *)
+(* src: src/legacy/attributes/lib.rs:343:4-345:5 new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__test *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__attributes__lib__pre_post_on_traits_and_impls__test(x: bitstring) =
   rust_primitives__hax__machine_int__sub(
     bitstring_err() (* HAX ERROR: use of the trait item `method` that resolves to no impl of the crate (e.g. on a generic type) *),
     nat_88
   ).
-(* src: src/legacy/attributes/lib.rs:183:4-183:26 new_tests__legacy__attributes__lib__newtype_pattern__MAX *)
+(* src: src/legacy/attributes/lib.rs:184:4-184:26 new_tests__legacy__attributes__lib__newtype_pattern__MAX *)
 letfun new_tests__legacy__attributes__lib__newtype_pattern__MAX() = nat_10.
-(* src: src/legacy/attributes/lib.rs:185:4-188:5 new_tests__legacy__attributes__lib__newtype_pattern__SafeIndex *)
+(* src: src/legacy/attributes/lib.rs:186:4-189:5 new_tests__legacy__attributes__lib__newtype_pattern__SafeIndex *)
 fun new_tests__legacy__attributes__lib__newtype_pattern__SafeIndex__SafeIndex(
   bitstring
 ): bitstring [data].
@@ -380,7 +400,7 @@ reduc forall v_0: bitstring;
   new_tests__legacy__attributes__lib__newtype_pattern__SafeIndex__SafeIndex__i(
     new_tests__legacy__attributes__lib__newtype_pattern__SafeIndex__SafeIndex(v_0)
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:190:8-196:9 new_tests__legacy__attributes__lib__newtype_pattern__Impl__new_kw *)
+(* src: src/legacy/attributes/lib.rs:191:8-197:9 new_tests__legacy__attributes__lib__newtype_pattern__Impl__new_kw *)
 letfun new_tests__legacy__attributes__lib__newtype_pattern__Impl__new_kw(i: bitstring) =
   (* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
   let hax__cond0 = rust_primitives__hax__machine_int__lt(
@@ -390,11 +410,11 @@ letfun new_tests__legacy__attributes__lib__newtype_pattern__Impl__new_kw(i: bits
   let (=True()) = hax__cond0
     in Some(new_tests__legacy__attributes__lib__newtype_pattern__SafeIndex__SafeIndex(i))
     else None().
-(* src: src/legacy/attributes/lib.rs:197:8-199:9 new_tests__legacy__attributes__lib__newtype_pattern__Impl__as_usize *)
+(* src: src/legacy/attributes/lib.rs:198:8-200:9 new_tests__legacy__attributes__lib__newtype_pattern__Impl__as_usize *)
 letfun new_tests__legacy__attributes__lib__newtype_pattern__Impl__as_usize(self: bitstring) =
   new_tests__legacy__attributes__lib__newtype_pattern__SafeIndex__SafeIndex__i(self).
 
-(* src: src/legacy/attributes/lib.rs:204:8-206:9 new_tests__legacy__attributes__lib__newtype_pattern__Impl_1__index *)
+(* src: src/legacy/attributes/lib.rs:205:8-207:9 new_tests__legacy__attributes__lib__newtype_pattern__Impl_1__index *)
 letfun new_tests__legacy__attributes__lib__newtype_pattern__Impl_1__index(
   self: bitstring,
   index: bitstring
@@ -403,7 +423,7 @@ letfun new_tests__legacy__attributes__lib__newtype_pattern__Impl_1__index(
     self,
     new_tests__legacy__attributes__lib__newtype_pattern__SafeIndex__SafeIndex__i(index)
   ).
-(* src: src/legacy/attributes/lib.rs:434:4-434:32 new_tests__legacy__attributes__lib__nested_refinement_elim__hax__autogenerated_refinement__DummyRefinement__DummyRefinement *)
+(* src: src/legacy/attributes/lib.rs:436:4-436:32 new_tests__legacy__attributes__lib__nested_refinement_elim__hax__autogenerated_refinement__DummyRefinement__DummyRefinement *)
 fun new_tests__legacy__attributes__lib__nested_refinement_elim__hax__autogenerated_refinement__DummyRefinement__DummyRefinement__DummyRefinement(
   bitstring
 ): bitstring [data].
@@ -413,7 +433,7 @@ reduc forall v_0: bitstring;
       v_0
     )
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:437:4-439:5 new_tests__legacy__attributes__lib__nested_refinement_elim__elim_twice *)
+(* src: src/legacy/attributes/lib.rs:439:4-441:5 new_tests__legacy__attributes__lib__nested_refinement_elim__elim_twice *)
 letfun new_tests__legacy__attributes__lib__nested_refinement_elim__elim_twice(x: bitstring) =
   (* HAX WARNING: use of the trait item `get` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *) hax_lib__Refinement__get_kw__unextracted_impl(
     (* HAX WARNING: use of the trait item `new` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *) hax_lib__Refinement__new_kw__unextracted_impl(
@@ -422,38 +442,38 @@ letfun new_tests__legacy__attributes__lib__nested_refinement_elim__elim_twice(x:
       )
     )
   ).
-(* src: src/legacy/attributes/lib.rs:638:4-638:15 new_tests__legacy__attributes__lib__issue_evit_57__Foo *)
+(* src: src/legacy/attributes/lib.rs:641:4-641:15 new_tests__legacy__attributes__lib__issue_evit_57__Foo *)
 fun new_tests__legacy__attributes__lib__issue_evit_57__Foo__Foo(): bitstring [data].
-(* src: src/legacy/attributes/lib.rs:643:8-643:25 new_tests__legacy__attributes__lib__issue_evit_57__Impl__f *)
+(* src: src/legacy/attributes/lib.rs:646:8-646:25 new_tests__legacy__attributes__lib__issue_evit_57__Impl__f *)
 letfun new_tests__legacy__attributes__lib__issue_evit_57__Impl__f(self: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
 
-(* src: src/legacy/attributes/lib.rs:553:4-553:17 new_tests__legacy__attributes__lib__issue_2089__S *)
+(* src: src/legacy/attributes/lib.rs:555:4-555:17 new_tests__legacy__attributes__lib__issue_2089__S *)
 fun new_tests__legacy__attributes__lib__issue_2089__S__S(): bitstring [data].
 
 
 
-(* src: src/legacy/attributes/lib.rs:561:8-561:24 new_tests__legacy__attributes__lib__issue_2089__Impl_1__C *)
+(* src: src/legacy/attributes/lib.rs:563:8-563:24 new_tests__legacy__attributes__lib__issue_2089__Impl_1__C *)
 letfun new_tests__legacy__attributes__lib__issue_2089__Impl_1__C() = nat_1.
-(* src: src/legacy/attributes/lib.rs:565:8-567:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__f *)
+(* src: src/legacy/attributes/lib.rs:567:8-569:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__f *)
 letfun new_tests__legacy__attributes__lib__issue_2089__Impl_1__f(x: bitstring) = nat_0.
-(* src: src/legacy/attributes/lib.rs:571:8-573:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__g *)
+(* src: src/legacy/attributes/lib.rs:573:8-575:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__g *)
 letfun new_tests__legacy__attributes__lib__issue_2089__Impl_1__g(self: bitstring, x: bitstring) = x.
-(* src: src/legacy/attributes/lib.rs:578:8-580:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__h *)
+(* src: src/legacy/attributes/lib.rs:580:8-582:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__h *)
 letfun new_tests__legacy__attributes__lib__issue_2089__Impl_1__h(
   x: bitstring,
   y: bitstring,
   z: bitstring
 ) = y.
-(* src: src/legacy/attributes/lib.rs:583:8-585:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__plain *)
+(* src: src/legacy/attributes/lib.rs:585:8-587:9 new_tests__legacy__attributes__lib__issue_2089__Impl_1__plain *)
 letfun new_tests__legacy__attributes__lib__issue_2089__Impl_1__plain(x: bitstring) = x.
-(* src: src/legacy/attributes/lib.rs:628:4-628:21 new_tests__legacy__attributes__lib__issue_1276__S *)
+(* src: src/legacy/attributes/lib.rs:631:4-631:21 new_tests__legacy__attributes__lib__issue_1276__S *)
 fun new_tests__legacy__attributes__lib__issue_1276__S__S(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__attributes__lib__issue_1276__S__S__0(
     new_tests__legacy__attributes__lib__issue_1276__S__S(v_0)
   ) = v_0.
-(* src: src/legacy/attributes/lib.rs:633:8-633:69 new_tests__legacy__attributes__lib__issue_1276__Impl__f *)
+(* src: src/legacy/attributes/lib.rs:636:8-636:69 new_tests__legacy__attributes__lib__issue_1276__Impl__f *)
 letfun new_tests__legacy__attributes__lib__issue_1276__Impl__f(
   self: bitstring,
   self_: bitstring,
@@ -462,7 +482,7 @@ letfun new_tests__legacy__attributes__lib__issue_1276__Impl__f(
   self_2: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
 
-(* src: src/legacy/attributes/lib.rs:351:4-351:21 new_tests__legacy__attributes__lib__int_model__Int *)
+(* src: src/legacy/attributes/lib.rs:353:4-353:21 new_tests__legacy__attributes__lib__int_model__Int *)
 fun new_tests__legacy__attributes__lib__int_model__Int__Int(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__attributes__lib__int_model__Int__Int__0(
@@ -470,7 +490,7 @@ reduc forall v_0: bitstring;
   ) = v_0.
 
 
-(* src: src/legacy/attributes/lib.rs:354:4-356:5 new_tests__legacy__attributes__lib__int_model__add *)
+(* src: src/legacy/attributes/lib.rs:356:4-358:5 new_tests__legacy__attributes__lib__int_model__add *)
 letfun new_tests__legacy__attributes__lib__int_model__add(x: bitstring, y: bitstring) =
   new_tests__legacy__attributes__lib__int_model__Int__Int(
     rust_primitives__hax__machine_int__add(
@@ -479,7 +499,7 @@ letfun new_tests__legacy__attributes__lib__int_model__add(x: bitstring, y: bitst
     )
   ).
 
-(* src: src/legacy/attributes/lib.rs:373:8-375:9 new_tests__legacy__attributes__lib__int_model__Impl__sub *)
+(* src: src/legacy/attributes/lib.rs:375:8-377:9 new_tests__legacy__attributes__lib__int_model__Impl__sub *)
 letfun new_tests__legacy__attributes__lib__int_model__Impl__sub(self: bitstring, other: bitstring) =
   new_tests__legacy__attributes__lib__int_model__Int__Int(
     rust_primitives__hax__machine_int__add(
@@ -487,33 +507,94 @@ letfun new_tests__legacy__attributes__lib__int_model__Impl__sub(self: bitstring,
       new_tests__legacy__attributes__lib__int_model__Int__Int__0(other)
     )
   ).
-(* src: src/legacy/attributes/lib.rs:238:4-238:17 new_tests__legacy__attributes__lib__future_self__Dummy *)
+(* src: src/legacy/attributes/lib.rs:451:4-456:5 new_tests__legacy__attributes__lib__inlined_code_ensures_requires__increment_array *)
+letfun new_tests__legacy__attributes__lib__inlined_code_ensures_requires__increment_array(
+  v: bitstring
+) =
+  let v_1 = rust_primitives__hax__monomorphized_update_at__update_at_usize(
+    v,
+    nat_0,
+    rust_primitives__hax__machine_int__add(core__ops__index__Index__index(v, nat_0), nat_1)
+  ) in
+  let v_2 = rust_primitives__hax__monomorphized_update_at__update_at_usize(
+    v_1,
+    nat_1,
+    rust_primitives__hax__machine_int__add(core__ops__index__Index__index(v_1, nat_1), nat_1)
+  ) in
+  let v_3 = rust_primitives__hax__monomorphized_update_at__update_at_usize(
+    v_2,
+    nat_2,
+    rust_primitives__hax__machine_int__add(core__ops__index__Index__index(v_2, nat_2), nat_1)
+  ) in
+  rust_primitives__hax__monomorphized_update_at__update_at_usize(
+    v_3,
+    nat_3,
+    rust_primitives__hax__machine_int__add(core__ops__index__Index__index(v_3, nat_3), nat_1)
+  ).
+(* src: src/legacy/attributes/lib.rs:239:4-239:17 new_tests__legacy__attributes__lib__future_self__Dummy *)
 fun new_tests__legacy__attributes__lib__future_self__Dummy__Dummy(): bitstring [data].
 
 
 
-(* src: src/legacy/attributes/lib.rs:243:8-243:26 new_tests__legacy__attributes__lib__future_self__Impl_3__f *)
+(* src: src/legacy/attributes/lib.rs:244:8-244:26 new_tests__legacy__attributes__lib__future_self__Impl_3__f *)
 letfun new_tests__legacy__attributes__lib__future_self__Impl_3__f(self: bitstring) = self.
-(* src: src/legacy/attributes/lib.rs:8:0-8:27 new_tests__legacy__attributes__lib__u32_max *)
+(* src: src/legacy/attributes/lib.rs:259:4-262:5 new_tests__legacy__attributes__lib__future_and_result_order__one_mut_and_result *)
+(*  One `&mut` input, non-unit result: `(u32, bool)` in the engine lanes, *)
+(*  `(bool, u32)` in the aeneas/Lean lane. *)
+letfun new_tests__legacy__attributes__lib__future_and_result_order__one_mut_and_result(
+  x: bitstring
+) =
+  let x_1 = core__num__Impl_8__wrapping_add(x, nat_1) in
+  rust_primitives__hax__Tuple2__Tuple2(x_1, rust_primitives__hax__machine_int__eq(x_1, nat_0)).
+(* src: src/legacy/attributes/lib.rs:270:4-274:5 new_tests__legacy__attributes__lib__future_and_result_order__two_mut_and_result *)
+(*  Two `&mut` inputs: pins the futures\' order relative to each other as *)
+(*  well as relative to the result. `(u8, u64, bool)` in the engine lanes, *)
+(*  `(bool, u8, u64)` in the aeneas/Lean lane. *)
+letfun new_tests__legacy__attributes__lib__future_and_result_order__two_mut_and_result(
+  a: bitstring,
+  b: bitstring
+) =
+  let a_1 = core__num__Impl_6__wrapping_add(a, nat_1) in
+  rust_primitives__hax__Tuple3__Tuple3(
+    a_1,
+    core__num__Impl_9__wrapping_add(b, nat_2),
+    rust_primitives__hax__machine_int__eq(a_1, nat_0)
+  ).
+(* src: src/legacy/attributes/lib.rs:280:4-282:5 new_tests__legacy__attributes__lib__future_and_result_order__one_mut_no_result *)
+(*  One `&mut` input, unit result: the result binder is dropped altogether, *)
+(*  so what is left is futures-only and the reordering is a no-op — both *)
+(*  lanes agree here. *)
+letfun new_tests__legacy__attributes__lib__future_and_result_order__one_mut_no_result(
+  x: bitstring
+) = core__num__Impl_8__wrapping_add(x, nat_1).
+(* src: src/legacy/attributes/lib.rs:33:4-33:25 new_tests__legacy__attributes__lib__ensures_on_arity_zero_fns__doing_nothing *)
+letfun new_tests__legacy__attributes__lib__ensures_on_arity_zero_fns__doing_nothing(
+  wildcard: bitstring
+) = rust_primitives__hax__Tuple0__Tuple0.
+(* src: src/legacy/attributes/lib.rs:36:4-38:5 new_tests__legacy__attributes__lib__ensures_on_arity_zero_fns__basically_a_constant *)
+letfun new_tests__legacy__attributes__lib__ensures_on_arity_zero_fns__basically_a_constant(
+  wildcard: bitstring
+) = nat_127.
+(* src: src/legacy/attributes/lib.rs:7:0-7:27 new_tests__legacy__attributes__lib__u32_max *)
 letfun new_tests__legacy__attributes__lib__u32_max() = nat_90000.
-(* src: src/legacy/attributes/lib.rs:14:0-16:1 new_tests__legacy__attributes__lib__add3 *)
+(* src: src/legacy/attributes/lib.rs:13:0-15:1 new_tests__legacy__attributes__lib__add3 *)
 (*  A doc comment on `add3` *)
 (* another doc comment on add3 *)
 letfun new_tests__legacy__attributes__lib__add3(x: bitstring, y: bitstring, z: bitstring) =
   rust_primitives__hax__machine_int__add(rust_primitives__hax__machine_int__add(x, y), z).
-(* src: src/legacy/attributes/lib.rs:20:0-25:1 new_tests__legacy__attributes__lib__swap_and_mut_req_ens *)
+(* src: src/legacy/attributes/lib.rs:19:0-24:1 new_tests__legacy__attributes__lib__swap_and_mut_req_ens *)
 letfun new_tests__legacy__attributes__lib__swap_and_mut_req_ens(x: bitstring, y: bitstring) =
   let x_1 = y in
   let y_1 = x in
   rust_primitives__hax__Tuple3__Tuple3(x_1, y_1, rust_primitives__hax__machine_int__add(x_1, y_1)).
-(* src: src/legacy/attributes/lib.rs:28:0-28:28 new_tests__legacy__attributes__lib__issue_844 *)
+(* src: src/legacy/attributes/lib.rs:27:0-27:28 new_tests__legacy__attributes__lib__issue_844 *)
 letfun new_tests__legacy__attributes__lib__issue_844(u_x: bitstring) = u_x.
-(* src: src/legacy/attributes/lib.rs:43:0-43:92 new_tests__legacy__attributes__lib__add3_lemma *)
+(* src: src/legacy/attributes/lib.rs:42:0-42:92 new_tests__legacy__attributes__lib__add3_lemma *)
 letfun new_tests__legacy__attributes__lib__add3_lemma(x: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:45:0-47:1 new_tests__legacy__attributes__lib__dummy_function *)
+(* src: src/legacy/attributes/lib.rs:44:0-46:1 new_tests__legacy__attributes__lib__dummy_function *)
 letfun new_tests__legacy__attributes__lib__dummy_function(x: bitstring) = x.
-(* src: src/legacy/attributes/lib.rs:51:0-51:77 new_tests__legacy__attributes__lib__apply_dummy_function_lemma *)
+(* src: src/legacy/attributes/lib.rs:50:0-50:77 new_tests__legacy__attributes__lib__apply_dummy_function_lemma *)
 letfun new_tests__legacy__attributes__lib__apply_dummy_function_lemma(x: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/attributes/lib.rs:85:0-91:1 new_tests__legacy__attributes__lib__Foo *)
@@ -552,43 +633,27 @@ letfun new_tests__legacy__attributes__lib__props(wildcard: bitstring) =
   let wildcard_2 = hax_lib__assert_prop(hax_lib__prop__Impl__from_bool(True())) in
   let wildcard_3 = rust_primitives__hax__Tuple0__Tuple0 in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:212:0-221:1 new_tests__legacy__attributes__lib__inlined_code *)
+(* src: src/legacy/attributes/lib.rs:213:0-222:1 new_tests__legacy__attributes__lib__inlined_code *)
 letfun new_tests__legacy__attributes__lib__inlined_code(foo: bitstring) =
   let wildcard = rust_primitives__hax__Tuple0__Tuple0 in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:213:4-213:21 new_tests__legacy__attributes__lib__inlined_code__V *)
+(* src: src/legacy/attributes/lib.rs:214:4-214:21 new_tests__legacy__attributes__lib__inlined_code__V *)
 letfun new_tests__legacy__attributes__lib__inlined_code__V() = nat_12.
-(* src: src/legacy/attributes/lib.rs:229:0-229:29 new_tests__legacy__attributes__lib__mutliple_before_after *)
+(* src: src/legacy/attributes/lib.rs:230:0-230:29 new_tests__legacy__attributes__lib__mutliple_before_after *)
 letfun new_tests__legacy__attributes__lib__mutliple_before_after(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:232:0-234:1 new_tests__legacy__attributes__lib__some_function *)
+(* src: src/legacy/attributes/lib.rs:233:0-235:1 new_tests__legacy__attributes__lib__some_function *)
 letfun new_tests__legacy__attributes__lib__some_function(wildcard: bitstring) =
   core__convert__From__from(string_lit__hello_x20from_x20Rust).
 (* src: src/legacy/attributes/lib.rs:76:0-82:1 new_tests__legacy__attributes__lib__fib *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__attributes__lib__fib` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__attributes__lib__fib(bitstring): bitstring.
-(* src: src/legacy/attributes/lib.rs:459:4-461:5 new_tests__legacy__attributes__lib__verifcation_status__a_function_which_only_laxes *)
-letfun new_tests__legacy__attributes__lib__verifcation_status__a_function_which_only_laxes(
-  wildcard: bitstring
-) =
-  let hax__cond0 = core__ops__bit__Not__not_kw(False()) in
-  let (=True()) = hax__cond0 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:465:4-469:5 new_tests__legacy__attributes__lib__verifcation_status__a_panicfree_function *)
-letfun new_tests__legacy__attributes__lib__verifcation_status__a_panicfree_function(
-  wildcard: bitstring
-) =
-  let wildcard_1 = rust_primitives__hax__Tuple0__Tuple0 in
-  rust_primitives__hax__machine_int__add(nat_3, nat_6).
-(* src: src/legacy/attributes/lib.rs:473:4-477:5 new_tests__legacy__attributes__lib__verifcation_status__another_panicfree_function *)
-letfun new_tests__legacy__attributes__lib__verifcation_status__another_panicfree_function(
-  wildcard: bitstring
-) =
-  let still_not_much = rust_primitives__hax__machine_int__add(nat_0, nat_0) in
-  rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:592:4-596:5 new_tests__legacy__attributes__lib__props__f *)
+(* src: src/legacy/attributes/lib.rs:595:4-599:5 new_tests__legacy__attributes__lib__props__f *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__attributes__lib__props__f(x: bitstring, y: bitstring) =
   hax_lib__prop__constructors__not_kw(
     hax_lib__prop__constructors__implies(
@@ -615,74 +680,13 @@ letfun new_tests__legacy__attributes__lib__props__f(x: bitstring, y: bitstring) 
       )
     )
   ).
-(* src: src/legacy/attributes/lib.rs:58:8-58:58 new_tests__legacy__attributes__lib__postprocess_with__somewhere__some_hypothetical_tactic *)
+(* src: src/legacy/attributes/lib.rs:57:8-57:58 new_tests__legacy__attributes__lib__postprocess_with__somewhere__some_hypothetical_tactic *)
 letfun new_tests__legacy__attributes__lib__postprocess_with__somewhere__some_hypothetical_tactic(
   some_param: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:55:4-55:13 new_tests__legacy__attributes__lib__postprocess_with__f *)
+(* src: src/legacy/attributes/lib.rs:54:4-54:13 new_tests__legacy__attributes__lib__postprocess_with__f *)
 letfun new_tests__legacy__attributes__lib__postprocess_with__f(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:63:4-63:13 new_tests__legacy__attributes__lib__postprocess_with__g *)
+(* src: src/legacy/attributes/lib.rs:62:4-62:13 new_tests__legacy__attributes__lib__postprocess_with__g *)
 letfun new_tests__legacy__attributes__lib__postprocess_with__g(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:449:4-454:5 new_tests__legacy__attributes__lib__inlined_code_ensures_requires__increment_array *)
-letfun new_tests__legacy__attributes__lib__inlined_code_ensures_requires__increment_array(
-  v: bitstring
-) =
-  let v_1 = rust_primitives__hax__monomorphized_update_at__update_at_usize(
-    v,
-    nat_0,
-    rust_primitives__hax__machine_int__add(core__ops__index__Index__index(v, nat_0), nat_1)
-  ) in
-  let v_2 = rust_primitives__hax__monomorphized_update_at__update_at_usize(
-    v_1,
-    nat_1,
-    rust_primitives__hax__machine_int__add(core__ops__index__Index__index(v_1, nat_1), nat_1)
-  ) in
-  let v_3 = rust_primitives__hax__monomorphized_update_at__update_at_usize(
-    v_2,
-    nat_2,
-    rust_primitives__hax__machine_int__add(core__ops__index__Index__index(v_2, nat_2), nat_1)
-  ) in
-  rust_primitives__hax__monomorphized_update_at__update_at_usize(
-    v_3,
-    nat_3,
-    rust_primitives__hax__machine_int__add(core__ops__index__Index__index(v_3, nat_3), nat_1)
-  ).
-(* src: src/legacy/attributes/lib.rs:258:4-261:5 new_tests__legacy__attributes__lib__future_and_result_order__one_mut_and_result *)
-(*  One `&mut` input, non-unit result: `(u32, bool)` in the engine lanes, *)
-(*  `(bool, u32)` in the aeneas/Lean lane. *)
-letfun new_tests__legacy__attributes__lib__future_and_result_order__one_mut_and_result(
-  x: bitstring
-) =
-  let x_1 = core__num__Impl_8__wrapping_add(x, nat_1) in
-  rust_primitives__hax__Tuple2__Tuple2(x_1, rust_primitives__hax__machine_int__eq(x_1, nat_0)).
-(* src: src/legacy/attributes/lib.rs:269:4-273:5 new_tests__legacy__attributes__lib__future_and_result_order__two_mut_and_result *)
-(*  Two `&mut` inputs: pins the futures\' order relative to each other as *)
-(*  well as relative to the result. `(u8, u64, bool)` in the engine lanes, *)
-(*  `(bool, u8, u64)` in the aeneas/Lean lane. *)
-letfun new_tests__legacy__attributes__lib__future_and_result_order__two_mut_and_result(
-  a: bitstring,
-  b: bitstring
-) =
-  let a_1 = core__num__Impl_6__wrapping_add(a, nat_1) in
-  rust_primitives__hax__Tuple3__Tuple3(
-    a_1,
-    core__num__Impl_9__wrapping_add(b, nat_2),
-    rust_primitives__hax__machine_int__eq(a_1, nat_0)
-  ).
-(* src: src/legacy/attributes/lib.rs:279:4-281:5 new_tests__legacy__attributes__lib__future_and_result_order__one_mut_no_result *)
-(*  One `&mut` input, unit result: the result binder is dropped altogether, *)
-(*  so what is left is futures-only and the reordering is a no-op — both *)
-(*  lanes agree here. *)
-letfun new_tests__legacy__attributes__lib__future_and_result_order__one_mut_no_result(
-  x: bitstring
-) = core__num__Impl_8__wrapping_add(x, nat_1).
-(* src: src/legacy/attributes/lib.rs:34:4-34:25 new_tests__legacy__attributes__lib__ensures_on_arity_zero_fns__doing_nothing *)
-letfun new_tests__legacy__attributes__lib__ensures_on_arity_zero_fns__doing_nothing(
-  wildcard: bitstring
-) = rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/attributes/lib.rs:37:4-39:5 new_tests__legacy__attributes__lib__ensures_on_arity_zero_fns__basically_a_constant *)
-letfun new_tests__legacy__attributes__lib__ensures_on_arity_zero_fns__basically_a_constant(
-  wildcard: bitstring
-) = nat_127.

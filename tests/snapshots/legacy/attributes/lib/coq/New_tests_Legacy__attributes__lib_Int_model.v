@@ -34,7 +34,7 @@ Definition Add_f_add (x : t_Int) (y : t_Int) : t_Int :=
 
 
 
-Instance t_Sub_646904452 : t_Sub ((t_Int)) ((t_Int)) :=
+Instance t_Sub_337773252 : t_Sub ((t_Int)) ((t_Int)) :=
   {
     implaabbcc_t_Sub_f_Output := t_Int;
     implaabbcc_t_Sub_f_sub := fun  (self : t_Int) (other : t_Int)=>

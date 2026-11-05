@@ -41,7 +41,7 @@ Definition main__v_IN_CONST : t_u32 :=
 
 TODO: please implement the method `item'_HaxError`
 
-Instance main__t_InTrait_719629178 : main__t_InTrait ((main__t_InStruct)) :=
+Instance main__t_InTrait_170751601 : main__t_InTrait ((main__t_InStruct)) :=
   {
     implaabbcc_main__t_InTrait_main__f_trait_func := fun  (self : main__t_InStruct) (incr : t_u32)=>
       let self := self <|main__t_InStructmain__f_in_struct_field := f_add (main__f_in_struct_field self) (incr) |> in

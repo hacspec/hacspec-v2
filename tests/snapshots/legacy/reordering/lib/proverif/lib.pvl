@@ -57,13 +57,15 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/legacy/reordering/lib.rs:32:4-34:5 new_tests__legacy__reordering__lib__mut_rec__g *)
+(* src: src/legacy/reordering/lib.rs:33:4-35:5 new_tests__legacy__reordering__lib__mut_rec__g *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__reordering__lib__mut_rec__g` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__reordering__lib__mut_rec__g(bitstring): bitstring.
 (* src: src/legacy/reordering/lib.rs:24:4-26:5 new_tests__legacy__reordering__lib__mut_rec__f *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__reordering__lib__mut_rec__f` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
@@ -72,52 +74,56 @@ fun new_tests__legacy__reordering__lib__mut_rec__f(bitstring): bitstring.
 (* src: src/legacy/reordering/lib.rs:28:4-30:5 new_tests__legacy__reordering__lib__mut_rec__f_2 *)
 letfun new_tests__legacy__reordering__lib__mut_rec__f_2(wildcard: bitstring) =
   new_tests__legacy__reordering__lib__mut_rec__f(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/reordering/lib.rs:44:4-46:5 new_tests__legacy__reordering__lib__independent_cycles__c *)
+(* src: src/legacy/reordering/lib.rs:48:4-50:5 new_tests__legacy__reordering__lib__independent_cycles__c *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__reordering__lib__independent_cycles__c` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__reordering__lib__independent_cycles__c(bitstring): bitstring.
-(* src: src/legacy/reordering/lib.rs:38:4-40:5 new_tests__legacy__reordering__lib__independent_cycles__a *)
+(* src: src/legacy/reordering/lib.rs:40:4-42:5 new_tests__legacy__reordering__lib__independent_cycles__a *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__reordering__lib__independent_cycles__a` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__reordering__lib__independent_cycles__a(bitstring): bitstring.
-(* src: src/legacy/reordering/lib.rs:47:4-49:5 new_tests__legacy__reordering__lib__independent_cycles__d *)
+(* src: src/legacy/reordering/lib.rs:52:4-54:5 new_tests__legacy__reordering__lib__independent_cycles__d *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__reordering__lib__independent_cycles__d` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__reordering__lib__independent_cycles__d(bitstring): bitstring.
-(* src: src/legacy/reordering/lib.rs:41:4-43:5 new_tests__legacy__reordering__lib__independent_cycles__b *)
+(* src: src/legacy/reordering/lib.rs:44:4-46:5 new_tests__legacy__reordering__lib__independent_cycles__b *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__reordering__lib__independent_cycles__b` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__reordering__lib__independent_cycles__b(bitstring): bitstring.
-(* src: src/legacy/reordering/lib.rs:5:0-5:23 new_tests__legacy__reordering__lib__no_dependency_1 *)
+(* src: src/legacy/reordering/lib.rs:4:0-4:23 new_tests__legacy__reordering__lib__no_dependency_1 *)
 letfun new_tests__legacy__reordering__lib__no_dependency_1(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/reordering/lib.rs:11:0-11:23 new_tests__legacy__reordering__lib__no_dependency_2 *)
+(* src: src/legacy/reordering/lib.rs:10:0-10:23 new_tests__legacy__reordering__lib__no_dependency_2 *)
 letfun new_tests__legacy__reordering__lib__no_dependency_2(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/reordering/lib.rs:18:0-21:1 new_tests__legacy__reordering__lib__Foo *)
+(* src: src/legacy/reordering/lib.rs:17:0-20:1 new_tests__legacy__reordering__lib__Foo *)
 fun new_tests__legacy__reordering__lib__Foo__A(): bitstring [data].
 fun new_tests__legacy__reordering__lib__Foo__B(): bitstring [data].
-(* src: src/legacy/reordering/lib.rs:13:0-15:1 new_tests__legacy__reordering__lib__f *)
+(* src: src/legacy/reordering/lib.rs:12:0-14:1 new_tests__legacy__reordering__lib__f *)
 letfun new_tests__legacy__reordering__lib__f(wildcard: bitstring) =
   new_tests__legacy__reordering__lib__Foo__A().
-(* src: src/legacy/reordering/lib.rs:17:0-17:16 new_tests__legacy__reordering__lib__Bar *)
+(* src: src/legacy/reordering/lib.rs:16:0-16:16 new_tests__legacy__reordering__lib__Bar *)
 fun new_tests__legacy__reordering__lib__Bar__Bar(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__reordering__lib__Bar__Bar__0(
     new_tests__legacy__reordering__lib__Bar__Bar(v_0)
   ) = v_0.
-(* src: src/legacy/reordering/lib.rs:7:0-9:1 new_tests__legacy__reordering__lib__g *)
+(* src: src/legacy/reordering/lib.rs:6:0-8:1 new_tests__legacy__reordering__lib__g *)
 letfun new_tests__legacy__reordering__lib__g(wildcard: bitstring) =
   new_tests__legacy__reordering__lib__Bar__Bar(new_tests__legacy__reordering__lib__f(nat_32)).
-(* src: src/legacy/reordering/lib.rs:18:0-21:1 new_tests__legacy__reordering__lib__Foo_cast_to_repr *)
+(* src: src/legacy/reordering/lib.rs:17:0-20:1 new_tests__legacy__reordering__lib__Foo_cast_to_repr *)
 letfun new_tests__legacy__reordering__lib__Foo_cast_to_repr(x: bitstring) =
   let new_tests__legacy__reordering__lib__Foo__A() = x in nat_0
   else let new_tests__legacy__reordering__lib__Foo__B() = x in nat_1

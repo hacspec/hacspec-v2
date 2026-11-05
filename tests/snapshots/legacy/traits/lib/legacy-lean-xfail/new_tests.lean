@@ -183,6 +183,7 @@ class Foo (Self : Type) (T : Type)
   where
   to_t (Self) (T) : (Self -> RustM T)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def _f
     (X : Type)
@@ -198,6 +199,7 @@ end new_tests.legacy__traits__lib.for_clauses
 
 namespace new_tests.legacy__traits__lib.for_clauses.issue_495
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def original_function_from_495 (list : (alloc.vec.Vec u8 alloc.alloc.Global)) :
     RustM rust_primitives.hax.Tuple0 := do
@@ -222,6 +224,7 @@ def original_function_from_495 (list : (alloc.vec.Vec u8 alloc.alloc.Global)) :
           RustM Bool)))));
   (pure rust_primitives.hax.Tuple0.mk)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def minimized_1 (list : (alloc.vec.Vec u8 alloc.alloc.Global)) :
     RustM (alloc.vec.Vec u8 alloc.alloc.Global) := do
@@ -334,6 +337,7 @@ def Impl_1.op_hoisted (x : u32) (y : u32) : RustM u32 := do (x *? y)
 instance Impl_1 : PolyOp Times where
   op := (Impl_1.op_hoisted)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def twice
     (OP : Type)
@@ -521,6 +525,7 @@ instance Impl (TypeArg : Type) (ConstArg : usize) :
       MethodTypeArg
       (MethodConstArg))
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def method_caller
     (MethodTypeArg : Type)
@@ -544,6 +549,7 @@ def method_caller
       (ConstArg) MethodTypeArg (MethodConstArg) x value_TypeArg value_Type);
   (pure rust_primitives.hax.Tuple0.mk)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def associated_function_caller
     (MethodTypeArg : Type)
@@ -1482,6 +1488,7 @@ instance Impl_1 : Foo rust_primitives.hax.Tuple0 where
   method_f := (Impl_1.method_f_hoisted)
   assoc_type := (Impl_1.assoc_type_hoisted)
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def f
     (T : Type)
@@ -1492,6 +1499,7 @@ def f
   let _ ← (Foo.assoc_f T rust_primitives.hax.Tuple0.mk);
   (Foo.method_f T x)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def g
     (T : Type)

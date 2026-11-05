@@ -18,6 +18,6 @@ Class t_Trait (v_Self : Type) : Type :=
   }.
 Arguments t_Trait (_).
 
-Instance t_Trait_259593346 `{v_P : Type} `{_.(f_Output) = bool} `{t_FnMut (v_P) ((t_u8))} : t_Trait ((v_P)) :=
+Instance t_Trait_540041351 `{v_P : Type} `{_.(f_Output) = bool} `{t_FnMut (v_P) ((t_u8))} : t_Trait ((v_P)) :=
   {
   }.

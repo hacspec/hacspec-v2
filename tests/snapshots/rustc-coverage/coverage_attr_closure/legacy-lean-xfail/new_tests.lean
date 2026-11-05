@@ -15,6 +15,7 @@ set_option linter.unusedVariables false
 namespace new_tests.rustc_coverage__coverage_attr_closure
 
 --  @fail(extraction): ssprove(HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 def GLOBAL_CLOSURE_ON : (String -> RustM rust_primitives.hax.Tuple0) :=
   RustM.of_isOk
     (do
@@ -36,6 +37,7 @@ def GLOBAL_CLOSURE_ON : (String -> RustM rust_primitives.hax.Tuple0) :=
     (by rfl)
 
 --  @fail(extraction): ssprove(HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 def GLOBAL_CLOSURE_OFF : (String -> RustM rust_primitives.hax.Tuple0) :=
   RustM.of_isOk
     (do
@@ -57,6 +59,7 @@ def GLOBAL_CLOSURE_OFF : (String -> RustM rust_primitives.hax.Tuple0) :=
     (by rfl)
 
 --  @fail(extraction): ssprove(HAX0001)
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def contains_closures_on (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do
@@ -95,6 +98,7 @@ def contains_closures_on (_ : rust_primitives.hax.Tuple0) :
   (pure rust_primitives.hax.Tuple0.mk)
 
 --  @fail(extraction): ssprove(HAX0001)
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def contains_closures_off (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do

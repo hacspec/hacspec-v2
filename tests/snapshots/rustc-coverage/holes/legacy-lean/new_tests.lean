@@ -14,7 +14,8 @@ set_option linter.unusedVariables false
 
 namespace new_tests.rustc_coverage__holes
 
---  @fail(extraction): coq(HAX0001), legacy-lean(HAX0001), ssprove(HAX0001), proverif(HAX0001), fstar(HAX0001)
+--  @fail(extraction): coq(HAX0001), legacy-lean(HAX0001), ssprove(HAX0001), fstar(HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def main (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do

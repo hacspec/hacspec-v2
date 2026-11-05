@@ -52,43 +52,43 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/legacy/proverif-patterns/lib.rs:9:0-15:1 new_tests__legacy__proverif_patterns__lib__nested_option *)
+(* src: src/legacy/proverif-patterns/lib.rs:8:0-14:1 new_tests__legacy__proverif_patterns__lib__nested_option *)
 letfun new_tests__legacy__proverif_patterns__lib__nested_option(x: bitstring) =
   let Some(Some(v)) = x in v
   else let Some(None()) = x in nat_1
   else let None() = x in nat_2
   else bitstring_err().
-(* src: src/legacy/proverif-patterns/lib.rs:17:0-23:1 new_tests__legacy__proverif_patterns__lib__tuple_literals *)
+(* src: src/legacy/proverif-patterns/lib.rs:16:0-22:1 new_tests__legacy__proverif_patterns__lib__tuple_literals *)
 letfun new_tests__legacy__proverif_patterns__lib__tuple_literals(x: bitstring) =
   let rust_primitives__hax__Tuple2__Tuple2((=nat_0), y: bitstring) = x in y
   else let rust_primitives__hax__Tuple2__Tuple2(y_1: bitstring, (=nat_1)) = x in y_1
   else nat_3.
-(* src: src/legacy/proverif-patterns/lib.rs:25:0-31:1 new_tests__legacy__proverif_patterns__lib__or_under_constructor *)
+(* src: src/legacy/proverif-patterns/lib.rs:24:0-30:1 new_tests__legacy__proverif_patterns__lib__or_under_constructor *)
 letfun new_tests__legacy__proverif_patterns__lib__or_under_constructor(x: bitstring) =
   let Some((=nat_1)) = x in nat_0
   else let Some((=nat_2)) = x in nat_0
   else let Some(wildcard) = x in nat_1
   else let None() = x in nat_2
   else bitstring_err().
-(* src: src/legacy/proverif-patterns/lib.rs:33:0-38:1 new_tests__legacy__proverif_patterns__lib__bool_scrutinee *)
+(* src: src/legacy/proverif-patterns/lib.rs:32:0-37:1 new_tests__legacy__proverif_patterns__lib__bool_scrutinee *)
 letfun new_tests__legacy__proverif_patterns__lib__bool_scrutinee(b: bitstring) =
   let (=True()) = b in nat_1
   else let (=False()) = b in nat_0
   else bitstring_err().
-(* src: src/legacy/proverif-patterns/lib.rs:40:0-45:1 new_tests__legacy__proverif_patterns__lib__negative_literal *)
+(* src: src/legacy/proverif-patterns/lib.rs:39:0-44:1 new_tests__legacy__proverif_patterns__lib__negative_literal *)
 letfun new_tests__legacy__proverif_patterns__lib__negative_literal(x: bitstring) =
   let (=nat_neg_1) = x in nat_0
   else nat_1.
-(* src: src/legacy/proverif-patterns/lib.rs:47:0-53:1 new_tests__legacy__proverif_patterns__lib__char_literal *)
+(* src: src/legacy/proverif-patterns/lib.rs:46:0-52:1 new_tests__legacy__proverif_patterns__lib__char_literal *)
 letfun new_tests__legacy__proverif_patterns__lib__char_literal(c: bitstring) =
   let (=char_lit__a) = c in nat_0
   else let (=char_lit___x0a) = c in nat_1
   else nat_2.
-(* src: src/legacy/proverif-patterns/lib.rs:55:0-60:1 new_tests__legacy__proverif_patterns__lib__str_literal *)
+(* src: src/legacy/proverif-patterns/lib.rs:54:0-59:1 new_tests__legacy__proverif_patterns__lib__str_literal *)
 letfun new_tests__legacy__proverif_patterns__lib__str_literal(s: bitstring) =
   let (=string_lit__yes) = s in nat_1
   else nat_0.
-(* src: src/legacy/proverif-patterns/lib.rs:62:0-66:1 new_tests__legacy__proverif_patterns__lib__Header *)
+(* src: src/legacy/proverif-patterns/lib.rs:61:0-65:1 new_tests__legacy__proverif_patterns__lib__Header *)
 fun new_tests__legacy__proverif_patterns__lib__Header__Header(
   bitstring,
   bitstring,
@@ -106,7 +106,7 @@ reduc forall v_0: bitstring, v_1: bitstring, v_2: bitstring;
   new_tests__legacy__proverif_patterns__lib__Header__Header__flags(
     new_tests__legacy__proverif_patterns__lib__Header__Header(v_0, v_1, v_2)
   ) = v_2.
-(* src: src/legacy/proverif-patterns/lib.rs:68:0-73:1 new_tests__legacy__proverif_patterns__lib__struct_rest *)
+(* src: src/legacy/proverif-patterns/lib.rs:67:0-72:1 new_tests__legacy__proverif_patterns__lib__struct_rest *)
 letfun new_tests__legacy__proverif_patterns__lib__struct_rest(h: bitstring) =
   let new_tests__legacy__proverif_patterns__lib__Header__Header(
     (=nat_0),
@@ -119,21 +119,22 @@ letfun new_tests__legacy__proverif_patterns__lib__struct_rest(h: bitstring) =
     flags: bitstring
   ) = h in flags
   else bitstring_err().
-(* src: src/legacy/proverif-patterns/lib.rs:75:0-78:1 new_tests__legacy__proverif_patterns__lib__tuple_rest *)
+(* src: src/legacy/proverif-patterns/lib.rs:74:0-77:1 new_tests__legacy__proverif_patterns__lib__tuple_rest *)
 letfun new_tests__legacy__proverif_patterns__lib__tuple_rest(x: bitstring) =
   let rust_primitives__hax__Tuple3__Tuple3(
     a: bitstring,
     wildcard: bitstring,
     wildcard_1: bitstring
   ) = x in a else bitstring_err().
-(* src: src/legacy/proverif-patterns/lib.rs:80:0-82:1 new_tests__legacy__proverif_patterns__lib__is_some *)
+(* src: src/legacy/proverif-patterns/lib.rs:79:0-81:1 new_tests__legacy__proverif_patterns__lib__is_some *)
 letfun new_tests__legacy__proverif_patterns__lib__is_some(x: bitstring) =
   let Some(wildcard) = x in True()
   else False().
-(* src: src/legacy/proverif-patterns/lib.rs:85:0-90:1 new_tests__legacy__proverif_patterns__lib__binder_before_wildcard *)
+(* src: src/legacy/proverif-patterns/lib.rs:84:0-89:1 new_tests__legacy__proverif_patterns__lib__binder_before_wildcard *)
 letfun new_tests__legacy__proverif_patterns__lib__binder_before_wildcard(x: bitstring) =
   let y = x in y.
 (* src: src/legacy/proverif-patterns/lib.rs:94:0-99:1 new_tests__legacy__proverif_patterns__lib__guard_with_or *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_patterns__lib__guard_with_or(x: bitstring, y: bitstring) =
   bitstring_err() (* HAX ERROR: match arm with both an or-pattern and a guard *).
 (* src: src/legacy/proverif-patterns/lib.rs:101:0-105:1 new_tests__legacy__proverif_patterns__lib__Message *)

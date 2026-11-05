@@ -104,6 +104,7 @@ let after 3 = "example after 3"
 
 unfold let some_function _ = "hello from F*"
 
+/// @fail(extraction): proverif(HAX0001)
 let rec fib (x: usize) : Prims.Tot usize (decreases x) =
   if x <=. mk_usize 2
   then x

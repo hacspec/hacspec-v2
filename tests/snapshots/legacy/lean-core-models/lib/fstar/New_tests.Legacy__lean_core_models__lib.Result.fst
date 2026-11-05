@@ -14,6 +14,7 @@ type t_E2 =
   | E2_C1 : t_E2
   | E2_C2 : u32 -> t_E2
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001)
 let tests (_: Prims.unit) : Core_models.Result.t_Result u32 t_E1 =
   let v1:Core_models.Result.t_Result u32 t_E1 =
     Core_models.Result.Result_Ok (mk_u32 1) <: Core_models.Result.t_Result u32 t_E1

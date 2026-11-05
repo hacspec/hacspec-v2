@@ -339,6 +339,7 @@ end new_tests.legacy__cyclic_modules__lib.typ_a
 
 namespace new_tests.legacy__cyclic_modules__lib.rec
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def hf (x : T) : RustM T := do
   match x with | (T.t1 ) => do (hf T.t2) | (T.t2 ) => do (pure x)
@@ -349,6 +350,7 @@ end new_tests.legacy__cyclic_modules__lib.rec
 
 namespace new_tests.legacy__cyclic_modules__lib.rec2_same_name
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def f (x : i32) : RustM i32 := do
   if (← (x >? (0 : i32))) then do
@@ -362,6 +364,7 @@ end new_tests.legacy__cyclic_modules__lib.rec2_same_name
 
 namespace new_tests.legacy__cyclic_modules__lib.rec1_same_name
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def f (x : i32) : RustM i32 := do
   (new_tests.legacy__cyclic_modules__lib.rec2_same_name.f x)
@@ -371,6 +374,7 @@ end new_tests.legacy__cyclic_modules__lib.rec1_same_name
 
 namespace new_tests.legacy__cyclic_modules__lib.late_skip_b
 
+--  @fail(extraction): proverif(HAX0001)
 def f (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
   (new_tests.legacy__cyclic_modules__lib.late_skip_a.f
     rust_primitives.hax.Tuple0.mk)
@@ -390,6 +394,7 @@ end new_tests.legacy__cyclic_modules__lib.late_skip_b
 
 namespace new_tests.legacy__cyclic_modules__lib.late_skip_a
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def f (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
   (new_tests.legacy__cyclic_modules__lib.late_skip_b.f
@@ -442,10 +447,12 @@ end new_tests.legacy__cyclic_modules__lib.enums_b
 
 namespace new_tests.legacy__cyclic_modules__lib.rec
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def g2 (x : T) : RustM T := do
   match x with | (T.t1 ) => do (g1 x) | (T.t2 ) => do (hf x)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def g1 (x : T) : RustM T := do
   match x with | (T.t1 ) => do (g2 x) | (T.t2 ) => do (pure T.t1)

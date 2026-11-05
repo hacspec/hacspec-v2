@@ -48,67 +48,67 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
 (*  - higher-order reference to a function or constructor *)
+(*  - `new_tests__legacy__cyclic_modules__lib__late_skip_b__f` is recursive; its body is dropped *)
 (*  - `new_tests__legacy__cyclic_modules__lib__rec2_same_name__f` is recursive; its body is dropped *)
 (*  - `new_tests__legacy__cyclic_modules__lib__rec1_same_name__f` is recursive; its body is dropped *)
 (*  - `new_tests__legacy__cyclic_modules__lib__rec__hf` is recursive; its body is dropped *)
 (*  - `new_tests__legacy__cyclic_modules__lib__rec__g2` is recursive; its body is dropped *)
 (*  - `new_tests__legacy__cyclic_modules__lib__rec__g1` is recursive; its body is dropped *)
-(*  - `new_tests__legacy__cyclic_modules__lib__late_skip_b__f` is recursive; its body is dropped *)
 (*  - `new_tests__legacy__cyclic_modules__lib__late_skip_a__f` is recursive; its body is dropped *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/legacy/cyclic-modules/lib.rs:16:4-18:5 new_tests__legacy__cyclic_modules__lib__typ_b__T2Rec *)
+(* src: src/legacy/cyclic-modules/lib.rs:15:4-17:5 new_tests__legacy__cyclic_modules__lib__typ_b__T2Rec *)
 fun new_tests__legacy__cyclic_modules__lib__typ_b__T2Rec__T2(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__typ_b__T2Rec__T2__0(
     new_tests__legacy__cyclic_modules__lib__typ_b__T2Rec__T2(v_0)
   ) = v_0.
-(* src: src/legacy/cyclic-modules/lib.rs:13:4-15:5 new_tests__legacy__cyclic_modules__lib__typ_b__T1Rec *)
+(* src: src/legacy/cyclic-modules/lib.rs:12:4-14:5 new_tests__legacy__cyclic_modules__lib__typ_b__T1Rec *)
 fun new_tests__legacy__cyclic_modules__lib__typ_b__T1Rec__T1(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__typ_b__T1Rec__T1__0(
     new_tests__legacy__cyclic_modules__lib__typ_b__T1Rec__T1(v_0)
   ) = v_0.
-(* src: src/legacy/cyclic-modules/lib.rs:20:4-22:5 new_tests__legacy__cyclic_modules__lib__typ_b__T1 *)
+(* src: src/legacy/cyclic-modules/lib.rs:19:4-21:5 new_tests__legacy__cyclic_modules__lib__typ_b__T1 *)
 fun new_tests__legacy__cyclic_modules__lib__typ_b__T1__T1(): bitstring [data].
-(* src: src/legacy/cyclic-modules/lib.rs:20:4-22:5 new_tests__legacy__cyclic_modules__lib__typ_b__T1_cast_to_repr *)
+(* src: src/legacy/cyclic-modules/lib.rs:19:4-21:5 new_tests__legacy__cyclic_modules__lib__typ_b__T1_cast_to_repr *)
 letfun new_tests__legacy__cyclic_modules__lib__typ_b__T1_cast_to_repr(x: bitstring) =
   let new_tests__legacy__cyclic_modules__lib__typ_b__T1__T1() = x in nat_0
   else bitstring_err().
-(* src: src/legacy/cyclic-modules/lib.rs:23:4-25:5 new_tests__legacy__cyclic_modules__lib__typ_b__T2 *)
+(* src: src/legacy/cyclic-modules/lib.rs:22:4-24:5 new_tests__legacy__cyclic_modules__lib__typ_b__T2 *)
 fun new_tests__legacy__cyclic_modules__lib__typ_b__T2__T2(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__typ_b__T2__T2__0(
     new_tests__legacy__cyclic_modules__lib__typ_b__T2__T2(v_0)
   ) = v_0.
-(* src: src/legacy/cyclic-modules/lib.rs:4:4-7:5 new_tests__legacy__cyclic_modules__lib__typ_a__TRec *)
+(* src: src/legacy/cyclic-modules/lib.rs:3:4-6:5 new_tests__legacy__cyclic_modules__lib__typ_a__TRec *)
 fun new_tests__legacy__cyclic_modules__lib__typ_a__TRec__T(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__typ_a__TRec__T__0(
     new_tests__legacy__cyclic_modules__lib__typ_a__TRec__T(v_0)
   ) = v_0.
 fun new_tests__legacy__cyclic_modules__lib__typ_a__TRec__Empty(): bitstring [data].
-(* src: src/legacy/cyclic-modules/lib.rs:8:4-10:5 new_tests__legacy__cyclic_modules__lib__typ_a__T *)
+(* src: src/legacy/cyclic-modules/lib.rs:7:4-9:5 new_tests__legacy__cyclic_modules__lib__typ_a__T *)
 fun new_tests__legacy__cyclic_modules__lib__typ_a__T__T(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__typ_a__T__T__0(
     new_tests__legacy__cyclic_modules__lib__typ_a__T__T(v_0)
   ) = v_0.
-(* src: src/legacy/cyclic-modules/lib.rs:196:12-196:27 new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__b__B *)
+(* src: src/legacy/cyclic-modules/lib.rs:203:12-203:27 new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__b__B *)
 fun new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__b__B__B(): bitstring [data].
-(* src: src/legacy/cyclic-modules/lib.rs:187:12-187:27 new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__a__A *)
+(* src: src/legacy/cyclic-modules/lib.rs:194:12-194:27 new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__a__A *)
 fun new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__a__A__A(): bitstring [data].
-(* src: src/legacy/cyclic-modules/lib.rs:199:16-201:17 new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__b__Impl__mka *)
+(* src: src/legacy/cyclic-modules/lib.rs:206:16-208:17 new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__b__Impl__mka *)
 letfun new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__b__Impl__mka(
   self: bitstring
 ) = new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__a__A__A().
-(* src: src/legacy/cyclic-modules/lib.rs:190:16-192:17 new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__a__Impl__mkb *)
+(* src: src/legacy/cyclic-modules/lib.rs:197:16-199:17 new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__a__Impl__mkb *)
 letfun new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__a__Impl__mkb(
   self: bitstring
 ) = new_tests__legacy__cyclic_modules__lib__issue_1823__first_example__b__B__B().
-(* src: src/legacy/cyclic-modules/lib.rs:109:4-113:5 new_tests__legacy__cyclic_modules__lib__enums_b__U *)
+(* src: src/legacy/cyclic-modules/lib.rs:113:4-117:5 new_tests__legacy__cyclic_modules__lib__enums_b__U *)
 fun new_tests__legacy__cyclic_modules__lib__enums_b__U__A(): bitstring [data].
 fun new_tests__legacy__cyclic_modules__lib__enums_b__U__B(): bitstring [data].
 fun new_tests__legacy__cyclic_modules__lib__enums_b__U__C(bitstring): bitstring [data].
@@ -116,7 +116,7 @@ reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__enums_b__U__C__0(
     new_tests__legacy__cyclic_modules__lib__enums_b__U__C(v_0)
   ) = v_0.
-(* src: src/legacy/cyclic-modules/lib.rs:114:4-118:5 new_tests__legacy__cyclic_modules__lib__enums_b__T *)
+(* src: src/legacy/cyclic-modules/lib.rs:118:4-122:5 new_tests__legacy__cyclic_modules__lib__enums_b__T *)
 fun new_tests__legacy__cyclic_modules__lib__enums_b__T__A(): bitstring [data].
 fun new_tests__legacy__cyclic_modules__lib__enums_b__T__B(): bitstring [data].
 fun new_tests__legacy__cyclic_modules__lib__enums_b__T__C(bitstring): bitstring [data].
@@ -124,10 +124,10 @@ reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__enums_b__T__C__0(
     new_tests__legacy__cyclic_modules__lib__enums_b__T__C(v_0)
   ) = v_0.
-(* src: src/legacy/cyclic-modules/lib.rs:119:4-121:5 new_tests__legacy__cyclic_modules__lib__enums_b__f *)
+(* src: src/legacy/cyclic-modules/lib.rs:123:4-125:5 new_tests__legacy__cyclic_modules__lib__enums_b__f *)
 letfun new_tests__legacy__cyclic_modules__lib__enums_b__f(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__enums_b__T__A().
-(* src: src/legacy/cyclic-modules/lib.rs:101:4-106:5 new_tests__legacy__cyclic_modules__lib__enums_a__T *)
+(* src: src/legacy/cyclic-modules/lib.rs:105:4-110:5 new_tests__legacy__cyclic_modules__lib__enums_a__T *)
 fun new_tests__legacy__cyclic_modules__lib__enums_a__T__A(): bitstring [data].
 fun new_tests__legacy__cyclic_modules__lib__enums_a__T__B(): bitstring [data].
 fun new_tests__legacy__cyclic_modules__lib__enums_a__T__C(bitstring): bitstring [data].
@@ -140,7 +140,7 @@ reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__enums_a__T__D__0(
     new_tests__legacy__cyclic_modules__lib__enums_a__T__D(v_0)
   ) = v_0.
-(* src: src/legacy/cyclic-modules/lib.rs:153:4-156:5 new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Context *)
+(* src: src/legacy/cyclic-modules/lib.rs:157:4-160:5 new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Context *)
 fun new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Context__A(
   bitstring
 ): bitstring [data].
@@ -155,146 +155,153 @@ reduc forall v_0: bitstring;
   new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Context__B__0(
     new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Context__B(v_0)
   ) = v_0.
-(* src: src/legacy/cyclic-modules/lib.rs:161:8-163:9 new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Impl__test *)
+(* src: src/legacy/cyclic-modules/lib.rs:166:8-168:9 new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Impl__test *)
 letfun new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Impl__test(x: bitstring) =
   core__option__Impl__map(
     x,
     bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)
   ).
-(* src: src/legacy/cyclic-modules/lib.rs:131:4-131:17 new_tests__legacy__cyclic_modules__lib__m2__d *)
+(* src: src/legacy/cyclic-modules/lib.rs:135:4-135:17 new_tests__legacy__cyclic_modules__lib__m2__d *)
 letfun new_tests__legacy__cyclic_modules__lib__m2__d(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:136:4-136:17 new_tests__legacy__cyclic_modules__lib__m2__c *)
+(* src: src/legacy/cyclic-modules/lib.rs:140:4-140:17 new_tests__legacy__cyclic_modules__lib__m2__c *)
 letfun new_tests__legacy__cyclic_modules__lib__m2__c(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:42:4-42:17 new_tests__legacy__cyclic_modules__lib__c__i *)
+(* src: src/legacy/cyclic-modules/lib.rs:186:4-188:5 new_tests__legacy__cyclic_modules__lib__late_skip_b__f *)
+(*  @fail(extraction): proverif(HAX0001) *)
+(* HAX ERROR: `new_tests__legacy__cyclic_modules__lib__late_skip_b__f` is recursive; its body is dropped *)
+(* It is modelled as an uninterpreted injective one-way symbol, which *)
+(* the real function need not be. Replace with a hand-written model  *)
+(* before trusting any result that depends on it.                    *)
+fun new_tests__legacy__cyclic_modules__lib__late_skip_b__f(bitstring): bitstring.
+(* src: src/legacy/cyclic-modules/lib.rs:41:4-41:17 new_tests__legacy__cyclic_modules__lib__c__i *)
 letfun new_tests__legacy__cyclic_modules__lib__c__i(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:167:4-169:5 new_tests__legacy__cyclic_modules__lib__variant_constructor_b__h *)
+(* src: src/legacy/cyclic-modules/lib.rs:172:4-174:5 new_tests__legacy__cyclic_modules__lib__variant_constructor_b__h *)
 letfun new_tests__legacy__cyclic_modules__lib__variant_constructor_b__h(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__variant_constructor_a__Context__A(nat_1).
-(* src: src/legacy/cyclic-modules/lib.rs:157:4-159:5 new_tests__legacy__cyclic_modules__lib__variant_constructor_a__f *)
+(* src: src/legacy/cyclic-modules/lib.rs:161:4-163:5 new_tests__legacy__cyclic_modules__lib__variant_constructor_a__f *)
 letfun new_tests__legacy__cyclic_modules__lib__variant_constructor_a__f(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__variant_constructor_b__h(
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/legacy/cyclic-modules/lib.rs:92:4-98:5 new_tests__legacy__cyclic_modules__lib__rec2_same_name__f *)
+(* src: src/legacy/cyclic-modules/lib.rs:96:4-102:5 new_tests__legacy__cyclic_modules__lib__rec2_same_name__f *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__cyclic_modules__lib__rec2_same_name__f` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__cyclic_modules__lib__rec2_same_name__f(bitstring): bitstring.
-(* src: src/legacy/cyclic-modules/lib.rs:87:4-89:5 new_tests__legacy__cyclic_modules__lib__rec1_same_name__f *)
+(* src: src/legacy/cyclic-modules/lib.rs:90:4-92:5 new_tests__legacy__cyclic_modules__lib__rec1_same_name__f *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__cyclic_modules__lib__rec1_same_name__f` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__cyclic_modules__lib__rec1_same_name__f(bitstring): bitstring.
-(* src: src/legacy/cyclic-modules/lib.rs:62:4-65:5 new_tests__legacy__cyclic_modules__lib__rec__T *)
+(* src: src/legacy/cyclic-modules/lib.rs:61:4-64:5 new_tests__legacy__cyclic_modules__lib__rec__T *)
 fun new_tests__legacy__cyclic_modules__lib__rec__T__t1(): bitstring [data].
 fun new_tests__legacy__cyclic_modules__lib__rec__T__t2(): bitstring [data].
-(* src: src/legacy/cyclic-modules/lib.rs:62:4-65:5 new_tests__legacy__cyclic_modules__lib__rec__T_cast_to_repr *)
+(* src: src/legacy/cyclic-modules/lib.rs:61:4-64:5 new_tests__legacy__cyclic_modules__lib__rec__T_cast_to_repr *)
 letfun new_tests__legacy__cyclic_modules__lib__rec__T_cast_to_repr(x: bitstring) =
   let new_tests__legacy__cyclic_modules__lib__rec__T__t1() = x in nat_0
   else let new_tests__legacy__cyclic_modules__lib__rec__T__t2() = x in nat_1
   else bitstring_err().
-(* src: src/legacy/cyclic-modules/lib.rs:78:4-83:5 new_tests__legacy__cyclic_modules__lib__rec__hf *)
+(* src: src/legacy/cyclic-modules/lib.rs:80:4-85:5 new_tests__legacy__cyclic_modules__lib__rec__hf *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__cyclic_modules__lib__rec__hf` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__cyclic_modules__lib__rec__hf(bitstring): bitstring.
-(* src: src/legacy/cyclic-modules/lib.rs:72:4-77:5 new_tests__legacy__cyclic_modules__lib__rec__g2 *)
+(* src: src/legacy/cyclic-modules/lib.rs:73:4-78:5 new_tests__legacy__cyclic_modules__lib__rec__g2 *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__cyclic_modules__lib__rec__g2` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__cyclic_modules__lib__rec__g2(bitstring): bitstring.
 (* src: src/legacy/cyclic-modules/lib.rs:66:4-71:5 new_tests__legacy__cyclic_modules__lib__rec__g1 *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__cyclic_modules__lib__rec__g1` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__cyclic_modules__lib__rec__g1(bitstring): bitstring.
-(* src: src/legacy/cyclic-modules/lib.rs:125:4-127:5 new_tests__legacy__cyclic_modules__lib__m1__a *)
+(* src: src/legacy/cyclic-modules/lib.rs:129:4-131:5 new_tests__legacy__cyclic_modules__lib__m1__a *)
 letfun new_tests__legacy__cyclic_modules__lib__m1__a(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__m2__c(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:132:4-135:5 new_tests__legacy__cyclic_modules__lib__m2__b *)
+(* src: src/legacy/cyclic-modules/lib.rs:136:4-139:5 new_tests__legacy__cyclic_modules__lib__m2__b *)
 letfun new_tests__legacy__cyclic_modules__lib__m2__b(wildcard: bitstring) =
   let wildcard_1 = new_tests__legacy__cyclic_modules__lib__m1__a(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   new_tests__legacy__cyclic_modules__lib__m2__d(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:179:4-181:5 new_tests__legacy__cyclic_modules__lib__late_skip_b__f *)
-(* HAX ERROR: `new_tests__legacy__cyclic_modules__lib__late_skip_b__f` is recursive; its body is dropped *)
-(* It is modelled as an uninterpreted injective one-way symbol, which *)
-(* the real function need not be. Replace with a hand-written model  *)
-(* before trusting any result that depends on it.                    *)
-fun new_tests__legacy__cyclic_modules__lib__late_skip_b__f(bitstring): bitstring.
-(* src: src/legacy/cyclic-modules/lib.rs:173:4-175:5 new_tests__legacy__cyclic_modules__lib__late_skip_a__f *)
+(* src: src/legacy/cyclic-modules/lib.rs:179:4-181:5 new_tests__legacy__cyclic_modules__lib__late_skip_a__f *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__cyclic_modules__lib__late_skip_a__f` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
 (* before trusting any result that depends on it.                    *)
 fun new_tests__legacy__cyclic_modules__lib__late_skip_a__f(bitstring): bitstring.
-(* src: src/legacy/cyclic-modules/lib.rs:216:12-216:25 new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__b__b *)
+(* src: src/legacy/cyclic-modules/lib.rs:223:12-223:25 new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__b__b *)
 letfun new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__b__b(
   wildcard: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:207:12-209:13 new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__a__call_b *)
+(* src: src/legacy/cyclic-modules/lib.rs:214:12-216:13 new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__a__call_b *)
 letfun new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__a__call_b(
   wildcard: bitstring
 ) =
   new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__b__b(
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/legacy/cyclic-modules/lib.rs:210:12-210:25 new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__a__a *)
+(* src: src/legacy/cyclic-modules/lib.rs:217:12-217:25 new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__a__a *)
 letfun new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__a__a(
   wildcard: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:213:12-215:13 new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__b__call_a *)
+(* src: src/legacy/cyclic-modules/lib.rs:220:12-222:13 new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__b__call_a *)
 letfun new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__b__call_a(
   wildcard: bitstring
 ) =
   new_tests__legacy__cyclic_modules__lib__issue_1823__second_example__a__a(
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/legacy/cyclic-modules/lib.rs:146:4-146:17 new_tests__legacy__cyclic_modules__lib__disjoint_cycle_b__h *)
+(* src: src/legacy/cyclic-modules/lib.rs:150:4-150:17 new_tests__legacy__cyclic_modules__lib__disjoint_cycle_b__h *)
 letfun new_tests__legacy__cyclic_modules__lib__disjoint_cycle_b__h(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:140:4-142:5 new_tests__legacy__cyclic_modules__lib__disjoint_cycle_a__f *)
+(* src: src/legacy/cyclic-modules/lib.rs:144:4-146:5 new_tests__legacy__cyclic_modules__lib__disjoint_cycle_a__f *)
 letfun new_tests__legacy__cyclic_modules__lib__disjoint_cycle_a__f(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__disjoint_cycle_b__h(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:143:4-143:17 new_tests__legacy__cyclic_modules__lib__disjoint_cycle_a__g *)
+(* src: src/legacy/cyclic-modules/lib.rs:147:4-147:17 new_tests__legacy__cyclic_modules__lib__disjoint_cycle_a__g *)
 letfun new_tests__legacy__cyclic_modules__lib__disjoint_cycle_a__g(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:147:4-149:5 new_tests__legacy__cyclic_modules__lib__disjoint_cycle_b__i *)
+(* src: src/legacy/cyclic-modules/lib.rs:151:4-153:5 new_tests__legacy__cyclic_modules__lib__disjoint_cycle_b__i *)
 letfun new_tests__legacy__cyclic_modules__lib__disjoint_cycle_b__i(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__disjoint_cycle_a__g(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:45:4-45:18 new_tests__legacy__cyclic_modules__lib__d__d1 *)
+(* src: src/legacy/cyclic-modules/lib.rs:44:4-44:18 new_tests__legacy__cyclic_modules__lib__d__d1 *)
 letfun new_tests__legacy__cyclic_modules__lib__d__d1(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:51:4-53:5 new_tests__legacy__cyclic_modules__lib__e__e1 *)
+(* src: src/legacy/cyclic-modules/lib.rs:50:4-52:5 new_tests__legacy__cyclic_modules__lib__e__e1 *)
 letfun new_tests__legacy__cyclic_modules__lib__e__e1(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__d__d1(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:56:4-58:5 new_tests__legacy__cyclic_modules__lib__de__de1 *)
+(* src: src/legacy/cyclic-modules/lib.rs:55:4-57:5 new_tests__legacy__cyclic_modules__lib__de__de1 *)
 letfun new_tests__legacy__cyclic_modules__lib__de__de1(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__e__e1(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:46:4-48:5 new_tests__legacy__cyclic_modules__lib__d__d2 *)
+(* src: src/legacy/cyclic-modules/lib.rs:45:4-47:5 new_tests__legacy__cyclic_modules__lib__d__d2 *)
 letfun new_tests__legacy__cyclic_modules__lib__d__d2(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__de__de1(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:28:0-28:9 new_tests__legacy__cyclic_modules__lib__f *)
+(* src: src/legacy/cyclic-modules/lib.rs:27:0-27:9 new_tests__legacy__cyclic_modules__lib__f *)
 letfun new_tests__legacy__cyclic_modules__lib__f(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cyclic-modules/lib.rs:30:4-32:5 new_tests__legacy__cyclic_modules__lib__b__g *)
+(* src: src/legacy/cyclic-modules/lib.rs:29:4-31:5 new_tests__legacy__cyclic_modules__lib__b__g *)
 letfun new_tests__legacy__cyclic_modules__lib__b__g(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__f(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:34:0-37:1 new_tests__legacy__cyclic_modules__lib__h *)
+(* src: src/legacy/cyclic-modules/lib.rs:33:0-36:1 new_tests__legacy__cyclic_modules__lib__h *)
 letfun new_tests__legacy__cyclic_modules__lib__h(wildcard: bitstring) =
   let wildcard_1 = new_tests__legacy__cyclic_modules__lib__b__g(
     rust_primitives__hax__Tuple0__Tuple0
   ) in
   new_tests__legacy__cyclic_modules__lib__c__i(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/cyclic-modules/lib.rs:38:0-40:1 new_tests__legacy__cyclic_modules__lib__h2 *)
+(* src: src/legacy/cyclic-modules/lib.rs:37:0-39:1 new_tests__legacy__cyclic_modules__lib__h2 *)
 letfun new_tests__legacy__cyclic_modules__lib__h2(wildcard: bitstring) =
   new_tests__legacy__cyclic_modules__lib__c__i(rust_primitives__hax__Tuple0__Tuple0).

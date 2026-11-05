@@ -52,18 +52,19 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/rustc-coverage/holes.rs:9:0-101:1 new_tests__rustc_coverage__holes__main *)
-(*  @fail(extraction): coq(HAX0001), legacy-lean(HAX0001), ssprove(HAX0001), proverif(HAX0001), fstar(HAX0001) *)
+(* src: src/rustc-coverage/holes.rs:10:0-102:1 new_tests__rustc_coverage__holes__main *)
+(*  @fail(extraction): coq(HAX0001), legacy-lean(HAX0001), ssprove(HAX0001), fstar(HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__holes__main(wildcard: bitstring) =
   bitstring_err() (* HAX ERROR: Got type `Coroutine`: coroutines are not supported by hax *).
-(* src: src/rustc-coverage/holes.rs:12:4-12:30 new_tests__rustc_coverage__holes__main__MY_STATIC *)
+(* src: src/rustc-coverage/holes.rs:13:4-13:30 new_tests__rustc_coverage__holes__main__MY_STATIC *)
 letfun new_tests__rustc_coverage__holes__main__MY_STATIC() = rust_primitives__hax__Tuple0__Tuple0().
-(* src: src/rustc-coverage/holes.rs:16:4-16:28 new_tests__rustc_coverage__holes__main__MY_CONST *)
+(* src: src/rustc-coverage/holes.rs:17:4-17:28 new_tests__rustc_coverage__holes__main__MY_CONST *)
 letfun new_tests__rustc_coverage__holes__main__MY_CONST() = rust_primitives__hax__Tuple0__Tuple0().
-(* src: src/rustc-coverage/holes.rs:32:4-32:22 new_tests__rustc_coverage__holes__main__u_unused_fn *)
+(* src: src/rustc-coverage/holes.rs:33:4-33:22 new_tests__rustc_coverage__holes__main__u_unused_fn *)
 letfun new_tests__rustc_coverage__holes__main__u_unused_fn(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/holes.rs:36:4-39:5 new_tests__rustc_coverage__holes__main__MyStruct *)
+(* src: src/rustc-coverage/holes.rs:37:4-40:5 new_tests__rustc_coverage__holes__main__MyStruct *)
 fun new_tests__rustc_coverage__holes__main__MyStruct__MyStruct(
   bitstring,
   bitstring
@@ -76,7 +77,7 @@ reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__rustc_coverage__holes__main__MyStruct__MyStruct__u_y(
     new_tests__rustc_coverage__holes__main__MyStruct__MyStruct(v_0, v_1)
   ) = v_1.
-(* src: src/rustc-coverage/holes.rs:44:8-44:28 new_tests__rustc_coverage__holes__main__Impl__u_method *)
+(* src: src/rustc-coverage/holes.rs:45:8-45:28 new_tests__rustc_coverage__holes__main__Impl__u_method *)
 letfun new_tests__rustc_coverage__holes__main__Impl__u_method(self: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
 

@@ -346,6 +346,7 @@ end new_tests.legacy__lean_tests__lib.constants
 namespace new_tests.legacy__lean_tests__lib.constants.const_parameters
 
 --  Function with const parameter
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def f (N : usize) (_ : rust_primitives.hax.Tuple0) : RustM usize := do (pure N)
 
@@ -379,6 +380,7 @@ def Impl.f_hoisted (N_TRAIT : usize) (N_FIELD : usize) (self : (S (N_TRAIT))) :
     RustM usize := do
   (N_TRAIT -? N_FIELD)
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[reducible] instance Impl.AssociatedTypes (N_TRAIT : usize) :
   T.AssociatedTypes (S (N_TRAIT)) (N_TRAIT)
   where
@@ -386,6 +388,7 @@ def Impl.f_hoisted (N_TRAIT : usize) (N_FIELD : usize) (self : (S (N_TRAIT))) :
 instance Impl (N_TRAIT : usize) : T (S (N_TRAIT)) (N_TRAIT) where
   f := fun  (N_FIELD : usize) => (Impl.f_hoisted (N_TRAIT) (N_FIELD))
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def test2
     (N2 : usize)
@@ -480,6 +483,7 @@ def loop1 (_ : rust_primitives.hax.Tuple0) : RustM u32 := do
       (fun x i => (do (x +? i) : RustM u32)));
   (pure x)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def loop2 (_ : rust_primitives.hax.Tuple0) : RustM u32 := do
   let x : u32 := (0 : u32);
@@ -508,6 +512,7 @@ def loop2 (_ : rust_primitives.hax.Tuple0) : RustM u32 := do
     | (core_models.ops.control_flow.ControlFlow.Continue  x) => do (pure x)
 
 --  For-loop with a spec
+--  @fail(extraction): proverif(HAX0001)
 def for_loop_with_spec (y : u64) : RustM u64 := do
   let x : u64 := y;
   let x : u64 ←
@@ -541,6 +546,7 @@ def for_loop_with_spec.spec (y : u64) :
 
 --  while-loop
 --  @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 def while_loop1 (s : u32) : RustM u32 := do
   let x : u32 := s;
   let x : u32 ←
@@ -574,6 +580,7 @@ inductive Error : Type
 | Foo : Error
 | Bar : u32 -> Error
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def loop3 (_ : rust_primitives.hax.Tuple0) :
     RustM (core_models.result.Result u32 Error) := do
@@ -605,6 +612,7 @@ def loop3 (_ : rust_primitives.hax.Tuple0) :
     | (core_models.ops.control_flow.ControlFlow.Continue  x) => do
       (pure (core_models.result.Result.Ok x))
 
+--  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
 @[spec]
 def loop4 (_ : rust_primitives.hax.Tuple0) :
     RustM
@@ -1382,6 +1390,7 @@ instance Impl : T1 S where
   f1 := (Impl.f1_hoisted)
   f2 := (Impl.f2_hoisted)
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def f
     (T : Type)
@@ -1823,6 +1832,7 @@ instance Impl : T1 usize u32 u64 where
   f2 := fun  (C : Type) (D : Type) => (Impl.f2_hoisted C D)
   f3 := fun  (C : Type) (D : Type) => (Impl.f3_hoisted C D)
 
+--  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
 @[spec]
 def test
     (A : Type)
@@ -1921,6 +1931,7 @@ class Baz (Self : Type)
   where
   One (Self) :u32 := (1 : u32)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def foo
     (F : Type)
@@ -2026,6 +2037,7 @@ def letBinding (x : usize) (y : usize) : RustM usize := do
   let result2 : usize ← (result1 +? (2 : usize));
   (result2 +? (1 : usize))
 
+--  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001)
 @[spec]
 def closure (_ : rust_primitives.hax.Tuple0) : RustM i32 := do
   let x : i32 := (41 : i32);
@@ -2154,6 +2166,7 @@ end new_tests.legacy__lean_tests__lib.enums
 
 namespace new_tests.legacy__lean_tests__lib.recursion
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def factorial (n : u32) : RustM u32 := do
   if (← (n ==? (0 : u32))) then do
@@ -2264,6 +2277,7 @@ end new_tests.legacy__lean_tests__lib.traits.methods_hoisting
 
 namespace new_tests.legacy__lean_tests__lib.associated_types.basic
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def just_the_first
     (I : Type)
@@ -2274,6 +2288,7 @@ def just_the_first
     RustM (Iterable.Item I) := do
   (Iterable.first I iter)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def first_plus_1
     (I : Type)
@@ -2304,6 +2319,7 @@ end new_tests.legacy__lean_tests__lib.associated_types.basic
 
 namespace new_tests.legacy__lean_tests__lib.associated_types.multiple_associated_types
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def get_both
     (P : Type)
@@ -2334,6 +2350,7 @@ def b (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
     (get_both (rust_primitives.hax.Tuple2 i32 Bool) pair);
   (pure rust_primitives.hax.Tuple0.mk)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def get_first_as_i32
     (P : Type)
@@ -2452,6 +2469,7 @@ end new_tests.legacy__lean_tests__lib.traits.associated_types
 
 namespace new_tests.legacy__lean_tests__lib.traits.methods_hoisting
 
+--  @fail(extraction): proverif(HAX0001)
 @[reducible] instance Impl.AssociatedTypes
   (U : Type)
   [trait_constr_Impl_associated_type_i0 : T0.AssociatedTypes U]

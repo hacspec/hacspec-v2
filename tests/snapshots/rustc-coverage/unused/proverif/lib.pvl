@@ -55,40 +55,42 @@ query attacker(hax_extraction_error__new_tests).
 
 (* src: src/rustc-coverage/unused.rs:6:0-12:1 new_tests__rustc_coverage__unused__foo *)
 (*  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__unused__foo(x: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(
     bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/rustc-coverage/unused.rs:15:0-21:1 new_tests__rustc_coverage__unused__unused_template_func *)
+(* src: src/rustc-coverage/unused.rs:16:0-22:1 new_tests__rustc_coverage__unused__unused_template_func *)
 (*  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__unused__unused_template_func(x: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(
     bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/rustc-coverage/unused.rs:23:0-27:1 new_tests__rustc_coverage__unused__unused_func *)
+(* src: src/rustc-coverage/unused.rs:24:0-28:1 new_tests__rustc_coverage__unused__unused_func *)
 letfun new_tests__rustc_coverage__unused__unused_func(a: bitstring) =
   let hax__cond0 = rust_primitives__hax__machine_int__ne(a, nat_0) in
   let (=True()) = hax__cond0
     in (let a_1 = rust_primitives__hax__machine_int__add(a, nat_1) in
     rust_primitives__hax__Tuple0__Tuple0)
     else rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/unused.rs:29:0-33:1 new_tests__rustc_coverage__unused__unused_func2 *)
+(* src: src/rustc-coverage/unused.rs:30:0-34:1 new_tests__rustc_coverage__unused__unused_func2 *)
 letfun new_tests__rustc_coverage__unused__unused_func2(a: bitstring) =
   let hax__cond0 = rust_primitives__hax__machine_int__ne(a, nat_0) in
   let (=True()) = hax__cond0
     in (let a_1 = rust_primitives__hax__machine_int__add(a, nat_1) in
     rust_primitives__hax__Tuple0__Tuple0)
     else rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/unused.rs:35:0-39:1 new_tests__rustc_coverage__unused__unused_func3 *)
+(* src: src/rustc-coverage/unused.rs:36:0-40:1 new_tests__rustc_coverage__unused__unused_func3 *)
 letfun new_tests__rustc_coverage__unused__unused_func3(a: bitstring) =
   let hax__cond0 = rust_primitives__hax__machine_int__ne(a, nat_0) in
   let (=True()) = hax__cond0
     in (let a_1 = rust_primitives__hax__machine_int__add(a, nat_1) in
     rust_primitives__hax__Tuple0__Tuple0)
     else rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/rustc-coverage/unused.rs:42:0-46:1 new_tests__rustc_coverage__unused__main *)
+(* src: src/rustc-coverage/unused.rs:43:0-47:1 new_tests__rustc_coverage__unused__main *)
 (*  @fail(extraction): ssprove(HAX0001) *)
 letfun new_tests__rustc_coverage__unused__main(wildcard: bitstring) =
   let wildcard_1 = new_tests__rustc_coverage__unused__foo(nat_0) in

@@ -64,7 +64,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
 (*****************************************************************)
 
-(* src: src/rustc-coverage/overflow.rs:8:0-17:1 new_tests__rustc_coverage__overflow__might_overflow *)
+(* src: src/rustc-coverage/overflow.rs:7:0-16:1 new_tests__rustc_coverage__overflow__might_overflow *)
 (*  @fail(extraction): ssprove(HAX0001) *)
 letfun new_tests__rustc_coverage__overflow__might_overflow(to_add: bitstring) =
   let wildcard = ((* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
@@ -100,6 +100,7 @@ letfun new_tests__rustc_coverage__overflow__might_overflow(to_add: bitstring) =
   rust_primitives__hax__machine_int__add(to_add, add_to).
 (* src: src/rustc-coverage/overflow.rs:20:0-33:1 new_tests__rustc_coverage__overflow__main *)
 (*  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__overflow__main(wildcard: bitstring) =
   let countdown_3 = (bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *)) in
   rust_primitives__hax__Tuple0__Tuple0().

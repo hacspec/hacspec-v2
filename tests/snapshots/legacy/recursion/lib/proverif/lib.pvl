@@ -53,6 +53,7 @@ free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
 (* src: src/legacy/recursion/lib.rs:4:0-10:1 new_tests__legacy__recursion__lib__f *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__recursion__lib__f` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)

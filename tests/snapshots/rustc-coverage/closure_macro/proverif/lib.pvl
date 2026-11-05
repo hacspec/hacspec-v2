@@ -64,11 +64,12 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 1 × branch on a result of `core__result__Impl__or_else`, which the model does not define *)
 (*****************************************************************)
 
-(* src: src/rustc-coverage/closure_macro.rs:31:0-33:1 new_tests__rustc_coverage__closure_macro__load_configuration_files *)
+(* src: src/rustc-coverage/closure_macro.rs:30:0-32:1 new_tests__rustc_coverage__closure_macro__load_configuration_files *)
 letfun new_tests__rustc_coverage__closure_macro__load_configuration_files(wildcard: bitstring) =
   core__convert__From__from(string_lit__config).
 (* src: src/rustc-coverage/closure_macro.rs:36:0-43:1 new_tests__rustc_coverage__closure_macro__main *)
 (*  @fail(extraction): ssprove(HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__closure_macro__main(wildcard: bitstring) =
   let wildcard_1 = std__io__stdio__u_print(
     core__fmt__rt__Impl_1__new_const(

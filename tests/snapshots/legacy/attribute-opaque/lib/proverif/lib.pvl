@@ -47,8 +47,6 @@ fun new_tests__legacy__attribute_opaque__lib__f(bitstring, bitstring): bitstring
 fun new_tests__legacy__attribute_opaque__lib__f_pre_post(bitstring, bitstring): bitstring [data].
 
 
-
-
 (* src: src/legacy/attribute-opaque/lib.rs:74:0-74:20 new_tests__legacy__attribute_opaque__lib__C *)
 const new_tests__legacy__attribute_opaque__lib__C: bitstring.
 (* src: src/legacy/attribute-opaque/lib.rs:76:0-76:12 new_tests__legacy__attribute_opaque__lib__S1 *)
@@ -61,3 +59,4 @@ fun new_tests__legacy__attribute_opaque__lib__S2__S2(): bitstring [data].
 (* src: src/legacy/attribute-opaque/lib.rs:87:4-87:16 new_tests__legacy__attribute_opaque__lib__Impl_3__f_s2 *)
 (* opaque *)
 fun new_tests__legacy__attribute_opaque__lib__Impl_3__f_s2(bitstring): bitstring [data].
+

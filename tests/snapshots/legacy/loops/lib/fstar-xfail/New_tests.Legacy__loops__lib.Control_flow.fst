@@ -58,6 +58,7 @@ let double_sum2 (_: Prims.unit) : i32 =
   in
   sum +! sum2
 
+/// @fail(extraction): proverif(HAX0001)
 let double_sum_return (v: t_Slice i32) : i32 =
   let sum:i32 = mk_i32 0 in
   match
@@ -91,6 +92,7 @@ let double_sum_return (v: t_Slice i32) : i32 =
   | Core_models.Ops.Control_flow.ControlFlow_Break ret -> ret
   | Core_models.Ops.Control_flow.ControlFlow_Continue sum -> sum *! mk_i32 2
 
+/// @fail(extraction): proverif(HAX0001)
 let double_sum2_return (v: t_Slice i32) : i32 =
   let sum:i32 = mk_i32 0 in
   let sum2:i32 = mk_i32 0 in
@@ -129,6 +131,7 @@ let double_sum2_return (v: t_Slice i32) : i32 =
   | Core_models.Ops.Control_flow.ControlFlow_Continue (sum, sum2) -> sum +! sum2
 
 /// @fail(extraction): coq(HAX0001, HAX0001, HAX0001), ssprove(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let bigger_power_2_ (x: i32) : i32 =
   let pow:i32 = mk_i32 1 in
   Rust_primitives.Hax.while_loop_cf (fun pow ->
@@ -251,6 +254,7 @@ let nested (_: Prims.unit) : i32 =
   in
   sum *! mk_i32 2
 
+/// @fail(extraction): proverif(HAX0001)
 let nested_return (_: Prims.unit) : i32 =
   let sum:i32 = mk_i32 0 in
   match

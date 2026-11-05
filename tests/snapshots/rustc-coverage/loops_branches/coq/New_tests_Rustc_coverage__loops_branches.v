@@ -20,7 +20,7 @@ Record DebugTest_record : Type :=
 #[export]
 Notation "'DebugTest_DebugTest_record'" := Build_DebugTest_record.
 
-Instance t_Debug_925886818 : t_Debug ((t_DebugTest)) :=
+Instance t_Debug_199989993 : t_Debug ((t_DebugTest)) :=
   {
     implaabbcc_t_Debug_f_fmt := fun  (self : t_DebugTest) (f : t_Formatter)=>
       run (let f := if
@@ -110,7 +110,7 @@ Record DisplayTest_record : Type :=
 #[export]
 Notation "'DisplayTest_DisplayTest_record'" := Build_DisplayTest_record.
 
-Instance t_Display_82209145 : t_Display ((t_DisplayTest)) :=
+Instance t_Display_529151675 : t_Display ((t_DisplayTest)) :=
   {
     implaabbcc_t_Display_f_fmt := fun  (self : t_DisplayTest) (f : t_Formatter)=>
       run (let f := if

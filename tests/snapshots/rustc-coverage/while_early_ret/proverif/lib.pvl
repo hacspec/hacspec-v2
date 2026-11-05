@@ -66,6 +66,7 @@ query attacker(hax_extraction_error__new_tests).
 
 (* src: src/rustc-coverage/while_early_ret.rs:8:0-40:1 new_tests__rustc_coverage__while_early_ret__main *)
 (*  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__while_early_ret__main(wildcard: bitstring) =
   (* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in

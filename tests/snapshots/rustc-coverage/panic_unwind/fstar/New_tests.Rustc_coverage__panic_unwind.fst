@@ -37,6 +37,7 @@ let might_panic (should_panic: bool) : Prims.unit =
     ()
 
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let main (_: Prims.unit) : Core_models.Result.t_Result Prims.unit u8 =
   let countdown:i32 = mk_i32 10 in
   let countdown:i32 =

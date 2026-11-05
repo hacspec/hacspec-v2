@@ -38,6 +38,7 @@ let mutation_example
   <:
   (t_MyArray & t_Slice u8 & Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global)
 
+/// @fail(extraction): proverif(HAX0001)
 [@@ FStar.Tactics.Typeclasses.tcinstance]
 let impl_1: Core_models.Ops.Index.t_Index t_MyArray usize =
   {

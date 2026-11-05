@@ -64,7 +64,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 29 × `as` cast modelled as the identity, although it may change the value *)
 (*****************************************************************)
 
-(* src: src/legacy/literals/lib.rs:7:0-39:1 new_tests__legacy__literals__lib__math_integers *)
+(* src: src/legacy/literals/lib.rs:6:0-38:1 new_tests__legacy__literals__lib__math_integers *)
 letfun new_tests__legacy__literals__lib__math_integers(x: bitstring) =
   let wildcard = rust_primitives__hax__int__from_machine(nat_3) in
   let u_neg_dec = hax_lib__int__Impl_7__u_unsafe_from_str(
@@ -119,9 +119,9 @@ letfun new_tests__legacy__literals__lib__math_integers(x: bitstring) =
   hax_lib__int__Impl_41__to_u8(
     rust_primitives__hax__int__add(x, rust_primitives__hax__int__mul(x, x))
   ).
-(* src: src/legacy/literals/lib.rs:41:0-43:1 new_tests__legacy__literals__lib__panic_with_msg *)
+(* src: src/legacy/literals/lib.rs:40:0-42:1 new_tests__legacy__literals__lib__panic_with_msg *)
 letfun new_tests__legacy__literals__lib__panic_with_msg(wildcard: bitstring) = bitstring_err().
-(* src: src/legacy/literals/lib.rs:46:0-48:1 new_tests__legacy__literals__lib__Foo *)
+(* src: src/legacy/literals/lib.rs:45:0-47:1 new_tests__legacy__literals__lib__Foo *)
 fun new_tests__legacy__literals__lib__Foo__Foo(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__literals__lib__Foo__Foo__field(
@@ -130,10 +130,10 @@ reduc forall v_0: bitstring;
 
 
 
-(* src: src/legacy/literals/lib.rs:50:0-50:39 new_tests__legacy__literals__lib__CONSTANT *)
+(* src: src/legacy/literals/lib.rs:49:0-49:39 new_tests__legacy__literals__lib__CONSTANT *)
 letfun new_tests__legacy__literals__lib__CONSTANT() =
   new_tests__legacy__literals__lib__Foo__Foo(nat_3).
-(* src: src/legacy/literals/lib.rs:52:0-58:1 new_tests__legacy__literals__lib__numeric *)
+(* src: src/legacy/literals/lib.rs:51:0-57:1 new_tests__legacy__literals__lib__numeric *)
 letfun new_tests__legacy__literals__lib__numeric(wildcard: bitstring) =
   let wildcard_1 = nat_123 in
   let wildcard_2 = nat_neg_42 in
@@ -141,7 +141,7 @@ letfun new_tests__legacy__literals__lib__numeric(wildcard: bitstring) =
   let wildcard_4 = nat_neg_42 in
   let wildcard_5 = nat_22222222222222222222 in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/literals/lib.rs:61:0-74:1 new_tests__legacy__literals__lib__patterns *)
+(* src: src/legacy/literals/lib.rs:60:0-73:1 new_tests__legacy__literals__lib__patterns *)
 (*  @fail(extraction): ssprove(HAX0001) *)
 letfun new_tests__legacy__literals__lib__patterns(wildcard: bitstring) =
   let wildcard_1 = (let (=nat_2) = nat_1 in rust_primitives__hax__Tuple0__Tuple0()
@@ -163,7 +163,7 @@ letfun new_tests__legacy__literals__lib__patterns(wildcard: bitstring) =
     rust_primitives__hax__Tuple0__Tuple0()
   else rust_primitives__hax__Tuple0__Tuple0()) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/literals/lib.rs:76:0-85:1 new_tests__legacy__literals__lib__casts *)
+(* src: src/legacy/literals/lib.rs:75:0-84:1 new_tests__legacy__literals__lib__casts *)
 letfun new_tests__legacy__literals__lib__casts(
   x8: bitstring,
   x16: bitstring,
@@ -261,12 +261,13 @@ letfun new_tests__legacy__literals__lib__casts(
     (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) xs
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/literals/lib.rs:87:0-89:1 new_tests__legacy__literals__lib__empty_array *)
+(* src: src/legacy/literals/lib.rs:86:0-88:1 new_tests__legacy__literals__lib__empty_array *)
 letfun new_tests__legacy__literals__lib__empty_array(wildcard: bitstring) =
   let wildcard_1 = rust_primitives__hax__array_nil() in
   rust_primitives__hax__Tuple0__Tuple0.
 (* src: src/legacy/literals/lib.rs:92:0-94:1 new_tests__legacy__literals__lib__fn_pointer_cast *)
 (*  https://github.com/pereq-dev/hax/issues/500 *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__literals__lib__fn_pointer_cast(wildcard: bitstring) =
   let f = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
   rust_primitives__hax__Tuple0__Tuple0.

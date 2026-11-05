@@ -122,6 +122,7 @@ instance Impl_1.trait_method.Impl.trait_method.Impl :
   trait_method :=
   (Impl_1.trait_method.Impl.trait_method.Impl.trait_method_hoisted)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def closure_expr (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do
@@ -151,6 +152,7 @@ def closure_expr (_ : rust_primitives.hax.Tuple0) :
   let _ ← (do_stuff rust_primitives.hax.Tuple0.mk);
   (pure rust_primitives.hax.Tuple0.mk)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def closure_tail (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do

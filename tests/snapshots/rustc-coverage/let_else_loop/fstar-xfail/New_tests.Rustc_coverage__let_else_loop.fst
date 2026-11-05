@@ -4,6 +4,7 @@ open FStar.Mul
 open Core_models
 
 /// @fail(extraction): fstar(HAX0001), legacy-lean(HAX0001), coq(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let loopy (cond: bool) : Prims.unit =
   match cond <: bool with
   | true -> ()
@@ -15,6 +16,7 @@ let loopy (cond: bool) : Prims.unit =
     (Prims.unit & Prims.unit)
 
 /// @fail(extraction): fstar(HAX0001, HAX0001), legacy-lean(HAX0001, HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let e_loop_either_way (cond: bool) : Prims.unit =
   match cond <: bool with
   | true ->

@@ -129,6 +129,7 @@ let impl_2 (#v_T: Type0) : Core_models.Convert.t_From (t_Holder v_T) Prims.unit 
 
 type t_Param (v_SIZE: usize) = { f_value:t_Array u8 v_SIZE }
 
+/// @fail(extraction): proverif(HAX0001)
 [@@ FStar.Tactics.Typeclasses.tcinstance]
 let impl_3 (v_SIZE: usize) : Core_models.Convert.t_From (t_Param v_SIZE) Prims.unit =
   {
@@ -140,6 +141,7 @@ let impl_3 (v_SIZE: usize) : Core_models.Convert.t_From (t_Param v_SIZE) Prims.u
       { f_value = Rust_primitives.Hax.repeat (mk_u8 0) v_SIZE } <: t_Param v_SIZE
   }
 
+/// @fail(extraction): proverif(HAX0001)
 let ff_generic (v_X: usize) (#v_U: Type0) (e_x: v_U) : t_Param v_X =
   { f_value = Rust_primitives.Hax.repeat (mk_u8 0) v_X } <: t_Param v_X
 
@@ -175,6 +177,7 @@ let impl_T2_for_u8: t_T2 u8 =
     f_d = fun (_: Prims.unit) -> ()
   }
 
+/// @fail(extraction): proverif(HAX0001)
 let rec padlen (b: t_Slice u8) (n: usize)
     : Prims.Pure usize
       (requires (Core_models.Slice.impl__len #u8 b <: usize) >=. n)

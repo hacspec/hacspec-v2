@@ -91,6 +91,7 @@ structure Param (SIZE : usize) where
 def Impl_3.from_hoisted (SIZE : usize) sorry : RustM (Param (SIZE)) := do
   (pure (Param.mk (value := (← (rust_primitives.hax.repeat (0 : u8) SIZE)))))
 
+--  @fail(extraction): proverif(HAX0001)
 @[reducible] instance Impl_3.AssociatedTypes (SIZE : usize) :
   core_models.convert.From.AssociatedTypes
   (Param (SIZE))
@@ -102,6 +103,7 @@ instance Impl_3 (SIZE : usize) :
   where
   _from := (Impl_3.from_hoisted (SIZE))
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def f_generic (X : usize) (U : Type) (_x : U) : RustM (Param (X)) := do
   (pure (Param.mk (value := (← (rust_primitives.hax.repeat (0 : u8) X)))))
@@ -160,6 +162,7 @@ def Impl_5.d_hoisted.spec (_ : rust_primitives.hax.Tuple0) :
 instance Impl_5 : T2 u8 where
   d := (Impl_5.d_hoisted)
 
+--  @fail(extraction): proverif(HAX0001)
 def padlen (b : (RustSlice u8)) (n : usize) : RustM usize := do
   if
   (← ((← (n >? (0 : usize)))

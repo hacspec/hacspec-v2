@@ -68,6 +68,7 @@ class main.InTrait (Self : Type)
 instance main.Impl : main.InTrait main.InStruct where
   trait_func := (main.Impl.trait_func_hoisted)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def main (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do

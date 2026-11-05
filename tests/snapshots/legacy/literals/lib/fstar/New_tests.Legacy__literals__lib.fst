@@ -194,6 +194,7 @@ let empty_array (_: Prims.unit) : Prims.unit =
   ()
 
 /// https://github.com/pereq-dev/hax/issues/500
+/// @fail(extraction): proverif(HAX0001)
 let fn_pointer_cast (_: Prims.unit) : Prims.unit =
   let (f: (u32 -> u32)): u32 -> u32 = fun x -> x in
   ()

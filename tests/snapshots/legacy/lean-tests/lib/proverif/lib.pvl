@@ -58,6 +58,11 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - Loops containing `return` not supported in ProVerif *)
 (*  - Closures not supported in ProVerif *)
 (*  - Loops containing `return` not supported in ProVerif *)
+(*  - Loops containing `return` not supported in ProVerif *)
+(*  - Closures not supported in ProVerif *)
+(*  - Closures not supported in ProVerif *)
+(*  - Closures not supported in ProVerif *)
+(*  - Loops not supported in ProVerif *)
 (*  - use of a const generic parameter as a value *)
 (*  - use of a const generic parameter as a value *)
 (*  - use of a const generic parameter as a value *)
@@ -72,11 +77,6 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - Closures not supported in ProVerif *)
 (*  - call of a function value through the `Fn` traits *)
 (*  - call of a function value through the `Fn` traits *)
-(*  - Loops containing `return` not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Closures not supported in ProVerif *)
-(*  - Loops not supported in ProVerif *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
@@ -97,26 +97,27 @@ query attacker(hax_extraction_error__new_tests).
 
 
 
-(* src: src/legacy/lean-tests/traits.rs:320:8-325:9 new_tests__legacy__lean_tests__lib__traits__trait_with_constraints__Impl__func *)
+(* src: src/legacy/lean-tests/traits.rs:322:8-327:9 new_tests__legacy__lean_tests__lib__traits__trait_with_constraints__Impl__func *)
 letfun new_tests__legacy__lean_tests__lib__traits__trait_with_constraints__Impl__func(
   self: bitstring
 ) = True().
 
-(* src: src/legacy/lean-tests/traits.rs:297:8-297:29 new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f1 *)
+(* src: src/legacy/lean-tests/traits.rs:298:8-298:29 new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f1 *)
 letfun new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f1(self: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/lean-tests/traits.rs:298:8-298:38 new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f2 *)
+(* src: src/legacy/lean-tests/traits.rs:299:8-299:38 new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f2 *)
 letfun new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f2(
   self: bitstring,
   x: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/lean-tests/traits.rs:299:8-299:47 new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f3 *)
+(* src: src/legacy/lean-tests/traits.rs:300:8-300:47 new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f3 *)
 letfun new_tests__legacy__lean_tests__lib__traits__trait_level_args__Impl__f3(
   self: bitstring,
   x: bitstring,
   y: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/lean-tests/traits.rs:302:4-306:5 new_tests__legacy__lean_tests__lib__traits__trait_level_args__test *)
+(* src: src/legacy/lean-tests/traits.rs:304:4-308:5 new_tests__legacy__lean_tests__lib__traits__trait_level_args__test *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__traits__trait_level_args__test(
   x: bitstring,
   a: bitstring,
@@ -129,16 +130,16 @@ letfun new_tests__legacy__lean_tests__lib__traits__trait_level_args__test(
 
 
 
-(* src: src/legacy/lean-tests/traits.rs:156:8-158:9 new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl__f *)
+(* src: src/legacy/lean-tests/traits.rs:157:8-159:9 new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl__f(self: bitstring) =
   nat_0.
-(* src: src/legacy/lean-tests/traits.rs:161:8-163:9 new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl_1__f *)
+(* src: src/legacy/lean-tests/traits.rs:162:8-164:9 new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl_1__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl_1__f(self: bitstring) =
   nat_1.
-(* src: src/legacy/lean-tests/traits.rs:166:8-168:9 new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl_2__f *)
+(* src: src/legacy/lean-tests/traits.rs:167:8-169:9 new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl_2__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__overlapping_methods__Impl_2__f(self: bitstring) =
   nat_2.
-(* src: src/legacy/lean-tests/traits.rs:170:4-173:5 new_tests__legacy__lean_tests__lib__traits__overlapping_methods__test *)
+(* src: src/legacy/lean-tests/traits.rs:171:4-174:5 new_tests__legacy__lean_tests__lib__traits__overlapping_methods__test *)
 letfun new_tests__legacy__lean_tests__lib__traits__overlapping_methods__test(wildcard: bitstring) =
   let x = nat_9 in
   rust_primitives__hax__machine_int__add(
@@ -150,12 +151,13 @@ letfun new_tests__legacy__lean_tests__lib__traits__overlapping_methods__test(wil
   ).
 
 
+(*  @fail(extraction): proverif(HAX0001) *)
 
-(* src: src/legacy/lean-tests/traits.rs:367:8-369:9 new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__g *)
+(* src: src/legacy/lean-tests/traits.rs:371:8-373:9 new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__g *)
 letfun new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__g(x: bitstring) = x.
-(* src: src/legacy/lean-tests/traits.rs:370:8-370:29 new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__AC *)
+(* src: src/legacy/lean-tests/traits.rs:374:8-374:29 new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__AC *)
 letfun new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__AC() = nat_5.
-(* src: src/legacy/lean-tests/traits.rs:364:8-366:9 new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__f *)
+(* src: src/legacy/lean-tests/traits.rs:368:8-370:9 new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__f(
   x: bitstring,
   y: bitstring
@@ -175,18 +177,18 @@ letfun new_tests__legacy__lean_tests__lib__traits__methods_hoisting__Impl__f(
 
 
 
-(* src: src/legacy/lean-tests/traits.rs:193:4-193:15 new_tests__legacy__lean_tests__lib__traits__inheritance__S *)
+(* src: src/legacy/lean-tests/traits.rs:194:4-194:15 new_tests__legacy__lean_tests__lib__traits__inheritance__S *)
 fun new_tests__legacy__lean_tests__lib__traits__inheritance__S__S(): bitstring [data].
-(* src: src/legacy/lean-tests/traits.rs:195:8-197:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl__f1 *)
+(* src: src/legacy/lean-tests/traits.rs:196:8-198:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl__f1 *)
 letfun new_tests__legacy__lean_tests__lib__traits__inheritance__Impl__f1(self: bitstring) = nat_1.
-(* src: src/legacy/lean-tests/traits.rs:200:8-202:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_1__f2 *)
+(* src: src/legacy/lean-tests/traits.rs:201:8-203:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_1__f2 *)
 letfun new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_1__f2(self: bitstring) = nat_2.
-(* src: src/legacy/lean-tests/traits.rs:205:8-207:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_2__f3 *)
+(* src: src/legacy/lean-tests/traits.rs:206:8-208:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_2__f3 *)
 letfun new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_2__f3(self: bitstring) = nat_3.
-(* src: src/legacy/lean-tests/traits.rs:211:8-213:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_3__f1 *)
+(* src: src/legacy/lean-tests/traits.rs:212:8-214:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_3__f1 *)
 letfun new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_3__f1(self: bitstring) =
   nat_10.
-(* src: src/legacy/lean-tests/traits.rs:217:8-219:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_4__fp2 *)
+(* src: src/legacy/lean-tests/traits.rs:218:8-220:9 new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_4__fp2 *)
 letfun new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_4__fp2(self: bitstring) =
   rust_primitives__hax__machine_int__add(
     rust_primitives__hax__machine_int__add(
@@ -198,7 +200,7 @@ letfun new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_4__fp2(self
     ),
     new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_2__f3(self)
   ).
-(* src: src/legacy/lean-tests/traits.rs:221:4-224:5 new_tests__legacy__lean_tests__lib__traits__inheritance__test *)
+(* src: src/legacy/lean-tests/traits.rs:222:4-225:5 new_tests__legacy__lean_tests__lib__traits__inheritance__test *)
 letfun new_tests__legacy__lean_tests__lib__traits__inheritance__test(wildcard: bitstring) =
   rust_primitives__hax__machine_int__add(
     new_tests__legacy__lean_tests__lib__traits__inheritance__Impl_2__f3(
@@ -207,12 +209,12 @@ letfun new_tests__legacy__lean_tests__lib__traits__inheritance__test(wildcard: b
     nat_1
   ).
 
-(* src: src/legacy/lean-tests/traits.rs:237:8-239:9 new_tests__legacy__lean_tests__lib__traits__default__Impl__dft *)
+(* src: src/legacy/lean-tests/traits.rs:238:8-240:9 new_tests__legacy__lean_tests__lib__traits__default__Impl__dft *)
 letfun new_tests__legacy__lean_tests__lib__traits__default__Impl__dft(self: bitstring) =
   rust_primitives__hax__machine_int__add(self, nat_1).
 
 
-(* src: src/legacy/lean-tests/traits.rs:258:4-258:26 new_tests__legacy__lean_tests__lib__traits__default__S *)
+(* src: src/legacy/lean-tests/traits.rs:259:4-259:26 new_tests__legacy__lean_tests__lib__traits__default__S *)
 fun new_tests__legacy__lean_tests__lib__traits__default__S__S(
   bitstring,
   bitstring
@@ -225,41 +227,41 @@ reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__lean_tests__lib__traits__default__S__S__1(
     new_tests__legacy__lean_tests__lib__traits__default__S__S(v_0, v_1)
   ) = v_1.
-(* src: src/legacy/lean-tests/traits.rs:262:8-264:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_2__f1 *)
+(* src: src/legacy/lean-tests/traits.rs:263:8-265:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_2__f1 *)
 letfun new_tests__legacy__lean_tests__lib__traits__default__Impl_2__f1(self: bitstring) =
   rust_primitives__hax__machine_int__add(
     new_tests__legacy__lean_tests__lib__traits__default__S__S__0(self),
     new_tests__legacy__lean_tests__lib__traits__default__S__S__1(self)
   ).
-(* src: src/legacy/lean-tests/traits.rs:266:8-268:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_2__f2 *)
+(* src: src/legacy/lean-tests/traits.rs:267:8-269:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_2__f2 *)
 letfun new_tests__legacy__lean_tests__lib__traits__default__Impl_2__f2(self: bitstring) =
   new_tests__legacy__lean_tests__lib__traits__default__S__S__1(self).
-(* src: src/legacy/lean-tests/traits.rs:272:8-274:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_3__f1 *)
+(* src: src/legacy/lean-tests/traits.rs:273:8-275:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_3__f1 *)
 letfun new_tests__legacy__lean_tests__lib__traits__default__Impl_3__f1(self: bitstring) =
   let hax__cond0 = new_tests__legacy__lean_tests__lib__traits__default__S__S__1(self) in
   let (=True()) = hax__cond0
     in new_tests__legacy__lean_tests__lib__traits__default__S__S__0(self)
     else nat_9.
-(* src: src/legacy/lean-tests/traits.rs:276:8-278:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_3__f2 *)
+(* src: src/legacy/lean-tests/traits.rs:277:8-279:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_3__f2 *)
 letfun new_tests__legacy__lean_tests__lib__traits__default__Impl_3__f2(self: bitstring) =
   rust_primitives__hax__machine_int__add(
     new_tests__legacy__lean_tests__lib__traits__default__S__S__0(self),
     nat_1
   ).
-(* src: src/legacy/lean-tests/traits.rs:283:8-285:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_4__f1 *)
+(* src: src/legacy/lean-tests/traits.rs:284:8-286:9 new_tests__legacy__lean_tests__lib__traits__default__Impl_4__f1 *)
 letfun new_tests__legacy__lean_tests__lib__traits__default__Impl_4__f1(self: bitstring) = nat_0.
 
 
 
-(* src: src/legacy/lean-tests/traits.rs:44:4-44:14 new_tests__legacy__lean_tests__lib__traits__bounds__S1 *)
+(* src: src/legacy/lean-tests/traits.rs:45:4-45:14 new_tests__legacy__lean_tests__lib__traits__bounds__S1 *)
 fun new_tests__legacy__lean_tests__lib__traits__bounds__S1__S1(): bitstring [data].
-(* src: src/legacy/lean-tests/traits.rs:46:8-48:9 new_tests__legacy__lean_tests__lib__traits__bounds__Impl__f1 *)
+(* src: src/legacy/lean-tests/traits.rs:47:8-49:9 new_tests__legacy__lean_tests__lib__traits__bounds__Impl__f1 *)
 letfun new_tests__legacy__lean_tests__lib__traits__bounds__Impl__f1(self: bitstring) = nat_0.
-(* src: src/legacy/lean-tests/traits.rs:51:4-51:14 new_tests__legacy__lean_tests__lib__traits__bounds__S2 *)
+(* src: src/legacy/lean-tests/traits.rs:52:4-52:14 new_tests__legacy__lean_tests__lib__traits__bounds__S2 *)
 fun new_tests__legacy__lean_tests__lib__traits__bounds__S2__S2(): bitstring [data].
-(* src: src/legacy/lean-tests/traits.rs:53:8-55:9 new_tests__legacy__lean_tests__lib__traits__bounds__Impl_1__f2 *)
+(* src: src/legacy/lean-tests/traits.rs:54:8-56:9 new_tests__legacy__lean_tests__lib__traits__bounds__Impl_1__f2 *)
 letfun new_tests__legacy__lean_tests__lib__traits__bounds__Impl_1__f2(self: bitstring) = nat_1.
-(* src: src/legacy/lean-tests/traits.rs:59:8-61:9 new_tests__legacy__lean_tests__lib__traits__bounds__Impl_2__f_test *)
+(* src: src/legacy/lean-tests/traits.rs:60:8-62:9 new_tests__legacy__lean_tests__lib__traits__bounds__Impl_2__f_test *)
 letfun new_tests__legacy__lean_tests__lib__traits__bounds__Impl_2__f_test(
   self: bitstring,
   x: bitstring
@@ -271,7 +273,7 @@ letfun new_tests__legacy__lean_tests__lib__traits__bounds__Impl_2__f_test(
     ),
     nat_1
   ).
-(* src: src/legacy/lean-tests/traits.rs:64:4-66:5 new_tests__legacy__lean_tests__lib__traits__bounds__test *)
+(* src: src/legacy/lean-tests/traits.rs:65:4-67:5 new_tests__legacy__lean_tests__lib__traits__bounds__test *)
 letfun new_tests__legacy__lean_tests__lib__traits__bounds__test(x1: bitstring, x2: bitstring) =
   rust_primitives__hax__machine_int__add(
     new_tests__legacy__lean_tests__lib__traits__bounds__Impl_2__f_test(x2, x1),
@@ -287,7 +289,8 @@ letfun new_tests__legacy__lean_tests__lib__traits__basic__Impl__f2(
   self: bitstring,
   other: bitstring
 ) = nat_43.
-(* src: src/legacy/lean-tests/traits.rs:26:4-28:5 new_tests__legacy__lean_tests__lib__traits__basic__f *)
+(* src: src/legacy/lean-tests/traits.rs:27:4-29:5 new_tests__legacy__lean_tests__lib__traits__basic__f *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__traits__basic__f(x: bitstring) =
   rust_primitives__hax__machine_int__add(
     bitstring_err() (* HAX ERROR: use of the trait item `f1` that resolves to no impl of the crate (e.g. on a generic type) *),
@@ -295,7 +298,7 @@ letfun new_tests__legacy__lean_tests__lib__traits__basic__f(x: bitstring) =
   ).
 
 
-(* src: src/legacy/lean-tests/traits.rs:89:4-89:15 new_tests__legacy__lean_tests__lib__traits__associated_types__S *)
+(* src: src/legacy/lean-tests/traits.rs:90:4-90:15 new_tests__legacy__lean_tests__lib__traits__associated_types__S *)
 fun new_tests__legacy__lean_tests__lib__traits__associated_types__S__S(): bitstring [data].
 
 
@@ -305,14 +308,14 @@ fun new_tests__legacy__lean_tests__lib__traits__associated_types__S__S(): bitstr
 
 
 
-(* src: src/legacy/lean-tests/traits.rs:93:8-95:9 new_tests__legacy__lean_tests__lib__traits__associated_types__Impl__f *)
+(* src: src/legacy/lean-tests/traits.rs:94:8-96:9 new_tests__legacy__lean_tests__lib__traits__associated_types__Impl__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__associated_types__Impl__f(
   self: bitstring,
   x: bitstring
 ) = nat_2121.
 
 
-(* src: src/legacy/lean-tests/traits.rs:113:8-115:9 new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_4__f *)
+(* src: src/legacy/lean-tests/traits.rs:114:8-116:9 new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_4__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_4__f(
   self: bitstring,
   x: bitstring,
@@ -323,27 +326,28 @@ letfun new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_4__f(
 
 
 
-(* src: src/legacy/lean-tests/traits.rs:138:8-140:9 new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_8__f *)
+(* src: src/legacy/lean-tests/traits.rs:139:8-141:9 new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_8__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_8__f(
   wildcard: bitstring
 ) = nat_0.
 
 
-(* src: src/legacy/lean-tests/traits.rs:100:8-102:9 new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_1__f *)
+(* src: src/legacy/lean-tests/traits.rs:101:8-103:9 new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_1__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__associated_types__Impl_1__f(
   self: bitstring,
   x: bitstring
 ) = nat_21.
 
-(* src: src/legacy/lean-tests/traits.rs:335:4-335:19 new_tests__legacy__lean_tests__lib__traits__associated_constant__Bar *)
+(* src: src/legacy/lean-tests/traits.rs:337:4-337:19 new_tests__legacy__lean_tests__lib__traits__associated_constant__Bar *)
 fun new_tests__legacy__lean_tests__lib__traits__associated_constant__Bar__Bar(): bitstring [data].
-(* src: src/legacy/lean-tests/traits.rs:338:8-338:29 new_tests__legacy__lean_tests__lib__traits__associated_constant__Impl__f *)
+(* src: src/legacy/lean-tests/traits.rs:340:8-340:29 new_tests__legacy__lean_tests__lib__traits__associated_constant__Impl__f *)
 letfun new_tests__legacy__lean_tests__lib__traits__associated_constant__Impl__f() = True().
-(* src: src/legacy/lean-tests/traits.rs:339:8-339:28 new_tests__legacy__lean_tests__lib__traits__associated_constant__Impl__x *)
+(* src: src/legacy/lean-tests/traits.rs:341:8-341:28 new_tests__legacy__lean_tests__lib__traits__associated_constant__Impl__x *)
 letfun new_tests__legacy__lean_tests__lib__traits__associated_constant__Impl__x() =
   rust_primitives__hax__machine_int__add(nat_1, nat_1).
 
-(* src: src/legacy/lean-tests/traits.rs:347:4-349:5 new_tests__legacy__lean_tests__lib__traits__associated_constant__foo *)
+(* src: src/legacy/lean-tests/traits.rs:350:4-352:5 new_tests__legacy__lean_tests__lib__traits__associated_constant__foo *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__traits__associated_constant__foo(n: bitstring) =
   rust_primitives__hax__machine_int__add(
     n,
@@ -671,6 +675,9 @@ letfun new_tests__legacy__lean_tests__lib__structs__normal_structs(wildcard: bit
     inductive_1: bitstring
   ) = s3 in rust_primitives__hax__Tuple0__Tuple0
   else bitstring_err()) else bitstring_err()) else bitstring_err()) else bitstring_err()) else bitstring_err().
+(* src: src/legacy/lean-tests/specs.rs:64:4-66:5 new_tests__legacy__lean_tests__lib__specs__issue_1945__mktuple *)
+letfun new_tests__legacy__lean_tests__lib__specs__issue_1945__mktuple(a: bitstring) =
+  rust_primitives__hax__machine_int__eq(a, nat_0).
 (* src: src/legacy/lean-tests/specs.rs:41:4-41:15 new_tests__legacy__lean_tests__lib__specs__issue_1852__T *)
 fun new_tests__legacy__lean_tests__lib__specs__issue_1852__T__T(): bitstring [data].
 (* src: src/legacy/lean-tests/specs.rs:45:8-47:9 new_tests__legacy__lean_tests__lib__specs__issue_1852__Impl__test *)
@@ -698,7 +705,8 @@ letfun new_tests__legacy__lean_tests__lib__specs__fn_without_args(wildcard: bits
 (* src: src/legacy/lean-tests/specs.rs:58:0-58:31 new_tests__legacy__lean_tests__lib__specs__custom_pure_proofs *)
 letfun new_tests__legacy__lean_tests__lib__specs__custom_pure_proofs(x: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/lean-tests/recursion.rs:1:0-3:1 new_tests__legacy__lean_tests__lib__recursion__factorial *)
+(* src: src/legacy/lean-tests/recursion.rs:2:0-4:1 new_tests__legacy__lean_tests__lib__recursion__factorial *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__lean_tests__lib__recursion__factorial` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)
@@ -1288,20 +1296,22 @@ letfun new_tests__legacy__lean_tests__lib__matching__test_ellipsis_tuples(wildca
     let (=True()) = hax__cond9 in bitstring_err() else rust_primitives__hax__Tuple0__Tuple0)
   else bitstring_err()) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/lean-tests/loops.rs:56:4-59:5 new_tests__legacy__lean_tests__lib__loops__errors__Error *)
+(* src: src/legacy/lean-tests/loops.rs:59:4-62:5 new_tests__legacy__lean_tests__lib__loops__errors__Error *)
 fun new_tests__legacy__lean_tests__lib__loops__errors__Error__Foo(): bitstring [data].
 fun new_tests__legacy__lean_tests__lib__loops__errors__Error__Bar(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__lean_tests__lib__loops__errors__Error__Bar__0(
     new_tests__legacy__lean_tests__lib__loops__errors__Error__Bar(v_0)
   ) = v_0.
-(* src: src/legacy/lean-tests/loops.rs:61:4-71:5 new_tests__legacy__lean_tests__lib__loops__errors__loop3 *)
+(* src: src/legacy/lean-tests/loops.rs:65:4-75:5 new_tests__legacy__lean_tests__lib__loops__errors__loop3 *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__loops__errors__loop3(wildcard: bitstring) =
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
   let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
   else let core__ops__control_flow__ControlFlow__Continue(x_2: bitstring) = hax__scrut0 in x_2
   else bitstring_err().
-(* src: src/legacy/lean-tests/loops.rs:73:4-86:5 new_tests__legacy__lean_tests__lib__loops__errors__loop4 *)
+(* src: src/legacy/lean-tests/loops.rs:78:4-91:5 new_tests__legacy__lean_tests__lib__loops__errors__loop4 *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__loops__errors__loop4(wildcard: bitstring) =
   let f = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
   (* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
@@ -1310,6 +1320,68 @@ letfun new_tests__legacy__lean_tests__lib__loops__errors__loop4(wildcard: bitstr
   else let core__ops__control_flow__ControlFlow__Continue(e_2: bitstring) = hax__scrut0 in
     rust_primitives__hax__Tuple2__Tuple2(e_2, e_2)
   else bitstring_err().
+(* src: src/legacy/lean-tests/loops.rs:6:0-12:1 new_tests__legacy__lean_tests__lib__loops__loop1 *)
+letfun new_tests__legacy__lean_tests__lib__loops__loop1(wildcard: bitstring) =
+  let x_2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
+    core__ops__range__Range__Range(nat_1, nat_10)
+  )) in let bl__acc0 = (nat_0) in 
+  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let x_1 = bl__acc0 in
+  let bl__acc1 = (rust_primitives__hax__machine_int__add(x_1, i)) in
+  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let x_1 = bl__acc1 in
+  let bl__acc2 = (rust_primitives__hax__machine_int__add(x_1, i)) in
+  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let x_1 = bl__acc2 in
+  let bl__acc3 = (rust_primitives__hax__machine_int__add(x_1, i)) in
+  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
+  x_2.
+(* src: src/legacy/lean-tests/loops.rs:16:0-25:1 new_tests__legacy__lean_tests__lib__loops__loop2 *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__lean_tests__lib__loops__loop2(wildcard: bitstring) =
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
+  let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
+  else let core__ops__control_flow__ControlFlow__Continue(x_2: bitstring) = hax__scrut0 in x_2
+  else bitstring_err().
+(* src: src/legacy/lean-tests/loops.rs:31:0-42:1 new_tests__legacy__lean_tests__lib__loops__for_loop_with_spec *)
+(*  For-loop with a spec *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__lean_tests__lib__loops__for_loop_with_spec(y: bitstring) =
+  let x_4 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
+    core__ops__range__Range__Range(nat_0, y)
+  )) in let bl__acc0 = (y) in 
+  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let x_1 = bl__acc0 in
+  let bl__acc1 = (let wildcard = hax_lib__u_internal_loop_invariant(
+    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
+  ) in
+  let hax__cond0 = rust_primitives__hax__machine_int__eq(
+    rust_primitives__hax__machine_int__rem(x_1, nat_5),
+    nat_0
+  ) in
+  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
+  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let x_1 = bl__acc1 in
+  let bl__acc2 = (let wildcard = hax_lib__u_internal_loop_invariant(
+    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
+  ) in
+  let hax__cond0 = rust_primitives__hax__machine_int__eq(
+    rust_primitives__hax__machine_int__rem(x_1, nat_5),
+    nat_0
+  ) in
+  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
+  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let x_1 = bl__acc2 in
+  let bl__acc3 = (let wildcard = hax_lib__u_internal_loop_invariant(
+    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
+  ) in
+  let hax__cond0 = rust_primitives__hax__machine_int__eq(
+    rust_primitives__hax__machine_int__rem(x_1, nat_5),
+    nat_0
+  ) in
+  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
+  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
+  x_4.
+(* src: src/legacy/lean-tests/loops.rs:49:0-56:1 new_tests__legacy__lean_tests__lib__loops__while_loop1 *)
+(*  while-loop *)
+(*  @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__lean_tests__lib__loops__while_loop1(s: bitstring) =
+  bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *).
 (* src: src/legacy/lean-tests/floats.rs:7:0-7:19 new_tests__legacy__lean_tests__lib__floats__N *)
 (*  @fail(extraction): ssprove(HAX0001) *)
 (*  @fail(extraction): ssprove(HAX0001) *)
@@ -1416,15 +1488,16 @@ letfun new_tests__legacy__lean_tests__lib__enums__enums(wildcard: bitstring) =
     other_name_for_f2: bitstring
   ) = hax__scrut0 in rust_primitives__hax__Tuple0__Tuple0()
   else bitstring_err().
-(* src: src/legacy/lean-tests/constants.rs:26:4-28:5 new_tests__legacy__lean_tests__lib__constants__const_parameters__f *)
+(* src: src/legacy/lean-tests/constants.rs:27:4-29:5 new_tests__legacy__lean_tests__lib__constants__const_parameters__f *)
 (*  Function with const parameter *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__constants__const_parameters__f(wildcard: bitstring) =
   bitstring_err() (* HAX ERROR: use of a const generic parameter as a value *).
-(* src: src/legacy/lean-tests/constants.rs:30:4-30:24 new_tests__legacy__lean_tests__lib__constants__const_parameters__N0 *)
+(* src: src/legacy/lean-tests/constants.rs:31:4-31:24 new_tests__legacy__lean_tests__lib__constants__const_parameters__N0 *)
 letfun new_tests__legacy__lean_tests__lib__constants__const_parameters__N0() = nat_1.
-(* src: src/legacy/lean-tests/constants.rs:31:4-31:25 new_tests__legacy__lean_tests__lib__constants__const_parameters__N1 *)
+(* src: src/legacy/lean-tests/constants.rs:32:4-32:25 new_tests__legacy__lean_tests__lib__constants__const_parameters__N1 *)
 letfun new_tests__legacy__lean_tests__lib__constants__const_parameters__N1() = nat_10.
-(* src: src/legacy/lean-tests/constants.rs:33:4-35:5 new_tests__legacy__lean_tests__lib__constants__const_parameters__test *)
+(* src: src/legacy/lean-tests/constants.rs:34:4-36:5 new_tests__legacy__lean_tests__lib__constants__const_parameters__test *)
 letfun new_tests__legacy__lean_tests__lib__constants__const_parameters__test(wildcard: bitstring) =
   let wildcard_1 = rust_primitives__hax__machine_int__add(
     new_tests__legacy__lean_tests__lib__constants__const_parameters__f(
@@ -1436,7 +1509,7 @@ letfun new_tests__legacy__lean_tests__lib__constants__const_parameters__test(wil
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
 
-(* src: src/legacy/lean-tests/constants.rs:43:4-43:34 new_tests__legacy__lean_tests__lib__constants__const_parameters__S *)
+(* src: src/legacy/lean-tests/constants.rs:44:4-44:34 new_tests__legacy__lean_tests__lib__constants__const_parameters__S *)
 (*  Struct definition *)
 fun new_tests__legacy__lean_tests__lib__constants__const_parameters__S__S(
   bitstring
@@ -1445,13 +1518,15 @@ reduc forall v_0: bitstring;
   new_tests__legacy__lean_tests__lib__constants__const_parameters__S__S__0(
     new_tests__legacy__lean_tests__lib__constants__const_parameters__S__S(v_0)
   ) = v_0.
-(* src: src/legacy/lean-tests/constants.rs:46:8-48:9 new_tests__legacy__lean_tests__lib__constants__const_parameters__Impl__f *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
+(* src: src/legacy/lean-tests/constants.rs:48:8-50:9 new_tests__legacy__lean_tests__lib__constants__const_parameters__Impl__f *)
 letfun new_tests__legacy__lean_tests__lib__constants__const_parameters__Impl__f(self: bitstring) =
   rust_primitives__hax__machine_int__sub(
     bitstring_err() (* HAX ERROR: use of a const generic parameter as a value *),
     bitstring_err() (* HAX ERROR: use of a const generic parameter as a value *)
   ).
-(* src: src/legacy/lean-tests/constants.rs:51:4-56:5 new_tests__legacy__lean_tests__lib__constants__const_parameters__test2 *)
+(* src: src/legacy/lean-tests/constants.rs:54:4-59:5 new_tests__legacy__lean_tests__lib__constants__const_parameters__test2 *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__constants__const_parameters__test2(x: bitstring) =
   let wildcard = rust_primitives__hax__machine_int__add(
     (* HAX WARNING: use of the trait item `f` of an impl that is not extracted (e.g. excluded), modelled as an opaque symbol *) new_tests__legacy__lean_tests__lib__constants__const_parameters__T__f__unextracted_impl(
@@ -1504,6 +1579,57 @@ letfun new_tests__legacy__lean_tests__lib__constants__test(wildcard: bitstring) 
     new_tests__legacy__lean_tests__lib__constants__C3()
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
+(* src: src/legacy/lean-tests/casts.rs:5:0-27:1 new_tests__legacy__lean_tests__lib__casts__casting_edge_cases *)
+(*  Returns true if all casting edge cases behave as expected. *)
+letfun new_tests__legacy__lean_tests__lib__casts__casting_edge_cases(u_dummy: bitstring) =
+  let case2 = rust_primitives__hax__machine_int__eq(
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_neg_1,
+    nat_255
+  ) in
+  let case3 = rust_primitives__hax__machine_int__eq(nat_neg_1, nat_neg_1) in
+  let case4 = rust_primitives__hax__machine_int__eq(
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_128,
+    nat_neg_128
+  ) in
+  let case5 = rust_primitives__hax__machine_int__eq(
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_4294967295,
+    nat_neg_1
+  ) in
+  let hax__cond0 = (let hax__cond1 = (let hax__cond2 = (let hax__cond3 = rust_primitives__hax__machine_int__eq(
+    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_256,
+    nat_0
+  ) in
+  let (=True()) = hax__cond3
+    in case2
+    else let (=False()) = hax__cond3
+    in False()
+    else logical_and_opaque(hax__cond3)) in
+  let (=True()) = hax__cond2
+    in case3
+    else let (=False()) = hax__cond2
+    in False()
+    else logical_and_opaque(hax__cond2)) in
+  let (=True()) = hax__cond1
+    in case4
+    else let (=False()) = hax__cond1
+    in False()
+    else logical_and_opaque(hax__cond1)) in
+  let (=True()) = hax__cond0
+    in case5
+    else let (=False()) = hax__cond0
+    in False()
+    else logical_and_opaque(hax__cond0).
+(* src: src/legacy/lean-tests/casts.rs:30:0-32:1 new_tests__legacy__lean_tests__lib__casts__shift_after_cast *)
+(*  https://github.com/pereq-dev/hax/issues/1912 *)
+letfun new_tests__legacy__lean_tests__lib__casts__shift_after_cast(x: bitstring, n: bitstring) =
+  rust_primitives__hax__machine_int__shl(x, n).
+(* src: src/legacy/lean-tests/casts.rs:35:0-37:1 new_tests__legacy__lean_tests__lib__casts__add_after_cast *)
+(*  https://github.com/pereq-dev/hax/issues/1911 *)
+letfun new_tests__legacy__lean_tests__lib__casts__add_after_cast(
+  a: bitstring,
+  b: bitstring,
+  c: bitstring
+) = rust_primitives__hax__machine_int__add(rust_primitives__hax__machine_int__add(a, b), c).
 (* src: src/legacy/lean-tests/binops.rs:5:0-5:29 new_tests__legacy__lean_tests__lib__binops__noop *)
 letfun new_tests__legacy__lean_tests__lib__binops__noop(x: bitstring) = x.
 (* src: src/legacy/lean-tests/binops.rs:11:0-11:33 new_tests__legacy__lean_tests__lib__binops__neg_int *)
@@ -1605,14 +1731,15 @@ letfun new_tests__legacy__lean_tests__lib__binops__add_s(x: bitstring, y: bitstr
 
 
 
-(* src: src/legacy/lean-tests/associated_types.rs:77:4-82:5 new_tests__legacy__lean_tests__lib__associated_types__multiple_projections__func *)
+(* src: src/legacy/lean-tests/associated_types.rs:81:4-86:5 new_tests__legacy__lean_tests__lib__associated_types__multiple_projections__func *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__multiple_projections__func(
   d: bitstring,
   f: bitstring,
   u: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
 
-(* src: src/legacy/lean-tests/associated_types.rs:46:4-48:5 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__get_both *)
+(* src: src/legacy/lean-tests/associated_types.rs:49:4-51:5 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__get_both *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__get_both(
   pair: bitstring
 ) =
@@ -1623,15 +1750,15 @@ letfun new_tests__legacy__lean_tests__lib__associated_types__multiple_associated
 (*  @fail(extraction): ssprove(HAX0001) *)
 
 
-(* src: src/legacy/lean-tests/associated_types.rs:54:8-56:9 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__Impl__first *)
+(* src: src/legacy/lean-tests/associated_types.rs:57:8-59:9 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__Impl__first *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__Impl__first(
   self: bitstring
 ) = rust_primitives__hax__Tuple2__Tuple2__0(self).
-(* src: src/legacy/lean-tests/associated_types.rs:57:8-59:9 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__Impl__second *)
+(* src: src/legacy/lean-tests/associated_types.rs:60:8-62:9 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__Impl__second *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__Impl__second(
   self: bitstring
 ) = rust_primitives__hax__Tuple2__Tuple2__1(self).
-(* src: src/legacy/lean-tests/associated_types.rs:62:4-65:5 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__b *)
+(* src: src/legacy/lean-tests/associated_types.rs:65:4-68:5 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__b *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__b(
   wildcard: bitstring
 ) =
@@ -1639,28 +1766,31 @@ letfun new_tests__legacy__lean_tests__lib__associated_types__multiple_associated
     rust_primitives__hax__Tuple2__Tuple2(nat_42, True())
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/lean-tests/associated_types.rs:67:4-69:5 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__get_first_as_i32 *)
+(* src: src/legacy/lean-tests/associated_types.rs:71:4-73:5 new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__get_first_as_i32 *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__multiple_associated_types__get_first_as_i32(
   pair: bitstring
 ) =
   bitstring_err() (* HAX ERROR: use of the trait item `first` that resolves to no impl of the crate (e.g. on a generic type) *).
 
-(* src: src/legacy/lean-tests/associated_types.rs:7:4-9:5 new_tests__legacy__lean_tests__lib__associated_types__basic__just_the_first *)
+(* src: src/legacy/lean-tests/associated_types.rs:8:4-10:5 new_tests__legacy__lean_tests__lib__associated_types__basic__just_the_first *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__basic__just_the_first(
   iter: bitstring
 ) =
   bitstring_err() (* HAX ERROR: use of the trait item `first` that resolves to no impl of the crate (e.g. on a generic type) *).
-(* src: src/legacy/lean-tests/associated_types.rs:11:4-13:5 new_tests__legacy__lean_tests__lib__associated_types__basic__first_plus_1 *)
+(* src: src/legacy/lean-tests/associated_types.rs:13:4-15:5 new_tests__legacy__lean_tests__lib__associated_types__basic__first_plus_1 *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__basic__first_plus_1(iter: bitstring) =
   rust_primitives__hax__machine_int__add(
     bitstring_err() (* HAX ERROR: use of the trait item `first` that resolves to no impl of the crate (e.g. on a generic type) *),
     nat_1
   ).
 
-(* src: src/legacy/lean-tests/associated_types.rs:17:8-19:9 new_tests__legacy__lean_tests__lib__associated_types__basic__Impl__first *)
+(* src: src/legacy/lean-tests/associated_types.rs:19:8-21:9 new_tests__legacy__lean_tests__lib__associated_types__basic__Impl__first *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__basic__Impl__first(self: bitstring) =
   nat_3.
-(* src: src/legacy/lean-tests/associated_types.rs:22:4-24:5 new_tests__legacy__lean_tests__lib__associated_types__basic__a *)
+(* src: src/legacy/lean-tests/associated_types.rs:24:4-26:5 new_tests__legacy__lean_tests__lib__associated_types__basic__a *)
 letfun new_tests__legacy__lean_tests__lib__associated_types__basic__a(wildcard: bitstring) =
   let wildcard_1 = new_tests__legacy__lean_tests__lib__associated_types__basic__first_plus_1(
     True()
@@ -1676,17 +1806,17 @@ letfun new_tests__legacy__lean_tests__lib__array__g(x: bitstring) =
     rust_primitives__hax__repeat(nat_0, nat_10)
   ) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/lean-tests/lib.rs:27:0-27:27 new_tests__legacy__lean_tests__lib__FORTYTWO *)
+(* src: src/legacy/lean-tests/lib.rs:26:0-26:27 new_tests__legacy__lean_tests__lib__FORTYTWO *)
 letfun new_tests__legacy__lean_tests__lib__FORTYTWO() = nat_42.
-(* src: src/legacy/lean-tests/lib.rs:28:0-28:34 new_tests__legacy__lean_tests__lib__MINUS_FORTYTWO *)
+(* src: src/legacy/lean-tests/lib.rs:27:0-27:34 new_tests__legacy__lean_tests__lib__MINUS_FORTYTWO *)
 letfun new_tests__legacy__lean_tests__lib__MINUS_FORTYTWO() = nat_neg_42.
-(* src: src/legacy/lean-tests/lib.rs:30:0-32:1 new_tests__legacy__lean_tests__lib__returns42 *)
+(* src: src/legacy/lean-tests/lib.rs:29:0-31:1 new_tests__legacy__lean_tests__lib__returns42 *)
 letfun new_tests__legacy__lean_tests__lib__returns42(wildcard: bitstring) =
   new_tests__legacy__lean_tests__lib__FORTYTWO().
-(* src: src/legacy/lean-tests/lib.rs:34:0-36:1 new_tests__legacy__lean_tests__lib__add_two_numbers *)
+(* src: src/legacy/lean-tests/lib.rs:33:0-35:1 new_tests__legacy__lean_tests__lib__add_two_numbers *)
 letfun new_tests__legacy__lean_tests__lib__add_two_numbers(x: bitstring, y: bitstring) =
   rust_primitives__hax__machine_int__add(x, y).
-(* src: src/legacy/lean-tests/lib.rs:38:0-43:1 new_tests__legacy__lean_tests__lib__letBinding *)
+(* src: src/legacy/lean-tests/lib.rs:37:0-42:1 new_tests__legacy__lean_tests__lib__letBinding *)
 letfun new_tests__legacy__lean_tests__lib__letBinding(x: bitstring, y: bitstring) =
   let useless = rust_primitives__hax__Tuple0__Tuple0() in
   rust_primitives__hax__machine_int__add(
@@ -1694,6 +1824,7 @@ letfun new_tests__legacy__lean_tests__lib__letBinding(x: bitstring, y: bitstring
     nat_1
   ).
 (* src: src/legacy/lean-tests/lib.rs:45:0-52:1 new_tests__legacy__lean_tests__lib__closure *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__lean_tests__lib__closure(wildcard: bitstring) =
   let x = nat_41 in
   let f1 = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
@@ -1718,9 +1849,6 @@ letfun new_tests__legacy__lean_tests__lib__string_escapes(wildcard: bitstring) =
 
 
 
-(* src: src/legacy/lean-tests/specs.rs:64:4-66:5 new_tests__legacy__lean_tests__lib__specs__issue_1945__mktuple *)
-letfun new_tests__legacy__lean_tests__lib__specs__issue_1945__mktuple(a: bitstring) =
-  rust_primitives__hax__machine_int__eq(a, nat_0).
 (* src: src/legacy/lean-tests/nested_control_flow.rs:5:0-15:1 new_tests__legacy__lean_tests__lib__nested_control_flow__nested_control_flow *)
 letfun new_tests__legacy__lean_tests__lib__nested_control_flow__nested_control_flow(
   wildcard: bitstring
@@ -1795,65 +1923,6 @@ letfun new_tests__legacy__lean_tests__lib__nested_control_flow__complex_nesting(
     rust_primitives__hax__Tuple0__Tuple0(),
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/legacy/lean-tests/loops.rs:6:0-12:1 new_tests__legacy__lean_tests__lib__loops__loop1 *)
-letfun new_tests__legacy__lean_tests__lib__loops__loop1(wildcard: bitstring) =
-  let x_2 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_1, nat_10)
-  )) in let bl__acc0 = (nat_0) in 
-  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let x_1 = bl__acc0 in
-  let bl__acc1 = (rust_primitives__hax__machine_int__add(x_1, i)) in
-  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let x_1 = bl__acc1 in
-  let bl__acc2 = (rust_primitives__hax__machine_int__add(x_1, i)) in
-  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let x_1 = bl__acc2 in
-  let bl__acc3 = (rust_primitives__hax__machine_int__add(x_1, i)) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  x_2.
-(* src: src/legacy/lean-tests/loops.rs:15:0-24:1 new_tests__legacy__lean_tests__lib__loops__loop2 *)
-letfun new_tests__legacy__lean_tests__lib__loops__loop2(wildcard: bitstring) =
-  let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
-  let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
-  else let core__ops__control_flow__ControlFlow__Continue(x_2: bitstring) = hax__scrut0 in x_2
-  else bitstring_err().
-(* src: src/legacy/lean-tests/loops.rs:29:0-40:1 new_tests__legacy__lean_tests__lib__loops__for_loop_with_spec *)
-(*  For-loop with a spec *)
-letfun new_tests__legacy__lean_tests__lib__loops__for_loop_with_spec(y: bitstring) =
-  let x_4 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-    core__ops__range__Range__Range(nat_0, y)
-  )) in let bl__acc0 = (y) in 
-  let rust_primitives__hax__array_cons(i, bl__seq1) = bl__seq0 in (let x_1 = bl__acc0 in
-  let bl__acc1 = (let wildcard = hax_lib__u_internal_loop_invariant(
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-  ) in
-  let hax__cond0 = rust_primitives__hax__machine_int__eq(
-    rust_primitives__hax__machine_int__rem(x_1, nat_5),
-    nat_0
-  ) in
-  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
-  let rust_primitives__hax__array_cons(i, bl__seq2) = bl__seq1 in (let x_1 = bl__acc1 in
-  let bl__acc2 = (let wildcard = hax_lib__u_internal_loop_invariant(
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-  ) in
-  let hax__cond0 = rust_primitives__hax__machine_int__eq(
-    rust_primitives__hax__machine_int__rem(x_1, nat_5),
-    nat_0
-  ) in
-  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
-  let rust_primitives__hax__array_cons(i, bl__seq3) = bl__seq2 in (let x_1 = bl__acc2 in
-  let bl__acc3 = (let wildcard = hax_lib__u_internal_loop_invariant(
-    bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-  ) in
-  let hax__cond0 = rust_primitives__hax__machine_int__eq(
-    rust_primitives__hax__machine_int__rem(x_1, nat_5),
-    nat_0
-  ) in
-  let (=True()) = hax__cond0 in nat_200 else rust_primitives__hax__machine_int__rem(x_1, nat_5)) in
-  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
-  x_4.
-(* src: src/legacy/lean-tests/loops.rs:46:0-53:1 new_tests__legacy__lean_tests__lib__loops__while_loop1 *)
-(*  while-loop *)
-(*  @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001) *)
-letfun new_tests__legacy__lean_tests__lib__loops__while_loop1(s: bitstring) =
-  bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *).
 (* src: src/legacy/lean-tests/ite.rs:5:0-8:1 new_tests__legacy__lean_tests__lib__ite__test1 *)
 letfun new_tests__legacy__lean_tests__lib__ite__test1(wildcard: bitstring) =
   let x = (let (=True()) = True() in nat_0 else nat_1) in
@@ -1892,54 +1961,3 @@ letfun new_tests__legacy__lean_tests__lib__comments__f(wildcard: bitstring) =
 (* quis nisi quis, congue maximus nisl. Curabitur non efficitur odio. *)
 letfun new_tests__legacy__lean_tests__lib__comments__heavily_documented(wildcard: bitstring) =
   nat_4.
-(* src: src/legacy/lean-tests/casts.rs:5:0-27:1 new_tests__legacy__lean_tests__lib__casts__casting_edge_cases *)
-(*  Returns true if all casting edge cases behave as expected. *)
-letfun new_tests__legacy__lean_tests__lib__casts__casting_edge_cases(u_dummy: bitstring) =
-  let case2 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_neg_1,
-    nat_255
-  ) in
-  let case3 = rust_primitives__hax__machine_int__eq(nat_neg_1, nat_neg_1) in
-  let case4 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_128,
-    nat_neg_128
-  ) in
-  let case5 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_4294967295,
-    nat_neg_1
-  ) in
-  let hax__cond0 = (let hax__cond1 = (let hax__cond2 = (let hax__cond3 = rust_primitives__hax__machine_int__eq(
-    (* HAX WARNING: `as` cast modelled as the identity, although it may change the value *) nat_256,
-    nat_0
-  ) in
-  let (=True()) = hax__cond3
-    in case2
-    else let (=False()) = hax__cond3
-    in False()
-    else logical_and_opaque(hax__cond3)) in
-  let (=True()) = hax__cond2
-    in case3
-    else let (=False()) = hax__cond2
-    in False()
-    else logical_and_opaque(hax__cond2)) in
-  let (=True()) = hax__cond1
-    in case4
-    else let (=False()) = hax__cond1
-    in False()
-    else logical_and_opaque(hax__cond1)) in
-  let (=True()) = hax__cond0
-    in case5
-    else let (=False()) = hax__cond0
-    in False()
-    else logical_and_opaque(hax__cond0).
-(* src: src/legacy/lean-tests/casts.rs:30:0-32:1 new_tests__legacy__lean_tests__lib__casts__shift_after_cast *)
-(*  https://github.com/pereq-dev/hax/issues/1912 *)
-letfun new_tests__legacy__lean_tests__lib__casts__shift_after_cast(x: bitstring, n: bitstring) =
-  rust_primitives__hax__machine_int__shl(x, n).
-(* src: src/legacy/lean-tests/casts.rs:35:0-37:1 new_tests__legacy__lean_tests__lib__casts__add_after_cast *)
-(*  https://github.com/pereq-dev/hax/issues/1911 *)
-letfun new_tests__legacy__lean_tests__lib__casts__add_after_cast(
-  a: bitstring,
-  b: bitstring,
-  c: bitstring
-) = rust_primitives__hax__machine_int__add(rust_primitives__hax__machine_int__add(a, b), c).

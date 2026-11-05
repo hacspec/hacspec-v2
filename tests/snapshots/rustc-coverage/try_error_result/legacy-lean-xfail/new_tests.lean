@@ -26,6 +26,7 @@ def call (return_error : Bool) :
   else do
     (pure (core_models.result.Result.Ok rust_primitives.hax.Tuple0.mk))
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def test1 (_ : rust_primitives.hax.Tuple0) :
     RustM
@@ -102,6 +103,7 @@ def Impl_1.call (self : Thing2) (return_error : Bool) :
   else do
     (pure (core_models.result.Result.Ok (57 : u32)))
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def test2 (_ : rust_primitives.hax.Tuple0) :
     RustM

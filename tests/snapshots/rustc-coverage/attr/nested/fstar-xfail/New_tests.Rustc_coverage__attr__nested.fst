@@ -103,6 +103,7 @@ f_trait_method__impl_MyTrait_for_MyOuter__f_trait_method__impl__t_MyInner =
       ()
   }
 
+/// @fail(extraction): proverif(HAX0001)
 let cclosure_expr (_: Prims.unit) : Prims.unit =
   let e_outer: Prims.unit -> Prims.unit =
     fun temp_0_ ->
@@ -125,6 +126,7 @@ let cclosure_expr (_: Prims.unit) : Prims.unit =
   let _:Prims.unit = do_stuff () in
   ()
 
+/// @fail(extraction): proverif(HAX0001)
 let cclosure_tail (_: Prims.unit) : Prims.unit =
   let e_outer: Prims.unit -> Prims.unit =
     fun temp_0_ ->

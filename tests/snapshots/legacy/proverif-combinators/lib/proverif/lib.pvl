@@ -64,7 +64,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 6 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
 (*****************************************************************)
 
-(* src: src/legacy/proverif-combinators/lib.rs:7:0-9:1 new_tests__legacy__proverif_combinators__lib__collect_in_order *)
+(* src: src/legacy/proverif-combinators/lib.rs:6:0-8:1 new_tests__legacy__proverif_combinators__lib__collect_in_order *)
 letfun new_tests__legacy__proverif_combinators__lib__collect_in_order(v: bitstring) =
   (let bl__seq0 = (core__slice__Impl__iter(
     v
@@ -85,7 +85,7 @@ letfun new_tests__legacy__proverif_combinators__lib__collect_in_order(v: bitstri
     rust_primitives__hax__array_cons(x, rust_primitives__hax__array_nil())
   )) in
   let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *))).
-(* src: src/legacy/proverif-combinators/lib.rs:11:0-13:1 new_tests__legacy__proverif_combinators__lib__filter_map_in_order *)
+(* src: src/legacy/proverif-combinators/lib.rs:10:0-12:1 new_tests__legacy__proverif_combinators__lib__filter_map_in_order *)
 letfun new_tests__legacy__proverif_combinators__lib__filter_map_in_order(v: bitstring) =
   core__iter__traits__iterator__Iterator__collect(
     (let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
@@ -117,7 +117,7 @@ letfun new_tests__legacy__proverif_combinators__lib__filter_map_in_order(v: bits
     else bitstring_err()) in
     let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))
   ).
-(* src: src/legacy/proverif-combinators/lib.rs:17:0-22:1 new_tests__legacy__proverif_combinators__lib__find_twice *)
+(* src: src/legacy/proverif-combinators/lib.rs:16:0-21:1 new_tests__legacy__proverif_combinators__lib__find_twice *)
 letfun new_tests__legacy__proverif_combinators__lib__find_twice(v: bitstring) =
   let it = core__iter__traits__collect__IntoIterator__into_iter(v) in
   let rust_primitives__hax__Tuple2__Tuple2(
@@ -179,7 +179,7 @@ letfun new_tests__legacy__proverif_combinators__lib__find_twice(v: bitstring) =
     else bitstring_err()) in
     let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))
   ) in rust_primitives__hax__Tuple2__Tuple2(a, out_kw_1) else bitstring_err()) else bitstring_err().
-(* src: src/legacy/proverif-combinators/lib.rs:26:0-31:1 new_tests__legacy__proverif_combinators__lib__for_each_then *)
+(* src: src/legacy/proverif-combinators/lib.rs:25:0-30:1 new_tests__legacy__proverif_combinators__lib__for_each_then *)
 letfun new_tests__legacy__proverif_combinators__lib__for_each_then(v: bitstring, x: bitstring) =
   let wildcard = ((let bl__seq0 = (core__slice__Impl__iter(v)) in 
   let rust_primitives__hax__array_cons(y, bl__seq1) = bl__seq0 in (let bl__unit0 = (let wildcard_1 = y in
@@ -191,6 +191,7 @@ letfun new_tests__legacy__proverif_combinators__lib__for_each_then(v: bitstring,
   rust_primitives__hax__Tuple0__Tuple0 (* more than LOOP_BOUND elements *)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0)) else (rust_primitives__hax__Tuple0__Tuple0))) in
   x.
 (* src: src/legacy/proverif-combinators/lib.rs:34:0-36:1 new_tests__legacy__proverif_combinators__lib__collect_option *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_combinators__lib__collect_option(v: bitstring) =
   core__iter__traits__iterator__Iterator__collect(
     core__iter__traits__iterator__Iterator__map(

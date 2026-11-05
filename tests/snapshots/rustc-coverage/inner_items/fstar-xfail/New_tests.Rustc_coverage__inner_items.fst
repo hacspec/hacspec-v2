@@ -126,6 +126,7 @@ let main__impl: main__t_InTrait main__t_InStruct =
       self
   }
 
+/// @fail(extraction): proverif(HAX0001)
 let main (_: Prims.unit) : Prims.unit =
   let is_true:bool =
     (Core_models.Iter.Traits.Exact_size.f_len #Std.Env.t_Args

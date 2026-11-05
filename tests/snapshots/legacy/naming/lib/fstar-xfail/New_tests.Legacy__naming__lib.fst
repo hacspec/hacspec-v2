@@ -90,6 +90,7 @@ let v_INHERENT_CONSTANT: usize = mk_usize 3
 
 class t_FooTrait (v_Self: Type0) = { f_ASSOCIATED_CONSTANT:usize }
 
+/// @fail(extraction): proverif(HAX0001)
 let constants
       (#v_T: Type0)
       (#[FStar.Tactics.Typeclasses.tcresolve ()] i0: t_FooTrait v_T)
@@ -101,6 +102,7 @@ let constants
 let string_shadows (v_string n: string) : Prims.unit = ()
 
 /// From issue https://github.com/pereq-dev/hax/issues/1450
+/// @fail(extraction): proverif(HAX0001)
 let items_under_closures (_: Prims.unit) : Prims.unit =
   let _: Prims.unit -> Prims.unit =
     fun temp_0_ ->

@@ -69,9 +69,10 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 4 × branch on a result of `core__fmt__Impl_11__write_fmt`, which the model does not define *)
 (*****************************************************************)
 
-(* src: src/rustc-coverage/loops_branches.rs:8:0-8:17 new_tests__rustc_coverage__loops_branches__DebugTest *)
+(* src: src/rustc-coverage/loops_branches.rs:7:0-7:17 new_tests__rustc_coverage__loops_branches__DebugTest *)
 fun new_tests__rustc_coverage__loops_branches__DebugTest__DebugTest(): bitstring [data].
 (*  @fail(extraction): coq(HAX0001, HAX0001, HAX0001, HAX0001), ssprove(HAX0001, HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 (* src: src/rustc-coverage/loops_branches.rs:12:4-31:5 new_tests__rustc_coverage__loops_branches__Impl__fmt *)
 letfun new_tests__rustc_coverage__loops_branches__Impl__fmt(self: bitstring, f: bitstring) =
   let (=True()) = True()
@@ -101,7 +102,8 @@ letfun new_tests__rustc_coverage__loops_branches__Impl__fmt(self: bitstring, f: 
 (* src: src/rustc-coverage/loops_branches.rs:34:0-34:19 new_tests__rustc_coverage__loops_branches__DisplayTest *)
 fun new_tests__rustc_coverage__loops_branches__DisplayTest__DisplayTest(): bitstring [data].
 (*  @fail(extraction): coq(HAX0001, HAX0001, HAX0001, HAX0001), ssprove(HAX0001, HAX0001) *)
-(* src: src/rustc-coverage/loops_branches.rs:38:4-56:5 new_tests__rustc_coverage__loops_branches__Impl_1__fmt *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
+(* src: src/rustc-coverage/loops_branches.rs:39:4-57:5 new_tests__rustc_coverage__loops_branches__Impl_1__fmt *)
 letfun new_tests__rustc_coverage__loops_branches__Impl_1__fmt(self: bitstring, f: bitstring) =
   let (=True()) = False()
     in ((* HAX WARNING: branch on a result of `core__fmt__Impl_11__write_fmt`, which the model does not define *)
@@ -127,7 +129,7 @@ letfun new_tests__rustc_coverage__loops_branches__Impl_1__fmt(self: bitstring, f
     else let core__ops__control_flow__ControlFlow__Continue(f_9: bitstring) = hax__scrut1 in
       rust_primitives__hax__Tuple2__Tuple2(f_9, rust_primitives__hax__Tuple0__Tuple0())
     else bitstring_err()) else bitstring_err()).
-(* src: src/rustc-coverage/loops_branches.rs:60:0-65:1 new_tests__rustc_coverage__loops_branches__main *)
+(* src: src/rustc-coverage/loops_branches.rs:61:0-66:1 new_tests__rustc_coverage__loops_branches__main *)
 (*  @fail(extraction): ssprove(HAX0001) *)
 letfun new_tests__rustc_coverage__loops_branches__main(wildcard: bitstring) =
   let wildcard_1 = std__io__stdio__u_print(

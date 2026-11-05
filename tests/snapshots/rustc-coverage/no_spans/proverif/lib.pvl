@@ -53,10 +53,12 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/rustc-coverage/no_spans.rs:22:8-22:38 new_tests__rustc_coverage__no_spans__affected_function *)
+(* src: src/rustc-coverage/no_spans.rs:23:8-23:38 new_tests__rustc_coverage__no_spans__affected_function *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__no_spans__affected_function(wildcard: bitstring) =
   bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *).
 (* src: src/rustc-coverage/no_spans.rs:16:0-18:1 new_tests__rustc_coverage__no_spans__main *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__no_spans__main(wildcard: bitstring) =
   let wildcard_1 = (bitstring_err() (* HAX ERROR: call of a function value through the `Fn` traits *)) in
   rust_primitives__hax__Tuple0__Tuple0.

@@ -65,28 +65,28 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 1 × ambiguous use of the trait item `eq`: several impls match, so it is modelled as an undefined symbol of the trait *)
 (*****************************************************************)
 
-(* src: src/legacy/proverif-trait-resolution/lib.rs:7:0-7:15 new_tests__legacy__proverif_trait_resolution__lib__Key *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:6:0-6:15 new_tests__legacy__proverif_trait_resolution__lib__Key *)
 fun new_tests__legacy__proverif_trait_resolution__lib__Key__Key(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_trait_resolution__lib__Key__Key__0(
     new_tests__legacy__proverif_trait_resolution__lib__Key__Key(v_0)
   ) = v_0.
 
-(* src: src/legacy/proverif-trait-resolution/lib.rs:14:4-16:5 new_tests__legacy__proverif_trait_resolution__lib__Impl__make *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:13:4-15:5 new_tests__legacy__proverif_trait_resolution__lib__Impl__make *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__Impl__make(t: bitstring) =
   new_tests__legacy__proverif_trait_resolution__lib__Key__Key(t).
-(* src: src/legacy/proverif-trait-resolution/lib.rs:20:4-22:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_1__make *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:19:4-21:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_1__make *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_1__make(t: bitstring) =
   new_tests__legacy__proverif_trait_resolution__lib__Key__Key(
     let (=True()) = t in nat_1 else nat_0
   ).
-(* src: src/legacy/proverif-trait-resolution/lib.rs:25:0-27:1 new_tests__legacy__proverif_trait_resolution__lib__from_u8 *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:24:0-26:1 new_tests__legacy__proverif_trait_resolution__lib__from_u8 *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__from_u8(wildcard: bitstring) =
   new_tests__legacy__proverif_trait_resolution__lib__Impl__make(nat_3).
-(* src: src/legacy/proverif-trait-resolution/lib.rs:29:0-31:1 new_tests__legacy__proverif_trait_resolution__lib__from_bool *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:28:0-30:1 new_tests__legacy__proverif_trait_resolution__lib__from_bool *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__from_bool(wildcard: bitstring) =
   new_tests__legacy__proverif_trait_resolution__lib__Impl_1__make(True()).
-(* src: src/legacy/proverif-trait-resolution/lib.rs:33:0-33:21 new_tests__legacy__proverif_trait_resolution__lib__Wrapper *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:32:0-32:21 new_tests__legacy__proverif_trait_resolution__lib__Wrapper *)
 fun new_tests__legacy__proverif_trait_resolution__lib__Wrapper__Wrapper(
   bitstring
 ): bitstring [data].
@@ -95,34 +95,34 @@ reduc forall v_0: bitstring;
     new_tests__legacy__proverif_trait_resolution__lib__Wrapper__Wrapper(v_0)
   ) = v_0.
 
-(* src: src/legacy/proverif-trait-resolution/lib.rs:40:4-42:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_2__describe *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:39:4-41:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_2__describe *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_2__describe(self: bitstring) = nat_1.
-(* src: src/legacy/proverif-trait-resolution/lib.rs:46:4-48:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_3__describe *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:45:4-47:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_3__describe *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_3__describe(self: bitstring) = nat_2.
-(* src: src/legacy/proverif-trait-resolution/lib.rs:51:0-53:1 new_tests__legacy__proverif_trait_resolution__lib__describe_u8 *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:50:0-52:1 new_tests__legacy__proverif_trait_resolution__lib__describe_u8 *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__describe_u8(w: bitstring) =
   new_tests__legacy__proverif_trait_resolution__lib__Impl_2__describe(w).
-(* src: src/legacy/proverif-trait-resolution/lib.rs:55:0-57:1 new_tests__legacy__proverif_trait_resolution__lib__describe_bool *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:54:0-56:1 new_tests__legacy__proverif_trait_resolution__lib__describe_bool *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__describe_bool(w: bitstring) =
   new_tests__legacy__proverif_trait_resolution__lib__Impl_3__describe(w).
-(* src: src/legacy/proverif-trait-resolution/lib.rs:60:0-60:19 new_tests__legacy__proverif_trait_resolution__lib__Boxed *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:59:0-59:19 new_tests__legacy__proverif_trait_resolution__lib__Boxed *)
 fun new_tests__legacy__proverif_trait_resolution__lib__Boxed__Boxed(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_trait_resolution__lib__Boxed__Boxed__0(
     new_tests__legacy__proverif_trait_resolution__lib__Boxed__Boxed(v_0)
   ) = v_0.
-(* src: src/legacy/proverif-trait-resolution/lib.rs:63:4-65:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_4__describe *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:62:4-64:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_4__describe *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_4__describe(self: bitstring) = nat_3.
-(* src: src/legacy/proverif-trait-resolution/lib.rs:68:0-70:1 new_tests__legacy__proverif_trait_resolution__lib__describe_boxed *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:67:0-69:1 new_tests__legacy__proverif_trait_resolution__lib__describe_boxed *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__describe_boxed(b: bitstring) =
   new_tests__legacy__proverif_trait_resolution__lib__Impl_4__describe(b).
-(* src: src/legacy/proverif-trait-resolution/lib.rs:72:0-72:13 new_tests__legacy__proverif_trait_resolution__lib__W *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:71:0-71:13 new_tests__legacy__proverif_trait_resolution__lib__W *)
 fun new_tests__legacy__proverif_trait_resolution__lib__W__W(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_trait_resolution__lib__W__W__0(
     new_tests__legacy__proverif_trait_resolution__lib__W__W(v_0)
   ) = v_0.
-(* src: src/legacy/proverif-trait-resolution/lib.rs:75:4-77:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_5__eq *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:74:4-76:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_5__eq *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_5__eq(
   self: bitstring,
   other: bitstring
@@ -131,16 +131,17 @@ letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_5__eq(
     new_tests__legacy__proverif_trait_resolution__lib__W__W__0(self),
     new_tests__legacy__proverif_trait_resolution__lib__W__W__0(other)
   ).
-(* src: src/legacy/proverif-trait-resolution/lib.rs:81:0-83:1 new_tests__legacy__proverif_trait_resolution__lib__ne_custom *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:80:0-82:1 new_tests__legacy__proverif_trait_resolution__lib__ne_custom *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__ne_custom(a: bitstring, b: bitstring) =
   core__ops__bit__Not__not_kw(new_tests__legacy__proverif_trait_resolution__lib__Impl_5__eq(a, b)).
 
-(* src: src/legacy/proverif-trait-resolution/lib.rs:91:0-91:9 new_tests__legacy__proverif_trait_resolution__lib__A *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:90:0-90:9 new_tests__legacy__proverif_trait_resolution__lib__A *)
 fun new_tests__legacy__proverif_trait_resolution__lib__A__A(): bitstring [data].
-(* src: src/legacy/proverif-trait-resolution/lib.rs:94:4-96:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_6__m *)
+(* src: src/legacy/proverif-trait-resolution/lib.rs:93:4-95:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_6__m *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_6__m(self: bitstring) = nat_1.
 
 (* src: src/legacy/proverif-trait-resolution/lib.rs:102:0-104:1 new_tests__legacy__proverif_trait_resolution__lib__call_default *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__call_default(a: bitstring) =
   bitstring_err() (* HAX ERROR: ambiguous use of the trait item `m`: several impls match *).
 (* src: src/legacy/proverif-trait-resolution/lib.rs:106:0-106:19 new_tests__legacy__proverif_trait_resolution__lib__Celsius *)

@@ -55,7 +55,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/legacy/cli/interface-only/lib.rs:19:0-27:1 new_tests__legacy__cli__interface_only__lib__f *)
+(* src: src/legacy/cli/interface-only/lib.rs:18:0-26:1 new_tests__legacy__cli__interface_only__lib__f *)
 (*  This item contains unsafe blocks and raw references, two features *)
 (*  not supported by hax. Thanks to the `-i` flag and the `+:` *)
 (*  modifier, `f` is still extractable as an interface. *)
@@ -67,38 +67,39 @@ query attacker(hax_extraction_error__new_tests).
 (*  @fail(extraction): proverif(HAX0008, HAX0008, HAX0008, HAX0008) *)
 letfun new_tests__legacy__cli__interface_only__lib__f(x: bitstring) =
   bitstring_err() (* HAX ERROR: a node of kind [Raw_pointer] have been found in the AST *).
-(* src: src/legacy/cli/interface-only/lib.rs:39:0-39:11 new_tests__legacy__cli__interface_only__lib__Bar *)
+(* src: src/legacy/cli/interface-only/lib.rs:38:0-38:11 new_tests__legacy__cli__interface_only__lib__Bar *)
 fun new_tests__legacy__cli__interface_only__lib__Bar__Bar(): bitstring [data].
 (*  Non-inherent implementations are extracted, their bodies are not *)
 (*  dropped. This might be a bit surprising: see *)
 (*  https://github.com/pereq-dev/hax/issues/616. *)
-(* src: src/legacy/cli/interface-only/lib.rs:45:4-47:5 new_tests__legacy__cli__interface_only__lib__Impl__from *)
+(* src: src/legacy/cli/interface-only/lib.rs:44:4-46:5 new_tests__legacy__cli__interface_only__lib__Impl__from *)
 letfun new_tests__legacy__cli__interface_only__lib__Impl__from(wildcard: bitstring) =
   new_tests__legacy__cli__interface_only__lib__Bar__Bar().
-(* src: src/legacy/cli/interface-only/lib.rs:53:8-55:9 new_tests__legacy__cli__interface_only__lib__Impl_1__from__from *)
+(* src: src/legacy/cli/interface-only/lib.rs:52:8-54:9 new_tests__legacy__cli__interface_only__lib__Impl_1__from__from *)
 letfun new_tests__legacy__cli__interface_only__lib__Impl_1__from__from(wildcard: bitstring) =
   new_tests__legacy__cli__interface_only__lib__Bar__Bar().
 (*  If you need to drop the body of a method, please hoist it: *)
-(* src: src/legacy/cli/interface-only/lib.rs:52:4-57:5 new_tests__legacy__cli__interface_only__lib__Impl_1__from *)
+(* src: src/legacy/cli/interface-only/lib.rs:51:4-56:5 new_tests__legacy__cli__interface_only__lib__Impl_1__from *)
 letfun new_tests__legacy__cli__interface_only__lib__Impl_1__from(x: bitstring) =
   new_tests__legacy__cli__interface_only__lib__Impl_1__from__from(x).
-(* src: src/legacy/cli/interface-only/lib.rs:60:0-62:1 new_tests__legacy__cli__interface_only__lib__Holder *)
+(* src: src/legacy/cli/interface-only/lib.rs:59:0-61:1 new_tests__legacy__cli__interface_only__lib__Holder *)
 fun new_tests__legacy__cli__interface_only__lib__Holder__Holder(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__cli__interface_only__lib__Holder__Holder__value(
     new_tests__legacy__cli__interface_only__lib__Holder__Holder(v_0)
   ) = v_0.
-(* src: src/legacy/cli/interface-only/lib.rs:65:4-67:5 new_tests__legacy__cli__interface_only__lib__Impl_2__from *)
+(* src: src/legacy/cli/interface-only/lib.rs:64:4-66:5 new_tests__legacy__cli__interface_only__lib__Impl_2__from *)
 letfun new_tests__legacy__cli__interface_only__lib__Impl_2__from(wildcard: bitstring) =
   new_tests__legacy__cli__interface_only__lib__Holder__Holder(
     alloc__vec__Impl__new_kw(rust_primitives__hax__Tuple0__Tuple0)
   ).
-(* src: src/legacy/cli/interface-only/lib.rs:70:0-72:1 new_tests__legacy__cli__interface_only__lib__Param *)
+(* src: src/legacy/cli/interface-only/lib.rs:69:0-71:1 new_tests__legacy__cli__interface_only__lib__Param *)
 fun new_tests__legacy__cli__interface_only__lib__Param__Param(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__cli__interface_only__lib__Param__Param__value(
     new_tests__legacy__cli__interface_only__lib__Param__Param(v_0)
   ) = v_0.
+(*  @fail(extraction): proverif(HAX0001) *)
 (* src: src/legacy/cli/interface-only/lib.rs:75:4-77:5 new_tests__legacy__cli__interface_only__lib__Impl_3__from *)
 letfun new_tests__legacy__cli__interface_only__lib__Impl_3__from(wildcard: bitstring) =
   new_tests__legacy__cli__interface_only__lib__Param__Param(
@@ -107,7 +108,8 @@ letfun new_tests__legacy__cli__interface_only__lib__Impl_3__from(wildcard: bitst
       bitstring_err() (* HAX ERROR: use of a const generic parameter as a value *)
     )
   ).
-(* src: src/legacy/cli/interface-only/lib.rs:80:0-82:1 new_tests__legacy__cli__interface_only__lib__f_generic *)
+(* src: src/legacy/cli/interface-only/lib.rs:81:0-83:1 new_tests__legacy__cli__interface_only__lib__f_generic *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__cli__interface_only__lib__f_generic(u_x: bitstring) =
   new_tests__legacy__cli__interface_only__lib__Param__Param(
     rust_primitives__hax__repeat(
@@ -118,15 +120,16 @@ letfun new_tests__legacy__cli__interface_only__lib__f_generic(u_x: bitstring) =
 
 (*  Impls with associated types are not erased *)
 
-(* src: src/legacy/cli/interface-only/lib.rs:92:4-92:13 new_tests__legacy__cli__interface_only__lib__Impl_4__d *)
+(* src: src/legacy/cli/interface-only/lib.rs:93:4-93:13 new_tests__legacy__cli__interface_only__lib__Impl_4__d *)
 letfun new_tests__legacy__cli__interface_only__lib__Impl_4__d(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
 
 (*  Items can be forced to be transparent *)
-(* src: src/legacy/cli/interface-only/lib.rs:103:4-103:13 new_tests__legacy__cli__interface_only__lib__Impl_5__d *)
+(* src: src/legacy/cli/interface-only/lib.rs:104:4-104:13 new_tests__legacy__cli__interface_only__lib__Impl_5__d *)
 letfun new_tests__legacy__cli__interface_only__lib__Impl_5__d(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/cli/interface-only/lib.rs:108:0-114:1 new_tests__legacy__cli__interface_only__lib__padlen *)
+(* src: src/legacy/cli/interface-only/lib.rs:110:0-116:1 new_tests__legacy__cli__interface_only__lib__padlen *)
+(*  @fail(extraction): proverif(HAX0001) *)
 (* HAX ERROR: `new_tests__legacy__cli__interface_only__lib__padlen` is recursive; its body is dropped *)
 (* It is modelled as an uninterpreted injective one-way symbol, which *)
 (* the real function need not be. Replace with a hand-written model  *)

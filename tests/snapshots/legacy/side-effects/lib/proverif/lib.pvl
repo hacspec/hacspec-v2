@@ -67,10 +67,10 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 1 × branch on a result of `core__iter__traits__iterator__Iterator__map`, which the model does not define *)
 (*****************************************************************)
 
-(* src: src/legacy/side-effects/lib.rs:190:4-192:5 new_tests__legacy__side_effects__lib__nested_return__other_fun *)
+(* src: src/legacy/side-effects/lib.rs:189:4-191:5 new_tests__legacy__side_effects__lib__nested_return__other_fun *)
 letfun new_tests__legacy__side_effects__lib__nested_return__other_fun(rng: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(rng, rust_primitives__hax__Tuple0__Tuple0()).
-(* src: src/legacy/side-effects/lib.rs:194:4-196:5 new_tests__legacy__side_effects__lib__nested_return__fun_kw *)
+(* src: src/legacy/side-effects/lib.rs:193:4-195:5 new_tests__legacy__side_effects__lib__nested_return__fun_kw *)
 letfun new_tests__legacy__side_effects__lib__nested_return__fun_kw(rng: bitstring) =
   let rust_primitives__hax__Tuple2__Tuple2(
     tmp0: bitstring,
@@ -117,9 +117,9 @@ letfun new_tests__legacy__side_effects__lib__issue_1299__Impl_1__from(i: bitstri
       new_tests__legacy__side_effects__lib__issue_1299__Impl__from(hoist47)
     ).
 
-(* src: src/legacy/side-effects/lib.rs:171:8-173:9 new_tests__legacy__side_effects__lib__issue_1083__Impl__my_from *)
+(* src: src/legacy/side-effects/lib.rs:170:8-172:9 new_tests__legacy__side_effects__lib__issue_1083__Impl__my_from *)
 letfun new_tests__legacy__side_effects__lib__issue_1083__Impl__my_from(x: bitstring) = x.
-(* src: src/legacy/side-effects/lib.rs:176:4-179:5 new_tests__legacy__side_effects__lib__issue_1083__f *)
+(* src: src/legacy/side-effects/lib.rs:175:4-178:5 new_tests__legacy__side_effects__lib__issue_1083__f *)
 letfun new_tests__legacy__side_effects__lib__issue_1083__f(x: bitstring) =
   (* HAX WARNING: branch on a result of `core__ops__try_trait__Try__branch`, which the model does not define *)
   let hax__scrut0 = core__ops__try_trait__Try__branch(bitstring_err()) in
@@ -129,11 +129,11 @@ letfun new_tests__legacy__side_effects__lib__issue_1083__f(x: bitstring) =
     (let wildcard = val in
     new_tests__legacy__side_effects__lib__issue_1083__Impl__my_from(x))
   else bitstring_err().
-(* src: src/legacy/side-effects/lib.rs:8:0-10:1 new_tests__legacy__side_effects__lib__add3 *)
+(* src: src/legacy/side-effects/lib.rs:7:0-9:1 new_tests__legacy__side_effects__lib__add3 *)
 (*  Helper function *)
 letfun new_tests__legacy__side_effects__lib__add3(x: bitstring, y: bitstring, z: bitstring) =
   core__num__Impl_8__wrapping_add(core__num__Impl_8__wrapping_add(x, y), z).
-(* src: src/legacy/side-effects/lib.rs:13:0-47:1 new_tests__legacy__side_effects__lib__local_mutation *)
+(* src: src/legacy/side-effects/lib.rs:12:0-46:1 new_tests__legacy__side_effects__lib__local_mutation *)
 (*  Exercise local mutation with control flow and loops *)
 letfun new_tests__legacy__side_effects__lib__local_mutation(x: bitstring) =
   let y = nat_0 in
@@ -180,7 +180,7 @@ letfun new_tests__legacy__side_effects__lib__local_mutation(x: bitstring) =
       rust_primitives__hax__Tuple2__Tuple2(x_1, y),
       nat_0
     )) in core__num__Impl_8__wrapping_add(hoist7, y_6) else bitstring_err()).
-(* src: src/legacy/side-effects/lib.rs:50:0-68:1 new_tests__legacy__side_effects__lib__early_returns *)
+(* src: src/legacy/side-effects/lib.rs:49:0-67:1 new_tests__legacy__side_effects__lib__early_returns *)
 (*  Exercise early returns with control flow and loops *)
 letfun new_tests__legacy__side_effects__lib__early_returns(x: bitstring) =
   (* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
@@ -209,7 +209,7 @@ letfun new_tests__legacy__side_effects__lib__early_returns(x: bitstring) =
         core__num__Impl_8__wrapping_add(nat_123, hoist11_1),
         x_3
       ) else bitstring_err())).
-(* src: src/legacy/side-effects/lib.rs:70:0-82:1 new_tests__legacy__side_effects__lib__simplifiable_return *)
+(* src: src/legacy/side-effects/lib.rs:69:0-81:1 new_tests__legacy__side_effects__lib__simplifiable_return *)
 letfun new_tests__legacy__side_effects__lib__simplifiable_return(
   c1: bitstring,
   c2: bitstring,
@@ -222,7 +222,7 @@ letfun new_tests__legacy__side_effects__lib__simplifiable_return(
       let (=True()) = c3 in nat_1 else rust_primitives__hax__machine_int__add(x_1, nat_1))
       else rust_primitives__hax__machine_int__add(x, nat_1))
     else x.
-(* src: src/legacy/side-effects/lib.rs:84:0-88:1 new_tests__legacy__side_effects__lib__simplifiable_question_mark *)
+(* src: src/legacy/side-effects/lib.rs:83:0-87:1 new_tests__legacy__side_effects__lib__simplifiable_question_mark *)
 letfun new_tests__legacy__side_effects__lib__simplifiable_question_mark(
   c: bitstring,
   x: bitstring
@@ -236,14 +236,14 @@ letfun new_tests__legacy__side_effects__lib__simplifiable_question_mark(
     else let None() = x in None()
     else bitstring_err())
     else Some(rust_primitives__hax__machine_int__add(nat_0, nat_20)).
-(* src: src/legacy/side-effects/lib.rs:91:0-94:1 new_tests__legacy__side_effects__lib__direct_result_question_mark *)
+(* src: src/legacy/side-effects/lib.rs:90:0-93:1 new_tests__legacy__side_effects__lib__direct_result_question_mark *)
 (*  Question mark without error coercion *)
 letfun new_tests__legacy__side_effects__lib__direct_result_question_mark(y: bitstring) = nat_0.
-(* src: src/legacy/side-effects/lib.rs:97:0-99:1 new_tests__legacy__side_effects__lib__direct_result_question_mark_coercion *)
+(* src: src/legacy/side-effects/lib.rs:96:0-98:1 new_tests__legacy__side_effects__lib__direct_result_question_mark_coercion *)
 (*  Question mark with an error coercion *)
 letfun new_tests__legacy__side_effects__lib__direct_result_question_mark_coercion(y: bitstring) =
   let hoist17 = y in hoist17.
-(* src: src/legacy/side-effects/lib.rs:102:0-113:1 new_tests__legacy__side_effects__lib__options *)
+(* src: src/legacy/side-effects/lib.rs:101:0-112:1 new_tests__legacy__side_effects__lib__options *)
 (*  Test question mark on `Option`s with some control flow *)
 letfun new_tests__legacy__side_effects__lib__options(x: bitstring, y: bitstring, z: bitstring) =
   let Some(hoist21) = x in
@@ -342,7 +342,7 @@ letfun new_tests__legacy__side_effects__lib__options(x: bitstring, y: bitstring,
       else bitstring_err()))
   else let None() = x in None()
   else bitstring_err().
-(* src: src/legacy/side-effects/lib.rs:116:0-129:1 new_tests__legacy__side_effects__lib__question_mark *)
+(* src: src/legacy/side-effects/lib.rs:115:0-128:1 new_tests__legacy__side_effects__lib__question_mark *)
 (*  Test question mark on `Result`s with local mutation *)
 letfun new_tests__legacy__side_effects__lib__question_mark(x: bitstring) =
   (* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
@@ -357,11 +357,11 @@ letfun new_tests__legacy__side_effects__lib__question_mark(x: bitstring) =
       let ok = hax__scrut2 in core__num__Impl_8__wrapping_add(nat_3, x_2))
       else core__num__Impl_8__wrapping_add(nat_3, x_2))
     else core__num__Impl_8__wrapping_add(nat_3, x).
-(* src: src/legacy/side-effects/lib.rs:131:0-131:9 new_tests__legacy__side_effects__lib__A *)
+(* src: src/legacy/side-effects/lib.rs:130:0-130:9 new_tests__legacy__side_effects__lib__A *)
 fun new_tests__legacy__side_effects__lib__A__A(): bitstring [data].
-(* src: src/legacy/side-effects/lib.rs:132:0-132:9 new_tests__legacy__side_effects__lib__B *)
+(* src: src/legacy/side-effects/lib.rs:131:0-131:9 new_tests__legacy__side_effects__lib__B *)
 fun new_tests__legacy__side_effects__lib__B__B(): bitstring [data].
-(* src: src/legacy/side-effects/lib.rs:135:0-141:1 new_tests__legacy__side_effects__lib__monad_lifting *)
+(* src: src/legacy/side-effects/lib.rs:134:0-140:1 new_tests__legacy__side_effects__lib__monad_lifting *)
 (*  Combine `?` and early return *)
 letfun new_tests__legacy__side_effects__lib__monad_lifting(x: bitstring) =
   (* HAX WARNING: branch on an ordering comparison, which the model decides only between literals up to 16 *)
@@ -370,7 +370,7 @@ letfun new_tests__legacy__side_effects__lib__monad_lifting(x: bitstring) =
     in (let hax__scrut1 = bitstring_err() in
     let hoist35 = hax__scrut1 in hoist35)
     else new_tests__legacy__side_effects__lib__A__A().
-(* src: src/legacy/side-effects/lib.rs:143:0-146:1 new_tests__legacy__side_effects__lib__Bar *)
+(* src: src/legacy/side-effects/lib.rs:142:0-145:1 new_tests__legacy__side_effects__lib__Bar *)
 fun new_tests__legacy__side_effects__lib__Bar__Bar(bitstring, bitstring): bitstring [data].
 reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__side_effects__lib__Bar__Bar__a(
@@ -380,7 +380,7 @@ reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__side_effects__lib__Bar__Bar__b(
     new_tests__legacy__side_effects__lib__Bar__Bar(v_0, v_1)
   ) = v_1.
-(* src: src/legacy/side-effects/lib.rs:147:0-152:1 new_tests__legacy__side_effects__lib__Foo *)
+(* src: src/legacy/side-effects/lib.rs:146:0-151:1 new_tests__legacy__side_effects__lib__Foo *)
 fun new_tests__legacy__side_effects__lib__Foo__Foo(
   bitstring,
   bitstring,
@@ -403,7 +403,7 @@ reduc forall v_0: bitstring, v_1: bitstring, v_2: bitstring, v_3: bitstring;
   new_tests__legacy__side_effects__lib__Foo__Foo__bar(
     new_tests__legacy__side_effects__lib__Foo__Foo(v_0, v_1, v_2, v_3)
   ) = v_3.
-(* src: src/legacy/side-effects/lib.rs:156:0-163:1 new_tests__legacy__side_effects__lib__assign_non_trivial_lhs *)
+(* src: src/legacy/side-effects/lib.rs:155:0-162:1 new_tests__legacy__side_effects__lib__assign_non_trivial_lhs *)
 (*  Test assignation on non-trivial places *)
 (*  @fail(extraction): coq(HAX0002, HAX0002), ssprove(HAX0001) *)
 letfun new_tests__legacy__side_effects__lib__assign_non_trivial_lhs(foo: bitstring) =
@@ -554,6 +554,7 @@ letfun new_tests__legacy__side_effects__lib__assign_non_trivial_lhs(foo: bitstri
     new_tests__legacy__side_effects__lib__Foo__Foo__bar(foo_4)
   ).
 (* src: src/legacy/side-effects/lib.rs:200:4-208:5 new_tests__legacy__side_effects__lib__issue_1300__fun_kw *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__side_effects__lib__issue_1300__fun_kw(wildcard: bitstring) =
   (* HAX WARNING: branch on a result of `core__iter__traits__iterator__Iterator__map`, which the model does not define *)
   let hax__scrut0 = core__iter__traits__iterator__Iterator__collect(
@@ -563,7 +564,7 @@ letfun new_tests__legacy__side_effects__lib__issue_1300__fun_kw(wildcard: bitstr
     )
   ) in
   let val = hax__scrut0 in rust_primitives__hax__Tuple0__Tuple0().
-(* src: src/legacy/side-effects/lib.rs:183:4-185:5 new_tests__legacy__side_effects__lib__issue_1089__test *)
+(* src: src/legacy/side-effects/lib.rs:182:4-184:5 new_tests__legacy__side_effects__lib__issue_1089__test *)
 letfun new_tests__legacy__side_effects__lib__issue_1089__test(x: bitstring, y: bitstring) =
   let hax__scrut0 = (let Some(i) = x in
     Some(let Some(hoist38) = y in Some(rust_primitives__hax__machine_int__add(i, hoist38))

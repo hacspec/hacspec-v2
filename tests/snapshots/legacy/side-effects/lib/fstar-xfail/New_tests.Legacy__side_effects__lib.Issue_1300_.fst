@@ -3,6 +3,7 @@ module New_tests.Legacy__side_effects__lib.Issue_1300_
 open FStar.Mul
 open Core_models
 
+/// @fail(extraction): proverif(HAX0001)
 let v_fun (_: Prims.unit) : Core_models.Result.t_Result Prims.unit u8 =
   match
     Core_models.Iter.Traits.Iterator.f_collect #(Core_models.Iter.Adapters.Map.t_Map

@@ -66,6 +66,7 @@ query attacker(hax_extraction_error__new_tests).
 
 (* src: src/rustc-coverage/simple_loop.rs:7:0-39:1 new_tests__rustc_coverage__simple_loop__main *)
 (*  @fail(extraction): fstar(HAX0001), coq(HAX0001, HAX0001), legacy-lean(HAX0001), ssprove(HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__simple_loop__main(wildcard: bitstring) =
   let countdown_2 = ((* HAX WARNING: branch on a result of `std__env__args`, which the model does not define *)
   let hax__cond0 = rust_primitives__hax__machine_int__eq(

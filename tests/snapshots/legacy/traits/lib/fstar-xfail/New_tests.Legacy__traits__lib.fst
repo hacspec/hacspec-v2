@@ -141,10 +141,12 @@ class t_Lang (v_Self: Type0) = {
     -> Prims.Pure (v_Self & f_Var) (f_s_pre x0 x1) (fun result -> f_s_post x0 x1 result)
 }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let f (#v_T: Type0) (#[FStar.Tactics.Typeclasses.tcresolve ()] i0: t_Foo v_T) (x: v_T) : Prims.unit =
   let _:Prims.unit = f_assoc_f #v_T #FStar.Tactics.Typeclasses.solve () in
   f_method_f #v_T #FStar.Tactics.Typeclasses.solve x
 
+/// @fail(extraction): proverif(HAX0001)
 let g (#v_T: Type0) (#[FStar.Tactics.Typeclasses.tcresolve ()] i0: t_Foo v_T) (x: i0.f_AssocType)
     : u32 = f_function_of_super_trait #i0.f_AssocType #FStar.Tactics.Typeclasses.solve x
 

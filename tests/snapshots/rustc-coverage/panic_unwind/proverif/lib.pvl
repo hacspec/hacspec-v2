@@ -52,7 +52,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/rustc-coverage/panic_unwind.rs:6:0-13:1 new_tests__rustc_coverage__panic_unwind__might_panic *)
+(* src: src/rustc-coverage/panic_unwind.rs:5:0-12:1 new_tests__rustc_coverage__panic_unwind__might_panic *)
 letfun new_tests__rustc_coverage__panic_unwind__might_panic(should_panic: bitstring) =
   let (=True()) = should_panic
     in (let wildcard = std__io__stdio__u_print(
@@ -71,6 +71,7 @@ letfun new_tests__rustc_coverage__panic_unwind__might_panic(should_panic: bitstr
     rust_primitives__hax__Tuple0__Tuple0).
 (* src: src/rustc-coverage/panic_unwind.rs:16:0-27:1 new_tests__rustc_coverage__panic_unwind__main *)
 (*  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__panic_unwind__main(wildcard: bitstring) =
   let countdown_3 = (bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *)) in
   rust_primitives__hax__Tuple0__Tuple0().

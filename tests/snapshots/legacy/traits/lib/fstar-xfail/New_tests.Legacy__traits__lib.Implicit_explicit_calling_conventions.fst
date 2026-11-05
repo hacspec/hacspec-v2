@@ -123,6 +123,7 @@ let impl (#v_TypeArg: Type0) (v_ConstArg: usize) : t_Trait Prims.unit v_TypeArg 
       ()
   }
 
+/// @fail(extraction): proverif(HAX0001)
 let method_caller
       (#v_MethodTypeArg #v_TypeArg: Type0)
       (v_ConstArg v_MethodConstArg: usize)
@@ -145,6 +146,7 @@ let method_caller
   in
   ()
 
+/// @fail(extraction): proverif(HAX0001)
 let associated_function_caller
       (#v_MethodTypeArg #v_TypeArg: Type0)
       (v_ConstArg v_MethodConstArg: usize)

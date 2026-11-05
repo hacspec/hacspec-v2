@@ -56,20 +56,20 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/legacy/proverif-control-flow/lib.rs:9:0-14:1 new_tests__legacy__proverif_control_flow__lib__early_return *)
+(* src: src/legacy/proverif-control-flow/lib.rs:8:0-13:1 new_tests__legacy__proverif_control_flow__lib__early_return *)
 letfun new_tests__legacy__proverif_control_flow__lib__early_return(x: bitstring) =
   let hax__cond0 = rust_primitives__hax__machine_int__eq(x, nat_0) in
   let (=True()) = hax__cond0 in nat_1 else x.
-(* src: src/legacy/proverif-control-flow/lib.rs:16:0-22:1 new_tests__legacy__proverif_control_flow__lib__return_in_match *)
+(* src: src/legacy/proverif-control-flow/lib.rs:15:0-21:1 new_tests__legacy__proverif_control_flow__lib__return_in_match *)
 letfun new_tests__legacy__proverif_control_flow__lib__return_in_match(x: bitstring) =
   let Some(v) = x in v
   else let None() = x in nat_0
   else bitstring_err().
-(* src: src/legacy/proverif-control-flow/lib.rs:24:0-27:1 new_tests__legacy__proverif_control_flow__lib__let_else *)
+(* src: src/legacy/proverif-control-flow/lib.rs:23:0-26:1 new_tests__legacy__proverif_control_flow__lib__let_else *)
 letfun new_tests__legacy__proverif_control_flow__lib__let_else(x: bitstring) =
   let Some(v) = x in v
   else nat_0.
-(* src: src/legacy/proverif-control-flow/lib.rs:29:0-33:1 new_tests__legacy__proverif_control_flow__lib__question_mark_option *)
+(* src: src/legacy/proverif-control-flow/lib.rs:28:0-32:1 new_tests__legacy__proverif_control_flow__lib__question_mark_option *)
 letfun new_tests__legacy__proverif_control_flow__lib__question_mark_option(
   x: bitstring,
   y: bitstring
@@ -81,6 +81,7 @@ letfun new_tests__legacy__proverif_control_flow__lib__question_mark_option(
   else let None() = x in None()
   else bitstring_err().
 (* src: src/legacy/proverif-control-flow/lib.rs:35:0-43:1 new_tests__legacy__proverif_control_flow__lib__if_let_chain *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_control_flow__lib__if_let_chain(x: bitstring, y: bitstring) =
   bitstring_err() (* HAX ERROR: Let-chains (e.g. `if let .. && let ..`) are not supported. *).
 (* src: src/legacy/proverif-control-flow/lib.rs:45:0-53:1 new_tests__legacy__proverif_control_flow__lib__nested_for *)
@@ -186,24 +187,28 @@ letfun new_tests__legacy__proverif_control_flow__lib__for_break(xs: bitstring) =
     )) in
   let core__ops__control_flow__ControlFlow__Break(bl__brk2) = bl__cf2 in (let rust_primitives__hax__Tuple2__Tuple2(bl__bv2, bl__out2) = bl__brk2 in bl__out2 else bitstring_err())
   else let core__ops__control_flow__ControlFlow__Continue(bl__acc3) = bl__cf2 in (let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else bitstring_err()) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *))).
-(* src: src/legacy/proverif-control-flow/lib.rs:66:0-73:1 new_tests__legacy__proverif_control_flow__lib__for_return *)
+(* src: src/legacy/proverif-control-flow/lib.rs:67:0-74:1 new_tests__legacy__proverif_control_flow__lib__for_return *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_control_flow__lib__for_return(xs: bitstring) =
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: Loops containing `return` not supported in ProVerif *)) in
   let core__ops__control_flow__ControlFlow__Break(ret: bitstring) = hax__scrut0 in ret
   else let core__ops__control_flow__ControlFlow__Continue(wildcard: bitstring) = hax__scrut0 in
     nat_0
   else bitstring_err().
-(* src: src/legacy/proverif-control-flow/lib.rs:75:0-80:1 new_tests__legacy__proverif_control_flow__lib__while_loop *)
+(* src: src/legacy/proverif-control-flow/lib.rs:77:0-82:1 new_tests__legacy__proverif_control_flow__lib__while_loop *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_control_flow__lib__while_loop(x: bitstring) =
   bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *).
-(* src: src/legacy/proverif-control-flow/lib.rs:82:0-86:1 new_tests__legacy__proverif_control_flow__lib__loop_break_value *)
+(* src: src/legacy/proverif-control-flow/lib.rs:85:0-89:1 new_tests__legacy__proverif_control_flow__lib__loop_break_value *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_control_flow__lib__loop_break_value(x: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(
     bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),
     rust_primitives__hax__Tuple0__Tuple0
   ).
-(* src: src/legacy/proverif-control-flow/lib.rs:88:0-88:30 new_tests__legacy__proverif_control_flow__lib__A *)
+(* src: src/legacy/proverif-control-flow/lib.rs:91:0-91:30 new_tests__legacy__proverif_control_flow__lib__A *)
 letfun new_tests__legacy__proverif_control_flow__lib__A() = Some(nat_1).
-(* src: src/legacy/proverif-control-flow/lib.rs:91:0-97:2 new_tests__legacy__proverif_control_flow__lib__CHAINED *)
+(* src: src/legacy/proverif-control-flow/lib.rs:95:0-101:2 new_tests__legacy__proverif_control_flow__lib__CHAINED *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 (* HAX ERROR: Let-chains (e.g. `if let .. && let ..`) are not supported. *)
 const new_tests__legacy__proverif_control_flow__lib__CHAINED: bitstring.

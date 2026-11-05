@@ -55,6 +55,7 @@ let might_overflow (to_add: u32) : u32 =
   result
 
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let main (_: Prims.unit) : Core_models.Result.t_Result Prims.unit u8 =
   let countdown:i32 = mk_i32 10 in
   let countdown:i32 =

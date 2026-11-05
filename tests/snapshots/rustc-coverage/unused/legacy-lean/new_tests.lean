@@ -15,6 +15,7 @@ set_option linter.unusedVariables false
 namespace new_tests.rustc_coverage__unused
 
 --  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def foo (T : Type) (x : T) :
     RustM (rust_primitives.hax.Tuple2 i32 rust_primitives.hax.Tuple0) := do
@@ -37,6 +38,7 @@ def foo (T : Type) (x : T) :
     rust_primitives.hax.Tuple0.mk))
 
 --  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def unused_template_func (T : Type) (x : T) :
     RustM (rust_primitives.hax.Tuple2 i32 rust_primitives.hax.Tuple0) := do

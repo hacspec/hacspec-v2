@@ -216,6 +216,7 @@ def empty_array (_ : rust_primitives.hax.Tuple0) :
   (pure rust_primitives.hax.Tuple0.mk)
 
 --  https://github.com/pereq-dev/hax/issues/500
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def fn_pointer_cast (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do

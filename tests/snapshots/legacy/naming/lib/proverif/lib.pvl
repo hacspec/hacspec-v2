@@ -104,70 +104,70 @@ letfun new_tests__legacy__naming__lib__ambiguous_names__f_expand(wildcard: bitst
   let wildcard_2 = new_tests__legacy__naming__lib__ambiguous_names__debug(nat_2, a_3) in
   let wildcard_3 = new_tests__legacy__naming__lib__ambiguous_names__debug(nat_1, a_3) in
   new_tests__legacy__naming__lib__ambiguous_names__debug(nat_0, a_3).
-(* src: src/legacy/naming/lib.rs:9:0-12:1 new_tests__legacy__naming__lib__Foo *)
+(* src: src/legacy/naming/lib.rs:8:0-11:1 new_tests__legacy__naming__lib__Foo *)
 fun new_tests__legacy__naming__lib__Foo__A(): bitstring [data].
 fun new_tests__legacy__naming__lib__Foo__B(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__naming__lib__Foo__B__x(new_tests__legacy__naming__lib__Foo__B(v_0)) = v_0.
-(* src: src/legacy/naming/lib.rs:13:0-16:1 new_tests__legacy__naming__lib__Foo2 *)
+(* src: src/legacy/naming/lib.rs:12:0-15:1 new_tests__legacy__naming__lib__Foo2 *)
 fun new_tests__legacy__naming__lib__Foo2__A(): bitstring [data].
 fun new_tests__legacy__naming__lib__Foo2__B(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__naming__lib__Foo2__B__x(new_tests__legacy__naming__lib__Foo2__B(v_0)) = v_0.
-(* src: src/legacy/naming/lib.rs:17:0-17:9 new_tests__legacy__naming__lib__B *)
+(* src: src/legacy/naming/lib.rs:16:0-16:9 new_tests__legacy__naming__lib__B *)
 fun new_tests__legacy__naming__lib__B__B(): bitstring [data].
-(* src: src/legacy/naming/lib.rs:19:0-21:1 new_tests__legacy__naming__lib__C *)
+(* src: src/legacy/naming/lib.rs:18:0-20:1 new_tests__legacy__naming__lib__C *)
 fun new_tests__legacy__naming__lib__C__C(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__naming__lib__C__C__x(new_tests__legacy__naming__lib__C__C(v_0)) = v_0.
-(* src: src/legacy/naming/lib.rs:23:0-23:11 new_tests__legacy__naming__lib__X *)
+(* src: src/legacy/naming/lib.rs:22:0-22:11 new_tests__legacy__naming__lib__X *)
 fun new_tests__legacy__naming__lib__X__X(): bitstring [data].
-(* src: src/legacy/naming/lib.rs:25:0-29:1 new_tests__legacy__naming__lib__mk_c *)
+(* src: src/legacy/naming/lib.rs:24:0-28:1 new_tests__legacy__naming__lib__mk_c *)
 letfun new_tests__legacy__naming__lib__mk_c(wildcard: bitstring) =
   let wildcard_1 = new_tests__legacy__naming__lib__Foo__B(nat_3) in
   let wildcard_2 = new_tests__legacy__naming__lib__X__X() in
   new_tests__legacy__naming__lib__C__C(nat_3).
-(* src: src/legacy/naming/lib.rs:32:4-34:5 new_tests__legacy__naming__lib__Impl__f *)
+(* src: src/legacy/naming/lib.rs:31:4-33:5 new_tests__legacy__naming__lib__Impl__f *)
 letfun new_tests__legacy__naming__lib__Impl__f(self: bitstring) =
   new_tests__legacy__naming__lib__Foo__A().
-(* src: src/legacy/naming/lib.rs:37:4-39:5 new_tests__legacy__naming__lib__Impl_1__f *)
+(* src: src/legacy/naming/lib.rs:36:4-38:5 new_tests__legacy__naming__lib__Impl_1__f *)
 letfun new_tests__legacy__naming__lib__Impl_1__f(self: bitstring) =
   new_tests__legacy__naming__lib__B__B().
-(* src: src/legacy/naming/lib.rs:42:0-44:1 new_tests__legacy__naming__lib__Foobar *)
+(* src: src/legacy/naming/lib.rs:41:0-43:1 new_tests__legacy__naming__lib__Foobar *)
 fun new_tests__legacy__naming__lib__Foobar__Foobar(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__naming__lib__Foobar__Foobar__a(
     new_tests__legacy__naming__lib__Foobar__Foobar(v_0)
   ) = v_0.
-(* src: src/legacy/naming/lib.rs:47:4-65:5 new_tests__legacy__naming__lib__f__g *)
+(* src: src/legacy/naming/lib.rs:46:4-64:5 new_tests__legacy__naming__lib__f__g *)
 letfun new_tests__legacy__naming__lib__f__g(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/naming/lib.rs:49:12-55:13 new_tests__legacy__naming__lib__f__g__Impl__g *)
+(* src: src/legacy/naming/lib.rs:48:12-54:13 new_tests__legacy__naming__lib__f__g__Impl__g *)
 letfun new_tests__legacy__naming__lib__f__g__Impl__g(self: bitstring) = nat_0.
-(* src: src/legacy/naming/lib.rs:50:16-53:17 new_tests__legacy__naming__lib__f__g__Impl__g__Foo *)
+(* src: src/legacy/naming/lib.rs:49:16-52:17 new_tests__legacy__naming__lib__f__g__Impl__g__Foo *)
 fun new_tests__legacy__naming__lib__f__g__Impl__g__Foo__A(): bitstring [data].
 fun new_tests__legacy__naming__lib__f__g__Impl__g__Foo__B(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__naming__lib__f__g__Impl__g__Foo__B__x(
     new_tests__legacy__naming__lib__f__g__Impl__g__Foo__B(v_0)
   ) = v_0.
-(* src: src/legacy/naming/lib.rs:58:12-63:13 new_tests__legacy__naming__lib__f__g__Impl_1__g *)
+(* src: src/legacy/naming/lib.rs:57:12-62:13 new_tests__legacy__naming__lib__f__g__Impl_1__g *)
 letfun new_tests__legacy__naming__lib__f__g__Impl_1__g(self: bitstring) = nat_1.
-(* src: src/legacy/naming/lib.rs:46:0-67:1 new_tests__legacy__naming__lib__f *)
+(* src: src/legacy/naming/lib.rs:45:0-66:1 new_tests__legacy__naming__lib__f *)
 letfun new_tests__legacy__naming__lib__f(x: bitstring) =
   new_tests__legacy__naming__lib__f__g__Impl_1__g(
     new_tests__legacy__naming__lib__Foobar__Foobar__a(x)
   ).
-(* src: src/legacy/naming/lib.rs:60:20-60:29 new_tests__legacy__naming__lib__f__g__Impl_1__g__hello__h *)
+(* src: src/legacy/naming/lib.rs:59:20-59:29 new_tests__legacy__naming__lib__f__g__Impl_1__g__hello__h *)
 letfun new_tests__legacy__naming__lib__f__g__Impl_1__g__hello__h(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/naming/lib.rs:69:0-71:1 new_tests__legacy__naming__lib__reserved_names *)
+(* src: src/legacy/naming/lib.rs:68:0-70:1 new_tests__legacy__naming__lib__reserved_names *)
 letfun new_tests__legacy__naming__lib__reserved_names(
   val: bitstring,
   noeq: bitstring,
   of: bitstring
 ) = rust_primitives__hax__machine_int__add(rust_primitives__hax__machine_int__add(val, noeq), of).
-(* src: src/legacy/naming/lib.rs:73:0-73:20 new_tests__legacy__naming__lib__Arity1 *)
+(* src: src/legacy/naming/lib.rs:72:0-72:20 new_tests__legacy__naming__lib__Arity1 *)
 fun new_tests__legacy__naming__lib__Arity1__Arity1(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__naming__lib__Arity1__Arity1__0(
@@ -180,13 +180,13 @@ reduc forall v_0: bitstring;
 
 
 
-(* src: src/legacy/naming/lib.rs:84:0-86:1 new_tests__legacy__naming__lib__StructA *)
+(* src: src/legacy/naming/lib.rs:83:0-85:1 new_tests__legacy__naming__lib__StructA *)
 fun new_tests__legacy__naming__lib__StructA__StructA(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__naming__lib__StructA__StructA__a(
     new_tests__legacy__naming__lib__StructA__StructA(v_0)
   ) = v_0.
-(* src: src/legacy/naming/lib.rs:87:0-90:1 new_tests__legacy__naming__lib__StructB *)
+(* src: src/legacy/naming/lib.rs:86:0-89:1 new_tests__legacy__naming__lib__StructB *)
 fun new_tests__legacy__naming__lib__StructB__StructB(bitstring, bitstring): bitstring [data].
 reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__naming__lib__StructB__StructB__a(
@@ -196,13 +196,13 @@ reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__naming__lib__StructB__StructB__b(
     new_tests__legacy__naming__lib__StructB__StructB(v_0, v_1)
   ) = v_1.
-(* src: src/legacy/naming/lib.rs:91:0-93:1 new_tests__legacy__naming__lib__StructC *)
+(* src: src/legacy/naming/lib.rs:90:0-92:1 new_tests__legacy__naming__lib__StructC *)
 fun new_tests__legacy__naming__lib__StructC__StructC(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__naming__lib__StructC__StructC__a(
     new_tests__legacy__naming__lib__StructC__StructC(v_0)
   ) = v_0.
-(* src: src/legacy/naming/lib.rs:94:0-97:1 new_tests__legacy__naming__lib__StructD *)
+(* src: src/legacy/naming/lib.rs:93:0-96:1 new_tests__legacy__naming__lib__StructD *)
 fun new_tests__legacy__naming__lib__StructD__StructD(bitstring, bitstring): bitstring [data].
 reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__naming__lib__StructD__StructD__a(
@@ -212,17 +212,18 @@ reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__naming__lib__StructD__StructD__b(
     new_tests__legacy__naming__lib__StructD__StructD(v_0, v_1)
   ) = v_1.
-(* src: src/legacy/naming/lib.rs:98:0-103:1 new_tests__legacy__naming__lib__construct_structs *)
+(* src: src/legacy/naming/lib.rs:97:0-102:1 new_tests__legacy__naming__lib__construct_structs *)
 letfun new_tests__legacy__naming__lib__construct_structs(a: bitstring, b: bitstring) =
   let wildcard = new_tests__legacy__naming__lib__StructA__StructA(a) in
   let wildcard_1 = new_tests__legacy__naming__lib__StructB__StructB(a, b) in
   let wildcard_2 = new_tests__legacy__naming__lib__StructC__StructC(a) in
   let wildcard_3 = new_tests__legacy__naming__lib__StructD__StructD(a, b) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/naming/lib.rs:105:0-105:35 new_tests__legacy__naming__lib__INHERENT_CONSTANT *)
+(* src: src/legacy/naming/lib.rs:104:0-104:35 new_tests__legacy__naming__lib__INHERENT_CONSTANT *)
 letfun new_tests__legacy__naming__lib__INHERENT_CONSTANT() = nat_3.
 
 (* src: src/legacy/naming/lib.rs:110:0-112:1 new_tests__legacy__naming__lib__constants *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__naming__lib__constants(wildcard: bitstring) =
   rust_primitives__hax__machine_int__add(
     bitstring_err() (* HAX ERROR: use of the trait item `ASSOCIATED_CONSTANT` that resolves to no impl of the crate (e.g. on a generic type) *),
@@ -232,23 +233,24 @@ letfun new_tests__legacy__naming__lib__constants(wildcard: bitstring) =
 (*  From issue https://github.com/pereq-dev/hax/issues/839 *)
 letfun new_tests__legacy__naming__lib__string_shadows(string: bitstring, n: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/naming/lib.rs:188:0-195:1 new_tests__legacy__naming__lib__items_under_closures *)
+(* src: src/legacy/naming/lib.rs:189:0-196:1 new_tests__legacy__naming__lib__items_under_closures *)
 (*  From issue https://github.com/pereq-dev/hax/issues/1450 *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__naming__lib__items_under_closures(wildcard: bitstring) =
   let wildcard_1 = (bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)) in
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/naming/lib.rs:190:8-190:31 new_tests__legacy__naming__lib__items_under_closures__Closure__nested_function *)
+(* src: src/legacy/naming/lib.rs:191:8-191:31 new_tests__legacy__naming__lib__items_under_closures__Closure__nested_function *)
 letfun new_tests__legacy__naming__lib__items_under_closures__Closure__nested_function(
   wildcard: bitstring
 ) = rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/naming/lib.rs:191:8-191:28 new_tests__legacy__naming__lib__items_under_closures__Closure__NestedStruct *)
+(* src: src/legacy/naming/lib.rs:192:8-192:28 new_tests__legacy__naming__lib__items_under_closures__Closure__NestedStruct *)
 fun new_tests__legacy__naming__lib__items_under_closures__Closure__NestedStruct__NestedStruct(
 
 ): bitstring [data].
-(* src: src/legacy/naming/lib.rs:193:4-193:27 new_tests__legacy__naming__lib__items_under_closures__nested_function *)
+(* src: src/legacy/naming/lib.rs:194:4-194:27 new_tests__legacy__naming__lib__items_under_closures__nested_function *)
 letfun new_tests__legacy__naming__lib__items_under_closures__nested_function(wildcard: bitstring) =
   rust_primitives__hax__Tuple0__Tuple0.
-(* src: src/legacy/naming/lib.rs:194:4-194:24 new_tests__legacy__naming__lib__items_under_closures__NestedStruct *)
+(* src: src/legacy/naming/lib.rs:195:4-195:24 new_tests__legacy__naming__lib__items_under_closures__NestedStruct *)
 fun new_tests__legacy__naming__lib__items_under_closures__NestedStruct__NestedStruct(
 
 ): bitstring [data].

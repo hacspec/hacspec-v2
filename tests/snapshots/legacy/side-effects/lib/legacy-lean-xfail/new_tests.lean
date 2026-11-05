@@ -518,6 +518,7 @@ end new_tests.legacy__side_effects__lib.nested_return
 
 namespace new_tests.legacy__side_effects__lib.issue_1300
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def fun (_ : rust_primitives.hax.Tuple0) :
     RustM (core_models.result.Result rust_primitives.hax.Tuple0 u8) := do

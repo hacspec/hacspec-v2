@@ -4,6 +4,7 @@ open FStar.Mul
 open Core_models
 
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let while_cond (_: Prims.unit) : (i32 & Prims.unit) =
   let _:Prims.unit =
     Rust_primitives.Hax.Folds.fold_range (mk_i32 0)
@@ -38,6 +39,7 @@ let while_cond (_: Prims.unit) : (i32 & Prims.unit) =
   (i32 & Prims.unit)
 
 /// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let while_cond_not (_: Prims.unit) : (i32 & Prims.unit) =
   let _:Prims.unit =
     Rust_primitives.Hax.Folds.fold_range (mk_i32 0)
@@ -72,6 +74,7 @@ let while_cond_not (_: Prims.unit) : (i32 & Prims.unit) =
   (i32 & Prims.unit)
 
 /// @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let while_op_and (_: Prims.unit) : ((i32 & i32) & Prims.unit) =
   let _:Prims.unit =
     Rust_primitives.Hax.Folds.fold_range (mk_i32 0)
@@ -108,6 +111,7 @@ let while_op_and (_: Prims.unit) : ((i32 & i32) & Prims.unit) =
   ((i32 & i32) & Prims.unit)
 
 /// @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let while_op_or (_: Prims.unit) : ((i32 & i32) & Prims.unit) =
   let _:Prims.unit =
     Rust_primitives.Hax.Folds.fold_range (mk_i32 0)

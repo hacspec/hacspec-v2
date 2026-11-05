@@ -54,6 +54,7 @@ query attacker(hax_extraction_error__new_tests).
 
 (* src: src/rustc-coverage/while.rs:3:0-8:1 new_tests__rustc_coverage__while__main *)
 (*  @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001) *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__rustc_coverage__while__main(wildcard: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(
     bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *),

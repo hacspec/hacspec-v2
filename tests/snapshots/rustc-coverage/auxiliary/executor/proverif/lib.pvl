@@ -55,6 +55,6 @@ query attacker(hax_extraction_error__new_tests).
 (* src: src/rustc-coverage/auxiliary/executor.rs:13:0-22:1 new_tests__rustc_coverage__auxiliary__executor__block_on *)
 (*  Dummy "executor" that just repeatedly polls a future until it's ready. *)
 (*  @fail(extraction): fstar(HAX0003, HAX0003, HAX0003, HAX0003, HAX0003), ssprove(HAX0003, HAX0003, HAX0003, HAX0003, HAX0008), coq(HAX0008, HAX0003, HAX0003, HAX0003, HAX0003), legacy-lean(HAX0003, HAX0003, HAX0003, HAX0003, HAX0003) *)
-(*  @fail(extraction): proverif(HAX0003, HAX0003, HAX0003, HAX0003, HAX0008) *)
+(*  @fail(extraction): proverif(HAX0008, HAX0003, HAX0003, HAX0003, HAX0003) *)
 letfun new_tests__rustc_coverage__auxiliary__executor__block_on(future: bitstring) =
   bitstring_err() (* HAX ERROR: The mutation of this &mut is not allowed here. *).

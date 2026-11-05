@@ -52,26 +52,27 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
-(* src: src/legacy/proverif-projection/lib.rs:10:0-10:16 new_tests__legacy__proverif_projection__lib__Tag *)
+(* src: src/legacy/proverif-projection/lib.rs:9:0-9:16 new_tests__legacy__proverif_projection__lib__Tag *)
 fun new_tests__legacy__proverif_projection__lib__Tag__Tag(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_projection__lib__Tag__Tag__0(
     new_tests__legacy__proverif_projection__lib__Tag__Tag(v_0)
   ) = v_0.
-(* src: src/legacy/proverif-projection/lib.rs:13:4-13:32 new_tests__legacy__proverif_projection__lib__Impl__DEFAULT *)
+(* src: src/legacy/proverif-projection/lib.rs:12:4-12:32 new_tests__legacy__proverif_projection__lib__Impl__DEFAULT *)
 letfun new_tests__legacy__proverif_projection__lib__Impl__DEFAULT() =
   new_tests__legacy__proverif_projection__lib__Tag__Tag(nat_0).
-(* src: src/legacy/proverif-projection/lib.rs:17:0-19:1 new_tests__legacy__proverif_projection__lib__const_projection *)
+(* src: src/legacy/proverif-projection/lib.rs:16:0-18:1 new_tests__legacy__proverif_projection__lib__const_projection *)
 (*  The value of `DEFAULT` survives, so `.0` reduces to `nat_0`. *)
 letfun new_tests__legacy__proverif_projection__lib__const_projection(wildcard: bitstring) =
   new_tests__legacy__proverif_projection__lib__Tag__Tag__0(
     new_tests__legacy__proverif_projection__lib__Impl__DEFAULT()
   ).
-(* src: src/legacy/proverif-projection/lib.rs:22:0-24:1 new_tests__legacy__proverif_projection__lib__hidden *)
+(* src: src/legacy/proverif-projection/lib.rs:21:0-23:1 new_tests__legacy__proverif_projection__lib__hidden *)
 (* opaque *)
 fun new_tests__legacy__proverif_projection__lib__hidden(bitstring): bitstring [data].
 (* src: src/legacy/proverif-projection/lib.rs:27:0-29:1 new_tests__legacy__proverif_projection__lib__dead_projection *)
 (*  `hidden()` has no body in the model, so `.0` can never reduce. *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_projection__lib__dead_projection(wildcard: bitstring) =
   bitstring_err() (* HAX ERROR: field projection `new_tests__legacy__proverif_projection__lib__Tag__Tag__0` reduces only on `new_tests__legacy__proverif_projection__lib__Tag__Tag`, but is applied to a `new_tests__legacy__proverif_projection__lib__hidden`; it can never reduce *).
 (* src: src/legacy/proverif-projection/lib.rs:31:0-33:1 new_tests__legacy__proverif_projection__lib__live_projection *)

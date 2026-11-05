@@ -75,6 +75,7 @@ let error (_: Prims.unit) : Prims.unit =
       <:
       Rust_primitives.Hax.t_Never)
 
+/// @fail(extraction): proverif(HAX0001)
 let rec permutate
       (#v_T: Type0)
       (#[FStar.Tactics.Typeclasses.tcresolve ()] i0: Core_models.Marker.t_Copy v_T)
