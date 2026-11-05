@@ -56,6 +56,19 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
+(*****************************************************************)
+(*  WARNINGS — branches the model may not follow as Rust does.   *)
+(*                                                               *)
+(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
+(*  the model cannot always evaluate. When it cannot, no arm of  *)
+(*  a `match` is taken (the trace ends) and an `if` takes its    *)
+(*  `else` branch, whatever Rust does. A query about the other   *)
+(*  branch may then hold for lack of any trace.                  *)
+(*                                                               *)
+(*  - 1 × `core__iter__traits__iterator__Iterator__map` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__num__Impl_6__checked_add` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*****************************************************************)
+
 (* src: src/legacy/proverif-combinators/lib.rs:7:0-9:1 new_tests__legacy__proverif_combinators__lib__collect_in_order *)
 letfun new_tests__legacy__proverif_combinators__lib__collect_in_order(v: bitstring) =
   bitstring_err() (* HAX ERROR: this loop updates variables, but the model runs a bounded number of iterations, and none over an iterator that is not a list, after which their values match no pattern; compute them without a loop, or model the function by hand *).

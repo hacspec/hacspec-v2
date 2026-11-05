@@ -60,6 +60,8 @@ ProVerif backend and library:
    does not call
  - Reject the `for` loops that update variables or whose body may be
    observable, since the model runs a bounded number of iterations
+ - Warn of the library functions without a model, whose value matches no
+   pattern
  - `#[pv_inverse_of(f)]` on `g` makes `g` match its argument against `f`,
    without a `reduc`, and accepts methods
 

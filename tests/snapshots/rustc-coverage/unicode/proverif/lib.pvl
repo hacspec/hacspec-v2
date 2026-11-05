@@ -34,6 +34,19 @@
 (* Only typechecks with result.pvl loaded. *)
 letfun hax_result_model_check__new_tests() = hax_result_model__result.
 
+(*****************************************************************)
+(*  WARNINGS — branches the model may not follow as Rust does.   *)
+(*                                                               *)
+(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
+(*  the model cannot always evaluate. When it cannot, no arm of  *)
+(*  a `match` is taken (the trace ends) and an `if` takes its    *)
+(*  `else` branch, whatever Rust does. A query about the other   *)
+(*  branch may then hold for lack of any trace.                  *)
+(*                                                               *)
+(*  - 1 × `core__hint__black_box` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `core__ops__range__Impl_7__new_kw` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*****************************************************************)
+
 (* src: src/rustc-coverage/unicode.rs:27:0-29:1 new_tests__rustc_coverage__unicode__u_xe7_x94_xb3_xe3_x81_x97_xe8_xa8_xb3_xe3_x81_x94_xe3_x81_x96_xe3_x81_x84_xe3_x81_xbe_xe3_x81_x9b_xe3_x82_x93 *)
 letfun new_tests__rustc_coverage__unicode__u_xe7_x94_xb3_xe3_x81_x97_xe8_xa8_xb3_xe3_x81_x94_xe3_x81_x96_xe3_x81_x84_xe3_x81_xbe_xe3_x81_x9b_xe3_x82_x93(
   wildcard: bitstring

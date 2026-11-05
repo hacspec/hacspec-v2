@@ -67,6 +67,7 @@ query attacker(hax_extraction_error__new_tests).
 (*                                                               *)
 (*  - 1 × branch on a result of `core__cmp__Ord__cmp`, which the model does not define *)
 (*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
+(*  - 1 × `core__cmp__Ord__cmp` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/legacy/proverif-soundness/lib.rs:10:0-12:1 new_tests__legacy__proverif_soundness__lib__check *)

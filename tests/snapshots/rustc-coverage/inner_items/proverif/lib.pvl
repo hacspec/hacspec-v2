@@ -52,6 +52,19 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
+(*****************************************************************)
+(*  WARNINGS — branches the model may not follow as Rust does.   *)
+(*                                                               *)
+(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
+(*  the model cannot always evaluate. When it cannot, no arm of  *)
+(*  a `match` is taken (the trace ends) and an `if` takes its    *)
+(*  `else` branch, whatever Rust does. A query about the other   *)
+(*  branch may then hold for lack of any trace.                  *)
+(*                                                               *)
+(*  - 1 × `new_tests__rustc_coverage__inner_items__main__InTrait__trait_func` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `std__env__args` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*****************************************************************)
+
 (* src: src/rustc-coverage/inner_items.rs:18:8-18:39 new_tests__rustc_coverage__inner_items__main__in_mod__IN_MOD_CONST *)
 letfun new_tests__rustc_coverage__inner_items__main__in_mod__IN_MOD_CONST() = nat_1000.
 (* src: src/rustc-coverage/inner_items.rs:22:4-26:5 new_tests__rustc_coverage__inner_items__main__in_func *)

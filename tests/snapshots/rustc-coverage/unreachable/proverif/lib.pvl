@@ -64,6 +64,7 @@ query attacker(hax_extraction_error__new_tests).
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
 (*  - 3 × branch on a result of `core__hint__black_box`, which the model does not define *)
+(*  - 1 × `core__hint__black_box` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/rustc-coverage/unreachable.rs:17:0-17:73 new_tests__rustc_coverage__unreachable__UNREACHABLE_CLOSURE *)

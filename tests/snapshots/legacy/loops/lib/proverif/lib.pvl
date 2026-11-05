@@ -92,6 +92,9 @@ query attacker(hax_extraction_error__new_tests).
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
 (*  - 1 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
+(*  - 1 × `core__slice__Impl__chunks_exact` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `hax_lib__u_internal_loop_decreases` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
+(*  - 1 × `hax_lib__u_internal_while_loop_invariant` has no model in hax's libraries: unless a library loaded before lib.pvl defines it, its declaration in missingdecl.pvl matches no pattern, so every path that destructures its value is lost *)
 (*****************************************************************)
 
 (* src: src/legacy/loops/lib.rs:37:4-43:5 new_tests__legacy__loops__lib__for_loops__range1 *)

@@ -52,6 +52,18 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
 
+(*****************************************************************)
+(*  WARNINGS — branches the model may not follow as Rust does.   *)
+(*                                                               *)
+(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
+(*  the model cannot always evaluate. When it cannot, no arm of  *)
+(*  a `match` is taken (the trace ends) and an `if` takes its    *)
+(*  `else` branch, whatever Rust does. A query about the other   *)
+(*  branch may then hold for lack of any trace.                  *)
+(*                                                               *)
+(*  - 1 × `new_tests__legacy__proverif_projection__lib__hidden` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
+(*****************************************************************)
+
 (* src: src/legacy/proverif-projection/lib.rs:10:0-10:16 new_tests__legacy__proverif_projection__lib__Tag *)
 fun new_tests__legacy__proverif_projection__lib__Tag__Tag(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
@@ -68,6 +80,7 @@ letfun new_tests__legacy__proverif_projection__lib__const_projection(wildcard: b
     new_tests__legacy__proverif_projection__lib__Impl__DEFAULT()
   ).
 (* src: src/legacy/proverif-projection/lib.rs:22:0-24:1 new_tests__legacy__proverif_projection__lib__hidden *)
+(* HAX WARNING: `new_tests__legacy__proverif_projection__lib__hidden` is abstract: its value matches no pattern but its own, so every path that destructures it as a value of its Rust type is lost *)
 (* opaque *)
 fun new_tests__legacy__proverif_projection__lib__hidden(bitstring): bitstring [data].
 (* src: src/legacy/proverif-projection/lib.rs:27:0-29:1 new_tests__legacy__proverif_projection__lib__dead_projection *)
