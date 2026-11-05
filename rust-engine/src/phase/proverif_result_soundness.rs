@@ -177,16 +177,15 @@ fn unchecked(meta: &Metadata) -> bool {
 const UNCHECKED_WARNING: &str = "`pv_unchecked_results`: the uses of `Result` in this function \
      are not checked against the Result model";
 
-/// Applies `f` to the name and body of every function the model extracts,
-/// and marks those exempt from the checks.
-fn for_each_checked_fn(items: &mut [Item], mut f: impl FnMut(GlobalId, &mut Expr)) {
+/// Applies `f` to the name, metadata and body of every function the model
+/// extracts.
+fn for_each_extracted_fn(
+    items: &mut [Item],
+    mut f: impl FnMut(GlobalId, &mut Metadata, &mut Expr),
+) {
     let mut one = |name: GlobalId, meta: &mut Metadata, body: &mut Expr| {
-        if !is_extracted(meta, body) {
-        } else if unchecked(meta) {
-            meta.attributes
-                .push(warning_attribute(UNCHECKED_WARNING, meta.span));
-        } else {
-            f(name, body)
+        if is_extracted(meta, body) {
+            f(name, meta, body)
         }
     };
     for item in items.iter_mut() {
@@ -202,6 +201,19 @@ fn for_each_checked_fn(items: &mut [Item], mut f: impl FnMut(GlobalId, &mut Expr
             _ => {}
         }
     }
+}
+
+/// Applies `f` to the name and body of every function the model extracts,
+/// and marks those exempt from the checks.
+fn for_each_checked_fn(items: &mut [Item], mut f: impl FnMut(GlobalId, &mut Expr)) {
+    for_each_extracted_fn(items, |name, meta, body| {
+        if unchecked(meta) {
+            meta.attributes
+                .push(warning_attribute(UNCHECKED_WARNING, meta.span));
+        } else {
+            f(name, body)
+        }
+    })
 }
 
 /// Which types may hold a `Result`.
@@ -684,6 +696,11 @@ struct Check {
     local_crates: HashSet<&'static str>,
     /// The impls of [`hidden_result_impls`].
     hidden_impls: HashSet<GlobalId>,
+    /// The types with an `Iterator` or `IntoIterator` impl of the crate.
+    iterators: HashSet<GlobalId>,
+    /// The traits with an impl of the crate that may be observable, directly
+    /// or through a blanket impl of the library.
+    noisy_traits: HashSet<String>,
     /// Under `--result-errors`, the extracted functions whose `Err` may be
     /// that of a hand-written model.
     opaque_fns: HashSet<GlobalId>,
@@ -820,6 +837,136 @@ impl Check {
             }
             _ => false,
         }
+    }
+
+    /// Whether the impl `i` is, or uses, an impl of the crate that may be
+    /// observable, or a bound that may be one, but for the structural traits,
+    /// whose impls are derived.
+    fn noisy_crate_impl(&self, i: &ImplExpr) -> bool {
+        match &*i.kind {
+            ImplExprKind::Concrete(goal) => {
+                !STRUCTURAL_TRAITS.contains(&render_id(&i.goal.trait_).as_str())
+                    && self
+                        .impls
+                        .get(&goal.trait_)
+                        .is_some_and(|ms| ms.values().any(|m| !self.quiet.fns.contains(m)))
+            }
+            ImplExprKind::ImplApp { impl_, args } => {
+                self.noisy_crate_impl(impl_) || args.iter().any(|a| self.noisy_crate_impl(a))
+            }
+            ImplExprKind::Parent { impl_, .. } | ImplExprKind::Projection { impl_, .. } => {
+                self.noisy_bound(i) || self.noisy_crate_impl(impl_)
+            }
+            ImplExprKind::LocalBound { .. } | ImplExprKind::Self_ => self.noisy_bound(i),
+            _ => false,
+        }
+    }
+
+    /// Whether the bound `i` of a generic function may be an impl of the crate
+    /// that may be observable, as any impl of its trait may be.
+    fn noisy_bound(&self, i: &ImplExpr) -> bool {
+        let trait_ = render_id(&i.goal.trait_);
+        !STRUCTURAL_TRAITS.contains(&trait_.as_str()) && self.noisy_traits.contains(&trait_)
+    }
+
+    /// Whether the impl `i` is, or uses, an impl of the crate.
+    fn crate_impl(&self, i: &ImplExpr) -> bool {
+        match &*i.kind {
+            ImplExprKind::Concrete(goal) => self.impls.contains_key(&goal.trait_),
+            ImplExprKind::ImplApp { impl_, args } => {
+                self.crate_impl(impl_) || args.iter().any(|a| self.crate_impl(a))
+            }
+            ImplExprKind::Parent { impl_, .. } | ImplExprKind::Projection { impl_, .. } => {
+                self.crate_impl(impl_)
+            }
+            _ => false,
+        }
+    }
+
+    /// Whether `ty` is, or holds, a type with an `Iterator` or `IntoIterator`
+    /// impl of the crate.
+    fn crate_iterator(&self, ty: &Ty) -> bool {
+        match ty.kind() {
+            TyKind::App { head, args } => {
+                self.iterators.contains(head)
+                    || args
+                        .iter()
+                        .any(|a| matches!(a, GenericValue::Ty(t) if self.crate_iterator(t)))
+            }
+            TyKind::Ref { inner, .. } | TyKind::Slice(inner) => self.crate_iterator(inner),
+            TyKind::Array { ty, .. } => self.crate_iterator(ty),
+            _ => false,
+        }
+    }
+
+    /// Why the call `e` runs an impl of the crate that the model does not
+    /// run, if it does.
+    fn implicit_call(&self, e: &Expr) -> Option<&'static str> {
+        let ExprKind::App {
+            head,
+            bounds_impls,
+            generic_args,
+            trait_,
+            ..
+        } = &*e.kind
+        else {
+            return None;
+        };
+        let impls = || bounds_impls.iter().chain(trait_.iter().map(|(i, _)| i));
+        // The model walks only the library's collections: a crate iterator, or
+        // a generic instantiated with one, would run no iteration.
+        let iterates_crate = matches!(&*head.kind, ExprKind::GlobalId(g)
+            if render_id(g).starts_with("core__iter__"))
+            && impls().any(|i| self.crate_impl(i))
+            || generic_args
+                .iter()
+                .any(|g| matches!(g, GenericValue::Ty(t) if self.crate_iterator(t)));
+        if iterates_crate {
+            return Some(
+                "this iterates over an iterator of the crate, which the model does not walk",
+            );
+        }
+        // A function of hax's libraries the call does not resolve to a method
+        // of the crate is modelled without the impls it is given, such as `Debug`
+        // for the message of `unwrap`, `TryFrom` for `try_into` or `FromStr`
+        // for `parse`, which run in Rust.
+        // `From` and `Into` are resolved to the crate's impls later, but for a
+        // bound of a generic function, and the derived impls of the structural
+        // traits are modelled structurally.
+        let resolved = !trait_.as_ref().is_some_and(|(i, _)| has_bound(i));
+        let skips_impls = matches!(&*head.kind, ExprKind::GlobalId(g)
+            if (LIBRARY_CRATES.contains(&g.krate()) || MODELLED_CRATES.contains(&g.krate()))
+                && !(resolved
+                    && [
+                        crate::names::core::convert::From::from,
+                        crate::names::core::convert::Into::into,
+                    ]
+                    .contains(g))
+                && !STRUCTURAL_TRAITS
+                    .iter()
+                    .any(|t| render_id(g).starts_with(&format!("{t}__")))
+                && dispatch(&self.impls, g, trait_.as_ref().map(|(i, _)| i)).is_none())
+            && impls().any(|b| self.noisy_crate_impl(b));
+        skips_impls.then_some(
+            "this library function uses an impl of the crate that may be observable, which its \
+             model does not run",
+        )
+    }
+
+    /// Rejects the calls of `body` that run an impl of the crate that the
+    /// model does not run.
+    fn reject_implicit_calls(&self, body: &mut Expr) {
+        struct Visitor<'a>(&'a Check);
+        impl AstVisitorMut for Visitor<'_> {
+            fn visit_expr(&mut self, e: &mut Expr) {
+                if let Some(what) = self.0.implicit_call(e) {
+                    let d = diagnostic(e.clone(), e.meta.span, self.0.context, what.into());
+                    return replace_by_error(e, vec![d]);
+                }
+                self.visit_inner(e)
+            }
+        }
+        Visitor(self).visit_expr(body)
     }
 
     /// Whether the `Ok` payload of the `Result` type `ty` may hold a `Result`.
@@ -1256,6 +1403,18 @@ impl Check {
     }
 }
 
+/// Whether the impl `i` is, or uses, a bound of a generic function.
+fn has_bound(i: &ImplExpr) -> bool {
+    match &*i.kind {
+        ImplExprKind::LocalBound { .. } | ImplExprKind::Self_ => true,
+        ImplExprKind::ImplApp { impl_, args } => has_bound(impl_) || args.iter().any(has_bound),
+        ImplExprKind::Parent { impl_, .. } | ImplExprKind::Projection { impl_, .. } => {
+            has_bound(impl_)
+        }
+        _ => false,
+    }
+}
+
 /// Whether the closure `e` ignores its parameters.
 fn ignores_param(e: &Expr) -> bool {
     match &*e.kind {
@@ -1274,17 +1433,61 @@ fn is_constructor(e: &Expr) -> bool {
 impl Check {
     fn new(items: &[Item], errors: bool, kept: &[String]) -> Self {
         let types = ResultTypes::new(items);
+        let quiet = Quiet::new(items, kept);
+        let impls = impl_methods(items);
+        let mut noisy_traits: HashSet<String> = items
+            .iter()
+            .filter_map(|item| match &item.kind {
+                ItemKind::Impl { of_trait, .. }
+                    if impls[&item.ident].values().any(|m| !quiet.fns.contains(m)) =>
+                {
+                    Some(render_id(&of_trait.trait_))
+                }
+                _ => None,
+            })
+            .collect();
+        // The library's blanket impls derive `Into` from `From`, `TryFrom` from
+        // `Into` and `TryInto` from `TryFrom`.
+        for (from, into) in [
+            ("core__convert__From", "core__convert__Into"),
+            ("core__convert__Into", "core__convert__TryFrom"),
+            ("core__convert__TryFrom", "core__convert__TryInto"),
+        ] {
+            if noisy_traits.contains(from) {
+                noisy_traits.insert(into.into());
+            }
+        }
         Check {
             errors,
             hidden_impls: hidden_result_impls(items, &types),
             types,
-            quiet: Quiet::new(items, kept),
+            quiet,
+            noisy_traits,
             extracted: fn_decls(items)
                 .filter(|d| is_extracted(d.meta, d.body))
                 .map(|d| d.name)
                 .collect(),
-            impls: impl_methods(items),
+            impls,
             local_crates: items.iter().map(|item| item.ident.krate()).collect(),
+            iterators: items
+                .iter()
+                .filter_map(|item| match &item.kind {
+                    ItemKind::Impl {
+                        of_trait, self_ty, ..
+                    } if [
+                        "core__iter__traits__iterator__Iterator",
+                        "core__iter__traits__collect__IntoIterator",
+                    ]
+                    .contains(&render_id(&of_trait.trait_).as_str()) =>
+                    {
+                        match peel_refs(self_ty).kind() {
+                            TyKind::App { head, .. } => Some(*head),
+                            _ => None,
+                        }
+                    }
+                    _ => None,
+                })
+                .collect(),
             opaque_fns: HashSet::new(),
             current: None,
             err_binders: HashSet::new(),
@@ -1330,21 +1533,87 @@ fn hidden_result_impls(items: &[Item], types: &ResultTypes) -> HashSet<GlobalId>
 const HIDDEN_RESULT: &str = "this impl is for a type that is not a type of the crate, and its \
      associated types hold a `Result`, which the checks cannot follow";
 
-/// Rejects the methods of the impls `hidden`; their uses are rejected by the
-/// checks.
-fn reject_hidden_results(items: &mut [Item], hidden: &HashSet<GlobalId>, context: &str) {
+/// The crates outside hax's libraries whose functions `primitives.pvl` models,
+/// without the impls they are given.
+const MODELLED_CRATES: &[&str] = &["hex", "rand", "rand_core"];
+
+/// The library traits that the model compares, clones or hashes
+/// structurally in derived impls and library types, so that a hand-written
+/// impl of the crate may not be called where Rust calls it.
+const STRUCTURAL_TRAITS: &[&str] = &[
+    "core__clone__Clone",
+    "core__cmp__PartialEq",
+    "core__cmp__Eq",
+    "core__cmp__PartialOrd",
+    "core__cmp__Ord",
+    "core__hash__Hash",
+];
+
+/// The library traits whose crate impls the model does not call: the uses of
+/// `Deref`, `Index` and iterators skip them, library functions such as
+/// `format!`, `collect` or `sum` are modelled without them, and no value is
+/// dropped.
+const SKIPPED_TRAITS: &[&str] = &[
+    "core__ops__deref__Deref",
+    "core__ops__deref__DerefMut",
+    "core__ops__index__Index",
+    "core__ops__index__IndexMut",
+    "core__iter__traits__iterator__Iterator",
+    "core__iter__traits__collect__IntoIterator",
+    "core__iter__traits__collect__FromIterator",
+    "core__iter__traits__collect__Extend",
+    "core__iter__traits__accum__Sum",
+    "core__iter__traits__accum__Product",
+    "core__default__Default",
+    "core__fmt__Debug",
+    "core__fmt__Display",
+    "core__ops__drop__Drop",
+    "core__hash__Hasher",
+    "core__hash__BuildHasher",
+];
+
+/// Rejects the methods of the impls of the crate that the model may skip:
+/// those of [`SKIPPED_TRAITS`] that may be observable, the hand-written impls
+/// of [`STRUCTURAL_TRAITS`], and those of `hidden`, whose uses are rejected by
+/// the checks.
+fn reject_skipped_impls(
+    items: &mut [Item],
+    quiet: &Quiet,
+    hidden: &HashSet<GlobalId>,
+    context: &str,
+) {
     for item in items.iter_mut() {
-        let ItemKind::Impl { items, .. } = &mut item.kind else {
+        let derived = item.meta.attributes.iter().any(|a| {
+            matches!(&a.kind, AttributeKind::Tool { path, .. } if path == "automatically_derived")
+        });
+        let hidden_result = hidden.contains(&item.ident);
+        let ItemKind::Impl {
+            of_trait, items, ..
+        } = &mut item.kind
+        else {
             continue;
         };
-        if !hidden.contains(&item.ident) {
-            continue;
-        }
+        let trait_ = render_id(&of_trait.trait_);
+        let skipped = SKIPPED_TRAITS.contains(&trait_.as_str());
+        let structural = !derived && STRUCTURAL_TRAITS.contains(&trait_.as_str());
         for ii in items.iter_mut() {
-            if let ImplItemKind::Fn { body, .. } = &mut ii.kind {
-                let d = diagnostic(body.clone(), body.meta.span, context, HIDDEN_RESULT.into());
-                replace_by_error(body, vec![d]);
-            }
+            let ImplItemKind::Fn { body, .. } = &mut ii.kind else {
+                continue;
+            };
+            let what = if structural {
+                "this hand-written impl is not called where the model compares, clones or hashes \
+                 structurally, in derived impls and library types"
+            } else if hidden_result {
+                HIDDEN_RESULT
+            } else if skipped && !quiet.fns.contains(&ii.ident) {
+                "this impl may be observable, but the model does not call it: the uses of \
+                 `Deref`, `Index` and iterators skip it, the models of library functions such \
+                 as `format!`, `collect` or `sum` do not call it, and no value is dropped"
+            } else {
+                continue;
+            };
+            let d = diagnostic(body.clone(), body.meta.span, context, what.into());
+            replace_by_error(body, vec![d]);
         }
     }
 }
@@ -1352,7 +1621,9 @@ fn reject_hidden_results(items: &mut [Item], hidden: &HashSet<GlobalId>, context
 impl Phase for ProverifRejectRecovery<'_> {
     fn apply(&self, items: &mut Vec<Item>) {
         let mut check = Check::new(items, false, self.kept);
-        reject_hidden_results(items, &check.hidden_impls, check.context);
+        reject_skipped_impls(items, &check.quiet, &check.hidden_impls, check.context);
+        // `pv_unchecked_results` exempts from the Result checks only.
+        for_each_extracted_fn(items, |_, _, body| check.reject_implicit_calls(body));
         for_each_checked_fn(items, |name, body| check.function(name, body));
     }
 }
@@ -1577,7 +1848,9 @@ impl Phase for ProverifRejectUnknownErrors<'_> {
             .map(|d| d.name)
             .collect();
         let mut check = Check::new(items, true, self.kept);
-        reject_hidden_results(items, &check.hidden_impls, check.context);
+        reject_skipped_impls(items, &check.quiet, &check.hidden_impls, check.context);
+        // `pv_unchecked_results` exempts from the Result checks only.
+        for_each_extracted_fn(items, |_, _, body| check.reject_implicit_calls(body));
         let mut wrap = WrapQuotes {
             types: std::mem::take(&mut check.types),
             ..Default::default()

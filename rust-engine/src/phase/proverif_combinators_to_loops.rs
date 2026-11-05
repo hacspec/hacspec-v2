@@ -253,17 +253,10 @@ fn rewrite(head: GlobalId, args: &[Expr], ty: &Ty, span: Span) -> Option<ExprKin
         let [iter, f] = args else { return None };
         let (elem, body) = closure1(f)?;
         for_loop(elem, iter, body.clone(), None)
-    } else if head == Iterator::filter_map {
-        // Keeps the `Some` payloads.
-        let [iter, f] = args else { return None };
-        let (elem, body) = closure1(f)?;
-        let (y_pat, y) = local("__filter_map_y", &type_arg(&body.ty, 0), span);
-        collect_loop("__filter_map_acc", iter, elem, ty, span, |acc| {
-            match_option(body.clone(), y_pat, push(acc.clone(), y, span), acc, span)
-                .promote(ty.clone(), span)
-        })
     } else if head == Iterator::collect {
-        // `collect(map(iter, f))`.
+        // `collect(map(iter, f))` and `collect(filter_map(iter, f))`: the
+        // adapters are lazy, so they are only rewritten where `collect` runs
+        // them all, in order.
         let [inner] = args else { return None };
         if !is_seq(ty) {
             return None;
@@ -279,14 +272,25 @@ fn rewrite(head: GlobalId, args: &[Expr], ty: &Ty, span: Span) -> Option<ExprKin
         else {
             return None;
         };
-        if !matches!(&*map.kind, ExprKind::GlobalId(g) if *g == Iterator::map) {
+        let ExprKind::GlobalId(adapter) = &*map.kind else {
             return None;
-        }
+        };
         let [iter, f] = &args[..] else { return None };
         let (elem, body) = closure1(f)?;
-        collect_loop("__map_acc", iter, elem, ty, span, |acc| {
-            push(acc, body.clone(), span)
-        })
+        if *adapter == Iterator::map {
+            collect_loop("__map_acc", iter, elem, ty, span, |acc| {
+                push(acc, body.clone(), span)
+            })
+        } else if *adapter == Iterator::filter_map {
+            // Keeps the `Some` payloads.
+            let (y_pat, y) = local("__filter_map_y", &type_arg(&body.ty, 0), span);
+            collect_loop("__filter_map_acc", iter, elem, ty, span, |acc| {
+                match_option(body.clone(), y_pat, push(acc.clone(), y, span), acc, span)
+                    .promote(ty.clone(), span)
+            })
+        } else {
+            return None;
+        }
     } else if head == Option_::map {
         let [opt, f] = args else { return None };
         let (elem, body) = closure1(f)?;

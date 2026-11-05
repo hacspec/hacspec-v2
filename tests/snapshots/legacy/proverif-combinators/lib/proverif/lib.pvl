@@ -87,36 +87,34 @@ letfun new_tests__legacy__proverif_combinators__lib__collect_in_order(v: bitstri
   let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *))).
 (* src: src/legacy/proverif-combinators/lib.rs:11:0-13:1 new_tests__legacy__proverif_combinators__lib__filter_map_in_order *)
 letfun new_tests__legacy__proverif_combinators__lib__filter_map_in_order(v: bitstring) =
-  core__iter__traits__iterator__Iterator__collect(
-    (let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
-      v
-    )) in let bl__acc0 = (rust_primitives__hax__array_nil()) in 
-    let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let u__filter_map_acc = bl__acc0 in
-    let bl__acc1 = (let Some(u__filter_map_y) = x in
-      alloc__vec__Impl_2__extend_from_slice(
-        u__filter_map_acc,
-        rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
-      )
-    else let None() = x in u__filter_map_acc
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let u__filter_map_acc = bl__acc1 in
-    let bl__acc2 = (let Some(u__filter_map_y) = x in
-      alloc__vec__Impl_2__extend_from_slice(
-        u__filter_map_acc,
-        rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
-      )
-    else let None() = x in u__filter_map_acc
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let u__filter_map_acc = bl__acc2 in
-    let bl__acc3 = (let Some(u__filter_map_y) = x in
-      alloc__vec__Impl_2__extend_from_slice(
-        u__filter_map_acc,
-        rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
-      )
-    else let None() = x in u__filter_map_acc
-    else bitstring_err()) in
-    let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))
-  ).
+  (let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
+    v
+  )) in let bl__acc0 = (rust_primitives__hax__array_nil()) in 
+  let rust_primitives__hax__array_cons(x, bl__seq1) = bl__seq0 in (let u__filter_map_acc = bl__acc0 in
+  let bl__acc1 = (let Some(u__filter_map_y) = x in
+    alloc__vec__Impl_2__extend_from_slice(
+      u__filter_map_acc,
+      rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
+    )
+  else let None() = x in u__filter_map_acc
+  else bitstring_err()) in
+  let rust_primitives__hax__array_cons(x, bl__seq2) = bl__seq1 in (let u__filter_map_acc = bl__acc1 in
+  let bl__acc2 = (let Some(u__filter_map_y) = x in
+    alloc__vec__Impl_2__extend_from_slice(
+      u__filter_map_acc,
+      rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
+    )
+  else let None() = x in u__filter_map_acc
+  else bitstring_err()) in
+  let rust_primitives__hax__array_cons(x, bl__seq3) = bl__seq2 in (let u__filter_map_acc = bl__acc2 in
+  let bl__acc3 = (let Some(u__filter_map_y) = x in
+    alloc__vec__Impl_2__extend_from_slice(
+      u__filter_map_acc,
+      rust_primitives__hax__array_cons(u__filter_map_y, rust_primitives__hax__array_nil())
+    )
+  else let None() = x in u__filter_map_acc
+  else bitstring_err()) in
+  let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *))).
 (* src: src/legacy/proverif-combinators/lib.rs:17:0-22:1 new_tests__legacy__proverif_combinators__lib__find_twice *)
 letfun new_tests__legacy__proverif_combinators__lib__find_twice(v: bitstring) =
   let it = core__iter__traits__collect__IntoIterator__into_iter(v) in

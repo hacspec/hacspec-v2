@@ -124,17 +124,24 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - an argument of this call may be observable, and runs after a `Result` that may be an `Err`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
 (*  - this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
 (*  - this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this matches a `Result` whose `Ok` holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this matches a `Result` whose `Ok` holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this generic function is instantiated with a type that holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
+(*  - this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
 (*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]`; this generic function is instantiated with a type that holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
-(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this iterates over an iterator of the crate, which the model does not walk *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
@@ -144,6 +151,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*  - this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
@@ -163,86 +171,86 @@ query attacker(hax_extraction_error__new_tests).
 (*  - 3 × `pv_unchecked_results`: the uses of `Result` in this function are not checked against the Result model *)
 (*****************************************************************)
 
-(* src: src/legacy/proverif-result/lib.rs:11:0-14:1 new_tests__legacy__proverif_result__lib__Error *)
+(* src: src/legacy/proverif-result/lib.rs:12:0-15:1 new_tests__legacy__proverif_result__lib__Error *)
 fun new_tests__legacy__proverif_result__lib__Error__Invalid(): bitstring [data].
 fun new_tests__legacy__proverif_result__lib__Error__Other(): bitstring [data].
-(* src: src/legacy/proverif-result/lib.rs:11:0-14:1 new_tests__legacy__proverif_result__lib__Error_cast_to_repr *)
+(* src: src/legacy/proverif-result/lib.rs:12:0-15:1 new_tests__legacy__proverif_result__lib__Error_cast_to_repr *)
 letfun new_tests__legacy__proverif_result__lib__Error_cast_to_repr(x: bitstring) =
   let new_tests__legacy__proverif_result__lib__Error__Invalid() = x in nat_0
   else let new_tests__legacy__proverif_result__lib__Error__Other() = x in nat_1
   else bitstring_err().
 
 
-(* src: src/legacy/proverif-result/lib.rs:16:0-18:1 new_tests__legacy__proverif_result__lib__check *)
+(* src: src/legacy/proverif-result/lib.rs:17:0-19:1 new_tests__legacy__proverif_result__lib__check *)
 letfun new_tests__legacy__proverif_result__lib__check(x: bitstring) =
   let hax__cond0 = rust_primitives__hax__machine_int__eq(x, nat_0) in
   let (=True()) = hax__cond0 in bitstring_err() else x.
-(* src: src/legacy/proverif-result/lib.rs:20:0-23:1 new_tests__legacy__proverif_result__lib__question_mark *)
+(* src: src/legacy/proverif-result/lib.rs:21:0-24:1 new_tests__legacy__proverif_result__lib__question_mark *)
 letfun new_tests__legacy__proverif_result__lib__question_mark(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__check(x) in
   let y = hax__scrut0 in y.
-(* src: src/legacy/proverif-result/lib.rs:26:0-32:1 new_tests__legacy__proverif_result__lib__err_arms_first *)
+(* src: src/legacy/proverif-result/lib.rs:27:0-33:1 new_tests__legacy__proverif_result__lib__err_arms_first *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arms_first(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:35:0-41:1 new_tests__legacy__proverif_result__lib__nested_err *)
+(* src: src/legacy/proverif-result/lib.rs:36:0-42:1 new_tests__legacy__proverif_result__lib__nested_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__nested_err(o: bitstring) =
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let Some(v) = hax__scrut0 in v
   else let None() = hax__scrut0 in nat_1
   else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:44:0-46:1 new_tests__legacy__proverif_result__lib__is_ok *)
+(* src: src/legacy/proverif-result/lib.rs:45:0-47:1 new_tests__legacy__proverif_result__lib__is_ok *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__is_ok(r: bitstring) =
   core__result__Impl__is_ok(
     bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ).
-(* src: src/legacy/proverif-result/lib.rs:48:0-50:1 new_tests__legacy__proverif_result__lib__map_err *)
+(* src: src/legacy/proverif-result/lib.rs:49:0-51:1 new_tests__legacy__proverif_result__lib__map_err *)
 letfun new_tests__legacy__proverif_result__lib__map_err(r: bitstring) = let hax__ok = r in hax__ok.
-(* src: src/legacy/proverif-result/lib.rs:53:0-55:1 new_tests__legacy__proverif_result__lib__transpose *)
+(* src: src/legacy/proverif-result/lib.rs:54:0-56:1 new_tests__legacy__proverif_result__lib__transpose *)
 letfun new_tests__legacy__proverif_result__lib__transpose(x: bitstring) =
   core__option__Impl_4__transpose(x).
-(* src: src/legacy/proverif-result/lib.rs:60:0-62:1 new_tests__legacy__proverif_result__lib__if_let_else *)
+(* src: src/legacy/proverif-result/lib.rs:61:0-63:1 new_tests__legacy__proverif_result__lib__if_let_else *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__if_let_else(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:65:0-70:1 new_tests__legacy__proverif_result__lib__wildcard_arm *)
+(* src: src/legacy/proverif-result/lib.rs:66:0-71:1 new_tests__legacy__proverif_result__lib__wildcard_arm *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__wildcard_arm(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:73:0-76:1 new_tests__legacy__proverif_result__lib__discarded *)
+(* src: src/legacy/proverif-result/lib.rs:74:0-77:1 new_tests__legacy__proverif_result__lib__discarded *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__discarded(x: bitstring) =
   let wildcard = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   x.
-(* src: src/legacy/proverif-result/lib.rs:78:0-80:1 new_tests__legacy__proverif_result__lib__unused_param *)
+(* src: src/legacy/proverif-result/lib.rs:79:0-81:1 new_tests__legacy__proverif_result__lib__unused_param *)
 letfun new_tests__legacy__proverif_result__lib__unused_param(u_r: bitstring, x: bitstring) = x.
-(* src: src/legacy/proverif-result/lib.rs:83:0-86:1 new_tests__legacy__proverif_result__lib__used_on_one_path *)
+(* src: src/legacy/proverif-result/lib.rs:84:0-87:1 new_tests__legacy__proverif_result__lib__used_on_one_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__used_on_one_path(c: bitstring, x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let (=True()) = c in r else nat_0.
-(* src: src/legacy/proverif-result/lib.rs:90:0-95:1 new_tests__legacy__proverif_result__lib__propagating_arms *)
+(* src: src/legacy/proverif-result/lib.rs:91:0-96:1 new_tests__legacy__proverif_result__lib__propagating_arms *)
 letfun new_tests__legacy__proverif_result__lib__propagating_arms(r: bitstring) =
   let v = r in rust_primitives__hax__machine_int__add(v, nat_1).
-(* src: src/legacy/proverif-result/lib.rs:97:0-102:1 new_tests__legacy__proverif_result__lib__panicking_arm *)
+(* src: src/legacy/proverif-result/lib.rs:98:0-103:1 new_tests__legacy__proverif_result__lib__panicking_arm *)
 letfun new_tests__legacy__proverif_result__lib__panicking_arm(r: bitstring) = let v = r in v.
-(* src: src/legacy/proverif-result/lib.rs:104:0-109:1 new_tests__legacy__proverif_result__lib__wildcard_err *)
+(* src: src/legacy/proverif-result/lib.rs:105:0-110:1 new_tests__legacy__proverif_result__lib__wildcard_err *)
 letfun new_tests__legacy__proverif_result__lib__wildcard_err(r: bitstring) = let v = r in v.
-(* src: src/legacy/proverif-result/lib.rs:114:0-118:1 new_tests__legacy__proverif_result__lib__bound_then_propagated *)
+(* src: src/legacy/proverif-result/lib.rs:115:0-119:1 new_tests__legacy__proverif_result__lib__bound_then_propagated *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__bound_then_propagated(x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let v = r in v.
-(* src: src/legacy/proverif-result/lib.rs:121:0-123:1 new_tests__legacy__proverif_result__lib__in_tuple *)
+(* src: src/legacy/proverif-result/lib.rs:122:0-124:1 new_tests__legacy__proverif_result__lib__in_tuple *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__in_tuple(x: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(
     x,
     bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ).
-(* src: src/legacy/proverif-result/lib.rs:126:0-130:1 new_tests__legacy__proverif_result__lib__from_tuple *)
+(* src: src/legacy/proverif-result/lib.rs:127:0-131:1 new_tests__legacy__proverif_result__lib__from_tuple *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__from_tuple(x: bitstring) =
   let rust_primitives__hax__Tuple2__Tuple2(
@@ -250,88 +258,88 @@ letfun new_tests__legacy__proverif_result__lib__from_tuple(x: bitstring) =
     r: bitstring
   ) = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in (let v = r in
     rust_primitives__hax__machine_int__add(y, v)) else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:137:0-140:1 new_tests__legacy__proverif_result__lib__question_mark_of *)
+(* src: src/legacy/proverif-result/lib.rs:138:0-141:1 new_tests__legacy__proverif_result__lib__question_mark_of *)
 letfun new_tests__legacy__proverif_result__lib__question_mark_of(r: bitstring) = let v = r in v.
-(* src: src/legacy/proverif-result/lib.rs:133:0-135:1 new_tests__legacy__proverif_result__lib__passed *)
+(* src: src/legacy/proverif-result/lib.rs:134:0-136:1 new_tests__legacy__proverif_result__lib__passed *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__passed(x: bitstring) =
   new_tests__legacy__proverif_result__lib__question_mark_of(
     bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ).
-(* src: src/legacy/proverif-result/lib.rs:144:0-144:54 new_tests__legacy__proverif_result__lib__modelled *)
+(* src: src/legacy/proverif-result/lib.rs:145:0-145:54 new_tests__legacy__proverif_result__lib__modelled *)
 letfun new_tests__legacy__proverif_result__lib__modelled(x: bitstring) = hax_result_ok(x).
-(* src: src/legacy/proverif-result/lib.rs:150:0-155:1 new_tests__legacy__proverif_result__lib__match_any *)
+(* src: src/legacy/proverif-result/lib.rs:151:0-156:1 new_tests__legacy__proverif_result__lib__match_any *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__match_any(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:158:0-164:1 new_tests__legacy__proverif_result__lib__match_variant *)
+(* src: src/legacy/proverif-result/lib.rs:159:0-165:1 new_tests__legacy__proverif_result__lib__match_variant *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__match_variant(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:166:0-169:1 new_tests__legacy__proverif_result__lib__forwarded *)
+(* src: src/legacy/proverif-result/lib.rs:167:0-170:1 new_tests__legacy__proverif_result__lib__forwarded *)
 letfun new_tests__legacy__proverif_result__lib__forwarded(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__modelled(x) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:172:0-178:1 new_tests__legacy__proverif_result__lib__match_forwarded *)
+(* src: src/legacy/proverif-result/lib.rs:173:0-179:1 new_tests__legacy__proverif_result__lib__match_forwarded *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__match_forwarded(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:180:0-185:1 new_tests__legacy__proverif_result__lib__error_code *)
+(* src: src/legacy/proverif-result/lib.rs:181:0-186:1 new_tests__legacy__proverif_result__lib__error_code *)
 letfun new_tests__legacy__proverif_result__lib__error_code(e: bitstring) =
   let new_tests__legacy__proverif_result__lib__Error__Invalid() = e in nat_1
   else let new_tests__legacy__proverif_result__lib__Error__Other() = e in nat_2
   else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:188:0-193:1 new_tests__legacy__proverif_result__lib__inspected *)
+(* src: src/legacy/proverif-result/lib.rs:189:0-194:1 new_tests__legacy__proverif_result__lib__inspected *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__inspected(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:196:0-198:1 new_tests__legacy__proverif_result__lib__opaque_result *)
+(* src: src/legacy/proverif-result/lib.rs:197:0-199:1 new_tests__legacy__proverif_result__lib__opaque_result *)
 (* opaque *)
 fun new_tests__legacy__proverif_result__lib__opaque_result(bitstring): bitstring [data].
-(* src: src/legacy/proverif-result/lib.rs:200:0-203:1 new_tests__legacy__proverif_result__lib__use_opaque *)
+(* src: src/legacy/proverif-result/lib.rs:201:0-204:1 new_tests__legacy__proverif_result__lib__use_opaque *)
 letfun new_tests__legacy__proverif_result__lib__use_opaque(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__opaque_result(x) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:206:0-208:1 new_tests__legacy__proverif_result__lib__encode *)
+(* src: src/legacy/proverif-result/lib.rs:207:0-209:1 new_tests__legacy__proverif_result__lib__encode *)
 (* marked as constructor *)
 fun new_tests__legacy__proverif_result__lib__encode(bitstring): bitstring [data].
-(* src: src/legacy/proverif-result/lib.rs:210:0-210:33 new_tests__legacy__proverif_result__lib__decode *)
+(* src: src/legacy/proverif-result/lib.rs:211:0-211:33 new_tests__legacy__proverif_result__lib__decode *)
 letfun new_tests__legacy__proverif_result__lib__decode(b: bitstring) =
   let new_tests__legacy__proverif_result__lib__encode(hax__inverse) = b in hax__inverse.
-(* src: src/legacy/proverif-result/lib.rs:215:0-217:1 new_tests__legacy__proverif_result__lib__round_trip *)
+(* src: src/legacy/proverif-result/lib.rs:216:0-218:1 new_tests__legacy__proverif_result__lib__round_trip *)
 letfun new_tests__legacy__proverif_result__lib__round_trip(x: bitstring) =
   new_tests__legacy__proverif_result__lib__decode(
     new_tests__legacy__proverif_result__lib__encode(x)
   ).
-(* src: src/legacy/proverif-result/lib.rs:220:0-225:1 new_tests__legacy__proverif_result__lib__decode_or_zero *)
+(* src: src/legacy/proverif-result/lib.rs:221:0-226:1 new_tests__legacy__proverif_result__lib__decode_or_zero *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__decode_or_zero(b: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 event Recorded(bitstring).
-(* src: src/legacy/proverif-result/lib.rs:230:0-230:64 new_tests__legacy__proverif_result__lib__record *)
+(* src: src/legacy/proverif-result/lib.rs:231:0-231:64 new_tests__legacy__proverif_result__lib__record *)
 letfun new_tests__legacy__proverif_result__lib__record(x: bitstring) = event Recorded(x); x.
-(* src: src/legacy/proverif-result/lib.rs:236:0-244:1 new_tests__legacy__proverif_result__lib__err_arm_effect *)
+(* src: src/legacy/proverif-result/lib.rs:237:0-245:1 new_tests__legacy__proverif_result__lib__err_arm_effect *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_effect(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:247:0-252:1 new_tests__legacy__proverif_result__lib__effect_before_propagation *)
+(* src: src/legacy/proverif-result/lib.rs:248:0-253:1 new_tests__legacy__proverif_result__lib__effect_before_propagation *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__effect_before_propagation(x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let wildcard = new_tests__legacy__proverif_result__lib__record(x) in
   let v = r in v.
-(* src: src/legacy/proverif-result/lib.rs:255:0-257:1 new_tests__legacy__proverif_result__lib__effect_after_result *)
+(* src: src/legacy/proverif-result/lib.rs:256:0-258:1 new_tests__legacy__proverif_result__lib__effect_after_result *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__effect_after_result(x: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(
     bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *),
     new_tests__legacy__proverif_result__lib__record(x)
   ).
-(* src: src/legacy/proverif-result/lib.rs:259:0-262:1 new_tests__legacy__proverif_result__lib__effect_after_propagation *)
+(* src: src/legacy/proverif-result/lib.rs:260:0-263:1 new_tests__legacy__proverif_result__lib__effect_after_propagation *)
 letfun new_tests__legacy__proverif_result__lib__effect_after_propagation(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__check(x) in
   let v = hax__scrut0 in new_tests__legacy__proverif_result__lib__record(v).
-(* src: src/legacy/proverif-result/lib.rs:264:0-267:1 new_tests__legacy__proverif_result__lib__Out *)
+(* src: src/legacy/proverif-result/lib.rs:265:0-268:1 new_tests__legacy__proverif_result__lib__Out *)
 fun new_tests__legacy__proverif_result__lib__Out__Out(bitstring, bitstring): bitstring [data].
 reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__proverif_result__lib__Out__Out__n(
@@ -341,21 +349,21 @@ reduc forall v_0: bitstring, v_1: bitstring;
   new_tests__legacy__proverif_result__lib__Out__Out__r(
     new_tests__legacy__proverif_result__lib__Out__Out(v_0, v_1)
   ) = v_1.
-(* src: src/legacy/proverif-result/lib.rs:270:0-272:1 new_tests__legacy__proverif_result__lib__produce *)
+(* src: src/legacy/proverif-result/lib.rs:271:0-273:1 new_tests__legacy__proverif_result__lib__produce *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__produce(x: bitstring) =
   new_tests__legacy__proverif_result__lib__Out__Out(
     x,
     bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ).
-(* src: src/legacy/proverif-result/lib.rs:275:0-278:1 new_tests__legacy__proverif_result__lib__rest_pattern *)
+(* src: src/legacy/proverif-result/lib.rs:276:0-279:1 new_tests__legacy__proverif_result__lib__rest_pattern *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__rest_pattern(x: bitstring) =
   let new_tests__legacy__proverif_result__lib__Out__Out(
     n: bitstring,
     wildcard: bitstring
   ) = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in n else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:281:0-285:1 new_tests__legacy__proverif_result__lib__all_fields *)
+(* src: src/legacy/proverif-result/lib.rs:282:0-286:1 new_tests__legacy__proverif_result__lib__all_fields *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__all_fields(x: bitstring) =
   let new_tests__legacy__proverif_result__lib__Out__Out(
@@ -363,42 +371,42 @@ letfun new_tests__legacy__proverif_result__lib__all_fields(x: bitstring) =
     r: bitstring
   ) = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in (let v = r in
     rust_primitives__hax__machine_int__add(n, v)) else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:290:0-292:1 new_tests__legacy__proverif_result__lib__equal_err *)
+(* src: src/legacy/proverif-result/lib.rs:291:0-293:1 new_tests__legacy__proverif_result__lib__equal_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__equal_err(x: bitstring) =
   bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:295:0-305:1 new_tests__legacy__proverif_result__lib__repacked *)
+(* src: src/legacy/proverif-result/lib.rs:296:0-306:1 new_tests__legacy__proverif_result__lib__repacked *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__repacked(x: bitstring) =
   let swapped = (bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]`; a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 fun extern__derive(bitstring): bitstring.
-(* src: src/legacy/proverif-result/lib.rs:307:0-307:21 new_tests__legacy__proverif_result__lib__derive *)
+(* src: src/legacy/proverif-result/lib.rs:308:0-308:21 new_tests__legacy__proverif_result__lib__derive *)
 letfun new_tests__legacy__proverif_result__lib__derive(k: bitstring) = extern__derive(k).
-(* src: src/legacy/proverif-result/lib.rs:312:0-315:1 new_tests__legacy__proverif_result__lib__use_derive *)
+(* src: src/legacy/proverif-result/lib.rs:313:0-316:1 new_tests__legacy__proverif_result__lib__use_derive *)
 letfun new_tests__legacy__proverif_result__lib__use_derive(k: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__derive(k) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:317:0-317:53 new_tests__legacy__proverif_result__lib__hashed *)
+(* src: src/legacy/proverif-result/lib.rs:318:0-318:53 new_tests__legacy__proverif_result__lib__hashed *)
 letfun new_tests__legacy__proverif_result__lib__hashed(x: bitstring) = crypto__hash(x).
-(* src: src/legacy/proverif-result/lib.rs:322:0-325:1 new_tests__legacy__proverif_result__lib__use_hashed *)
+(* src: src/legacy/proverif-result/lib.rs:323:0-326:1 new_tests__legacy__proverif_result__lib__use_hashed *)
 letfun new_tests__legacy__proverif_result__lib__use_hashed(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__hashed(x) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:327:0-329:1 new_tests__legacy__proverif_result__lib__Wrapped *)
+(* src: src/legacy/proverif-result/lib.rs:328:0-330:1 new_tests__legacy__proverif_result__lib__Wrapped *)
 fun new_tests__legacy__proverif_result__lib__Wrapped__E(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_result__lib__Wrapped__E__0(
     new_tests__legacy__proverif_result__lib__Wrapped__E(v_0)
   ) = v_0.
-(* src: src/legacy/proverif-result/lib.rs:331:0-334:1 new_tests__legacy__proverif_result__lib__map_err_constructor *)
+(* src: src/legacy/proverif-result/lib.rs:332:0-335:1 new_tests__legacy__proverif_result__lib__map_err_constructor *)
 letfun new_tests__legacy__proverif_result__lib__map_err_constructor(x: bitstring) =
   let hax__scrut0 = (let hax__scrut1 = new_tests__legacy__proverif_result__lib__check(x) in
   let hax__ok = hax__scrut1 in hax__ok) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:336:0-336:39 new_tests__legacy__proverif_result__lib__make_error *)
+(* src: src/legacy/proverif-result/lib.rs:337:0-337:39 new_tests__legacy__proverif_result__lib__make_error *)
 letfun new_tests__legacy__proverif_result__lib__make_error(e: bitstring) = e.
-(* src: src/legacy/proverif-result/lib.rs:341:0-343:1 new_tests__legacy__proverif_result__lib__err_payload_effect *)
+(* src: src/legacy/proverif-result/lib.rs:342:0-344:1 new_tests__legacy__proverif_result__lib__err_payload_effect *)
 letfun new_tests__legacy__proverif_result__lib__err_payload_effect(x: bitstring) =
   let hax__cond0 = rust_primitives__hax__machine_int__eq(x, nat_0) in
   let (=True()) = hax__cond0
@@ -407,25 +415,25 @@ letfun new_tests__legacy__proverif_result__lib__err_payload_effect(x: bitstring)
     ) in
     bitstring_err())
     else x.
-(* src: src/legacy/proverif-result/lib.rs:346:0-353:1 new_tests__legacy__proverif_result__lib__nested_unwrap *)
+(* src: src/legacy/proverif-result/lib.rs:347:0-354:1 new_tests__legacy__proverif_result__lib__nested_unwrap *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__nested_unwrap(x: bitstring) =
   let outer = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:356:0-363:1 new_tests__legacy__proverif_result__lib__nested_ok *)
+(* src: src/legacy/proverif-result/lib.rs:357:0-364:1 new_tests__legacy__proverif_result__lib__nested_ok *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__nested_ok(x: bitstring) =
   let outer = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let Some(v) = hax__scrut0 in v
   else nat_2.
-(* src: src/legacy/proverif-result/lib.rs:365:0-367:1 new_tests__legacy__proverif_result__lib__identity *)
+(* src: src/legacy/proverif-result/lib.rs:366:0-368:1 new_tests__legacy__proverif_result__lib__identity *)
 letfun new_tests__legacy__proverif_result__lib__identity(x: bitstring) = x.
-(* src: src/legacy/proverif-result/lib.rs:370:0-376:1 new_tests__legacy__proverif_result__lib__through_generic *)
+(* src: src/legacy/proverif-result/lib.rs:371:0-377:1 new_tests__legacy__proverif_result__lib__through_generic *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__through_generic(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]`; this generic function is instantiated with a type that holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:381:0-386:1 new_tests__legacy__proverif_result__lib__guard_falls_through *)
+(* src: src/legacy/proverif-result/lib.rs:382:0-387:1 new_tests__legacy__proverif_result__lib__guard_falls_through *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__guard_falls_through(o: bitstring) =
   let hax__arm1 = (let Some(v) = o in
@@ -434,22 +442,22 @@ letfun new_tests__legacy__proverif_result__lib__guard_falls_through(o: bitstring
   else None()) in
   let Some(hax__val2) = hax__arm1 in hax__val2
   else nat_0.
-(* src: src/legacy/proverif-result/lib.rs:388:0-393:1 new_tests__legacy__proverif_result__lib__err_taken_first *)
+(* src: src/legacy/proverif-result/lib.rs:389:0-394:1 new_tests__legacy__proverif_result__lib__err_taken_first *)
 letfun new_tests__legacy__proverif_result__lib__err_taken_first(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__check(x) in
   x.
-(* src: src/legacy/proverif-result/lib.rs:395:0-401:1 new_tests__legacy__proverif_result__lib__err_arm_then_catch_all *)
+(* src: src/legacy/proverif-result/lib.rs:396:0-402:1 new_tests__legacy__proverif_result__lib__err_arm_then_catch_all *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_then_catch_all(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__check(x) in
   let (=nat_1) = hax__scrut0 in nat_1
   else nat_2.
-(* src: src/legacy/proverif-result/lib.rs:404:0-410:1 new_tests__legacy__proverif_result__lib__two_pending *)
+(* src: src/legacy/proverif-result/lib.rs:405:0-411:1 new_tests__legacy__proverif_result__lib__two_pending *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__two_pending(x: bitstring, y: bitstring) =
   let a = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let b = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let u = a in let v = b in rust_primitives__hax__machine_int__add(u, v).
-(* src: src/legacy/proverif-result/lib.rs:413:0-419:1 new_tests__legacy__proverif_result__lib__early_return_before_use *)
+(* src: src/legacy/proverif-result/lib.rs:414:0-420:1 new_tests__legacy__proverif_result__lib__early_return_before_use *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__early_return_before_use(
   c: bitstring,
@@ -457,7 +465,7 @@ letfun new_tests__legacy__proverif_result__lib__early_return_before_use(
 ) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let (=True()) = c in bitstring_err() else r.
-(* src: src/legacy/proverif-result/lib.rs:422:0-430:1 new_tests__legacy__proverif_result__lib__pure_loop_before_use *)
+(* src: src/legacy/proverif-result/lib.rs:423:0-431:1 new_tests__legacy__proverif_result__lib__pure_loop_before_use *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__pure_loop_before_use(x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
@@ -472,18 +480,18 @@ letfun new_tests__legacy__proverif_result__lib__pure_loop_before_use(x: bitstrin
   let bl__acc3 = (rust_primitives__hax__machine_int__add(n_1, i)) in
   let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
   let v = r in rust_primitives__hax__machine_int__add(v, n_2).
-(* src: src/legacy/proverif-result/lib.rs:435:0-446:1 new_tests__legacy__proverif_result__lib__ok_or_repacked *)
+(* src: src/legacy/proverif-result/lib.rs:436:0-447:1 new_tests__legacy__proverif_result__lib__ok_or_repacked *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__ok_or_repacked(x: bitstring) =
   let opt = (bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let swapped = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 letfun new_tests__legacy__proverif_result__lib__MODELLED_CONST() = hax_result_err(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/proverif-result/lib.rs:454:0-460:1 new_tests__legacy__proverif_result__lib__match_const *)
+(* src: src/legacy/proverif-result/lib.rs:455:0-461:1 new_tests__legacy__proverif_result__lib__match_const *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__match_const(wildcard: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:463:0-473:1 new_tests__legacy__proverif_result__lib__reused_name *)
+(* src: src/legacy/proverif-result/lib.rs:464:0-474:1 new_tests__legacy__proverif_result__lib__reused_name *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__reused_name(x: bitstring) =
   let y = (bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
@@ -492,67 +500,67 @@ letfun new_tests__legacy__proverif_result__lib__reused_name(x: bitstring) =
     nat_3
   ) in
   let (=True()) = hax__cond0 in nat_1 else nat_0.
-(* src: src/legacy/proverif-result/lib.rs:476:0-480:1 new_tests__legacy__proverif_result__lib__spliced *)
+(* src: src/legacy/proverif-result/lib.rs:477:0-481:1 new_tests__legacy__proverif_result__lib__spliced *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__spliced(x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let wildcard = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   nat_0.
 
-(* src: src/legacy/proverif-result/lib.rs:489:4-491:5 new_tests__legacy__proverif_result__lib__Impl__tag *)
+(* src: src/legacy/proverif-result/lib.rs:490:4-492:5 new_tests__legacy__proverif_result__lib__Impl__tag *)
 letfun new_tests__legacy__proverif_result__lib__Impl__tag(self: bitstring) = nat_3.
-(* src: src/legacy/proverif-result/lib.rs:495:0-497:1 new_tests__legacy__proverif_result__lib__generic_self *)
+(* src: src/legacy/proverif-result/lib.rs:496:0-498:1 new_tests__legacy__proverif_result__lib__generic_self *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__generic_self(x: bitstring) =
   new_tests__legacy__proverif_result__lib__Impl__tag(
     bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ).
-(* src: src/legacy/proverif-result/lib.rs:502:0-502:90 new_tests__legacy__proverif_result__lib__always_err *)
+(* src: src/legacy/proverif-result/lib.rs:503:0-503:90 new_tests__legacy__proverif_result__lib__always_err *)
 letfun new_tests__legacy__proverif_result__lib__always_err(u_x: bitstring) =
   hax_result_err(rust_primitives__hax__Tuple0__Tuple0).
-(* src: src/legacy/proverif-result/lib.rs:508:0-513:1 new_tests__legacy__proverif_result__lib__recover_always_err *)
+(* src: src/legacy/proverif-result/lib.rs:509:0-514:1 new_tests__legacy__proverif_result__lib__recover_always_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__recover_always_err(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:515:0-515:102 new_tests__legacy__proverif_result__lib__dec_let *)
+(* src: src/legacy/proverif-result/lib.rs:516:0-516:102 new_tests__legacy__proverif_result__lib__dec_let *)
 letfun new_tests__legacy__proverif_result__lib__dec_let(k: bitstring, c: bitstring) =
   let k2 = crypto__hash(k) in crypto__aead_dec(k2, c, empty).
-(* src: src/legacy/proverif-result/lib.rs:520:0-523:1 new_tests__legacy__proverif_result__lib__use_dec_let *)
+(* src: src/legacy/proverif-result/lib.rs:521:0-524:1 new_tests__legacy__proverif_result__lib__use_dec_let *)
 letfun new_tests__legacy__proverif_result__lib__use_dec_let(k: bitstring, c: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__dec_let(k, c) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:525:0-525:33 new_tests__legacy__proverif_result__lib__decode_unchecked *)
+(* src: src/legacy/proverif-result/lib.rs:526:0-526:33 new_tests__legacy__proverif_result__lib__decode_unchecked *)
 letfun new_tests__legacy__proverif_result__lib__decode_unchecked(b: bitstring) =
   let new_tests__legacy__proverif_result__lib__encode(hax__inverse) = b in hax__inverse.
 table Recorded_table(bitstring).
-(* src: src/legacy/proverif-result/lib.rs:533:0-533:71 new_tests__legacy__proverif_result__lib__record_in_table *)
+(* src: src/legacy/proverif-result/lib.rs:534:0-534:71 new_tests__legacy__proverif_result__lib__record_in_table *)
 letfun new_tests__legacy__proverif_result__lib__record_in_table(x: bitstring) =
   insert Recorded_table(x); x.
-(* src: src/legacy/proverif-result/lib.rs:539:0-547:1 new_tests__legacy__proverif_result__lib__err_arm_table *)
+(* src: src/legacy/proverif-result/lib.rs:540:0-548:1 new_tests__legacy__proverif_result__lib__err_arm_table *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_table(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:549:0-549:53 new_tests__legacy__proverif_result__lib__indirect_record *)
+(* src: src/legacy/proverif-result/lib.rs:550:0-550:53 new_tests__legacy__proverif_result__lib__indirect_record *)
 letfun new_tests__legacy__proverif_result__lib__indirect_record(x: bitstring) =
   new_tests__legacy__proverif_result__lib__record(x).
-(* src: src/legacy/proverif-result/lib.rs:555:0-563:1 new_tests__legacy__proverif_result__lib__err_arm_indirect *)
+(* src: src/legacy/proverif-result/lib.rs:556:0-564:1 new_tests__legacy__proverif_result__lib__err_arm_indirect *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_indirect(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:568:0-571:1 new_tests__legacy__proverif_result__lib__returns_other_err *)
+(* src: src/legacy/proverif-result/lib.rs:569:0-572:1 new_tests__legacy__proverif_result__lib__returns_other_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__returns_other_err(x: bitstring) =
   let u_r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:574:0-577:1 new_tests__legacy__proverif_result__lib__converted *)
+(* src: src/legacy/proverif-result/lib.rs:575:0-578:1 new_tests__legacy__proverif_result__lib__converted *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__converted(x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   r.
-(* src: src/legacy/proverif-result/lib.rs:582:0-587:1 new_tests__legacy__proverif_result__lib__guard_effect *)
+(* src: src/legacy/proverif-result/lib.rs:583:0-588:1 new_tests__legacy__proverif_result__lib__guard_effect *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__guard_effect(o: bitstring) = nat_1.
-(* src: src/legacy/proverif-result/lib.rs:590:0-595:1 new_tests__legacy__proverif_result__lib__guard_falls_to_err *)
+(* src: src/legacy/proverif-result/lib.rs:591:0-596:1 new_tests__legacy__proverif_result__lib__guard_falls_to_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__guard_falls_to_err(o: bitstring) =
   let hax__arm1 = (let Some(v) = o in
@@ -562,37 +570,37 @@ letfun new_tests__legacy__proverif_result__lib__guard_falls_to_err(o: bitstring)
   let Some(hax__val2) = hax__arm1 in hax__val2
   else bitstring_err().
 event Logged(bitstring). letfun log_it(x: bitstring) = event Logged(x); x.
-(* src: src/legacy/proverif-result/lib.rs:602:0-602:50 new_tests__legacy__proverif_result__lib__log *)
+(* src: src/legacy/proverif-result/lib.rs:603:0-603:50 new_tests__legacy__proverif_result__lib__log *)
 letfun new_tests__legacy__proverif_result__lib__log(x: bitstring) = log_it(x).
-(* src: src/legacy/proverif-result/lib.rs:608:0-616:1 new_tests__legacy__proverif_result__lib__err_arm_log *)
+(* src: src/legacy/proverif-result/lib.rs:609:0-617:1 new_tests__legacy__proverif_result__lib__err_arm_log *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_log(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 event Read. letfun new_tests__legacy__proverif_result__lib__OBSERVED() = event Read; nat_0.
-(* src: src/legacy/proverif-result/lib.rs:622:0-630:1 new_tests__legacy__proverif_result__lib__err_arm_constant *)
+(* src: src/legacy/proverif-result/lib.rs:623:0-631:1 new_tests__legacy__proverif_result__lib__err_arm_constant *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_constant(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:634:0-634:73 new_tests__legacy__proverif_result__lib__dec_mut *)
+(* src: src/legacy/proverif-result/lib.rs:635:0-635:73 new_tests__legacy__proverif_result__lib__dec_mut *)
 (* HAX WARNING: `replace_body` keeps the `&mut` parameters `st` unchanged *)
 letfun new_tests__legacy__proverif_result__lib__dec_mut(st: bitstring, k: bitstring, c: bitstring) =
   let hax_temp_output = (crypto__aead_dec(k, c, empty)) in
   rust_primitives__hax__Tuple2__Tuple2(st, hax_temp_output).
-(* src: src/legacy/proverif-result/lib.rs:640:0-644:1 new_tests__legacy__proverif_result__lib__use_dec_mut *)
+(* src: src/legacy/proverif-result/lib.rs:641:0-645:1 new_tests__legacy__proverif_result__lib__use_dec_mut *)
 letfun new_tests__legacy__proverif_result__lib__use_dec_mut(k: bitstring, c: bitstring) =
   let rust_primitives__hax__Tuple2__Tuple2(
     tmp0: bitstring,
     out_kw: bitstring
   ) = new_tests__legacy__proverif_result__lib__dec_mut(nat_0, k, c) in (let v = out_kw in
     rust_primitives__hax__machine_int__add(v, tmp0)) else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:646:0-648:2 new_tests__legacy__proverif_result__lib__dec_pair *)
+(* src: src/legacy/proverif-result/lib.rs:647:0-649:2 new_tests__legacy__proverif_result__lib__dec_pair *)
 letfun new_tests__legacy__proverif_result__lib__dec_pair(k: bitstring, c: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(k, crypto__aead_dec(k, c, empty)).
-(* src: src/legacy/proverif-result/lib.rs:656:0-658:1 new_tests__legacy__proverif_result__lib__check_u8 *)
+(* src: src/legacy/proverif-result/lib.rs:657:0-659:1 new_tests__legacy__proverif_result__lib__check_u8 *)
 letfun new_tests__legacy__proverif_result__lib__check_u8(x: bitstring) =
   let hax__cond0 = rust_primitives__hax__machine_int__eq(x, nat_0) in
   let (=True()) = hax__cond0 in bitstring_err() else x.
-(* src: src/legacy/proverif-result/lib.rs:661:0-666:1 new_tests__legacy__proverif_result__lib__used_on_one_branch *)
+(* src: src/legacy/proverif-result/lib.rs:662:0-667:1 new_tests__legacy__proverif_result__lib__used_on_one_branch *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__used_on_one_branch(x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
@@ -601,74 +609,74 @@ letfun new_tests__legacy__proverif_result__lib__used_on_one_branch(x: bitstring)
   let (=True()) = hax__cond0
     in (let ok = r in let z = r in rust_primitives__hax__machine_int__add(ok, z))
     else (let z_1 = r in rust_primitives__hax__machine_int__add(nat_1, z_1)).
-(* src: src/legacy/proverif-result/lib.rs:669:0-674:1 new_tests__legacy__proverif_result__lib__pure_quote_before_use *)
+(* src: src/legacy/proverif-result/lib.rs:670:0-675:1 new_tests__legacy__proverif_result__lib__pure_quote_before_use *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__pure_quote_before_use(x: bitstring) =
   let r = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let wildcard = (nat_0) in
   let v = r in v.
 event Nullary_seen. letfun log_nullary() = event Nullary_seen; nat_0.
-(* src: src/legacy/proverif-result/lib.rs:682:0-682:49 new_tests__legacy__proverif_result__lib__nullary *)
+(* src: src/legacy/proverif-result/lib.rs:683:0-683:49 new_tests__legacy__proverif_result__lib__nullary *)
 letfun new_tests__legacy__proverif_result__lib__nullary(wildcard: bitstring) = log_nullary.
-(* src: src/legacy/proverif-result/lib.rs:688:0-696:1 new_tests__legacy__proverif_result__lib__err_arm_nullary *)
+(* src: src/legacy/proverif-result/lib.rs:689:0-697:1 new_tests__legacy__proverif_result__lib__err_arm_nullary *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_nullary(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 
-(* src: src/legacy/proverif-result/lib.rs:703:0-711:1 new_tests__legacy__proverif_result__lib__err_arm_trait_const *)
+(* src: src/legacy/proverif-result/lib.rs:704:0-712:1 new_tests__legacy__proverif_result__lib__err_arm_trait_const *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_trait_const(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:715:0-715:56 new_tests__legacy__proverif_result__lib__modelled_both *)
+(* src: src/legacy/proverif-result/lib.rs:716:0-716:56 new_tests__legacy__proverif_result__lib__modelled_both *)
 letfun new_tests__legacy__proverif_result__lib__modelled_both(x: bitstring) = crypto__hash(x).
-(* src: src/legacy/proverif-result/lib.rs:721:0-729:1 new_tests__legacy__proverif_result__lib__or_pattern_taint *)
+(* src: src/legacy/proverif-result/lib.rs:722:0-730:1 new_tests__legacy__proverif_result__lib__or_pattern_taint *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__or_pattern_taint(x: bitstring) =
   let e = (bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let new_tests__legacy__proverif_result__lib__Error__Invalid() = e in nat_1
   else let new_tests__legacy__proverif_result__lib__Error__Other() = e in nat_2
   else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:733:0-738:1 new_tests__legacy__proverif_result__lib__missing_model *)
+(* src: src/legacy/proverif-result/lib.rs:734:0-739:1 new_tests__legacy__proverif_result__lib__missing_model *)
 letfun new_tests__legacy__proverif_result__lib__missing_model(b: bitstring) =
   (* HAX WARNING: branch on a result of `core__str__converts__from_utf8`, which the model does not define *)
   let hax__scrut0 = core__str__converts__from_utf8(b) in
   nat_1.
-(* src: src/legacy/proverif-result/lib.rs:743:0-748:1 new_tests__legacy__proverif_result__lib__unchecked_recovery *)
+(* src: src/legacy/proverif-result/lib.rs:744:0-749:1 new_tests__legacy__proverif_result__lib__unchecked_recovery *)
 (* HAX WARNING: `pv_unchecked_results`: the uses of `Result` in this function are not checked against the Result model *)
 letfun new_tests__legacy__proverif_result__lib__unchecked_recovery(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__check(x) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:753:0-755:1 new_tests__legacy__proverif_result__lib__wrap *)
+(* src: src/legacy/proverif-result/lib.rs:754:0-756:1 new_tests__legacy__proverif_result__lib__wrap *)
 letfun new_tests__legacy__proverif_result__lib__wrap(e: bitstring) =
   new_tests__legacy__proverif_result__lib__Wrapped__E(e).
-(* src: src/legacy/proverif-result/lib.rs:757:0-762:1 new_tests__legacy__proverif_result__lib__err_arm_pure_helper *)
+(* src: src/legacy/proverif-result/lib.rs:758:0-763:1 new_tests__legacy__proverif_result__lib__err_arm_pure_helper *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_pure_helper(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__check(x) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:764:0-766:1 new_tests__legacy__proverif_result__lib__Logged *)
+(* src: src/legacy/proverif-result/lib.rs:765:0-767:1 new_tests__legacy__proverif_result__lib__Logged *)
 fun new_tests__legacy__proverif_result__lib__Logged__E(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_result__lib__Logged__E__0(
     new_tests__legacy__proverif_result__lib__Logged__E(v_0)
   ) = v_0.
-(* src: src/legacy/proverif-result/lib.rs:769:4-772:5 new_tests__legacy__proverif_result__lib__Impl_1__from *)
+(* src: src/legacy/proverif-result/lib.rs:770:4-773:5 new_tests__legacy__proverif_result__lib__Impl_1__from *)
 letfun new_tests__legacy__proverif_result__lib__Impl_1__from(e: bitstring) =
   let wildcard = new_tests__legacy__proverif_result__lib__record(nat_0) in
   new_tests__legacy__proverif_result__lib__Logged__E(e).
-(* src: src/legacy/proverif-result/lib.rs:776:0-779:1 new_tests__legacy__proverif_result__lib__noisy_conversion *)
+(* src: src/legacy/proverif-result/lib.rs:777:0-780:1 new_tests__legacy__proverif_result__lib__noisy_conversion *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__noisy_conversion(x: bitstring) =
   let v = (bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   v.
-(* src: src/legacy/proverif-result/lib.rs:783:0-785:1 new_tests__legacy__proverif_result__lib__map_err_ignoring *)
+(* src: src/legacy/proverif-result/lib.rs:784:0-786:1 new_tests__legacy__proverif_result__lib__map_err_ignoring *)
 letfun new_tests__legacy__proverif_result__lib__map_err_ignoring(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__modelled(x) in
   let hax__ok = hax__scrut0 in hax__ok.
-(* src: src/legacy/proverif-result/lib.rs:787:0-789:1 new_tests__legacy__proverif_result__lib__map_err_reading *)
+(* src: src/legacy/proverif-result/lib.rs:788:0-790:1 new_tests__legacy__proverif_result__lib__map_err_reading *)
 letfun new_tests__legacy__proverif_result__lib__map_err_reading(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__modelled(x) in
   let hax__ok = hax__scrut0 in hax__ok.
-(* src: src/legacy/proverif-result/lib.rs:793:0-796:1 new_tests__legacy__proverif_result__lib__option_map_closure *)
+(* src: src/legacy/proverif-result/lib.rs:794:0-797:1 new_tests__legacy__proverif_result__lib__option_map_closure *)
 letfun new_tests__legacy__proverif_result__lib__option_map_closure(o: bitstring) =
   let hax__scrut0 = core__option__Impl_4__transpose(
     let Some(x) = o in Some(new_tests__legacy__proverif_result__lib__check(x))
@@ -676,7 +684,7 @@ letfun new_tests__legacy__proverif_result__lib__option_map_closure(o: bitstring)
     else bitstring_err()
   ) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:799:0-801:1 new_tests__legacy__proverif_result__lib__option_map_fn *)
+(* src: src/legacy/proverif-result/lib.rs:800:0-802:1 new_tests__legacy__proverif_result__lib__option_map_fn *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__option_map_fn(o: bitstring) =
   core__option__Impl_4__transpose(
@@ -685,24 +693,24 @@ letfun new_tests__legacy__proverif_result__lib__option_map_fn(o: bitstring) =
       bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)
     )
   ).
-(* src: src/legacy/proverif-result/lib.rs:804:0-807:1 new_tests__legacy__proverif_result__lib__option_map_kept *)
+(* src: src/legacy/proverif-result/lib.rs:805:0-808:1 new_tests__legacy__proverif_result__lib__option_map_kept *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__option_map_kept(o: bitstring) =
   bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:813:0-822:1 new_tests__legacy__proverif_result__lib__err_arm_fn_value *)
+(* src: src/legacy/proverif-result/lib.rs:814:0-823:1 new_tests__legacy__proverif_result__lib__err_arm_fn_value *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__err_arm_fn_value(r: bitstring, o: bitstring) =
   let f = (bitstring_err() (* HAX ERROR: higher-order reference to a function or constructor *)) in
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:825:0-827:1 new_tests__legacy__proverif_result__lib__unchecked_forward *)
+(* src: src/legacy/proverif-result/lib.rs:826:0-828:1 new_tests__legacy__proverif_result__lib__unchecked_forward *)
 (* HAX WARNING: `pv_unchecked_results`: the uses of `Result` in this function are not checked against the Result model *)
 letfun new_tests__legacy__proverif_result__lib__unchecked_forward(x: bitstring) =
   new_tests__legacy__proverif_result__lib__modelled(x).
-(* src: src/legacy/proverif-result/lib.rs:830:0-835:1 new_tests__legacy__proverif_result__lib__inspect_unchecked *)
+(* src: src/legacy/proverif-result/lib.rs:831:0-836:1 new_tests__legacy__proverif_result__lib__inspect_unchecked *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__inspect_unchecked(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:837:0-840:1 new_tests__legacy__proverif_result__lib__WithResult *)
+(* src: src/legacy/proverif-result/lib.rs:838:0-841:1 new_tests__legacy__proverif_result__lib__WithResult *)
 fun new_tests__legacy__proverif_result__lib__WithResult__WithResult(
   bitstring,
   bitstring
@@ -716,18 +724,18 @@ reduc forall v_0: bitstring, v_1: bitstring;
     new_tests__legacy__proverif_result__lib__WithResult__WithResult(v_0, v_1)
   ) = v_1.
 (*  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001) *)
-(* src: src/legacy/proverif-result/lib.rs:844:4-852:5 new_tests__legacy__proverif_result__lib__Impl_2__from *)
+(* src: src/legacy/proverif-result/lib.rs:845:4-853:5 new_tests__legacy__proverif_result__lib__Impl_2__from *)
 letfun new_tests__legacy__proverif_result__lib__Impl_2__from(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]`; a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:856:0-858:1 new_tests__legacy__proverif_result__lib__converted_model *)
+(* src: src/legacy/proverif-result/lib.rs:857:0-859:1 new_tests__legacy__proverif_result__lib__converted_model *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__converted_model(x: bitstring) =
   bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:863:0-868:1 new_tests__legacy__proverif_result__lib__return_ok_on_err *)
+(* src: src/legacy/proverif-result/lib.rs:864:0-869:1 new_tests__legacy__proverif_result__lib__return_ok_on_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__return_ok_on_err(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:871:0-881:1 new_tests__legacy__proverif_result__lib__continue_on_err *)
+(* src: src/legacy/proverif-result/lib.rs:872:0-882:1 new_tests__legacy__proverif_result__lib__continue_on_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__continue_on_err(xs: bitstring) =
   let n_3 = ((let bl__seq0 = (core__iter__traits__collect__IntoIterator__into_iter(
@@ -744,71 +752,71 @@ letfun new_tests__legacy__proverif_result__lib__continue_on_err(xs: bitstring) =
   v) in
   let rust_primitives__hax__array_cons(bl__xh, bl__xt) = bl__seq3 in hax_loop_unbounded(bl__acc3, bl__seq3) (* more than LOOP_BOUND elements *) else (let rust_primitives__hax__array_nil() = bl__seq3 in bl__acc3 else hax_loop_opaque_seq(bl__acc3, bl__seq3) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq2 in bl__acc2 else hax_loop_opaque_seq(bl__acc2, bl__seq2) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq1 in bl__acc1 else hax_loop_opaque_seq(bl__acc1, bl__seq1) (* iterator is not a cons-list *))) else (let rust_primitives__hax__array_nil() = bl__seq0 in bl__acc0 else hax_loop_opaque_seq(bl__acc0, bl__seq0) (* iterator is not a cons-list *)))) in
   n_3.
-(* src: src/legacy/proverif-result/lib.rs:884:0-892:1 new_tests__legacy__proverif_result__lib__nested_leave_on_err *)
+(* src: src/legacy/proverif-result/lib.rs:885:0-893:1 new_tests__legacy__proverif_result__lib__nested_leave_on_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__nested_leave_on_err(x: bitstring, c: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:896:0-902:1 new_tests__legacy__proverif_result__lib__rematched *)
+(* src: src/legacy/proverif-result/lib.rs:897:0-903:1 new_tests__legacy__proverif_result__lib__rematched *)
 letfun new_tests__legacy__proverif_result__lib__rematched(x: bitstring) =
   let hax__scrut0 = (let hax__scrut1 = new_tests__legacy__proverif_result__lib__modelled(x) in
   let v = hax__scrut1 in v) in
   let v_1 = hax__scrut0 in v_1.
-(* src: src/legacy/proverif-result/lib.rs:905:0-911:1 new_tests__legacy__proverif_result__lib__inspect_rematched *)
+(* src: src/legacy/proverif-result/lib.rs:906:0-912:1 new_tests__legacy__proverif_result__lib__inspect_rematched *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__inspect_rematched(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 
-(* src: src/legacy/proverif-result/lib.rs:920:4-922:5 new_tests__legacy__proverif_result__lib__Impl_3__decode *)
+(* src: src/legacy/proverif-result/lib.rs:921:4-923:5 new_tests__legacy__proverif_result__lib__Impl_3__decode *)
 letfun new_tests__legacy__proverif_result__lib__Impl_3__decode(self: bitstring) =
   new_tests__legacy__proverif_result__lib__check(self).
-(* src: src/legacy/proverif-result/lib.rs:925:0-925:20 new_tests__legacy__proverif_result__lib__Modelled *)
+(* src: src/legacy/proverif-result/lib.rs:926:0-926:20 new_tests__legacy__proverif_result__lib__Modelled *)
 fun new_tests__legacy__proverif_result__lib__Modelled__Modelled(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_result__lib__Modelled__Modelled__0(
     new_tests__legacy__proverif_result__lib__Modelled__Modelled(v_0)
   ) = v_0.
-(* src: src/legacy/proverif-result/lib.rs:928:4-928:61 new_tests__legacy__proverif_result__lib__Impl_4__decode *)
+(* src: src/legacy/proverif-result/lib.rs:929:4-929:61 new_tests__legacy__proverif_result__lib__Impl_4__decode *)
 letfun new_tests__legacy__proverif_result__lib__Impl_4__decode(self: bitstring) =
   hax_result_ok(self).
-(* src: src/legacy/proverif-result/lib.rs:935:0-941:1 new_tests__legacy__proverif_result__lib__inspect_decoded *)
+(* src: src/legacy/proverif-result/lib.rs:936:0-942:1 new_tests__legacy__proverif_result__lib__inspect_decoded *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__inspect_decoded(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:944:0-950:1 new_tests__legacy__proverif_result__lib__inspect_modelled_decoded *)
+(* src: src/legacy/proverif-result/lib.rs:945:0-951:1 new_tests__legacy__proverif_result__lib__inspect_modelled_decoded *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__inspect_modelled_decoded(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:954:0-954:70 new_tests__legacy__proverif_result__lib__nested_model *)
+(* src: src/legacy/proverif-result/lib.rs:955:0-955:70 new_tests__legacy__proverif_result__lib__nested_model *)
 letfun new_tests__legacy__proverif_result__lib__nested_model(x: bitstring) =
   hax_result_ok(hax_result_err(x)).
-(* src: src/legacy/proverif-result/lib.rs:960:0-967:1 new_tests__legacy__proverif_result__lib__inspect_nested_ok *)
+(* src: src/legacy/proverif-result/lib.rs:961:0-968:1 new_tests__legacy__proverif_result__lib__inspect_nested_ok *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__inspect_nested_ok(x: bitstring) =
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let Some(v) = hax__scrut0 in v
   else let None() = hax__scrut0 in nat_3
   else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:971:0-974:1 new_tests__legacy__proverif_result__lib__checked_failure *)
+(* src: src/legacy/proverif-result/lib.rs:972:0-975:1 new_tests__legacy__proverif_result__lib__checked_failure *)
 letfun new_tests__legacy__proverif_result__lib__checked_failure(wildcard: bitstring) =
   let wildcard_1 = new_tests__legacy__proverif_result__lib__record(nat_1) in
   bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:977:0-982:1 new_tests__legacy__proverif_result__lib__observable_expect_arg *)
+(* src: src/legacy/proverif-result/lib.rs:978:0-983:1 new_tests__legacy__proverif_result__lib__observable_expect_arg *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__observable_expect_arg(wildcard: bitstring) =
   let hax__operand0 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   bitstring_err() (* HAX ERROR: an argument of this call may be observable, and runs after a `Result` that may be an `Err`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:987:0-997:1 new_tests__legacy__proverif_result__lib__return_in_err_payload *)
+(* src: src/legacy/proverif-result/lib.rs:988:0-998:1 new_tests__legacy__proverif_result__lib__return_in_err_payload *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__return_in_err_payload(
   x: bitstring,
   recover: bitstring
 ) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1000:0-1008:1 new_tests__legacy__proverif_result__lib__return_in_err_arm_let *)
+(* src: src/legacy/proverif-result/lib.rs:1001:0-1009:1 new_tests__legacy__proverif_result__lib__return_in_err_arm_let *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__return_in_err_arm_let(x: bitstring, c: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1013:0-1013:14 new_tests__legacy__proverif_result__lib__Po *)
+(* src: src/legacy/proverif-result/lib.rs:1014:0-1014:14 new_tests__legacy__proverif_result__lib__Po *)
 fun new_tests__legacy__proverif_result__lib__Po__Po(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_result__lib__Po__Po__0(
@@ -818,15 +826,11 @@ reduc forall v_0: bitstring;
 
 
 
-(* src: src/legacy/proverif-result/lib.rs:1016:4-1018:5 new_tests__legacy__proverif_result__lib__Impl_5__cmp *)
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-result/lib.rs:1018:4-1020:5 new_tests__legacy__proverif_result__lib__Impl_5__cmp *)
 letfun new_tests__legacy__proverif_result__lib__Impl_5__cmp(self: bitstring, o: bitstring) =
-  core__cmp__Ord__cmp(
-    new_tests__legacy__proverif_result__lib__record(
-      new_tests__legacy__proverif_result__lib__Po__Po__0(self)
-    ),
-    new_tests__legacy__proverif_result__lib__Po__Po__0(o)
-  ).
-(* src: src/legacy/proverif-result/lib.rs:1022:0-1030:1 new_tests__legacy__proverif_result__lib__library_calls_impl *)
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
+(* src: src/legacy/proverif-result/lib.rs:1024:0-1032:1 new_tests__legacy__proverif_result__lib__library_calls_impl *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__library_calls_impl(
   x: bitstring,
@@ -834,7 +838,7 @@ letfun new_tests__legacy__proverif_result__lib__library_calls_impl(
   b: bitstring
 ) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1035:0-1035:14 new_tests__legacy__proverif_result__lib__Pk *)
+(* src: src/legacy/proverif-result/lib.rs:1037:0-1037:14 new_tests__legacy__proverif_result__lib__Pk *)
 fun new_tests__legacy__proverif_result__lib__Pk__Pk(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_result__lib__Pk__Pk__0(
@@ -843,21 +847,15 @@ reduc forall v_0: bitstring;
 
 
 
-(* src: src/legacy/proverif-result/lib.rs:1038:4-1040:5 new_tests__legacy__proverif_result__lib__Impl_6__partial_cmp *)
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-result/lib.rs:1041:4-1043:5 new_tests__legacy__proverif_result__lib__Impl_6__partial_cmp *)
 letfun new_tests__legacy__proverif_result__lib__Impl_6__partial_cmp(self: bitstring, o: bitstring) =
-  Some(core__cmp__Ord__cmp(
-    new_tests__legacy__proverif_result__lib__record(
-      new_tests__legacy__proverif_result__lib__Pk__Pk__0(self)
-    ),
-    new_tests__legacy__proverif_result__lib__Pk__Pk__0(o)
-  )).
-(* src: src/legacy/proverif-result/lib.rs:1044:4-1046:5 new_tests__legacy__proverif_result__lib__Impl_7__cmp *)
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-result/lib.rs:1048:4-1050:5 new_tests__legacy__proverif_result__lib__Impl_7__cmp *)
 letfun new_tests__legacy__proverif_result__lib__Impl_7__cmp(self: bitstring, o: bitstring) =
-  core__cmp__Ord__cmp(
-    new_tests__legacy__proverif_result__lib__Pk__Pk__0(self),
-    new_tests__legacy__proverif_result__lib__Pk__Pk__0(o)
-  ).
-(* src: src/legacy/proverif-result/lib.rs:1050:0-1058:1 new_tests__legacy__proverif_result__lib__library_calls_supertrait *)
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
+(* src: src/legacy/proverif-result/lib.rs:1054:0-1062:1 new_tests__legacy__proverif_result__lib__library_calls_supertrait *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__library_calls_supertrait(
   x: bitstring,
@@ -865,73 +863,84 @@ letfun new_tests__legacy__proverif_result__lib__library_calls_supertrait(
   b: bitstring
 ) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1064:0-1069:1 new_tests__legacy__proverif_result__lib__nested_map_err *)
+(* src: src/legacy/proverif-result/lib.rs:1068:0-1073:1 new_tests__legacy__proverif_result__lib__nested_map_err *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__nested_map_err(x: bitstring) =
   bitstring_err() (* HAX ERROR: this matches a `Result` whose `Ok` holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1075:0-1083:1 new_tests__legacy__proverif_result__lib__nested_ok_payload *)
+(* src: src/legacy/proverif-result/lib.rs:1079:0-1087:1 new_tests__legacy__proverif_result__lib__nested_ok_payload *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__nested_ok_payload(x: bitstring) =
   bitstring_err() (* HAX ERROR: this matches a `Result` whose `Ok` holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1095:0-1097:1 new_tests__legacy__proverif_result__lib__uses_fallback *)
+(* src: src/legacy/proverif-result/lib.rs:1099:0-1101:1 new_tests__legacy__proverif_result__lib__uses_fallback *)
 (* HAX WARNING: `pv_unchecked_results`: the uses of `Result` in this function are not checked against the Result model *)
 letfun new_tests__legacy__proverif_result__lib__uses_fallback(x: bitstring) =
   let hax__scrut0 = new_tests__legacy__proverif_result__lib__check(x) in
   let inl3__v = hax__scrut0 in inl3__v.
 
-(* src: src/legacy/proverif-result/lib.rs:1106:4-1108:5 new_tests__legacy__proverif_result__lib__Impl_8__make *)
+(* src: src/legacy/proverif-result/lib.rs:1110:4-1112:5 new_tests__legacy__proverif_result__lib__Impl_8__make *)
 letfun new_tests__legacy__proverif_result__lib__Impl_8__make(x: bitstring) =
   new_tests__legacy__proverif_result__lib__check(x).
-(* src: src/legacy/proverif-result/lib.rs:1111:0-1111:54 new_tests__legacy__proverif_result__lib__make *)
+(* src: src/legacy/proverif-result/lib.rs:1115:0-1115:54 new_tests__legacy__proverif_result__lib__make *)
 letfun new_tests__legacy__proverif_result__lib__make(x: bitstring) = hax_result_ok(x).
-(* src: src/legacy/proverif-result/lib.rs:1117:0-1120:1 new_tests__legacy__proverif_result__lib__use_make *)
+(* src: src/legacy/proverif-result/lib.rs:1121:0-1124:1 new_tests__legacy__proverif_result__lib__use_make *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__use_make(x: bitstring) =
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: this generic function is instantiated with a type that holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let v = hax__scrut0 in v.
-(* src: src/legacy/proverif-result/lib.rs:1125:0-1136:1 new_tests__legacy__proverif_result__lib__map_closure_question *)
+(* src: src/legacy/proverif-result/lib.rs:1129:0-1140:1 new_tests__legacy__proverif_result__lib__map_closure_question *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_closure_question(o: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1141:0-1146:1 new_tests__legacy__proverif_result__lib__unmodelled_transpose *)
+(* src: src/legacy/proverif-result/lib.rs:1145:0-1150:1 new_tests__legacy__proverif_result__lib__unmodelled_transpose *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__unmodelled_transpose(wildcard: bitstring) =
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   nat_0.
-(* src: src/legacy/proverif-result/lib.rs:1150:0-1150:16 new_tests__legacy__proverif_result__lib__NoResult *)
+(* src: src/legacy/proverif-result/lib.rs:1155:0-1155:16 new_tests__legacy__proverif_result__lib__NoResult *)
 fun new_tests__legacy__proverif_result__lib__NoResult__NoResult(): bitstring [data].
-(* src: src/legacy/proverif-result/lib.rs:1153:4-1156:5 new_tests__legacy__proverif_result__lib__Impl_9__default *)
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-result/lib.rs:1159:4-1162:5 new_tests__legacy__proverif_result__lib__Impl_9__default *)
 letfun new_tests__legacy__proverif_result__lib__Impl_9__default(wildcard: bitstring) =
-  let wildcard_1 = new_tests__legacy__proverif_result__lib__record(nat_0) in
-  new_tests__legacy__proverif_result__lib__NoResult__NoResult().
-(* src: src/legacy/proverif-result/lib.rs:1160:0-1163:1 new_tests__legacy__proverif_result__lib__unmodelled_consumer *)
+  bitstring_err() (* HAX ERROR: this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *).
+(* src: src/legacy/proverif-result/lib.rs:1166:0-1169:1 new_tests__legacy__proverif_result__lib__unmodelled_consumer *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__unmodelled_consumer(wildcard: bitstring) =
-  let wildcard_1 = (bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let wildcard_1 = (bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *)) in
   nat_0.
-(* src: src/legacy/proverif-result/lib.rs:1167:0-1167:14 new_tests__legacy__proverif_result__lib__GenTag *)
+(* src: src/legacy/proverif-result/lib.rs:1171:0-1171:18 new_tests__legacy__proverif_result__lib__DebugError *)
+fun new_tests__legacy__proverif_result__lib__DebugError__DebugError(): bitstring [data].
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-result/lib.rs:1175:4-1178:5 new_tests__legacy__proverif_result__lib__Impl_10__fmt *)
+letfun new_tests__legacy__proverif_result__lib__Impl_10__fmt(self: bitstring, u_f: bitstring) =
+  let hax_temp_output = (bitstring_err() (* HAX ERROR: this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)) in
+  rust_primitives__hax__Tuple2__Tuple2(u_f, hax_temp_output).
+(* src: src/legacy/proverif-result/lib.rs:1182:0-1184:1 new_tests__legacy__proverif_result__lib__unwrap_observable_debug *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__proverif_result__lib__unwrap_observable_debug(wildcard: bitstring) =
+  bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *).
+(* src: src/legacy/proverif-result/lib.rs:1188:0-1188:14 new_tests__legacy__proverif_result__lib__GenTag *)
 fun new_tests__legacy__proverif_result__lib__GenTag__GenTag(): bitstring [data].
-(* src: src/legacy/proverif-result/lib.rs:1170:4-1172:5 new_tests__legacy__proverif_result__lib__Impl_10__from *)
-letfun new_tests__legacy__proverif_result__lib__Impl_10__from(wildcard: bitstring) =
+(* src: src/legacy/proverif-result/lib.rs:1191:4-1193:5 new_tests__legacy__proverif_result__lib__Impl_11__from *)
+letfun new_tests__legacy__proverif_result__lib__Impl_11__from(wildcard: bitstring) =
   bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:1175:0-1177:1 new_tests__legacy__proverif_result__lib__convert *)
+(* src: src/legacy/proverif-result/lib.rs:1196:0-1198:1 new_tests__legacy__proverif_result__lib__convert *)
 letfun new_tests__legacy__proverif_result__lib__convert(x: bitstring) =
-  core__convert__From__from(x).
-(* src: src/legacy/proverif-result/lib.rs:1180:0-1186:1 new_tests__legacy__proverif_result__lib__generic_result_instance *)
+  bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *).
+(* src: src/legacy/proverif-result/lib.rs:1201:0-1207:1 new_tests__legacy__proverif_result__lib__generic_result_instance *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__generic_result_instance(wildcard: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]`; this generic function is instantiated with a type that holds a `Result`: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1190:0-1190:19 new_tests__legacy__proverif_result__lib__ResultItems *)
+(* src: src/legacy/proverif-result/lib.rs:1211:0-1211:19 new_tests__legacy__proverif_result__lib__ResultItems *)
 fun new_tests__legacy__proverif_result__lib__ResultItems__ResultItems(): bitstring [data].
 (*  @fail(extraction): proverif(HAX0001) *)
 
-(* src: src/legacy/proverif-result/lib.rs:1195:4-1197:5 new_tests__legacy__proverif_result__lib__Impl_11__next *)
-letfun new_tests__legacy__proverif_result__lib__Impl_11__next(self: bitstring) =
+(* src: src/legacy/proverif-result/lib.rs:1216:4-1218:5 new_tests__legacy__proverif_result__lib__Impl_12__next *)
+letfun new_tests__legacy__proverif_result__lib__Impl_12__next(self: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(
     self,
     Some(bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *))
   ).
-(* src: src/legacy/proverif-result/lib.rs:1200:0-1202:1 new_tests__legacy__proverif_result__lib__next_generic *)
+(* src: src/legacy/proverif-result/lib.rs:1221:0-1223:1 new_tests__legacy__proverif_result__lib__next_generic *)
 letfun new_tests__legacy__proverif_result__lib__next_generic(it: bitstring) =
   let rust_primitives__hax__Tuple2__Tuple2(
     tmp0: bitstring,
@@ -940,77 +949,78 @@ letfun new_tests__legacy__proverif_result__lib__next_generic(it: bitstring) =
     tmp0,
     out_kw
   ) else bitstring_err().
-(* src: src/legacy/proverif-result/lib.rs:1205:0-1210:1 new_tests__legacy__proverif_result__lib__generic_associated_result *)
+(* src: src/legacy/proverif-result/lib.rs:1226:0-1231:1 new_tests__legacy__proverif_result__lib__generic_associated_result *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__generic_associated_result(wildcard: bitstring) =
-  let hax__scrut0 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: this iterates over an iterator of the crate, which the model does not walk *)) in
   nat_0.
-(* src: src/legacy/proverif-result/lib.rs:1214:0-1214:16 new_tests__legacy__proverif_result__lib__RefItems *)
+(* src: src/legacy/proverif-result/lib.rs:1235:0-1235:16 new_tests__legacy__proverif_result__lib__RefItems *)
 fun new_tests__legacy__proverif_result__lib__RefItems__RefItems(): bitstring [data].
 (*  @fail(extraction): proverif(HAX0001) *)
 
-(* src: src/legacy/proverif-result/lib.rs:1219:4-1221:5 new_tests__legacy__proverif_result__lib__Impl_12__next *)
-letfun new_tests__legacy__proverif_result__lib__Impl_12__next(self: bitstring) =
+(* src: src/legacy/proverif-result/lib.rs:1240:4-1242:5 new_tests__legacy__proverif_result__lib__Impl_13__next *)
+letfun new_tests__legacy__proverif_result__lib__Impl_13__next(self: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(
     self,
     Some(bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *))
   ).
-(* src: src/legacy/proverif-result/lib.rs:1226:0-1226:36 new_tests__legacy__proverif_result__lib__OutResult *)
+(* src: src/legacy/proverif-result/lib.rs:1247:0-1247:36 new_tests__legacy__proverif_result__lib__OutResult *)
 fun new_tests__legacy__proverif_result__lib__OutResult__OutResult(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__proverif_result__lib__OutResult__OutResult__0(
     new_tests__legacy__proverif_result__lib__OutResult__OutResult(v_0)
   ) = v_0.
 (*  @fail(extraction): proverif(HAX0001) *)
-(* src: src/legacy/proverif-result/lib.rs:1230:4-1232:5 new_tests__legacy__proverif_result__lib__Impl_13__default *)
-letfun new_tests__legacy__proverif_result__lib__Impl_13__default(wildcard: bitstring) =
+(* src: src/legacy/proverif-result/lib.rs:1251:4-1253:5 new_tests__legacy__proverif_result__lib__Impl_14__default *)
+letfun new_tests__legacy__proverif_result__lib__Impl_14__default(wildcard: bitstring) =
   new_tests__legacy__proverif_result__lib__OutResult__OutResult(
     bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
   ).
-(* src: src/legacy/proverif-result/lib.rs:1248:0-1253:1 new_tests__legacy__proverif_result__lib__use_output *)
+(* src: src/legacy/proverif-result/lib.rs:1270:0-1275:1 new_tests__legacy__proverif_result__lib__use_output *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__use_output(wildcard: bitstring) =
   let hax__scrut0 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let new_tests__legacy__proverif_result__lib__OutResult__OutResult(v: bitstring) = hax__scrut0 in v
   else bitstring_err().
 
-(* src: src/legacy/proverif-result/lib.rs:1262:0-1262:13 new_tests__legacy__proverif_result__lib__Plain *)
+(* src: src/legacy/proverif-result/lib.rs:1284:0-1284:13 new_tests__legacy__proverif_result__lib__Plain *)
 fun new_tests__legacy__proverif_result__lib__Plain__Plain(): bitstring [data].
-(* src: src/legacy/proverif-result/lib.rs:1265:4-1267:5 new_tests__legacy__proverif_result__lib__Impl_15__dec *)
-letfun new_tests__legacy__proverif_result__lib__Impl_15__dec(self: bitstring, x: bitstring) =
+(* src: src/legacy/proverif-result/lib.rs:1287:4-1289:5 new_tests__legacy__proverif_result__lib__Impl_16__dec *)
+letfun new_tests__legacy__proverif_result__lib__Impl_16__dec(self: bitstring, x: bitstring) =
   new_tests__legacy__proverif_result__lib__check(x).
-(* src: src/legacy/proverif-result/lib.rs:1268:4-1270:5 new_tests__legacy__proverif_result__lib__Impl_15__kept_tag *)
-letfun new_tests__legacy__proverif_result__lib__Impl_15__kept_tag(self: bitstring) = nat_0.
-(* src: src/legacy/proverif-result/lib.rs:1274:0-1280:1 new_tests__legacy__proverif_result__lib__kept_err_read *)
+(* src: src/legacy/proverif-result/lib.rs:1290:4-1292:5 new_tests__legacy__proverif_result__lib__Impl_16__kept_tag *)
+letfun new_tests__legacy__proverif_result__lib__Impl_16__kept_tag(self: bitstring) = nat_0.
+(* src: src/legacy/proverif-result/lib.rs:1296:0-1302:1 new_tests__legacy__proverif_result__lib__kept_err_read *)
 (*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__kept_err_read(x: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1283:0-1291:1 new_tests__legacy__proverif_result__lib__kept_on_err_path *)
+(* src: src/legacy/proverif-result/lib.rs:1305:0-1313:1 new_tests__legacy__proverif_result__lib__kept_on_err_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__kept_on_err_path(r: bitstring) =
   bitstring_err() (* HAX ERROR: this arm may see an `Err`, and may do something observable before returning it: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1297:0-1299:1 new_tests__legacy__proverif_result__lib__map_err_by_path *)
+(* src: src/legacy/proverif-result/lib.rs:1319:0-1321:1 new_tests__legacy__proverif_result__lib__map_err_by_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_err_by_path(x: bitstring) =
   bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 
-(* src: src/legacy/proverif-result/lib.rs:1308:4-1310:5 new_tests__legacy__proverif_result__lib__Impl_16__conv *)
-letfun new_tests__legacy__proverif_result__lib__Impl_16__conv(e: bitstring) =
+(* src: src/legacy/proverif-result/lib.rs:1330:4-1332:5 new_tests__legacy__proverif_result__lib__Impl_17__conv *)
+letfun new_tests__legacy__proverif_result__lib__Impl_17__conv(e: bitstring) =
   new_tests__legacy__proverif_result__lib__Impl_1__from(e).
-(* src: src/legacy/proverif-result/lib.rs:1314:0-1316:1 new_tests__legacy__proverif_result__lib__map_err_by_trait_path *)
+(* src: src/legacy/proverif-result/lib.rs:1336:0-1338:1 new_tests__legacy__proverif_result__lib__map_err_by_trait_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_err_by_trait_path(x: bitstring) =
   bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1326:0-1328:1 new_tests__legacy__proverif_result__lib__map_err_by_inline_path *)
+(* src: src/legacy/proverif-result/lib.rs:1348:0-1350:1 new_tests__legacy__proverif_result__lib__map_err_by_inline_path *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_err_by_inline_path(x: bitstring) =
   bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
-(* src: src/legacy/proverif-result/lib.rs:1333:0-1335:1 new_tests__legacy__proverif_result__lib__map_err_by_reference *)
+(* src: src/legacy/proverif-result/lib.rs:1355:0-1357:1 new_tests__legacy__proverif_result__lib__map_err_by_reference *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__map_err_by_reference(x: bitstring) =
   bitstring_err() (* HAX ERROR: this maps an `Err` by a function value, which the model may call without the impl or the inlined body Rust runs; use a closure or a constructor: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).
 
 
-(* src: src/legacy/proverif-result/lib.rs:1243:0-1245:1 new_tests__legacy__proverif_result__lib__make_output *)
+(* src: src/legacy/proverif-result/lib.rs:1265:0-1267:1 new_tests__legacy__proverif_result__lib__make_output *)
+(*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__proverif_result__lib__make_output(wildcard: bitstring) =
-  core__default__Default__default(rust_primitives__hax__Tuple0__Tuple0).
+  bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *).

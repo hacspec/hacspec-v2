@@ -47,7 +47,11 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
 (*  - ambiguous use of the trait item `m`: several impls match *)
+(*  - this iterates over an iterator of the crate, which the model does not walk *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
@@ -61,7 +65,6 @@ query attacker(hax_extraction_error__new_tests).
 (*  `else` branch, whatever Rust does. A query about the other   *)
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
-(*  - 1 × use of the default trait item `count`, modelled as an undefined symbol of the trait *)
 (*  - 1 × ambiguous use of the trait item `eq`: several impls match, so it is modelled as an undefined symbol of the trait *)
 (*****************************************************************)
 
@@ -127,10 +130,7 @@ letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_5__eq(
   self: bitstring,
   other: bitstring
 ) =
-  rust_primitives__hax__machine_int__eq(
-    new_tests__legacy__proverif_trait_resolution__lib__W__W__0(self),
-    new_tests__legacy__proverif_trait_resolution__lib__W__W__0(other)
-  ).
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
 (* src: src/legacy/proverif-trait-resolution/lib.rs:81:0-83:1 new_tests__legacy__proverif_trait_resolution__lib__ne_custom *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__ne_custom(a: bitstring, b: bitstring) =
   core__ops__bit__Not__not_kw(new_tests__legacy__proverif_trait_resolution__lib__Impl_5__eq(a, b)).
@@ -189,9 +189,7 @@ letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_9__next(self: bit
   rust_primitives__hax__Tuple2__Tuple2(self, None()).
 (* src: src/legacy/proverif-trait-resolution/lib.rs:140:0-142:1 new_tests__legacy__proverif_trait_resolution__lib__count_down *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__count_down(c: bitstring) =
-  (* HAX WARNING: use of the default trait item `count`, modelled as an undefined symbol of the trait *) core__iter__traits__iterator__Iterator__count(
-    c
-  ).
+  bitstring_err() (* HAX ERROR: this iterates over an iterator of the crate, which the model does not walk *).
 (* src: src/legacy/proverif-trait-resolution/lib.rs:144:0-144:14 new_tests__legacy__proverif_trait_resolution__lib__W2 *)
 fun new_tests__legacy__proverif_trait_resolution__lib__W2__W2(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
@@ -203,19 +201,13 @@ letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_10__eq(
   self: bitstring,
   other: bitstring
 ) =
-  rust_primitives__hax__machine_int__eq(
-    new_tests__legacy__proverif_trait_resolution__lib__W2__W2__0(self),
-    other
-  ).
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
 (* src: src/legacy/proverif-trait-resolution/lib.rs:153:4-155:5 new_tests__legacy__proverif_trait_resolution__lib__Impl_11__eq *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__Impl_11__eq(
   self: bitstring,
   other: bitstring
 ) =
-  rust_primitives__hax__machine_int__ne(
-    new_tests__legacy__proverif_trait_resolution__lib__W2__W2__0(self),
-    other
-  ).
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
 (* src: src/legacy/proverif-trait-resolution/lib.rs:160:0-162:1 new_tests__legacy__proverif_trait_resolution__lib__ambiguous_std *)
 letfun new_tests__legacy__proverif_trait_resolution__lib__ambiguous_std(w: bitstring) =
   (* HAX WARNING: ambiguous use of the trait item `eq`: several impls match, so it is modelled as an undefined symbol of the trait *) core__cmp__PartialEq__eq(

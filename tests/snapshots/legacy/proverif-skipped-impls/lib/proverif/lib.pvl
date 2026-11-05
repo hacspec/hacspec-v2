@@ -1,0 +1,303 @@
+(*
+  Run with:
+    proverif -lib <hax>/hax-lib/proof-libs/proverif/primitives.pvl \
+             -lib <hax>/hax-lib/proof-libs/proverif/result.pvl \
+             -lib <hax>/hax-lib/proof-libs/proverif/cryptolib.pvl  \
+             -lib missingdecl.pvl \
+             -lib lib.pvl your_analysis.pv
+
+  These libraries ship with hax.
+
+  primitives.pvl declares the symbols this file uses but does not
+  define: the public channel c, the construct_fail sink,
+  bitstring_default and bitstring_err, the Some/None and True/False
+  constructors, the nat_0 to nat_16 literal constants, and the
+  rust_primitives, core, and hax_lib helpers.
+
+  result.pvl models Result and its methods.
+  This model was extracted without --result-errors: a Result is its
+  Ok payload and producing an Err ends the trace, so error paths are
+  pruned from the model.
+
+  cryptolib.pvl is the shared Dolev-Yao crypto model (hash, AEAD,
+  KDF, DH, KEM, signatures, MAC, serialization) that a crate wires
+  itself to with #[hax_lib::proverif::replace_body("crypto__...")].
+  It is needed whenever the crate does so, and harmless otherwise.
+
+  missingdecl.pvl, extracted next to this file, declares every symbol
+  this file uses that none of these libraries defines, such as string
+  literals and integer literals above 16. Each is left abstract:
+  replace its declaration by a definition — by hand or from another
+  crate's extraction — or keep it as an ideal-functionality boundary.
+*)
+
+(* Only typechecks with result.pvl loaded. *)
+letfun hax_result_model_check__new_tests() = hax_result_model__result.
+
+(*****************************************************************)
+(*  INCOMPLETE MODEL — this extraction did not fully succeed.    *)
+(*                                                               *)
+(*  Each `HAX ERROR` below marks a construct the ProVerif        *)
+(*  backend could not express; it renders as `bitstring_err()`,  *)
+(*  so the enclosing declaration has NO value and every process  *)
+(*  reaching it dies. Queries over the dead part come back       *)
+(*  `true` for lack of any trace, NOT because they hold.         *)
+(*                                                               *)
+(*  The `hax_extraction_error__*` query below fails on purpose,  *)
+(*  so this shows up in the verification summary. Fix the errors *)
+(*  (or model the items by hand) before trusting any result.     *)
+(*                                                               *)
+(*  - this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
+(*  - this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)
+(*  - this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
+(*  - this iterates over an iterator of the crate, which the model does not walk *)
+(*  - Loops not supported in ProVerif *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
+(*  - Closures not supported in ProVerif *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
+(*  - this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
+(*  - this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
+(*  - this library function uses an impl of the crate that may be observable, which its model does not run *)
+(*****************************************************************)
+free hax_extraction_error__new_tests: bitstring.
+query attacker(hax_extraction_error__new_tests).
+
+(*****************************************************************)
+(*  WARNINGS — branches the model may not follow as Rust does.   *)
+(*                                                               *)
+(*  Each `HAX WARNING` below marks an `if` or `match` on a value *)
+(*  the model cannot always evaluate. When it cannot, no arm of  *)
+(*  a `match` is taken (the trace ends) and an `if` takes its    *)
+(*  `else` branch, whatever Rust does. A query about the other   *)
+(*  branch may then hold for lack of any trace.                  *)
+(*                                                               *)
+(*  - 1 × `pv_unchecked_results`: the uses of `Result` in this function are not checked against the Result model *)
+(*****************************************************************)
+
+(* src: src/legacy/proverif-skipped-impls/lib.rs:10:0-13:1 new_tests__legacy__proverif_skipped_impls__lib__Error *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Error__Invalid(): bitstring [data].
+fun new_tests__legacy__proverif_skipped_impls__lib__Error__Other(): bitstring [data].
+(* src: src/legacy/proverif-skipped-impls/lib.rs:10:0-13:1 new_tests__legacy__proverif_skipped_impls__lib__Error_cast_to_repr *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Error_cast_to_repr(x: bitstring) =
+  let new_tests__legacy__proverif_skipped_impls__lib__Error__Invalid() = x in nat_0
+  else let new_tests__legacy__proverif_skipped_impls__lib__Error__Other() = x in nat_1
+  else bitstring_err().
+
+
+event Recorded(bitstring).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:16:0-16:64 new_tests__legacy__proverif_skipped_impls__lib__record *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__record(x: bitstring) = event Recorded(x); x.
+(* src: src/legacy/proverif-skipped-impls/lib.rs:23:0-23:20 new_tests__legacy__proverif_skipped_impls__lib__Wrapped8 *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Wrapped8__Wrapped8(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__Wrapped8__Wrapped8__0(
+    new_tests__legacy__proverif_skipped_impls__lib__Wrapped8__Wrapped8(v_0)
+  ) = v_0.
+(*  @fail(extraction): proverif(HAX0001) *)
+
+(* src: src/legacy/proverif-skipped-impls/lib.rs:28:4-31:5 new_tests__legacy__proverif_skipped_impls__lib__Impl__deref *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl__deref(self: bitstring) =
+  bitstring_err() (* HAX ERROR: this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:36:0-36:22 new_tests__legacy__proverif_skipped_impls__lib__NoisyClone *)
+fun new_tests__legacy__proverif_skipped_impls__lib__NoisyClone__NoisyClone(
+  bitstring
+): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__NoisyClone__NoisyClone__0(
+    new_tests__legacy__proverif_skipped_impls__lib__NoisyClone__NoisyClone(v_0)
+  ) = v_0.
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-skipped-impls/lib.rs:40:4-42:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_1__clone *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_1__clone(self: bitstring) =
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:47:0-47:25 new_tests__legacy__proverif_skipped_impls__lib__RecordingIter *)
+fun new_tests__legacy__proverif_skipped_impls__lib__RecordingIter__RecordingIter(
+  bitstring
+): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__RecordingIter__RecordingIter__0(
+    new_tests__legacy__proverif_skipped_impls__lib__RecordingIter__RecordingIter(v_0)
+  ) = v_0.
+(*  @fail(extraction): proverif(HAX0001) *)
+
+(* src: src/legacy/proverif-skipped-impls/lib.rs:52:4-59:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_2__next *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_2__next(self: bitstring) =
+  let hax_temp_output = (bitstring_err() (* HAX ERROR: this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)) in
+  rust_primitives__hax__Tuple2__Tuple2(self, hax_temp_output).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:65:0-65:13 new_tests__legacy__proverif_skipped_impls__lib__Shown *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Shown__Shown(): bitstring [data].
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-skipped-impls/lib.rs:69:4-72:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_3__fmt *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_3__fmt(
+  self: bitstring,
+  u_f: bitstring
+) =
+  let hax_temp_output = (bitstring_err() (* HAX ERROR: this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)) in
+  rust_primitives__hax__Tuple2__Tuple2(u_f, hax_temp_output).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:75:0-75:17 new_tests__legacy__proverif_skipped_impls__lib__Loose *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Loose__Loose(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__Loose__Loose__0(
+    new_tests__legacy__proverif_skipped_impls__lib__Loose__Loose(v_0)
+  ) = v_0.
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-skipped-impls/lib.rs:79:4-81:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_4__eq *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_4__eq(
+  self: bitstring,
+  wildcard: bitstring
+) =
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:84:0-84:17 new_tests__legacy__proverif_skipped_impls__lib__Count *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Count__Count(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__Count__Count__0(
+    new_tests__legacy__proverif_skipped_impls__lib__Count__Count(v_0)
+  ) = v_0.
+
+(* src: src/legacy/proverif-skipped-impls/lib.rs:88:4-95:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_5__next *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_5__next(self: bitstring) =
+  let rust_primitives__hax__Tuple2__Tuple2(
+    self_2: bitstring,
+    hax_temp_output: bitstring
+  ) = (let hax__cond0 = rust_primitives__hax__machine_int__eq(
+    new_tests__legacy__proverif_skipped_impls__lib__Count__Count__0(self),
+    nat_0
+  ) in
+  let (=True()) = hax__cond0
+    in rust_primitives__hax__Tuple2__Tuple2(self, None())
+    else (let self_1 = new_tests__legacy__proverif_skipped_impls__lib__Count__Count(
+      rust_primitives__hax__machine_int__sub(
+        new_tests__legacy__proverif_skipped_impls__lib__Count__Count__0(self),
+        nat_1
+      )
+    ) in
+    rust_primitives__hax__Tuple2__Tuple2(
+      self_1,
+      Some(new_tests__legacy__proverif_skipped_impls__lib__Count__Count__0(self_1))
+    ))) in rust_primitives__hax__Tuple2__Tuple2(self_2, hax_temp_output) else bitstring_err().
+(* src: src/legacy/proverif-skipped-impls/lib.rs:99:0-105:1 new_tests__legacy__proverif_skipped_impls__lib__loop_over_crate_iterator *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__loop_over_crate_iterator(
+  wildcard: bitstring
+) =
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: this iterates over an iterator of the crate, which the model does not walk *)) in
+  let iter = hax__scrut0 in bitstring_err() (* HAX ERROR: Loops not supported in ProVerif *).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:107:0-107:18 new_tests__legacy__proverif_skipped_impls__lib__Parsed *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Parsed__Parsed(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__Parsed__Parsed__0(
+    new_tests__legacy__proverif_skipped_impls__lib__Parsed__Parsed(v_0)
+  ) = v_0.
+
+(* src: src/legacy/proverif-skipped-impls/lib.rs:111:4-113:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_6__try_from *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_6__try_from(x: bitstring) =
+  new_tests__legacy__proverif_skipped_impls__lib__Parsed__Parsed(
+    new_tests__legacy__proverif_skipped_impls__lib__record(x)
+  ).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:117:0-119:1 new_tests__legacy__proverif_skipped_impls__lib__noisy_try_into *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__noisy_try_into(x: bitstring) =
+  bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *).
+
+(* src: src/legacy/proverif-skipped-impls/lib.rs:123:4-125:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_7__from_str *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_7__from_str(wildcard: bitstring) =
+  new_tests__legacy__proverif_skipped_impls__lib__Parsed__Parsed(
+    new_tests__legacy__proverif_skipped_impls__lib__record(nat_0)
+  ).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:129:0-131:1 new_tests__legacy__proverif_skipped_impls__lib__noisy_parse *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__noisy_parse(s: bitstring) =
+  bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:134:0-136:1 new_tests__legacy__proverif_skipped_impls__lib__lazy_filter_map *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__lazy_filter_map(v: bitstring) =
+  let rust_primitives__hax__Tuple2__Tuple2(
+    wildcard: bitstring,
+    out_kw: bitstring
+  ) = core__iter__traits__iterator__Iterator__next(
+    core__iter__traits__iterator__Iterator__filter_map(
+      core__slice__Impl__iter(v),
+      bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
+    )
+  ) in out_kw else bitstring_err().
+(* src: src/legacy/proverif-skipped-impls/lib.rs:141:0-143:1 new_tests__legacy__proverif_skipped_impls__lib__conv *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__conv(x: bitstring) =
+  bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:147:0-147:17 new_tests__legacy__proverif_skipped_impls__lib__Guard *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Guard__Guard(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__Guard__Guard__0(
+    new_tests__legacy__proverif_skipped_impls__lib__Guard__Guard(v_0)
+  ) = v_0.
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-skipped-impls/lib.rs:151:4-153:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_8__drop *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_8__drop(self: bitstring) =
+  let wildcard = (bitstring_err() (* HAX ERROR: this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)) in
+  self.
+(* src: src/legacy/proverif-skipped-impls/lib.rs:156:0-159:1 new_tests__legacy__proverif_skipped_impls__lib__dropped_guard *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__dropped_guard(wildcard: bitstring) =
+  let u_g = new_tests__legacy__proverif_skipped_impls__lib__Guard__Guard(nat_1) in
+  nat_0.
+(* src: src/legacy/proverif-skipped-impls/lib.rs:163:0-165:1 new_tests__legacy__proverif_skipped_impls__lib__unchecked_parse *)
+(*  @fail(extraction): proverif(HAX0001) *)
+(* HAX WARNING: `pv_unchecked_results`: the uses of `Result` in this function are not checked against the Result model *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__unchecked_parse(s: bitstring) =
+  bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:169:0-169:20 new_tests__legacy__proverif_skipped_impls__lib__Recorder *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Recorder__Recorder(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__Recorder__Recorder__0(
+    new_tests__legacy__proverif_skipped_impls__lib__Recorder__Recorder(v_0)
+  ) = v_0.
+(*  @fail(extraction): proverif(HAX0001) *)
+(* src: src/legacy/proverif-skipped-impls/lib.rs:173:4-175:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_9__finish *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_9__finish(self: bitstring) = nat_0.
+(* src: src/legacy/proverif-skipped-impls/lib.rs:176:4-178:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_9__write *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_9__write(
+  self: bitstring,
+  b: bitstring
+) =
+  let wildcard = (bitstring_err() (* HAX ERROR: this impl may be observable, but the model does not call it: the uses of `Deref`, `Index` and iterators skip it, the models of library functions such as `format!`, `collect` or `sum` do not call it, and no value is dropped *)) in
+  self.
+(* src: src/legacy/proverif-skipped-impls/lib.rs:181:0-184:1 new_tests__legacy__proverif_skipped_impls__lib__hash_into *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__hash_into(x: bitstring, h: bitstring) =
+  new_tests__legacy__proverif_skipped_impls__lib__Recorder__Recorder__0(
+    core__hash__Hash__hash(x, h)
+  ).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:189:0-189:17 new_tests__legacy__proverif_skipped_impls__lib__Noisy *)
+fun new_tests__legacy__proverif_skipped_impls__lib__Noisy__Noisy(bitstring): bitstring [data].
+reduc forall v_0: bitstring;
+  new_tests__legacy__proverif_skipped_impls__lib__Noisy__Noisy__0(
+    new_tests__legacy__proverif_skipped_impls__lib__Noisy__Noisy(v_0)
+  ) = v_0.
+(* src: src/legacy/proverif-skipped-impls/lib.rs:192:4-194:5 new_tests__legacy__proverif_skipped_impls__lib__Impl_10__from *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__Impl_10__from(x: bitstring) =
+  new_tests__legacy__proverif_skipped_impls__lib__Noisy__Noisy(
+    new_tests__legacy__proverif_skipped_impls__lib__record(x)
+  ).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:198:0-200:1 new_tests__legacy__proverif_skipped_impls__lib__conv_into *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__conv_into(x: bitstring) =
+  bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *).
+(* src: src/legacy/proverif-skipped-impls/lib.rs:202:0-204:1 new_tests__legacy__proverif_skipped_impls__lib__into_concrete *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__into_concrete(x: bitstring) =
+  new_tests__legacy__proverif_skipped_impls__lib__Impl_10__from(x).
+
+(* src: src/legacy/proverif-skipped-impls/lib.rs:209:0-211:1 new_tests__legacy__proverif_skipped_impls__lib__show_super *)
+(*  @fail(extraction): proverif(HAX0001) *)
+letfun new_tests__legacy__proverif_skipped_impls__lib__show_super(x: bitstring) =
+  let args = rust_primitives__hax__Tuple1__Tuple1(x) in
+  core__hint__must_use(
+    alloc__fmt__format(
+      core__fmt__rt__Impl_1__new_v1(
+        rust_primitives__hax__array_cons(string_lit___empty, rust_primitives__hax__array_nil()),
+        rust_primitives__hax__array_cons(bitstring_err() (* HAX ERROR: this library function uses an impl of the crate that may be observable, which its model does not run *), rust_primitives__hax__array_nil())
+      )
+    )
+  ).

@@ -1,3 +1,4 @@
+//! @fail(extraction): proverif(HAX0001)
 //! @off: fstar, lean, coq, ssprove, legacy-lean
 //! @cli: into proverif --keep-trait-calls **::Kept::**
 //!
@@ -1012,6 +1013,7 @@ fn return_in_err_arm_let(x: u8, c: bool) -> Result<u8, Error> {
 #[derive(PartialEq, Eq, PartialOrd)]
 struct Po(u8);
 
+/// @fail(extraction): proverif(HAX0001)
 impl Ord for Po {
     fn cmp(&self, o: &Self) -> core::cmp::Ordering {
         record(self.0).cmp(&o.0)
@@ -1034,12 +1036,14 @@ fn library_calls_impl(x: u8, a: Po, b: Po) -> Result<u8, Error> {
 #[derive(PartialEq, Eq)]
 struct Pk(u8);
 
+/// @fail(extraction): proverif(HAX0001)
 impl PartialOrd for Pk {
     fn partial_cmp(&self, o: &Self) -> Option<core::cmp::Ordering> {
         Some(record(self.0).cmp(&o.0))
     }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 impl Ord for Pk {
     fn cmp(&self, o: &Self) -> core::cmp::Ordering {
         self.0.cmp(&o.0)
@@ -1145,10 +1149,12 @@ fn unmodelled_transpose() -> u8 {
     }
 }
 
-// A `Result` given to a library function that hax's libraries do not model.
+// A `Result` given to a library function that hax's libraries do not model,
+// and the message of `unwrap` formatted by an observable `Debug` impl.
 
 struct NoResult;
 
+/// @fail(extraction): proverif(HAX0001)
 impl Default for NoResult {
     fn default() -> Self {
         record(0);
@@ -1160,6 +1166,21 @@ impl Default for NoResult {
 fn unmodelled_consumer() -> u8 {
     let _ = Err::<NoResult, Error>(Error::Invalid).unwrap_or_default();
     0
+}
+
+struct DebugError;
+
+/// @fail(extraction): proverif(HAX0001)
+impl core::fmt::Debug for DebugError {
+    fn fmt(&self, _f: &mut core::fmt::Formatter) -> core::fmt::Result {
+        record(0);
+        Ok(())
+    }
+}
+
+/// @fail(extraction): proverif(HAX0001)
+fn unwrap_observable_debug() -> u8 {
+    Err::<u8, DebugError>(DebugError).unwrap()
 }
 
 // A generic function instantiated with a `Result`.
@@ -1240,6 +1261,7 @@ impl HasOutput for u8 {
     type Output = OutResult;
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn make_output<T: HasOutput>() -> T::Output {
     Default::default()
 }

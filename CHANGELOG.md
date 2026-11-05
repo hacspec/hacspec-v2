@@ -56,6 +56,8 @@ ProVerif backend and library:
    these checks
  - Keep the Rust evaluation order of arguments, record fields and the
    operands of `&&` and `||`
+ - Reject the impls of the crate that Rust calls implicitly but the model
+   does not call
  - `#[pv_inverse_of(f)]` on `g` makes `g` match its argument against `f`,
    without a `reduc`, and accepts methods
 

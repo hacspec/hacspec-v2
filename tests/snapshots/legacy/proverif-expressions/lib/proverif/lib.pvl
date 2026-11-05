@@ -47,6 +47,7 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
+(*  - this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *)
 (*  - use of a const generic parameter as a value *)
 (*  - use of a const generic parameter as a value *)
 (*  - use of a const generic parameter as a value *)
@@ -226,18 +227,7 @@ letfun new_tests__legacy__proverif_expressions__lib__neg(x: bitstring) =
   rust_primitives__arithmetic__neg(x).
 (* src: src/legacy/proverif-expressions/lib.rs:111:4-113:5 new_tests__legacy__proverif_expressions__lib__Impl__eq *)
 letfun new_tests__legacy__proverif_expressions__lib__Impl__eq(self: bitstring, other: bitstring) =
-  let hax__cond0 = rust_primitives__hax__machine_int__eq(
-    new_tests__legacy__proverif_expressions__lib__Pair__Pair__0(self),
-    new_tests__legacy__proverif_expressions__lib__Pair__Pair__0(other)
-  ) in
-  let (=True()) = hax__cond0
-    in rust_primitives__hax__machine_int__eq(
-      new_tests__legacy__proverif_expressions__lib__Pair__Pair__1(self),
-      new_tests__legacy__proverif_expressions__lib__Pair__Pair__1(other)
-    )
-    else let (=False()) = hax__cond0
-    in False()
-    else logical_and_opaque(hax__cond0).
+  bitstring_err() (* HAX ERROR: this hand-written impl is not called where the model compares, clones or hashes structurally, in derived impls and library types *).
 (* src: src/legacy/proverif-expressions/lib.rs:103:0-108:1 new_tests__legacy__proverif_expressions__lib__struct_eq *)
 letfun new_tests__legacy__proverif_expressions__lib__struct_eq(a: bitstring, b: bitstring) =
   new_tests__legacy__proverif_expressions__lib__Impl__eq(a, b).
