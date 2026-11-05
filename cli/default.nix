@@ -7,10 +7,12 @@ let
   # Crate readmes are compiled in as rustdoc crate docs via
   # `#![doc = include_str!("../README.md")]`.
   is-crate-readme = path: builtins.match ".*/README[.]md" path != null;
-  # The ProVerif backend `include_str!`s these `.pvl` libraries, which the
-  # filter below would otherwise drop.
+  # The ProVerif backend `include_str!`s these `.pvl` libraries through
+  # symlinks in its own sources, which the filter below would otherwise drop.
   is-proverif-proof-lib = path:
-    builtins.match ".*/hax-lib/proof-libs/proverif(/.*[.]pvl)?" path != null;
+    builtins.match
+    ".*/(hax-lib/proof-libs/proverif|rust-engine/src/backends/proverif/libs)(/.*[.]pvl)?"
+    path != null;
   workspace = (builtins.fromTOML (builtins.readFile ../Cargo.toml)).workspace;
   is-in = dirs: relative:
     lib.any (dir: relative == dir || lib.hasPrefix "${dir}/" relative) dirs;
