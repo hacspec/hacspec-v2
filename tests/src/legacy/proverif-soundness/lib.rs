@@ -10,6 +10,7 @@ fn check(x: u8) -> Result<u8, ()> {
     if x == 0 { Err(()) } else { Ok(x) }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn reject_on_error(x: u8) -> u8 {
     if check(x).is_err() { 0 } else { 1 }
 }
@@ -22,6 +23,7 @@ fn short_circuit_and(o: Option<u8>, x: u8) -> bool {
     o.is_some() && o.unwrap() == x
 }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn unit_patterns(r: Result<(), u8>) -> u8 {
     let n = match r {
         Ok(()) => 1,
@@ -43,6 +45,7 @@ fn nested_bindings(x: (u8, (u8, u8))) -> u8 {
     c
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn guarded(x: Option<u8>, y: u8) -> u8 {
     match x {
         Some(v) if v == y => 0,

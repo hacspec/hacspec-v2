@@ -47,7 +47,9 @@ letfun hax_result_model_check__new_tests() = hax_result_model__result.
 (*  so this shows up in the verification summary. Fix the errors *)
 (*  (or model the items by hand) before trusting any result.     *)
 (*                                                               *)
-(*  - Closures not supported in ProVerif *)
+(*  - a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*  - this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
 (*****************************************************************)
 free hax_extraction_error__new_tests: bitstring.
 query attacker(hax_extraction_error__new_tests).
@@ -61,16 +63,14 @@ query attacker(hax_extraction_error__new_tests).
 (*  `else` branch, whatever Rust does. A query about the other   *)
 (*  branch may then hold for lack of any trace.                  *)
 (*                                                               *)
-(*  - 1 × branch on a result of `core__ops__try_trait__Try__branch`, which the model does not define *)
 (*  - 9 × branch on an ordering comparison, which the model decides only between literals up to 16 *)
 (*  - 2 × branch on a result of `core__num__Impl_6__wrapping_add`, which the model does not define *)
-(*  - 1 × branch on a result of `core__iter__traits__iterator__Iterator__map`, which the model does not define *)
 (*****************************************************************)
 
-(* src: src/legacy/side-effects/lib.rs:189:4-191:5 new_tests__legacy__side_effects__lib__nested_return__other_fun *)
+(* src: src/legacy/side-effects/lib.rs:190:4-192:5 new_tests__legacy__side_effects__lib__nested_return__other_fun *)
 letfun new_tests__legacy__side_effects__lib__nested_return__other_fun(rng: bitstring) =
   rust_primitives__hax__Tuple2__Tuple2(rng, rust_primitives__hax__Tuple0__Tuple0()).
-(* src: src/legacy/side-effects/lib.rs:193:4-195:5 new_tests__legacy__side_effects__lib__nested_return__fun_kw *)
+(* src: src/legacy/side-effects/lib.rs:194:4-196:5 new_tests__legacy__side_effects__lib__nested_return__fun_kw *)
 letfun new_tests__legacy__side_effects__lib__nested_return__fun_kw(rng: bitstring) =
   let rust_primitives__hax__Tuple2__Tuple2(
     tmp0: bitstring,
@@ -79,32 +79,32 @@ letfun new_tests__legacy__side_effects__lib__nested_return__fun_kw(rng: bitstrin
     rng
   ) in (let hoist41 = out_kw in
     rust_primitives__hax__Tuple2__Tuple2(tmp0, hoist41)) else bitstring_err().
-(* src: src/legacy/side-effects/lib.rs:220:4-222:5 new_tests__legacy__side_effects__lib__issue_1299__Foo *)
+(* src: src/legacy/side-effects/lib.rs:221:4-223:5 new_tests__legacy__side_effects__lib__issue_1299__Foo *)
 fun new_tests__legacy__side_effects__lib__issue_1299__Foo__Foo(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__side_effects__lib__issue_1299__Foo__Foo__y(
     new_tests__legacy__side_effects__lib__issue_1299__Foo__Foo(v_0)
   ) = v_0.
-(* src: src/legacy/side-effects/lib.rs:212:4-214:5 new_tests__legacy__side_effects__lib__issue_1299__S *)
+(* src: src/legacy/side-effects/lib.rs:213:4-215:5 new_tests__legacy__side_effects__lib__issue_1299__S *)
 fun new_tests__legacy__side_effects__lib__issue_1299__S__S(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__side_effects__lib__issue_1299__S__S__g(
     new_tests__legacy__side_effects__lib__issue_1299__S__S(v_0)
   ) = v_0.
-(* src: src/legacy/side-effects/lib.rs:216:4-218:5 new_tests__legacy__side_effects__lib__issue_1299__OtherS *)
+(* src: src/legacy/side-effects/lib.rs:217:4-219:5 new_tests__legacy__side_effects__lib__issue_1299__OtherS *)
 fun new_tests__legacy__side_effects__lib__issue_1299__OtherS__OtherS(bitstring): bitstring [data].
 reduc forall v_0: bitstring;
   new_tests__legacy__side_effects__lib__issue_1299__OtherS__OtherS__g(
     new_tests__legacy__side_effects__lib__issue_1299__OtherS__OtherS(v_0)
   ) = v_0.
-(* src: src/legacy/side-effects/lib.rs:225:8-227:9 new_tests__legacy__side_effects__lib__issue_1299__Impl__from *)
+(* src: src/legacy/side-effects/lib.rs:226:8-228:9 new_tests__legacy__side_effects__lib__issue_1299__Impl__from *)
 letfun new_tests__legacy__side_effects__lib__issue_1299__Impl__from(i: bitstring) =
   new_tests__legacy__side_effects__lib__issue_1299__Foo__Foo(
     new_tests__legacy__side_effects__lib__issue_1299__Foo__Foo__y(i)
   ).
-(* src: src/legacy/side-effects/lib.rs:229:4-229:19 new_tests__legacy__side_effects__lib__issue_1299__Error *)
+(* src: src/legacy/side-effects/lib.rs:230:4-230:19 new_tests__legacy__side_effects__lib__issue_1299__Error *)
 fun new_tests__legacy__side_effects__lib__issue_1299__Error__Error(): bitstring [data].
-(* src: src/legacy/side-effects/lib.rs:231:8-235:9 new_tests__legacy__side_effects__lib__issue_1299__Impl_1__from *)
+(* src: src/legacy/side-effects/lib.rs:232:8-236:9 new_tests__legacy__side_effects__lib__issue_1299__Impl_1__from *)
 letfun new_tests__legacy__side_effects__lib__issue_1299__Impl_1__from(i: bitstring) =
   let hax__scrut0 = core__option__Impl__ok_or(
     core__option__Impl__as_ref(
@@ -112,19 +112,19 @@ letfun new_tests__legacy__side_effects__lib__issue_1299__Impl_1__from(i: bitstri
     ),
     new_tests__legacy__side_effects__lib__issue_1299__Error__Error()
   ) in
-  let hoist47 = hax__scrut0 in
+  let hoist45 = hax__scrut0 in
     new_tests__legacy__side_effects__lib__issue_1299__S__S(
-      new_tests__legacy__side_effects__lib__issue_1299__Impl__from(hoist47)
+      new_tests__legacy__side_effects__lib__issue_1299__Impl__from(hoist45)
     ).
 
 (* src: src/legacy/side-effects/lib.rs:170:8-172:9 new_tests__legacy__side_effects__lib__issue_1083__Impl__my_from *)
 letfun new_tests__legacy__side_effects__lib__issue_1083__Impl__my_from(x: bitstring) = x.
-(* src: src/legacy/side-effects/lib.rs:175:4-178:5 new_tests__legacy__side_effects__lib__issue_1083__f *)
+(* src: src/legacy/side-effects/lib.rs:176:4-179:5 new_tests__legacy__side_effects__lib__issue_1083__f *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__side_effects__lib__issue_1083__f(x: bitstring) =
-  (* HAX WARNING: branch on a result of `core__ops__try_trait__Try__branch`, which the model does not define *)
-  let hax__scrut0 = core__ops__try_trait__Try__branch(bitstring_err()) in
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: a `Result` used here is not propagated: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let core__ops__control_flow__ControlFlow__Break(residual: bitstring) = hax__scrut0 in
-    core__ops__try_trait__FromResidual__from_residual(residual)
+    (bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *))
   else let core__ops__control_flow__ControlFlow__Continue(val: bitstring) = hax__scrut0 in
     (let wildcard = val in
     new_tests__legacy__side_effects__lib__issue_1083__Impl__my_from(x))
@@ -553,18 +553,12 @@ letfun new_tests__legacy__side_effects__lib__assign_non_trivial_lhs(foo: bitstri
     new_tests__legacy__side_effects__lib__Foo__Foo__z(foo_4),
     new_tests__legacy__side_effects__lib__Foo__Foo__bar(foo_4)
   ).
-(* src: src/legacy/side-effects/lib.rs:200:4-208:5 new_tests__legacy__side_effects__lib__issue_1300__fun_kw *)
+(* src: src/legacy/side-effects/lib.rs:201:4-209:5 new_tests__legacy__side_effects__lib__issue_1300__fun_kw *)
 (*  @fail(extraction): proverif(HAX0001) *)
 letfun new_tests__legacy__side_effects__lib__issue_1300__fun_kw(wildcard: bitstring) =
-  (* HAX WARNING: branch on a result of `core__iter__traits__iterator__Iterator__map`, which the model does not define *)
-  let hax__scrut0 = core__iter__traits__iterator__Iterator__collect(
-    core__iter__traits__iterator__Iterator__map(
-      core__slice__Impl__iter(rust_primitives__hax__repeat(nat_0, nat_5)),
-      bitstring_err() (* HAX ERROR: Closures not supported in ProVerif *)
-    )
-  ) in
+  let hax__scrut0 = (bitstring_err() (* HAX ERROR: this library function, which takes a `Result`, has no model: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)) in
   let val = hax__scrut0 in rust_primitives__hax__Tuple0__Tuple0().
-(* src: src/legacy/side-effects/lib.rs:182:4-184:5 new_tests__legacy__side_effects__lib__issue_1089__test *)
+(* src: src/legacy/side-effects/lib.rs:183:4-185:5 new_tests__legacy__side_effects__lib__issue_1089__test *)
 letfun new_tests__legacy__side_effects__lib__issue_1089__test(x: bitstring, y: bitstring) =
   let hax__scrut0 = (let Some(i) = x in
     Some(let Some(hoist38) = y in Some(rust_primitives__hax__machine_int__add(i, hoist38))

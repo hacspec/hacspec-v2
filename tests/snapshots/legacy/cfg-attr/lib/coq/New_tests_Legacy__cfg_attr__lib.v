@@ -89,7 +89,7 @@ Class t_Double (v_Self : Type) : Type :=
   }.
 Arguments t_Double (_).
 
-Instance t_Double_90818247 : t_Double ((t_Counter)) :=
+Instance t_Double_410960192 : t_Double ((t_Counter)) :=
   {
     implaabbcc_t_Double_f_double := fun  (self : t_Counter) (x : t_u8)=>
       f_add (x) (x);

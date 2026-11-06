@@ -35,13 +35,13 @@ Class t_Operation (v_Self : Type) : Type :=
   }.
 Arguments t_Operation (_).
 
-Instance t_Operation_876773192 : t_Operation ((t_ViaAdd)) :=
+Instance t_Operation_758263617 : t_Operation ((t_ViaAdd)) :=
   {
     implaabbcc_t_Operation_f_double := fun  (x : t_u8)=>
       f_add (x) (x);
   }.
 
-Instance t_Operation_878945122 : t_Operation ((t_ViaMul)) :=
+Instance t_Operation_711077219 : t_Operation ((t_ViaMul)) :=
   {
     implaabbcc_t_Operation_f_double := fun  (x : t_u8)=>
       f_mul (x) ((2 : t_u8));

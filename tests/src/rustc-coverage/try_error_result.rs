@@ -60,7 +60,7 @@ impl Thing2 {
     }
 }
 
-/// @fail(extraction): proverif(HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
 fn test2() -> Result<(), ()> {
     let thing1 = Thing1{};
     let mut
@@ -113,6 +113,7 @@ fn test2() -> Result<(), ()> {
     Ok(())
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn main() -> Result<(), ()> {
     test1().expect_err("test1 should fail");
     test2()

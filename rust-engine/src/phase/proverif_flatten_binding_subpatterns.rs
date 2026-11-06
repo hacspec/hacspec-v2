@@ -83,7 +83,7 @@ fn nest(body: &mut Expr, stripped: &[(LocalId, Ty, Pat)]) {
 /// A pattern that names parts of a value without testing it, so destructuring
 /// against it can never fail. `is_struct` marks the constructors of
 /// single-variant types, tuples included.
-fn is_irrefutable(pat: &Pat) -> bool {
+pub(crate) fn is_irrefutable(pat: &Pat) -> bool {
     match &*pat.kind {
         PatKind::Wild => true,
         PatKind::Binding { sub_pat, .. } => sub_pat.as_ref().is_none_or(is_irrefutable),

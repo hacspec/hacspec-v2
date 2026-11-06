@@ -69,6 +69,7 @@ def equivalent
       (pure (0 : i32))
     | ⟨x, _⟩ => do (pure x)
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def deep_capture
     (x :

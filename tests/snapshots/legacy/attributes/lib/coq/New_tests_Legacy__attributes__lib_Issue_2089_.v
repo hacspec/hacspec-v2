@@ -42,7 +42,7 @@ Class t_T (v_Self : Type) (v_X : Type) `{t_Super (v_Self)} : Type :=
   }.
 Arguments t_T (_) (_) {_}.
 
-Instance t_T_212332465 : t_T ((t_S)) ((t_u16)) :=
+Instance t_T_367787995 : t_T ((t_S)) ((t_u16)) :=
   {
     implaabbcc_t_T_f_A := t_u32;
     implaabbcc_t_T_f_C := (1 : t_u8);

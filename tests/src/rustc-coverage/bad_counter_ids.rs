@@ -58,7 +58,7 @@ fn ne_bad_message() {
 
 #[coverage(off)]
 /// @fail(extraction): coq(HAX0008, HAX0008, HAX0008, HAX0008), ssprove(HAX0008, HAX0008, HAX0008, HAX0008)
-/// @fail(extraction): proverif(HAX0008, HAX0008, HAX0008, HAX0008)
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0008, HAX0008, HAX0008, HAX0008)
 fn main() {
     eq_good();
     eq_good_message();

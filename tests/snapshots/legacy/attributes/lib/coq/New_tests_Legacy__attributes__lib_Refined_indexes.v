@@ -34,7 +34,7 @@ Definition mutation_example (uuse_generic_update_at : t_MyArray) (uuse_specializ
   let specialized_as_well := impl__to_vec (update_at_usize (impl_1__as_slice (specialized_as_well)) ((2 : t_usize)) ((0 : t_u8))) in
   (uuse_generic_update_at,uuse_specialized_update_at,specialized_as_well).
 
-Instance t_Index_330799297 : t_Index ((t_MyArray)) ((t_usize)) :=
+Instance t_Index_731339978 : t_Index ((t_MyArray)) ((t_usize)) :=
   {
     implaabbcc_t_Index_f_Output := t_u8;
     implaabbcc_t_Index_f_index := fun  (self : t_MyArray) (index : t_usize)=>

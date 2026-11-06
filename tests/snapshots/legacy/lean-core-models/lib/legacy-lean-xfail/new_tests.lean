@@ -123,7 +123,7 @@ def Impl.default_hoisted (_ : rust_primitives.hax.Tuple0) : RustM S := do
 instance Impl : core_models.default.Default S where
   default := (Impl.default_hoisted)
 
---  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
+--  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 @[spec]
 def test (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do
@@ -260,7 +260,7 @@ inductive E2 : Type
 | C1 : E2
 | C2 : u32 -> E2
 
---  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001)
+--  @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 @[spec]
 def tests (_ : rust_primitives.hax.Tuple0) :
     RustM (core_models.result.Result u32 E1) := do

@@ -427,6 +427,7 @@ def Impl.my_from_hoisted (x : u8) : RustM u16 := do
 instance Impl : MyFrom u16 u8 where
   my_from := (Impl.my_from_hoisted)
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def f (x : u8) : RustM (core_models.result.Result u16 u16) := do
   match

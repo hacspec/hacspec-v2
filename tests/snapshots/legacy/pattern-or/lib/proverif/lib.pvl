@@ -34,6 +34,24 @@
 (* Only typechecks with result.pvl loaded. *)
 letfun hax_result_model_check__new_tests() = hax_result_model__result.
 
+(*****************************************************************)
+(*  INCOMPLETE MODEL — this extraction did not fully succeed.    *)
+(*                                                               *)
+(*  Each `HAX ERROR` below marks a construct the ProVerif        *)
+(*  backend could not express; it renders as `bitstring_err()`,  *)
+(*  so the enclosing declaration has NO value and every process  *)
+(*  reaching it dies. Queries over the dead part come back       *)
+(*  `true` for lack of any trace, NOT because they hold.         *)
+(*                                                               *)
+(*  The `hax_extraction_error__*` query below fails on purpose,  *)
+(*  so this shows up in the verification summary. Fix the errors *)
+(*  (or model the items by hand) before trusting any result.     *)
+(*                                                               *)
+(*  - this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *)
+(*****************************************************************)
+free hax_extraction_error__new_tests: bitstring.
+query attacker(hax_extraction_error__new_tests).
+
 (* src: src/legacy/pattern-or/lib.rs:3:0-6:1 new_tests__legacy__pattern_or__lib__E *)
 fun new_tests__legacy__pattern_or__lib__E__A(): bitstring [data].
 fun new_tests__legacy__pattern_or__lib__E__B(): bitstring [data].
@@ -70,9 +88,7 @@ letfun new_tests__legacy__pattern_or__lib__equivalent(x: bitstring) =
   else let rust_primitives__hax__Tuple2__Tuple2((=nat_2), Some((=nat_4))) = x in nat_0
   else let rust_primitives__hax__Tuple2__Tuple2(x_1: bitstring, wildcard: bitstring) = x in x_1
   else bitstring_err().
-(* src: src/legacy/pattern-or/lib.rs:35:0-40:1 new_tests__legacy__pattern_or__lib__deep_capture *)
+(* src: src/legacy/pattern-or/lib.rs:36:0-41:1 new_tests__legacy__pattern_or__lib__deep_capture *)
+(*  @fail(extraction): proverif(HAX0001, HAX0001) *)
 letfun new_tests__legacy__pattern_or__lib__deep_capture(x: bitstring) =
-  let rust_primitives__hax__Tuple2__Tuple2((=nat_1), x_1: bitstring) = x in x_1
-  else let rust_primitives__hax__Tuple2__Tuple2((=nat_2), x_1: bitstring) = x in x_1
-  else let rust_primitives__hax__Tuple2__Tuple2(x_2: bitstring, wildcard: bitstring) = x in x_2
-  else bitstring_err().
+  bitstring_err() (* HAX ERROR: this arm may see an `Err`, and goes on without returning one: the default Result model ends the trace on every `Err`: return or consume a `Result` at once (`?`, `match`, `unwrap`), and return or panic on an `Err`; or pass `--result-errors`, or mark the function `#[hax_lib::pv_unchecked_results]` *).

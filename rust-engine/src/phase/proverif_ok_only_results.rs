@@ -1,10 +1,12 @@
 //! ProVerif-backend phase: model a `Result` by its `Ok` payload.
 //!
 //! Without `--result-errors`, a `Result` is its `Ok` payload and producing an
-//! `Err` ends the trace, so no value is ever an `Err`. This phase replaces
-//! `Ok(x)` by `x` in values and patterns, and an `Err` value by the error sink.
-//! A match arm, an or-pattern alternative or a `let` that needs an `Err` never
-//! matches, so it is dropped; any other `Err` pattern is rejected.
+//! `Err` ends the trace, so no value is ever an `Err`. That is only sound for
+//! code that never goes on after an `Err`, which `ProverifRejectRecovery`
+//! checks earlier. This phase replaces `Ok(x)` by `x` in values and patterns,
+//! and an `Err` value by the error sink. A match arm, an or-pattern alternative
+//! or a `let` that needs an `Err` never matches, so it is dropped; any other
+//! `Err` pattern is rejected.
 
 use crate::ast::span::Span;
 use crate::ast::*;
@@ -56,6 +58,18 @@ fn arm_needs_err(arm: &Arm) -> bool {
         })
 }
 
+/// Whether evaluating `e` can do nothing but produce its value.
+fn is_value(e: &Expr) -> bool {
+    match &*e.kind {
+        ExprKind::Literal(_) | ExprKind::LocalId(_) => true,
+        ExprKind::Construct { fields, base, .. } => {
+            base.is_none() && fields.iter().all(|(_, f)| is_value(f))
+        }
+        ExprKind::GlobalId(g) => g.is_constructor(),
+        _ => false,
+    }
+}
+
 /// The error sink, which the printer renders as `bitstring_err()`.
 fn sink(ty: Ty, span: Span) -> Expr {
     Expr::standalone_fn_app(never_to_any, vec![], vec![], ty, span)
@@ -84,8 +98,27 @@ impl AstVisitorMut for OkOnlyResults {
                 let (_, inner) = fields.remove(0);
                 *expr = inner;
             }
-            ExprKind::Construct { constructor, .. } if *constructor == Err::Constructor => {
-                *expr = sink(expr.ty.clone(), expr.meta.span);
+            ExprKind::Construct {
+                constructor,
+                fields,
+                ..
+            } if *constructor == Err::Constructor => {
+                // As in Rust, the payload is evaluated before the sink.
+                let (ty, span) = (expr.ty.clone(), expr.meta.span);
+                *expr = std::mem::take(fields).into_iter().rev().fold(
+                    sink(ty.clone(), span),
+                    |body, (_, field)| {
+                        if is_value(&field) {
+                            return body;
+                        }
+                        ExprKind::Let {
+                            lhs: PatKind::Wild.promote(field.ty.clone(), span),
+                            rhs: field,
+                            body,
+                        }
+                        .promote(ty.clone(), span)
+                    },
+                );
             }
             _ => {}
         }
