@@ -27,7 +27,7 @@ def dup
     (← (core_models.clone.Clone.clone T x))
     (← (core_models.clone.Clone.clone T x))))
 
---  @fail(extraction): proverif(HAX0008)
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def foo (LEN : usize) (arr : (RustArray usize LEN)) : RustM usize := do
   let acc : usize ← (LEN +? (9 : usize));
@@ -40,6 +40,7 @@ def foo (LEN : usize) (arr : (RustArray usize LEN)) : RustM usize := do
       (fun acc i => (do (acc +? (← arr[i]_?)) : RustM usize)));
   (pure acc)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def repeat
     (LEN : usize)
@@ -52,6 +53,7 @@ def repeat
     RustM (RustArray T LEN) := do
   (rust_primitives.hax.repeat x LEN)
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def f (N : usize) (x : usize) : RustM usize := do ((← (N +? N)) +? x)
 
@@ -59,6 +61,7 @@ def f (N : usize) (x : usize) : RustM usize := do ((← (N +? N)) +? x)
 def call_f (_ : rust_primitives.hax.Tuple0) : RustM usize := do
   ((← (f ((10 : usize)) (3 : usize))) +? (3 : usize))
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def g
     (N : usize)
@@ -96,6 +99,7 @@ class Foo (Self : Type)
 def Impl.const_add_hoisted (N : usize) (self : usize) : RustM usize := do
   (self +? N)
 
+--  @fail(extraction): proverif(HAX0001)
 @[reducible] instance Impl.AssociatedTypes : Foo.AssociatedTypes usize where
 
 instance Impl : Foo usize where

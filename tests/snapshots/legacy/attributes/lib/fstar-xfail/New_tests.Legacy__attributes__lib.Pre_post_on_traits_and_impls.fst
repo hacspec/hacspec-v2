@@ -66,6 +66,7 @@ class t_TraitWithRequiresAndEnsures (v_Self: Type0) = {
     -> Prims.Pure u8 (f_method_pre x0 x1) (fun result -> f_method_post x0 x1 result)
 }
 
+/// @fail(extraction): proverif(HAX0001)
 let test
       (#v_T: Type0)
       (#[FStar.Tactics.Typeclasses.tcresolve ()] i0: t_TraitWithRequiresAndEnsures v_T)

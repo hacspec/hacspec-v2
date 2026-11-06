@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 fn test() -> u32 {
     let f_1 = |_: u32| 9;
     let f_2 = |x: u32, y: u32| x + y;

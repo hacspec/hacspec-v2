@@ -18,8 +18,8 @@ struct SpanData {
     /// This is useful for supporting in a trivial way union of spans.
     data: Vec<hax_frontend_exporter::Span>,
     /// A reference to the item in which this span lives. This information is
-    /// used for debugging and profiling purposes, e.g. for `cargo hax into
-    /// --stats backend`.
+    /// used to attribute diagnostics to items, and for debugging and profiling
+    /// purposes, e.g. for `cargo hax into --stats backend`.
     owner_hint: Option<Interned<hax_frontend_exporter::DefId>>,
 }
 
@@ -100,6 +100,11 @@ impl Span {
     /// Get a vector of frontend spans given a [`Span`].
     pub fn as_frontend_spans(self) -> &'static [hax_frontend_exporter::Span] {
         &self.data.get().data
+    }
+
+    /// The item in which this span lives, if known.
+    pub fn owner_hint(self) -> Option<&'static hax_frontend_exporter::DefId> {
+        self.data.get().owner_hint.map(|owner| owner.get())
     }
 }
 

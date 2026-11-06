@@ -3,6 +3,7 @@ module New_tests.Legacy__traits__lib.For_clauses.Issue_495_
 open FStar.Mul
 open Core_models
 
+/// @fail(extraction): proverif(HAX0001)
 let original_function_from_495_ (list: Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global) : Prims.unit =
   let (e_indices: Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global):Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global =
     Core_models.Iter.Traits.Iterator.f_collect #(Core_models.Iter.Adapters.Filter.t_Filter
@@ -34,6 +35,7 @@ let original_function_from_495_ (list: Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global) 
   in
   ()
 
+/// @fail(extraction): proverif(HAX0001)
 let minimized_1_ (list: Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global)
     : Alloc.Vec.t_Vec u8 Alloc.Alloc.t_Global =
   Core_models.Iter.Traits.Iterator.f_collect #(Core_models.Iter.Adapters.Filter.t_Filter

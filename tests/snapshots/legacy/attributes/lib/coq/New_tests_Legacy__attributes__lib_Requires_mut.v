@@ -24,7 +24,7 @@ Class t_Foo (v_Self : Type) : Type :=
   }.
 Arguments t_Foo (_).
 
-Instance t_Foo_71523478 : t_Foo ((unit)) :=
+Instance t_Foo_682227482 : t_Foo ((unit)) :=
   {
     implaabbcc_t_Foo_f_f := fun  (x : t_u8) (y : t_u8)=>
       let y := f_add (y) (x) in

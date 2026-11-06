@@ -9,6 +9,7 @@ let _ =
   let open Std.Env in
   ()
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 let main (_: Prims.unit) : Prims.unit =
   let truthy:bool =
     (Core_models.Iter.Traits.Exact_size.f_len #Std.Env.t_Args

@@ -72,6 +72,7 @@ pub fn f<'a, T>(c: bool, x: &'a mut T, y: &'a mut T) -> &'a mut T {
 }
 
 #[hax::decreases(x)]
+/// @fail(extraction): proverif(HAX0001)
 fn fib(x: usize) -> usize {
     if x <= 2 {
         x
@@ -147,6 +148,7 @@ mod refined_indexes {
     struct MyArray(pub [u8; MAX]);
 
     #[hax::attributes]
+/// @fail(extraction): proverif(HAX0001)
     impl std::ops::Index<usize> for MyArray {
         type Output = u8;
         #[requires(index < MAX)]
@@ -337,6 +339,7 @@ mod pre_post_on_traits_and_impls {
         fn method(&self, x: u8) -> u8;
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn test<T: TraitWithRequiresAndEnsures>(x: T) -> u8 {
         x.method(99) - 88
     }
@@ -588,6 +591,7 @@ mod issue_2089 {
 mod props {
     use hax_lib::*;
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
     fn f(x: Prop, y: bool) -> Prop {
         let xprop: Prop = y.into();
         let p = y.lift() & xprop & y & y.to_prop();

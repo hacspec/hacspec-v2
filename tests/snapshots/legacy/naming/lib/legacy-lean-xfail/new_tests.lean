@@ -148,6 +148,7 @@ class FooTrait (Self : Type)
   where
   ASSOCIATED_CONSTANT (Self) : usize
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def constants
     (T : Type)
@@ -263,6 +264,7 @@ end new_tests.legacy__naming__lib.functions_defined_in_trait_impls
 namespace new_tests.legacy__naming__lib
 
 --  From issue https://github.com/pereq-dev/hax/issues/1450
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def items_under_closures (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do

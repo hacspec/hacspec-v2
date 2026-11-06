@@ -3,6 +3,7 @@ module New_tests.Legacy__lean_core_models__lib.Function
 open FStar.Mul
 open Core_models
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 let test (_: Prims.unit) : u32 =
   let ff_1_: u32 -> u32 =
     fun temp_0_ ->

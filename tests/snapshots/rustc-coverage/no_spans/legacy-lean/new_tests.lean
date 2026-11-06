@@ -14,6 +14,7 @@ set_option linter.unusedVariables false
 
 namespace new_tests.rustc_coverage__no_spans
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def affected_function (_ : rust_primitives.hax.Tuple0) :
     RustM (rust_primitives.hax.Tuple0 -> RustM rust_primitives.hax.Tuple0) := do
@@ -21,6 +22,7 @@ def affected_function (_ : rust_primitives.hax.Tuple0) :
     (do
     (pure rust_primitives.hax.Tuple0.mk) : RustM rust_primitives.hax.Tuple0)))
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def main (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do

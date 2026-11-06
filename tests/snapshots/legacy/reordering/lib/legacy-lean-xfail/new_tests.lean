@@ -49,10 +49,12 @@ end new_tests.legacy__reordering__lib
 
 namespace new_tests.legacy__reordering__lib.mut_rec
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def g (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
   (f rust_primitives.hax.Tuple0.mk)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def f (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
   (g rust_primitives.hax.Tuple0.mk)
@@ -62,18 +64,22 @@ end new_tests.legacy__reordering__lib.mut_rec
 
 namespace new_tests.legacy__reordering__lib.independent_cycles
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def c (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
   (a rust_primitives.hax.Tuple0.mk)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def a (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
   (c rust_primitives.hax.Tuple0.mk)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def d (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
   (b rust_primitives.hax.Tuple0.mk)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def b (_ : rust_primitives.hax.Tuple0) : RustM rust_primitives.hax.Tuple0 := do
   (d rust_primitives.hax.Tuple0.mk)

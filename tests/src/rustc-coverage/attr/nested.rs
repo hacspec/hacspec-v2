@@ -62,6 +62,7 @@ impl MyTrait for MyOuter {
     }
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn closure_expr() {
     let _outer = #[coverage(off)]
     || {
@@ -77,6 +78,7 @@ fn closure_expr() {
 }
 
 // This syntax is allowed, even without #![feature(stmt_expr_attributes)].
+/// @fail(extraction): proverif(HAX0001)
 fn closure_tail() {
     let _outer = {
         #[coverage(off)]

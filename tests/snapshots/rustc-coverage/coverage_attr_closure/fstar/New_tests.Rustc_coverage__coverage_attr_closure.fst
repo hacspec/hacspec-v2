@@ -4,6 +4,7 @@ open FStar.Mul
 open Core_models
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let v_GLOBAL_CLOSURE_ON:  string -> Prims.unit =
   fun input ->
     let input:string = input in
@@ -27,6 +28,7 @@ let v_GLOBAL_CLOSURE_ON:  string -> Prims.unit =
     ()
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let v_GLOBAL_CLOSURE_OFF:  string -> Prims.unit =
   fun input ->
     let input:string = input in
@@ -50,6 +52,7 @@ let v_GLOBAL_CLOSURE_OFF:  string -> Prims.unit =
     ()
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let contains_closures_on (_: Prims.unit) : Prims.unit =
   let e_local_closure_on: string -> Prims.unit =
     fun input ->
@@ -98,6 +101,7 @@ let contains_closures_on (_: Prims.unit) : Prims.unit =
   ()
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let contains_closures_off (_: Prims.unit) : Prims.unit =
   let e_local_closure_on: string -> Prims.unit =
     fun input ->

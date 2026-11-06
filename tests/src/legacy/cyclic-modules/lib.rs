@@ -62,18 +62,21 @@ mod rec {
         t1,
         t2,
     }
+/// @fail(extraction): proverif(HAX0001)
     pub fn g1(x: T) -> T {
         match x {
             T::t1 => g2(x),
             T::t2 => T::t1,
         }
     }
+/// @fail(extraction): proverif(HAX0001)
     pub fn g2(x: T) -> T {
         match x {
             T::t1 => g1(x),
             T::t2 => hf(x),
         }
     }
+/// @fail(extraction): proverif(HAX0001)
     pub fn hf(x: T) -> T {
         match x {
             T::t1 => hf(T::t2),
@@ -83,11 +86,13 @@ mod rec {
 }
 
 mod rec1_same_name {
+/// @fail(extraction): proverif(HAX0001)
     pub fn f(x: i32) -> i32 {
         super::rec2_same_name::f(x)
     }
 }
 mod rec2_same_name {
+/// @fail(extraction): proverif(HAX0001)
     pub fn f(x: i32) -> i32 {
         if x > 0 {
             super::rec1_same_name::f(x - 1)
@@ -156,6 +161,7 @@ pub mod variant_constructor_a {
     pub fn f() -> Context {
         super::variant_constructor_b::h()
     }
+/// @fail(extraction): proverif(HAX0001)
     impl Context {
         pub fn test(x: Option<i32>) -> Option<Context> {
             x.map(Self::A)
@@ -169,12 +175,14 @@ pub mod variant_constructor_b {
 }
 
 pub mod late_skip_a {
+/// @fail(extraction): proverif(HAX0001)
     pub fn f() {
         super::late_skip_b::f()
     }
 }
 pub mod late_skip_b {
     #[hax_lib::requires(true)]
+/// @fail(extraction): proverif(HAX0001)
     pub fn f() {
         super::late_skip_a::f()
     }

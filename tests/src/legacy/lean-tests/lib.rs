@@ -41,6 +41,7 @@ fn letBinding(x: usize, y: usize) -> usize {
     result2 + 1
 }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001)
 fn closure() -> i32 {
     let x = 41;
     let f1 = |y| y + x;

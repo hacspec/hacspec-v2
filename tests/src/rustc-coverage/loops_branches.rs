@@ -6,7 +6,8 @@
 
 struct DebugTest;
 
-/// @fail(extraction): coq(HAX0001, HAX0001, HAX0001, HAX0001), proverif(HAX0008, HAX0008), ssprove(HAX0001, HAX0001)
+/// @fail(extraction): coq(HAX0001, HAX0001, HAX0001, HAX0001), ssprove(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 impl std::fmt::Debug for DebugTest {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         if true {
@@ -32,7 +33,8 @@ impl std::fmt::Debug for DebugTest {
 
 struct DisplayTest;
 
-/// @fail(extraction): proverif(HAX0008, HAX0008), coq(HAX0001, HAX0001, HAX0001, HAX0001), ssprove(HAX0001, HAX0001)
+/// @fail(extraction): coq(HAX0001, HAX0001, HAX0001, HAX0001), ssprove(HAX0001, HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 impl std::fmt::Display for DisplayTest {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         if false {

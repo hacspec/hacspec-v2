@@ -13,7 +13,7 @@ let dup
   <:
   (v_T & v_T)
 
-/// @fail(extraction): proverif(HAX0008)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let foo (v_LEN: usize) (arr: t_Array usize v_LEN) : usize =
   let acc:usize = v_LEN +! mk_usize 9 in
   let acc:usize =
@@ -31,6 +31,7 @@ let foo (v_LEN: usize) (arr: t_Array usize v_LEN) : usize =
   in
   acc
 
+/// @fail(extraction): proverif(HAX0001)
 let repeat
       (v_LEN: usize)
       (#v_T: Type0)
@@ -38,10 +39,12 @@ let repeat
       (x: v_T)
     : t_Array v_T v_LEN = Rust_primitives.Hax.repeat x v_LEN
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let f (v_N x: usize) : usize = (v_N +! v_N <: usize) +! x
 
 let call_f (_: Prims.unit) : usize = (f (mk_usize 10) (mk_usize 3) <: usize) +! mk_usize 3
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let g
       (v_N: usize)
       (#v_T: Type0)
@@ -87,6 +90,7 @@ class t_Foo (v_Self: Type0) = {
     -> Prims.Pure usize (f_const_add_pre v_N x0) (fun result -> f_const_add_post v_N x0 result)
 }
 
+/// @fail(extraction): proverif(HAX0001)
 [@@ FStar.Tactics.Typeclasses.tcinstance]
 let impl: t_Foo usize =
   {

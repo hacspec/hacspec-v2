@@ -14,7 +14,7 @@ fn permutations<T: Copy + Display>(xs: &[T]) {
     permutate(&mut ys, 0);
 }
 
-/// @fail(extraction): proverif(HAX0008)
+/// @fail(extraction): proverif(HAX0001)
 fn permutate<T: Copy + Display>(xs: &mut [T], k: usize) {
     let n = length(xs);
     if k == n {
@@ -41,7 +41,7 @@ fn swap<T: Copy>(xs: &mut [T], i: usize, j: usize) {
     xs[j] = t;
 }
 
-/// @fail(extraction): proverif(HAX0008), ssprove(HAX0001)
+/// @fail(extraction): ssprove(HAX0001)
 fn display<T: Display>(xs: &[T]) {
     for x in xs {
         print!("{}", x);

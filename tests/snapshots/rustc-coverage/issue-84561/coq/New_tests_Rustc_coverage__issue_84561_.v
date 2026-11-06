@@ -29,7 +29,7 @@ Notation "'Foo_Foo_record'" := Build_Foo_record.
 
 
 
-Instance t_Debug_86607888 : t_Debug ((t_Foo)) :=
+Instance t_Debug_944265511 : t_Debug ((t_Foo)) :=
   {
     implaabbcc_t_Debug_f_fmt := fun  (self : t_Foo) (f : t_Formatter)=>
       run (let (tmp0,out) := impl_11__write_fmt (f) (impl_1__new_const ([("try and succeed"%string : string)])) in

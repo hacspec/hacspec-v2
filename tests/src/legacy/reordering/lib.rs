@@ -20,6 +20,7 @@ enum Foo {
 }
 
 mod mut_rec {
+/// @fail(extraction): proverif(HAX0001)
     fn f() {
         g()
     }
@@ -28,21 +29,26 @@ mod mut_rec {
         f()
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn g() {
         f()
     }
 }
 
 mod independent_cycles {
+/// @fail(extraction): proverif(HAX0001)
     fn a() {
         c()
     }
+/// @fail(extraction): proverif(HAX0001)
     fn b() {
         d()
     }
+/// @fail(extraction): proverif(HAX0001)
     fn c() {
         a()
     }
+/// @fail(extraction): proverif(HAX0001)
     fn d() {
         b()
     }

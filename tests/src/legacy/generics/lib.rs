@@ -6,7 +6,7 @@ fn dup<T: Clone>(x: T) -> (T, T) {
     (x.clone(), x.clone())
 }
 
-/// @fail(extraction): proverif(HAX0008)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn foo<const LEN: usize>(arr: [usize; LEN]) -> usize {
     let mut acc = LEN + 9;
     for i in 0..LEN {
@@ -15,6 +15,7 @@ fn foo<const LEN: usize>(arr: [usize; LEN]) -> usize {
     acc
 }
 
+/// @fail(extraction): proverif(HAX0001)
 fn repeat<const LEN: usize, T: Copy>(x: T) -> [T; LEN] {
     [x; LEN]
 }
@@ -22,6 +23,7 @@ fn repeat<const LEN: usize, T: Copy>(x: T) -> [T; LEN] {
 fn call_f() -> usize {
     f::<10>(3) + 3
 }
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn f<const N: usize>(x: usize) -> usize {
     N + N + x
 }
@@ -29,6 +31,7 @@ fn f<const N: usize>(x: usize) -> usize {
 fn call_g() -> usize {
     g::<3, [usize; 3]>([42, 3, 49]) + 3
 }
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn g<const N: usize, T: Into<[usize; N]>>(arr: T) -> usize {
     arr.into().into_iter().max().unwrap_or(N) + N
 }
@@ -37,6 +40,7 @@ trait Foo {
     fn const_add<const N: usize>(self) -> usize;
 }
 
+/// @fail(extraction): proverif(HAX0001)
 impl Foo for usize {
     fn const_add<const N: usize>(self) -> usize {
         self + N

@@ -38,7 +38,7 @@ Definition impl_SafeIndex__new (i : t_usize) : t_Option ((t_SafeIndex)) :=
 Definition impl_SafeIndex__as_usize (self : t_SafeIndex) : t_usize :=
   f_i self.
 
-Instance t_Index_869802955 `{v_T : Type} : t_Index ((t_Array (v_T) ((10 : t_usize)))) ((t_SafeIndex)) :=
+Instance t_Index_789789699 `{v_T : Type} : t_Index ((t_Array (v_T) ((10 : t_usize)))) ((t_SafeIndex)) :=
   {
     implaabbcc_t_Index_f_Output := v_T;
     implaabbcc_t_Index_f_index := fun  (self : t_Array (v_T) ((10 : t_usize))) (index : t_SafeIndex)=>

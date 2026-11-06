@@ -20,7 +20,7 @@ Record A_record : Type :=
 #[export]
 Notation "'A_A_record'" := Build_A_record.
 
-Instance t_PartialEq_174573149 : t_PartialEq ((t_A)) ((t_A)) :=
+Instance t_PartialEq_39713377 : t_PartialEq ((t_A)) ((t_A)) :=
   {
     implaabbcc_t_PartialEq_f_eq := fun  (self : t_A) (other : t_A)=>
       never_to_any (panic (("explicit panic"%string : string)));
@@ -33,7 +33,7 @@ Record B_record : Type :=
 #[export]
 Notation "'B_B_record'" := Build_B_record.
 
-Instance t_PartialEq_853300673 : t_PartialEq ((t_B)) ((t_B)) :=
+Instance t_PartialEq_945509923 : t_PartialEq ((t_B)) ((t_B)) :=
   {
     implaabbcc_t_PartialEq_f_eq := fun  (self : t_B) (other : t_B)=>
       never_to_any (panic (("explicit panic"%string : string)));

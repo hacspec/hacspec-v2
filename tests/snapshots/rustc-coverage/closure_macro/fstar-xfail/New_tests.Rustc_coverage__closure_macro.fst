@@ -14,6 +14,7 @@ let load_configuration_files (_: Prims.unit)
   Core_models.Result.t_Result Alloc.String.t_String Alloc.String.t_String
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 let main (_: Prims.unit) : Core_models.Result.t_Result Prims.unit Alloc.String.t_String =
   let _:Prims.unit =
     Std.Io.Stdio.e_print (Core_models.Fmt.Rt.impl_1__new_const (mk_usize 1)

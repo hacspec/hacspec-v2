@@ -18,11 +18,11 @@ Class t_Bound (v_Self : Type) : Type :=
   }.
 Arguments t_Bound (_).
 
-Instance t_Bound_620283043 : t_Bound ((t_u8)) :=
+Instance t_Bound_862287087 : t_Bound ((t_u8)) :=
   {
   }.
 
-Instance t_Bound_738929339 `{v_A : Type} `{t_Bound (v_A)} : t_Bound (((t_u8*v_A))) :=
+Instance t_Bound_415854381 `{v_A : Type} `{t_Bound (v_A)} : t_Bound (((t_u8*v_A))) :=
   {
   }.
 
@@ -40,7 +40,7 @@ Class t_WithGat (v_Self : Type) : Type :=
   }.
 Arguments t_WithGat (_).
 
-Instance t_WithGat_789114422 : t_WithGat ((t_S)) :=
+Instance t_WithGat_474704758 : t_WithGat ((t_S)) :=
   {
     implaabbcc_t_WithGat_f_Assoc := (t_u8*v_A);
   }.

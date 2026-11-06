@@ -17,11 +17,13 @@ namespace new_tests.rustc_coverage__inline_dead
 @[spec]
 def dead (_ : rust_primitives.hax.Tuple0) : RustM u32 := do (pure (42 : u32))
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def live (B : Bool) (_ : rust_primitives.hax.Tuple0) : RustM u32 := do
   if B then do (dead rust_primitives.hax.Tuple0.mk) else do (pure (0 : u32))
 
 --  @fail(extraction): ssprove(HAX0001)
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def main (_ : rust_primitives.hax.Tuple0) :
     RustM rust_primitives.hax.Tuple0 := do

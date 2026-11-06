@@ -23,6 +23,7 @@ def load_configuration_files (_ : rust_primitives.hax.Tuple0) :
     (← (core_models.convert.From._from alloc.string.String String "config"))))
 
 --  @fail(extraction): ssprove(HAX0001)
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def main (_ : rust_primitives.hax.Tuple0) :
     RustM

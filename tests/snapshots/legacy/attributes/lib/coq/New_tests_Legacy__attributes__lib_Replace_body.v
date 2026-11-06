@@ -26,7 +26,7 @@ Notation "'Foo_Foo_record'" := Build_Foo_record.
 Definition impl_Foo__assoc_fn (self : t_Foo) (x : t_u8) : unit :=
   tt.
 
-Instance t_ToString_624975474 : t_ToString ((t_Foo)) :=
+Instance t_ToString_424601480 : t_ToString ((t_Foo)) :=
   {
     implaabbcc_t_ToString_(* f_to_string *) := fun  (self : t_Foo)=>
       f_into (("Hello"%string : string));

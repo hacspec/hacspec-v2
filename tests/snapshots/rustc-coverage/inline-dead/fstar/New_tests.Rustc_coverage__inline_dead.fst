@@ -5,9 +5,11 @@ open Core_models
 
 let dead (_: Prims.unit) : u32 = mk_u32 42
 
+/// @fail(extraction): proverif(HAX0001)
 let live (v_B: bool) (_: Prims.unit) : u32 = if v_B then dead () else mk_u32 0
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 let main (_: Prims.unit) : Prims.unit =
   let args:u32 = live false () <: u32 in
   let args:t_Array Core_models.Fmt.Rt.t_Argument (mk_usize 1) =

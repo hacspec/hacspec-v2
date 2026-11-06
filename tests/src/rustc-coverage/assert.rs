@@ -7,8 +7,9 @@ fn might_fail_assert(one_plus_one: u32) {
     println!("does 1 + 1 = {}?", one_plus_one);
     assert_eq!(1 + 1, one_plus_one, "the argument was wrong");
 }
-/// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001), proverif(HAX0008)
+/// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
 
+/// @fail(extraction): proverif(HAX0001)
 fn main() -> Result<(), u8> {
     let mut countdown = 10;
     while countdown > 0 {

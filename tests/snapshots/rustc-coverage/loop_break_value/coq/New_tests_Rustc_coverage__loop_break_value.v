@@ -23,5 +23,5 @@ Note: the error was labeled with context `FunctionalizeLoops`.
 "%string : string)) (("{
  loop {
  rust_primitives::hax::failure(
- "something is not implemented yet.\nTODO: Monad for loop-related control flow\n\nThis is discussed in issue https://github.com/pereq-dev/hax/issues/15.\nPlease..."%string : string)),tt) in
+ "something is not implemented yet.\nTODO: Monad for loop-related control flow\n\nThis is discussed in issue https://github.com/pereq-dev/hax/issues/15.\nPlea..."%string : string)),tt) in
   tt.

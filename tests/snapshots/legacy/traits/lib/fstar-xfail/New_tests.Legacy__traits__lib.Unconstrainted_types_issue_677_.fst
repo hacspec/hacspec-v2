@@ -29,6 +29,7 @@ let impl_PolyOp_for_Times: t_PolyOp t_Times =
     f_op = fun (x: u32) (y: u32) -> x *! y
   }
 
+/// @fail(extraction): proverif(HAX0001)
 let twice (#v_OP: Type0) (#[FStar.Tactics.Typeclasses.tcresolve ()] i0: t_PolyOp v_OP) (x: u32)
     : u32 = f_op #v_OP #FStar.Tactics.Typeclasses.solve x x
 

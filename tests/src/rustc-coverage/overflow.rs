@@ -14,8 +14,9 @@ fn might_overflow(to_add: u32) -> u32 {
     println!("continuing after overflow check");
     result
 }
-/// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001), proverif(HAX0008)
+/// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
 
+/// @fail(extraction): proverif(HAX0001)
 fn main() -> Result<(), u8> {
     let mut countdown = 10;
     while countdown > 0 {

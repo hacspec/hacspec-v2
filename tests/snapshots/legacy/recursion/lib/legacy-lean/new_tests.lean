@@ -14,6 +14,7 @@ set_option linter.unusedVariables false
 
 namespace new_tests.legacy__recursion__lib
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def f (n : u8) : RustM u8 := do
   if (← (n ==? (0 : u8))) then do

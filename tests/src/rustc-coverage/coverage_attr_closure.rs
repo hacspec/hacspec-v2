@@ -3,11 +3,13 @@
 #![allow(dead_code)]
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 static GLOBAL_CLOSURE_ON: fn(&str) = #[coverage(on)]
 |input: &str| {
     println!("{input}");
 };
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001)
 static GLOBAL_CLOSURE_OFF: fn(&str) = #[coverage(off)]
 |input: &str| {
     println!("{input}");
@@ -15,6 +17,7 @@ static GLOBAL_CLOSURE_OFF: fn(&str) = #[coverage(off)]
 
 /// @fail(extraction): ssprove(HAX0001)
 #[coverage(on)]
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn contains_closures_on() {
     let _local_closure_on = #[coverage(on)]
     |input: &str| {
@@ -28,6 +31,7 @@ fn contains_closures_on() {
 
 /// @fail(extraction): ssprove(HAX0001)
 #[coverage(off)]
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn contains_closures_off() {
     let _local_closure_on = #[coverage(on)]
     |input: &str| {

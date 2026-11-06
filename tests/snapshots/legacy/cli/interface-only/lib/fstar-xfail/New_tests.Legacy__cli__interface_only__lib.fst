@@ -8,8 +8,9 @@ open Core_models
 /// modifier, `f` is still extractable as an interface.
 /// Expressions within type are still extracted, as well as pre- and
 /// post-conditions.
-/// @fail(extraction): proverif(HAX0008, HAX0008, HAX0008, HAX0008), ssprove(HAX0008, HAX0008, HAX0008, HAX0008), coq(HAX0008, HAX0008, HAX0008, HAX0008), fstar(HAX0008, HAX0008, HAX0008, HAX0008)
+/// @fail(extraction): ssprove(HAX0008, HAX0008, HAX0008, HAX0008), coq(HAX0008, HAX0008, HAX0008, HAX0008), fstar(HAX0008, HAX0008, HAX0008, HAX0008)
 /// @fail(extraction): legacy-lean(HAX0008, HAX0008, HAX0008, HAX0008)
+/// @fail(extraction): proverif(HAX0008, HAX0008, HAX0008, HAX0008)
 let f (x: u8)
     : Prims.Pure (t_Array u8 (mk_usize 4))
       (requires x <. mk_u8 254)
@@ -30,8 +31,9 @@ Last available AST for this item:
 /// This struct contains a field which uses raw pointers, which are
 /// not supported by hax. This item cannot be extracted at all: we
 /// need to exclude it with `-i '-*::Foo'`.
-/// @fail(extraction): proverif(HAX0008), fstar(HAX0008), coq(HAX0008), ssprove(HAX0008)
+/// @fail(extraction): fstar(HAX0008), coq(HAX0008), ssprove(HAX0008)
 /// @fail(extraction): legacy-lean(HAX0008)
+/// @fail(extraction): proverif(HAX0008)
 #[allow(dead_code)]
 #[allow(dead_code, unused, unconditional_recursion)]
 #[feature(register_tool, if_let_guard)]
@@ -127,6 +129,7 @@ let impl_2 (#v_T: Type0) : Core_models.Convert.t_From (t_Holder v_T) Prims.unit 
 
 type t_Param (v_SIZE: usize) = { f_value:t_Array u8 v_SIZE }
 
+/// @fail(extraction): proverif(HAX0001)
 [@@ FStar.Tactics.Typeclasses.tcinstance]
 let impl_3 (v_SIZE: usize) : Core_models.Convert.t_From (t_Param v_SIZE) Prims.unit =
   {
@@ -138,6 +141,7 @@ let impl_3 (v_SIZE: usize) : Core_models.Convert.t_From (t_Param v_SIZE) Prims.u
       { f_value = Rust_primitives.Hax.repeat (mk_u8 0) v_SIZE } <: t_Param v_SIZE
   }
 
+/// @fail(extraction): proverif(HAX0001)
 let ff_generic (v_X: usize) (#v_U: Type0) (e_x: v_U) : t_Param v_X =
   { f_value = Rust_primitives.Hax.repeat (mk_u8 0) v_X } <: t_Param v_X
 
@@ -173,6 +177,7 @@ let impl_T2_for_u8: t_T2 u8 =
     f_d = fun (_: Prims.unit) -> ()
   }
 
+/// @fail(extraction): proverif(HAX0001)
 let rec padlen (b: t_Slice u8) (n: usize)
     : Prims.Pure usize
       (requires (Core_models.Slice.impl__len #u8 b <: usize) >=. n)

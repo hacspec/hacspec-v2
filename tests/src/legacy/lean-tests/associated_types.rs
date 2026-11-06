@@ -4,10 +4,12 @@ mod basic {
         fn first(&self) -> Self::Item;
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn just_the_first<I: Iterable>(iter: I) -> I::Item {
         iter.first()
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn first_plus_1<I: Iterable<Item = i32>>(iter: I) -> i32 {
         iter.first() + 1
     }
@@ -43,6 +45,7 @@ mod multiple_associated_types {
         fn second(&self) -> Self::Second;
     }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001)
     fn get_both<P: Pair>(pair: P) -> (P::First, P::Second) {
         (pair.first(), pair.second())
     }
@@ -64,6 +67,7 @@ mod multiple_associated_types {
         let both = get_both(pair);
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn get_first_as_i32<P: Pair<First = i32>>(pair: P) -> i32 {
         pair.first()
     }

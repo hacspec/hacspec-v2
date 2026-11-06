@@ -9,8 +9,9 @@ macro_rules! no_merge {
         for _ in 0..1 {}
     };
 }
-/// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001), proverif(HAX0008, HAX0008)
+/// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
 
+/// @fail(extraction): proverif(HAX0001)
 fn while_cond() {
     no_merge!();
 
@@ -19,8 +20,9 @@ fn while_cond() {
         a -= 1;
     }
 }
-/// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001), proverif(HAX0008, HAX0008)
+/// @fail(extraction): ssprove(HAX0001), coq(HAX0001, HAX0001)
 
+/// @fail(extraction): proverif(HAX0001)
 fn while_cond_not() {
     no_merge!();
 
@@ -29,8 +31,9 @@ fn while_cond_not() {
         a -= 1;
     }
 }
-/// @fail(extraction): coq(HAX0001, HAX0001), proverif(HAX0008, HAX0008), ssprove(HAX0001)
+/// @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001)
 
+/// @fail(extraction): proverif(HAX0001)
 fn while_op_and() {
     no_merge!();
 
@@ -41,8 +44,9 @@ fn while_op_and() {
         b -= 1;
     }
 }
-/// @fail(extraction): proverif(HAX0008, HAX0008), coq(HAX0001, HAX0001), ssprove(HAX0001)
+/// @fail(extraction): coq(HAX0001, HAX0001), ssprove(HAX0001)
 
+/// @fail(extraction): proverif(HAX0001)
 fn while_op_or() {
     no_merge!();
 

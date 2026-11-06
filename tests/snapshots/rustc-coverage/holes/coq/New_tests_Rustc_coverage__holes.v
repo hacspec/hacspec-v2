@@ -52,7 +52,7 @@ Class main__t_MyTrait (v_Self : Type) : Type :=
   }.
 Arguments main__t_MyTrait (_).
 
-Instance main__t_MyTrait_899384439 : main__t_MyTrait ((main__t_MyStruct)) :=
+Instance main__t_MyTrait_1065288870 : main__t_MyTrait ((main__t_MyStruct)) :=
   {
   }.
 

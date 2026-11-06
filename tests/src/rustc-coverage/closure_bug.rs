@@ -5,6 +5,7 @@
 // inconsistently when preparing coverage spans.
 
 #[rustfmt::skip]
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001, HAX0001)
 fn main() {
     let truthy = std::env::args().len() == 1;
 

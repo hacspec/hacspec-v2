@@ -1,6 +1,7 @@
 //! @fail(tc): fstar(2), legacy-lean(1)
-/// @fail(extraction): ssprove(HAX0001, HAX0001, HAX0001), proverif(HAX0008), coq(HAX0001, HAX0001, HAX0001, HAX0001)
+/// @fail(extraction): ssprove(HAX0001, HAX0001, HAX0001), coq(HAX0001, HAX0001, HAX0001, HAX0001)
 
+/// @fail(extraction): proverif(HAX0001)
 fn main() {
     let is_true = std::env::args().len() == 1;
     let mut countdown = 10;

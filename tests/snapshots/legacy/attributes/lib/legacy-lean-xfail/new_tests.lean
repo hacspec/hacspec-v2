@@ -291,6 +291,7 @@ def Impl_1.index_hoisted.spec (self : MyArray) (index : usize) :
   contract := by hax_mvcgen [Impl_1.index_hoisted] <;> bv_decide
 }
 
+--  @fail(extraction): proverif(HAX0001)
 @[reducible] instance Impl_1.AssociatedTypes :
   core_models.ops.index.Index.AssociatedTypes MyArray usize
   where
@@ -1187,6 +1188,7 @@ end new_tests.legacy__attributes__lib.issue_2089
 
 namespace new_tests.legacy__attributes__lib.props
 
+--  @fail(extraction): proverif(HAX0001, HAX0001)
 @[spec]
 def f (x : hax_lib.prop.Prop) (y : Bool) : RustM hax_lib.prop.Prop := do
   let xprop : hax_lib.prop.Prop ← (hax_lib.prop.constructors.from_bool y);
@@ -1292,6 +1294,7 @@ end new_tests.legacy__attributes__lib.issue_evit_57
 
 namespace new_tests.legacy__attributes__lib
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def fib (x : usize) : RustM usize := do
   if (← (x <=? (2 : usize))) then do
@@ -1348,6 +1351,7 @@ class TraitWithRequiresAndEnsures (Self : Type)
   where
   method (Self) : (Self -> u8 -> RustM u8)
 
+--  @fail(extraction): proverif(HAX0001)
 @[spec]
 def test
     (T : Type)

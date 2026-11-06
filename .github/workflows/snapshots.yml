@@ -15,9 +15,14 @@ jobs:
   changes:
     name: "snapshots: changes"
     runs-on: ubuntu-latest
+    # `paths-filter` lists the pull request's files through the API.
+    permissions:
+      contents: read
+      pull-requests: read
     outputs:
       fstar: ${{ github.event_name == 'pull_request' && steps.filter.outputs.fstar || 'true' }}
       lean: ${{ github.event_name == 'pull_request' && steps.filter.outputs.lean || 'true' }}
+      proverif: ${{ github.event_name == 'pull_request' && steps.filter.outputs.proverif || 'true' }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -38,6 +43,14 @@ jobs:
               - 'tests/snapshots/**/legacy-lean/**'
               - 'hax-lib/proof-libs/legacy-lean/**'
               - 'tests/verify/lean/**'
+              - 'justfile'
+              - 'flake.nix'
+              - 'flake.lock'
+              - '.github/workflows/snapshots.yml'
+            proverif:
+              - 'tests/snapshots/**/proverif/**'
+              - 'hax-lib/proof-libs/proverif/**'
+              - 'tests/verify/proverif/**'
               - 'justfile'
               - 'flake.nix'
               - 'flake.lock'
@@ -76,9 +89,25 @@ jobs:
       - name: Type-check the Lean snapshots
         run: nix develop .#verify-lean --command just verify-lean
 
+  proverif:
+    name: "snapshots: proverif"
+    needs: changes
+    if: needs.changes.outputs.proverif == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: cachix/cachix-action@v15
+        with:
+          name: hax
+          skipPush: true
+
+      - name: Parse-check the ProVerif snapshots
+        run: nix develop .#verify-proverif --command just verify-proverif
+
   result:
     name: "snapshots: result"
-    needs: [changes, fstar, lean]
+    needs: [changes, fstar, lean, proverif]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -97,3 +126,7 @@ jobs:
         with:
           results: ${{ needs.lean.result }}
           allow-skipped: ${{ needs.changes.outputs.lean != 'true' }}
+      - uses: ./.github/actions/check-results
+        with:
+          results: ${{ needs.proverif.result }}
+          allow-skipped: ${{ needs.changes.outputs.proverif != 'true' }}

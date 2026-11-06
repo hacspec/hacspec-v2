@@ -3,6 +3,7 @@
 //@ compile-flags: -Zinline-mir -Cdebug-assertions=off
 
 /// @fail(extraction): ssprove(HAX0001)
+/// @fail(extraction): proverif(HAX0001, HAX0001)
 fn main() {
     println!("{}", live::<false>());
 
@@ -13,6 +14,7 @@ fn main() {
 }
 
 #[inline]
+/// @fail(extraction): proverif(HAX0001)
 fn live<const B: bool>() -> u32 {
     if B {
         dead() //

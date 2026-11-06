@@ -23,6 +23,7 @@ mod basic {
     }
 
     // Simple ImplExpr
+/// @fail(extraction): proverif(HAX0001, HAX0001)
     fn f<T: T1>(x: T) -> usize {
         x.f1() + x.f2(&x)
     }
@@ -226,7 +227,7 @@ mod inheritance {
 
 mod default {
 
-    /// @fail(extraction): ssprove(HAX0008), coq(HAX0008), fstar(HAX0008), proverif(HAX0008)
+    /// @fail(extraction): ssprove(HAX0008), coq(HAX0008), fstar(HAX0008)
     trait Easy {
         fn dft(&self) -> usize {
             32
@@ -241,7 +242,7 @@ mod default {
 
     impl Easy for u32 {}
 
-    /// @fail(extraction): ssprove(HAX0008), coq(HAX0008), proverif(HAX0008), fstar(HAX0008)
+    /// @fail(extraction): ssprove(HAX0008), coq(HAX0008), fstar(HAX0008)
     trait T1 {
         fn f1(&self) -> usize;
         fn f2(&self) -> usize {
@@ -299,6 +300,7 @@ mod trait_level_args {
         fn f3<C, D>(&self, x: &u32, y: &u64) {}
     }
 
+/// @fail(extraction): proverif(HAX0001, HAX0001, HAX0001)
     fn test<A, B, C, D, U: T1<A, B>>(x: U, a: &A, b: &B) -> () {
         x.f1::<C, D>();
         x.f2::<C, D>(a);
@@ -327,7 +329,6 @@ mod trait_with_constraints {
 }
 
 mod associated_constant {
-    /// @fail(extraction): proverif(HAX0008)
     pub trait Foo {
         const f: bool;
         const x: u8 = 0;
@@ -341,11 +342,11 @@ mod associated_constant {
     }
 
     // https://github.com/pereq-dev/hax/issues/1940
-    /// @fail(extraction): proverif(HAX0008)
     trait Baz {
         const One: u32 = 1;
     }
 
+/// @fail(extraction): proverif(HAX0001)
     fn foo<F: Baz>(n: u32) -> u32 {
         n + F::One
     }
@@ -361,6 +362,7 @@ mod methods_hoisting {
 
     trait T0 {}
 
+/// @fail(extraction): proverif(HAX0001)
     impl<U: T0> T1<U> for u8 {
         type A = u64;
         fn f<T: T0, const C: u8>(x: T, y: U) -> (T, U, u8, Self::A, u16) {
